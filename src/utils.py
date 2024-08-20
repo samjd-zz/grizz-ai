@@ -1,17 +1,14 @@
 import os
 import re
-import warnings
-import torch
-import traceback
-from transformers import CLIPProcessor, CLIPModel, pipeline
 from datetime import datetime
 from logger import app_logger
 from config import OUTPUT_DIR
-from PIL import Image
 
-# Suppress specific warnings
-warnings.filterwarnings("ignore", message="The attention mask is not set")
-warnings.filterwarnings("ignore", message="We strongly recommend passing in an `attention_mask`")
+import torch
+import traceback
+from transformers import CLIPProcessor, CLIPModel, pipeline
+from PIL import Image
+import warnings
 
 TODAY = datetime.now().strftime("%Y_%m_%d")
 
@@ -25,6 +22,57 @@ processor = CLIPProcessor.from_pretrained("openai/clip-vit-base-patch32")
 
 # Load image captioning pipeline
 captioner = pipeline("image-to-text", model="nlpconnect/vit-gpt2-image-captioning", device=device)
+
+def analyze_frames_with_clip(frames):
+    """
+    Analyze the extracted frames or single image using CLIP and image captioning.
+    
+    :param frames: List of PIL Image objects, a single PIL Image object, or a path to an image file
+    :return: List of detailed frame descriptions
+    """
+    try:
+        app_logger.debug("Analyzing frames with CLIP and image captioning")
+        frame_descriptions = []
+
+        # If frames is a string (path to an image file), try to open it
+        if isinstance(frames, str):
+            if not os.path.isfile(frames):
+                app_logger.error(f"Invalid file path: {frames}")
+                return None
+            try:
+                frames = [Image.open(frames)]
+            except Exception as e:
+                app_logger.error(f"Error opening image file: {e}")
+                return None
+
+        # If frames is a single PIL Image, convert it to a list
+        if isinstance(frames, Image.Image):
+            frames = [frames]
+
+        # Ensure frames is a list
+        if not isinstance(frames, list):
+            app_logger.error("Invalid input: frames must be a list of PIL Image objects, a single PIL Image object, or a path to an image file")
+            return None
+
+        for i, frame in enumerate(frames):
+            app_logger.debug(f"Analyzing frame {i+1}/{len(frames)}")
+            
+
+            # Generate caption using the image captioning pipeline
+            with warnings.catch_warnings():
+                warnings.simplefilter("ignore")
+                caption = captioner(frame, max_new_tokens=50)[0]['generated_text']
+
+            #caption = captioner(frame, max_new_tokens=50)[0]['generated_text']
+            
+            frame_descriptions.append(f"Frame {i+1}: {caption}")
+            
+        app_logger.debug("Frame analysis completed successfully")
+        return frame_descriptions
+    except Exception as e:
+        app_logger.error(f"Error analyzing frames with CLIP and image captioning: {e}")
+        app_logger.error(traceback.format_exc())
+        return None
 
 def save_summary(location, filename, title, story="", source="", panel_summary=""):
     """
@@ -146,52 +194,5 @@ def filter_content(text):
     
     return text
 
-def analyze_frames_with_clip(frames):
-    """
-    Analyze the extracted frames or single image using CLIP and image captioning.
-    
-    :param frames: List of PIL Image objects, a single PIL Image object, or a path to an image file
-    :return: List of detailed frame descriptions
-    """
-    try:
-        app_logger.debug("Analyzing frames with CLIP and image captioning")
-        frame_descriptions = []
-
-        # If frames is a string (path to an image file), try to open it
-        if isinstance(frames, str):
-            if not os.path.isfile(frames):
-                app_logger.error(f"Invalid file path: {frames}")
-                return None
-            try:
-                frames = [Image.open(frames)]
-            except Exception as e:
-                app_logger.error(f"Error opening image file: {e}")
-                return None
-
-        # If frames is a single PIL Image, convert it to a list
-        if isinstance(frames, Image.Image):
-            frames = [frames]
-
-        # Ensure frames is a list
-        if not isinstance(frames, list):
-            app_logger.error("Invalid input: frames must be a list of PIL Image objects, a single PIL Image object, or a path to an image file")
-            return None
-
-        for i, frame in enumerate(frames):
-            app_logger.debug(f"Analyzing frame {i+1}/{len(frames)}")
-            
-            # Generate caption using the image captioning pipeline
-            with warnings.catch_warnings():
-                warnings.simplefilter("ignore")
-                caption = captioner(frame, max_new_tokens=50)[0]['generated_text']
-            
-            frame_descriptions.append(f"Frame {i+1}: {caption}")
-            
-        app_logger.debug("Frame analysis completed successfully")
-        return frame_descriptions
-    except Exception as e:
-        app_logger.error(f"Error analyzing frames with CLIP and image captioning: {e}")
-        app_logger.error(traceback.format_exc())
-        return None
 
 # You can add more utility functions here as needed

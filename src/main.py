@@ -1,6 +1,20 @@
+# Description: Main script to run the Grizzly News AI-Generated Comics program.
+#
+# This script provides a command-line interface for generating AI-generated comics based on news articles, custom stories, and video/image content.
+# It allows users to choose from different options to generate comics and post them to social media platforms.
+#
+# The main function handles the main menu loop and user interactions, allowing users to choose between generating daily news comics, custom comics, and media comics.
+# The script also provides options to post the generated comics to Twitter and Facebook.
+#
+
+import warnings
+
+# Suppress specific UserWarnings related to attention mask in transformers
+warnings.filterwarnings("ignore", message="The attention mask is not set and cannot be inferred from input because pad token is same as eos token.")
+warnings.filterwarnings("ignore", message="We strongly recommend passing in an `attention_mask` since your input_ids may be padded.")
+
 import os
 import logging
-import warnings
 from datetime import datetime
 
 # Custom modules
@@ -8,10 +22,6 @@ from config import load_config
 from logger import app_logger
 from comic_generator import generate_daily_comic, generate_custom_comic, generate_media_comic
 from social_media import post_to_twitter, post_to_facebook
-
-# Suppress specific warnings
-warnings.filterwarnings("ignore", message="The attention mask is not set")
-warnings.filterwarnings("ignore", message="We strongly recommend passing in an `attention_mask`")
 
 # Load configuration
 config = load_config()
@@ -32,7 +42,7 @@ def display_menu():
     print("\nGrizzly News: Daily AI-Generated Comics")
     print("1. News")
     print("2. Custom")
-    print("3. Video/Image")
+    print("3. Media Video/Image")
     print("4. Exit")
     return input("Choose an option (1-4): ")
 

@@ -3,8 +3,8 @@ import numpy as np
 from logger import app_logger
 from PIL import Image
 import traceback
-from utils import analyze_frames_with_clip
 from text_analysis import analyze_text_opai
+from utils import analyze_frames_with_clip
 
 def extract_frames(video_path, num_frames=5):
     """

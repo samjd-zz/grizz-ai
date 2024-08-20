@@ -21804,3 +21804,157 @@ Generating comic from image... Please wait.
 Generating comic from video... Please wait.
 2024-08-19 22:45:06,172 INFO Media comic generated successfully!
 2024-08-19 22:45:11,152 INFO Exiting the program. Goodbye!
+2024-08-19 22:56:41,111 INFO Using device: cuda
+2024-08-19 22:56:45,242 INFO Grizzly News: Daily AI-Generated Comics
+2024-08-19 22:56:51,789 INFO 
+Generating comic from image... Please wait.
+2024-08-19 22:57:32,728 INFO Media comic generated successfully!
+2024-08-19 22:57:46,899 INFO Exiting the program. Goodbye!
+2024-08-19 23:09:38,691 INFO Using device: cuda
+2024-08-19 23:09:43,310 INFO Grizzly News: Daily AI-Generated Comics
+2024-08-19 23:09:48,766 INFO 
+Generating comic from image... Please wait.
+2024-08-19 23:10:44,152 INFO Media comic generated successfully!
+2024-08-19 23:11:50,511 INFO Exiting the program. Goodbye!
+2024-08-19 23:44:08,867 INFO Using device: cuda
+2024-08-19 23:44:12,793 INFO Grizzly News: Daily AI-Generated Comics
+2024-08-19 23:44:19,521 INFO 
+Generating comic from image... Please wait.
+2024-08-19 23:45:01,074 INFO Media comic generated successfully!
+2024-08-19 23:45:13,516 INFO Exiting the program. Goodbye!
+2024-08-19 23:45:23,099 INFO Using device: cuda
+2024-08-19 23:45:27,148 INFO Grizzly News: Daily AI-Generated Comics
+2024-08-19 23:45:35,393 INFO 
+Generating comic from image... Please wait.
+2024-08-19 23:46:16,099 INFO Media comic generated successfully!
+2024-08-19 23:46:36,973 INFO Exiting the program. Goodbye!
+2024-08-19 23:46:44,419 INFO Using device: cuda
+2024-08-19 23:46:48,359 INFO Grizzly News: Daily AI-Generated Comics
+2024-08-19 23:46:55,104 INFO 
+Generating comic from image... Please wait.
+2024-08-19 23:47:42,703 INFO Media comic generated successfully!
+2024-08-19 23:48:05,781 INFO Exiting the program. Goodbye!
+2024-08-19 23:48:21,831 INFO Using device: cuda
+2024-08-19 23:48:26,005 INFO Grizzly News: Daily AI-Generated Comics
+2024-08-19 23:48:30,318 INFO 
+Generating comic from image... Please wait.
+2024-08-19 23:48:58,699 INFO Using device: cuda
+2024-08-19 23:49:02,613 INFO Grizzly News: Daily AI-Generated Comics
+2024-08-19 23:49:09,396 INFO 
+Generating comic from image... Please wait.
+2024-08-19 23:50:07,935 INFO Using device: cuda
+2024-08-19 23:50:11,920 INFO Grizzly News: Daily AI-Generated Comics
+2024-08-19 23:50:22,957 INFO 
+Generating comic from image... Please wait.
+2024-08-19 23:50:42,893 INFO Media comic generated successfully!
+2024-08-19 23:57:11,065 INFO Exiting the program. Goodbye!
+2024-08-20 00:12:57,368 INFO Using device: cuda
+2024-08-20 00:13:02,081 INFO Grizzly News: Daily AI-Generated Comics
+2024-08-20 00:13:07,517 INFO 
+Generating comic from image... Please wait.
+2024-08-20 00:13:07,536 ERROR Error analyzing frames with CLIP and image captioning: ImageToTextPipeline._sanitize_parameters() got an unexpected keyword argument 'attention_mask'
+2024-08-20 00:13:07,537 ERROR Traceback (most recent call last):
+  File "/home/samjd/Apps/claude-dev/grizzly-news/src/utils.py", line 186, in analyze_frames_with_clip
+    caption = captioner(frame, max_new_tokens=50, attention_mask=attention_mask)[0]['generated_text']
+  File "/home/samjd/.local/lib/python3.10/site-packages/transformers/pipelines/image_to_text.py", line 125, in __call__
+    return super().__call__(images, **kwargs)
+  File "/home/samjd/.local/lib/python3.10/site-packages/transformers/pipelines/base.py", line 1207, in __call__
+    preprocess_params, forward_params, postprocess_params = self._sanitize_parameters(**kwargs)
+TypeError: ImageToTextPipeline._sanitize_parameters() got an unexpected keyword argument 'attention_mask'
+
+2024-08-20 00:13:07,538 ERROR Failed to analyze image: /home/samjd/Apps/claude-dev/grizzly-news/input/img-test2.jpg
+2024-08-20 00:13:07,539 ERROR No comic images were generated. Aborting media comic generation.
+2024-08-20 00:19:57,148 INFO Exiting the program. Goodbye!
+2024-08-20 00:20:08,260 INFO Using device: cuda
+2024-08-20 00:20:12,265 INFO Grizzly News: Daily AI-Generated Comics
+2024-08-20 00:20:17,879 INFO 
+Generating comic from image... Please wait.
+2024-08-20 00:20:41,706 INFO Media comic generated successfully!
+2024-08-20 00:26:15,186 INFO Exiting the program. Goodbye!
+2024-08-20 00:26:21,023 INFO Using device: cuda
+2024-08-20 00:26:24,913 INFO Grizzly News: Daily AI-Generated Comics
+2024-08-20 00:26:36,319 INFO Using device: cuda
+2024-08-20 00:26:40,169 INFO Grizzly News: Daily AI-Generated Comics
+2024-08-20 00:26:46,570 INFO 
+Generating comic from image... Please wait.
+2024-08-20 00:27:07,806 INFO Media comic generated successfully!
+2024-08-20 00:28:21,316 INFO Exiting the program. Goodbye!
+2024-08-20 00:28:25,735 INFO Using device: cuda
+2024-08-20 00:28:29,716 INFO Grizzly News: Daily AI-Generated Comics
+2024-08-20 00:28:38,610 INFO 
+Generating comic from image... Please wait.
+2024-08-20 00:28:59,451 INFO Media comic generated successfully!
+2024-08-20 00:32:50,238 INFO Exiting the program. Goodbye!
+2024-08-20 00:32:59,143 INFO Using device: cuda
+2024-08-20 00:33:03,191 INFO Grizzly News: Daily AI-Generated Comics
+2024-08-20 00:33:04,577 INFO Exiting the program. Goodbye!
+2024-08-20 00:33:11,571 INFO Using device: cuda
+2024-08-20 00:33:15,697 INFO Grizzly News: Daily AI-Generated Comics
+2024-08-20 00:33:23,807 INFO 
+Generating comic from image... Please wait.
+2024-08-20 00:33:43,974 INFO Media comic generated successfully!
+2024-08-20 00:33:51,252 INFO Exiting the program. Goodbye!
+2024-08-20 00:35:08,035 INFO Using device: cuda
+2024-08-20 00:35:11,839 INFO Grizzly News: Daily AI-Generated Comics
+2024-08-20 00:35:27,161 INFO 
+Generating comic from image... Please wait.
+2024-08-20 00:40:51,415 INFO Using device: cuda
+2024-08-20 00:40:55,494 INFO Grizzly News: Daily AI-Generated Comics
+2024-08-20 00:41:03,039 INFO 
+Generating comic from video... Please wait.
+2024-08-20 00:41:29,326 INFO Media comic generated successfully!
+2024-08-20 00:42:10,725 INFO Exiting the program. Goodbye!
+2024-08-20 00:42:13,987 INFO Using device: cuda
+2024-08-20 00:42:18,045 INFO Grizzly News: Daily AI-Generated Comics
+2024-08-20 00:42:25,857 INFO 
+Generating comic from video... Please wait.
+2024-08-20 00:42:56,949 INFO Media comic generated successfully!
+2024-08-20 00:43:14,722 INFO Exiting the program. Goodbye!
+2024-08-20 00:43:29,507 INFO Using device: cuda
+2024-08-20 00:43:33,386 INFO Grizzly News: Daily AI-Generated Comics
+2024-08-20 00:43:38,540 INFO 
+Generating comic from image... Please wait.
+2024-08-20 00:43:54,219 INFO Using device: cuda
+2024-08-20 00:44:06,712 INFO Using device: cuda
+2024-08-20 00:44:10,618 INFO Grizzly News: Daily AI-Generated Comics
+2024-08-20 00:44:20,973 INFO 
+Generating comic from video... Please wait.
+2024-08-20 00:45:04,967 INFO Media comic generated successfully!
+2024-08-20 00:49:25,409 INFO Exiting the program. Goodbye!
+2024-08-20 00:49:29,107 INFO Using device: cuda
+2024-08-20 00:49:33,183 INFO Grizzly News: Daily AI-Generated Comics
+2024-08-20 00:49:54,023 INFO 
+Generating comic from video... Please wait.
+2024-08-20 00:50:32,967 INFO Using device: cuda
+2024-08-20 00:50:36,859 INFO Grizzly News: Daily AI-Generated Comics
+2024-08-20 00:50:48,790 INFO 
+Generating comic from image... Please wait.
+2024-08-20 00:51:39,401 INFO Media comic generated successfully!
+2024-08-20 00:52:00,500 INFO 
+Generating comic from video... Please wait.
+2024-08-20 00:52:30,888 INFO Media comic generated successfully!
+2024-08-20 00:52:36,212 INFO Getting local events for Lillooet and Lytton.
+2024-08-20 00:52:56,581 INFO Retrieved 15 local events for Lillooet and Lytton.
+2024-08-20 00:52:56,582 INFO Filtered out 0 duplicate events.
+2024-08-20 00:52:56,582 INFO Generating comics for 15 events in Lillooet and Lytton...
+2024-08-20 00:59:28,375 INFO --------------------------------------------------
+2024-08-20 00:59:28,375 INFO Comic generated successfully!
+2024-08-20 00:59:28,375 INFO 15 NEW local event(s) retrieved today in Lillooet and Lytton:
+2024-08-20 00:59:28,375 INFO --------------------------------------------------
+2024-08-20 00:59:28,375 INFO  * Lillooet Public Library Semi-Annual Used Book Sale
+2024-08-20 00:59:28,375 INFO  * Author Tony B. Richard's Novel Launch
+2024-08-20 00:59:28,375 INFO  * Grizzly Bear Sighting
+2024-08-20 00:59:28,375 INFO  * Chilcotin River Landslide Update
+2024-08-20 00:59:28,375 INFO  * Public Boat Launch Reopens
+2024-08-20 00:59:28,375 INFO  * Lillooet Emergency Room Closure
+2024-08-20 00:59:28,375 INFO  * Flood Watch - Fraser River
+2024-08-20 00:59:28,375 INFO  * Extreme Heat & Wildfire Smoke Safety Session
+2024-08-20 00:59:28,375 INFO  * Stage 2 Water Conservation Measures
+2024-08-20 00:59:28,375 INFO  * Campfire Ban Effective July 12, 2024
+2024-08-20 00:59:28,375 INFO  * Apricot Tsaqwem Festival 2024
+2024-08-20 00:59:28,375 INFO  * Cooling Centre Available at R.E.C. Centre
+2024-08-20 00:59:28,376 INFO  * Fraserview Street Water Quality Advisory
+2024-08-20 00:59:28,376 INFO  * Water Shut-Off Notice
+2024-08-20 00:59:28,376 INFO  * Notice of Special Meeting
+2024-08-20 00:59:28,376 INFO --------------------------------------------------
+2024-08-20 00:59:44,026 INFO Exiting the program. Goodbye!

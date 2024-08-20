@@ -2,9 +2,10 @@ from datetime import datetime
 import os
 from logger import app_logger
 from image_generation import generate_dalle_images
+from utils import analyze_frames_with_clip
 from text_analysis import analyze_text_opai
 from event_fetcher import get_local_events
-from utils import save_summary, save_image, add_to_titles_list, analyze_frames_with_clip
+from utils import save_summary, save_image, add_to_titles_list
 from config import OUTPUT_DIR, SOURCE_DIR, config
 from tqdm import tqdm
 from video_processing import get_video_summary
