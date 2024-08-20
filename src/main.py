@@ -12,6 +12,7 @@ import warnings
 # Suppress specific UserWarnings related to attention mask in transformers
 warnings.filterwarnings("ignore", message="The attention mask is not set and cannot be inferred from input because pad token is same as eos token.")
 warnings.filterwarnings("ignore", message="We strongly recommend passing in an `attention_mask` since your input_ids may be padded.")
+warnings.filterwarnings("ignore", category=FutureWarning, module='transformers')
 
 import os
 import logging
@@ -77,7 +78,7 @@ def main():
         
         if choice == '1':
             location = input("Enter the location for news (press Enter for default location): ") or config.LOCATION
-            print("\nGenerating comic... Please wait.")
+            app_logger.info("Fetching local events. Please wait...")
             local_events = generate_daily_comic(location)
             if local_events:
                 app_logger.info("-" * 50)

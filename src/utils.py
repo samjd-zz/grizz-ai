@@ -6,7 +6,7 @@ from config import OUTPUT_DIR
 
 import torch
 import traceback
-from transformers import CLIPProcessor, CLIPModel, pipeline
+from transformers import pipeline
 from PIL import Image
 import warnings
 
@@ -16,22 +16,18 @@ TODAY = datetime.now().strftime("%Y_%m_%d")
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 app_logger.info(f"Using device: {device}")
 
-# Load CLIP model and processor
-model = CLIPModel.from_pretrained("openai/clip-vit-base-patch32").to(device)
-processor = CLIPProcessor.from_pretrained("openai/clip-vit-base-patch32")
-
 # Load image captioning pipeline
 captioner = pipeline("image-to-text", model="nlpconnect/vit-gpt2-image-captioning", device=device)
 
-def analyze_frames_with_clip(frames):
+def analyze_frames(frames):
     """
-    Analyze the extracted frames or single image using CLIP and image captioning.
+    Analyze the extracted frames or single image using image captioning.
     
     :param frames: List of PIL Image objects, a single PIL Image object, or a path to an image file
     :return: List of detailed frame descriptions
     """
     try:
-        app_logger.debug("Analyzing frames with CLIP and image captioning")
+        app_logger.debug("Analyzing frames with image captioning")
         frame_descriptions = []
 
         # If frames is a string (path to an image file), try to open it
@@ -57,20 +53,17 @@ def analyze_frames_with_clip(frames):
         for i, frame in enumerate(frames):
             app_logger.debug(f"Analyzing frame {i+1}/{len(frames)}")
             
-
             # Generate caption using the image captioning pipeline
             with warnings.catch_warnings():
                 warnings.simplefilter("ignore")
                 caption = captioner(frame, max_new_tokens=50)[0]['generated_text']
-
-            #caption = captioner(frame, max_new_tokens=50)[0]['generated_text']
             
             frame_descriptions.append(f"Frame {i+1}: {caption}")
             
         app_logger.debug("Frame analysis completed successfully")
         return frame_descriptions
     except Exception as e:
-        app_logger.error(f"Error analyzing frames with CLIP and image captioning: {e}")
+        app_logger.error(f"Error analyzing frames with image captioning: {e}")
         app_logger.error(traceback.format_exc())
         return None
 
@@ -193,6 +186,5 @@ def filter_content(text):
     text = re.sub(r'\s*\[content removed\]$', '', text)
     
     return text
-
 
 # You can add more utility functions here as needed

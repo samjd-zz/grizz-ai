@@ -40,17 +40,16 @@ def get_local_events(location):
     else:
         existing_titles = set()
 
-    app_logger.info(f"Getting local events for {location}.")
+    app_logger.debug(f"Getting local events for {location}.")
     
     today_date = datetime.now().strftime("%B %d, %Y")
     query = f"Please provide a list of current news events happening in {location} today ({today_date}). The events must have occurred within the last 24 hours only. Make sure the information is up-to-date and exclude events prior to {today_date}. Exclude the following events: {', '.join(existing_titles)}."
     
     events = perplexity_search(query)
-
     if events:
-        app_logger.info(f"Retrieved {len(events)} local events for {location}.")
+        app_logger.debug(f"Retrieved {len(events)} local events for {location}.")
         filtered_events = [event for event in events if event['title'] not in existing_titles]
-        app_logger.info(f"Filtered out {len(events) - len(filtered_events)} duplicate events.")
+        app_logger.debug(f"Filtered out {len(events) - len(filtered_events)} duplicate events.")
         return filtered_events
     else:
         app_logger.warning(f"Failed to retrieve local events for {location}.")

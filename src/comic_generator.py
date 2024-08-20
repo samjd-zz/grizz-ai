@@ -2,7 +2,7 @@ from datetime import datetime
 import os
 from logger import app_logger
 from image_generation import generate_dalle_images
-from utils import analyze_frames_with_clip
+from utils import analyze_frames
 from text_analysis import analyze_text_opai
 from event_fetcher import get_local_events
 from utils import save_summary, save_image, add_to_titles_list
@@ -236,7 +236,7 @@ def generate_media_comic(media_type, path, location):
 
                 elif media_type == 'image':
                     # Process image
-                    image_analysis = analyze_frames_with_clip(media_path)
+                    image_analysis = analyze_frames(media_path)
                     if not image_analysis:
                         app_logger.error(f"Failed to analyze image: {media_path}")
                         continue

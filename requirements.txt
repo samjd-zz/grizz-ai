@@ -1,10 +1,13 @@
 python-dotenv==0.19.2
 requests==2.26.0
 anthropic==0.2.8
-openai==0.27.0
+openai>=1.0.0
 pillow==8.4.0
 tweepy==4.4.0
 facebook-sdk==3.1.0
 stability-sdk==0.3.1
 opencv-python==4.5.5.64
 numpy==1.21.5
+groq>=0.3.1
+torch>=1.9.0
+transformers>=4.0.0

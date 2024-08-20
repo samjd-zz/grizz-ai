@@ -4,7 +4,7 @@ from logger import app_logger
 from PIL import Image
 import traceback
 from text_analysis import analyze_text_opai
-from utils import analyze_frames_with_clip
+from utils import analyze_frames
 
 def extract_frames(video_path, num_frames=5):
     """
@@ -62,10 +62,10 @@ def get_video_summary(video_path, pbar, location="a generic city"):
             return "Unable to extract frames from the video"
 
         app_logger.debug(f"Extracted {len(frames)} frames from the video")
-        frame_descriptions = analyze_frames_with_clip(frames)
+        frame_descriptions = analyze_frames(frames)
         pbar.update(1)
         if not frame_descriptions:
-            app_logger.error("Failed to analyze frames with CLIP and image captioning")
+            app_logger.error("Failed to analyze frames with image captioning")
             return "Unable to analyze video content"
 
         # Combine frame descriptions into a single text

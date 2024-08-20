@@ -21958,3 +21958,158 @@ Generating comic from video... Please wait.
 2024-08-20 00:59:28,376 INFO  * Notice of Special Meeting
 2024-08-20 00:59:28,376 INFO --------------------------------------------------
 2024-08-20 00:59:44,026 INFO Exiting the program. Goodbye!
+2024-08-20 12:16:26,199 INFO Using device: cuda
+2024-08-20 12:16:50,941 INFO Using device: cpu
+2024-08-20 12:16:54,726 INFO Grizzly News: Daily AI-Generated Comics
+2024-08-20 12:17:11,168 INFO Getting local events for Lillooet and Lytton.
+2024-08-20 12:17:18,894 INFO Retrieved 3 local events for Lillooet and Lytton.
+2024-08-20 12:17:18,894 INFO Filtered out 0 duplicate events.
+2024-08-20 12:17:18,894 INFO Generating comics for 3 events in Lillooet and Lytton...
+2024-08-20 12:18:34,957 INFO --------------------------------------------------
+2024-08-20 12:18:34,957 INFO Comic generated successfully!
+2024-08-20 12:18:34,958 INFO 3 NEW local event(s) retrieved today in Lillooet and Lytton:
+2024-08-20 12:18:34,958 INFO --------------------------------------------------
+2024-08-20 12:18:34,958 INFO  * Lillooet Public Library Semi-Annual Used Book Sale
+2024-08-20 12:18:34,958 INFO  * Community Room Event at Lillooet Library
+2024-08-20 12:18:34,958 INFO  * Author Tony B. Richard's Book Launch
+2024-08-20 12:18:34,958 INFO --------------------------------------------------
+2024-08-20 12:29:20,334 INFO Exiting the program. Goodbye!
+2024-08-20 12:30:46,325 INFO Using device: cpu
+2024-08-20 12:30:50,233 INFO Grizzly News: Daily AI-Generated Comics
+2024-08-20 12:30:54,036 INFO Getting local events for Lillooet and Lytton.
+2024-08-20 12:31:10,691 INFO Retrieved 10 local events for Lillooet and Lytton.
+2024-08-20 12:31:10,691 INFO Filtered out 0 duplicate events.
+2024-08-20 12:31:10,691 INFO Generating comics for 10 events in Lillooet and Lytton...
+2024-08-20 12:36:32,311 INFO --------------------------------------------------
+2024-08-20 12:36:32,311 INFO Comic generated successfully!
+2024-08-20 12:36:32,311 INFO 10 NEW local event(s) retrieved today in Lillooet and Lytton:
+2024-08-20 12:36:32,311 INFO --------------------------------------------------
+2024-08-20 12:36:32,312 INFO  * Temporary Emergency Water Shutoff
+2024-08-20 12:36:32,312 INFO  * Grizzly Bear Sighting
+2024-08-20 12:36:32,312 INFO  * Chilcotin River Landslide Update
+2024-08-20 12:36:32,312 INFO  * Public Service Announcement - Lillooet Emergency Room Closure
+2024-08-20 12:36:32,312 INFO  * Public Boat Launch Reopens
+2024-08-20 12:36:32,312 INFO  * Flood Watch - Fraser River
+2024-08-20 12:36:32,312 INFO  * Extreme Heat & Wildfire Smoke Safety Session
+2024-08-20 12:36:32,312 INFO  * Stage 2 Water Conservation Measures
+2024-08-20 12:36:32,312 INFO  * Campfire Ban Effective July 12, 2024
+2024-08-20 12:36:32,312 INFO  * Lillooet-Lytton RCMP Newsroom
+2024-08-20 12:36:32,313 INFO --------------------------------------------------
+2024-08-20 12:39:01,548 INFO Exiting the program. Goodbye!
+2024-08-20 14:44:27,061 INFO Using device: cuda
+2024-08-20 14:44:34,966 INFO Grizzly News: Daily AI-Generated Comics
+2024-08-20 14:44:46,872 INFO Exiting the program. Goodbye!
+2024-08-20 14:55:25,876 INFO Using device: cuda
+2024-08-20 14:55:30,029 INFO Grizzly News: Daily AI-Generated Comics
+2024-08-20 14:56:19,484 INFO Exiting the program. Goodbye!
+2024-08-20 15:02:44,051 INFO Using device: cuda
+2024-08-20 15:02:48,110 INFO Grizzly News: Daily AI-Generated Comics
+2024-08-20 15:02:50,870 INFO Exiting the program. Goodbye!
+2024-08-20 15:03:01,115 INFO Using device: cuda
+2024-08-20 15:03:05,168 INFO Grizzly News: Daily AI-Generated Comics
+2024-08-20 15:03:12,120 INFO 
+Generating comic from image... Please wait.
+2024-08-20 15:03:12,419 ERROR Error analyzing frames with CLIP and image captioning: You have to specify input_ids
+2024-08-20 15:03:12,420 ERROR Traceback (most recent call last):
+  File "/home/samjd/Apps/claude-dev/grizzly-news/src/utils.py", line 67, in analyze_frames_with_clip
+    outputs = model(**inputs)
+  File "/home/samjd/.venvs/grizzly-news/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/samjd/.venvs/grizzly-news/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/samjd/.venvs/grizzly-news/lib/python3.10/site-packages/transformers/models/clip/modeling_clip.py", line 1300, in forward
+    text_outputs = self.text_model(
+  File "/home/samjd/.venvs/grizzly-news/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/samjd/.venvs/grizzly-news/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/samjd/.venvs/grizzly-news/lib/python3.10/site-packages/transformers/models/clip/modeling_clip.py", line 872, in forward
+    raise ValueError("You have to specify input_ids")
+ValueError: You have to specify input_ids
+
+2024-08-20 15:03:12,420 ERROR Failed to analyze image: /home/samjd/Apps/claude-dev/grizzly-news/input/img-test2.jpg
+2024-08-20 15:03:12,420 ERROR No comic images were generated. Aborting media comic generation.
+2024-08-20 15:03:41,983 INFO 
+Generating comic from video... Please wait.
+2024-08-20 15:03:42,142 ERROR Error analyzing frames with CLIP and image captioning: You have to specify input_ids
+2024-08-20 15:03:42,142 ERROR Traceback (most recent call last):
+  File "/home/samjd/Apps/claude-dev/grizzly-news/src/utils.py", line 67, in analyze_frames_with_clip
+    outputs = model(**inputs)
+  File "/home/samjd/.venvs/grizzly-news/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/samjd/.venvs/grizzly-news/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/samjd/.venvs/grizzly-news/lib/python3.10/site-packages/transformers/models/clip/modeling_clip.py", line 1300, in forward
+    text_outputs = self.text_model(
+  File "/home/samjd/.venvs/grizzly-news/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1553, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/samjd/.venvs/grizzly-news/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1562, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/samjd/.venvs/grizzly-news/lib/python3.10/site-packages/transformers/models/clip/modeling_clip.py", line 872, in forward
+    raise ValueError("You have to specify input_ids")
+ValueError: You have to specify input_ids
+
+2024-08-20 15:03:42,142 ERROR Failed to analyze frames with CLIP and image captioning
+2024-08-20 15:04:02,767 INFO Media comic generated successfully!
+2024-08-20 15:04:20,763 INFO Exiting the program. Goodbye!
+2024-08-20 15:09:38,551 INFO Using device: cuda
+2024-08-20 15:11:54,383 INFO Using device: cuda
+2024-08-20 15:12:39,124 INFO Using device: cuda
+2024-08-20 15:13:21,240 INFO Using device: cuda
+2024-08-20 15:13:24,260 INFO Grizzly News: Daily AI-Generated Comics
+2024-08-20 15:13:29,557 INFO Exiting the program. Goodbye!
+2024-08-20 15:13:34,383 INFO Using device: cuda
+2024-08-20 15:13:37,327 INFO Grizzly News: Daily AI-Generated Comics
+2024-08-20 15:13:44,965 INFO 
+Generating comic from image... Please wait.
+2024-08-20 15:14:04,094 INFO Media comic generated successfully!
+2024-08-20 15:14:12,337 INFO 
+Generating comic from video... Please wait.
+2024-08-20 15:14:38,050 INFO Media comic generated successfully!
+2024-08-20 15:19:20,408 INFO Exiting the program. Goodbye!
+2024-08-20 15:19:23,267 INFO Using device: cuda
+2024-08-20 15:19:26,248 INFO Grizzly News: Daily AI-Generated Comics
+2024-08-20 15:19:30,162 ERROR Unexpected error in generate_daily_comic: local variable 'local_events' referenced before assignment
+Traceback (most recent call last):
+  File "/home/samjd/Apps/claude-dev/grizzly-news/src/comic_generator.py", line 28, in generate_daily_comic
+    app_logger.info(f"Generating comics for {len(local_events)} events in {location}...")
+UnboundLocalError: local variable 'local_events' referenced before assignment
+2024-08-20 15:21:19,328 WARNING Invalid choice. Please try again.
+2024-08-20 15:21:19,462 WARNING Invalid choice. Please try again.
+2024-08-20 15:21:19,593 WARNING Invalid choice. Please try again.
+2024-08-20 15:21:20,420 INFO Exiting the program. Goodbye!
+2024-08-20 15:21:23,615 INFO Using device: cuda
+2024-08-20 15:21:26,605 INFO Grizzly News: Daily AI-Generated Comics
+2024-08-20 15:21:42,108 INFO Generating comics for 3 events in Lillooet and Lytton...
+2024-08-20 15:22:53,783 INFO --------------------------------------------------
+2024-08-20 15:22:53,783 INFO Comic generated successfully!
+2024-08-20 15:22:53,783 INFO 3 NEW local event(s) retrieved today in Lillooet and Lytton:
+2024-08-20 15:22:53,783 INFO --------------------------------------------------
+2024-08-20 15:22:53,783 INFO  * Lillooet Seniors Society Event
+2024-08-20 15:22:53,783 INFO  * Tech Tuesdays at Lillooet Public Library
+2024-08-20 15:22:53,783 INFO  * Emergency Updates from Lillooet Tribal Council
+2024-08-20 15:22:53,783 INFO --------------------------------------------------
+2024-08-20 15:23:04,805 INFO Exiting the program. Goodbye!
+2024-08-20 15:23:07,536 INFO Using device: cuda
+2024-08-20 15:23:10,539 INFO Grizzly News: Daily AI-Generated Comics
+2024-08-20 15:23:22,248 INFO Generating comics for 3 events in Lillooet and Lytton...
+2024-08-20 15:24:37,818 INFO --------------------------------------------------
+2024-08-20 15:24:37,818 INFO Comic generated successfully!
+2024-08-20 15:24:37,818 INFO 3 NEW local event(s) retrieved today in Lillooet and Lytton:
+2024-08-20 15:24:37,818 INFO --------------------------------------------------
+2024-08-20 15:24:37,818 INFO  * Lillooet Agriculture and Food Society Workshops
+2024-08-20 15:24:37,818 INFO  * Storytime at Lillooet Public Library
+2024-08-20 15:24:37,818 INFO  * Business Plan Workshop
+2024-08-20 15:24:37,818 INFO --------------------------------------------------
+2024-08-20 15:24:42,997 INFO Exiting the program. Goodbye!
+2024-08-20 15:24:46,107 INFO Using device: cuda
+2024-08-20 15:24:49,137 INFO Grizzly News: Daily AI-Generated Comics
+2024-08-20 15:24:52,616 INFO Fetching local events. Please wait...
+2024-08-20 15:24:55,432 INFO Generating comics for 1 events in Lillooet and Lytton...
+2024-08-20 15:25:21,952 INFO --------------------------------------------------
+2024-08-20 15:25:21,952 INFO Comic generated successfully!
+2024-08-20 15:25:21,952 INFO 1 NEW local event(s) retrieved today in Lillooet and Lytton:
+2024-08-20 15:25:21,952 INFO --------------------------------------------------
+2024-08-20 15:25:21,952 INFO  * Lillooet News
+2024-08-20 15:25:21,952 INFO --------------------------------------------------
+2024-08-20 15:25:26,581 INFO Exiting the program. Goodbye!
