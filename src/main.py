@@ -1,0 +1,171 @@
+import os
+import logging
+import warnings
+from datetime import datetime
+
+# Custom modules
+from config import load_config
+from logger import app_logger
+from comic_generator import generate_daily_comic, generate_custom_comic, generate_media_comic
+from social_media import post_to_twitter, post_to_facebook
+
+# Suppress specific warnings
+warnings.filterwarnings("ignore", message="The attention mask is not set")
+warnings.filterwarnings("ignore", message="We strongly recommend passing in an `attention_mask`")
+
+# Load configuration
+config = load_config()
+
+# Set up logging
+app_logger.setLevel(logging.INFO)
+
+# Setting today constant
+TODAY = datetime.now().strftime("%Y_%m_%d")
+
+def display_menu():
+    """
+    Displays the main menu options and prompts for user input.
+
+    Returns:
+        str: The user's menu choice.
+    """
+    print("\nGrizzly News: Daily AI-Generated Comics")
+    print("1. News")
+    print("2. Custom")
+    print("3. Video/Image")
+    print("4. Exit")
+    return input("Choose an option (1-4): ")
+
+def summarize_generated_files(comic_dir):
+    """
+    Summarizes the comics and files created during the generation process.
+
+    Args:
+        comic_dir (str): The directory where the comic files are stored.
+
+    Returns:
+        str: A summary of the generated files.
+    """
+    summary = []
+    for filename in os.listdir(comic_dir):
+        if filename.endswith('.png'):
+            summary.append(f"Comic image: {filename}")
+        elif filename.endswith('_summary.txt'):
+            summary.append(f"Summary file: {filename}")
+    
+    return "\n".join(summary)
+
+def main():
+    """
+    The main function that runs the Grizzly News AI-Generated Comics program.
+    It handles the main menu loop and user interactions.
+    """
+    app_logger.info("Grizzly News: Daily AI-Generated Comics")
+    
+    while True:
+        choice = display_menu()
+        
+        if choice == '1':
+            location = input("Enter the location for news (press Enter for default location): ") or config.LOCATION
+            print("\nGenerating comic... Please wait.")
+            local_events = generate_daily_comic(location)
+            if local_events:
+                app_logger.info("-" * 50)
+                app_logger.info(f"Comic generated successfully!")
+                app_logger.info(f"{len(local_events)} NEW local event(s) retrieved today in {location}:")
+                app_logger.info("-" * 50)
+                for i, event in enumerate(local_events, start=1):
+                    app_logger.info(f" * {event['title']}")
+                app_logger.info("-" * 50)
+                
+                comic_dir = os.path.join(config.OUTPUT_DIR, f"{location.replace(' ', '_')}_comics", TODAY)
+                file_summary = summarize_generated_files(comic_dir)
+                app_logger.debug("Summary of generated files:")
+                app_logger.debug(file_summary)
+                app_logger.debug("-" * 50)
+                
+                # Option to post to social media
+                if input("Would you like to post this comic to social media? (y/n): ").lower() == 'y':
+                    for filename in os.listdir(comic_dir):
+                        if filename.endswith('.png'):
+                            image_path = os.path.join(comic_dir, filename)
+                            summary_path = os.path.join(comic_dir, filename.replace('.png', '_summary.txt'))
+                            with open(summary_path, 'r') as f:
+                                summary = f.read()
+                            post_to_twitter(image_path, summary, "https://example.com/comic")  # Replace with your actual comic URL
+                            post_to_facebook(image_path, summary, "https://example.com/comic")  # Replace with your actual comic URL
+                            app_logger.info(f"Posted comic to social media: {filename}")
+        
+        elif choice == '2':
+            title = input("Enter the title for your custom comic: ")
+            story = input("Enter the story for your custom comic: ")
+            location = input("Enter the location for your custom comic (press Enter for default location): ") or config.LOCATION
+            print("\nGenerating custom comic... Please wait.")
+            result = generate_custom_comic(title, story, location)
+            if result:
+                image_path, summary = result
+                app_logger.debug("-" * 50)
+                app_logger.debug(f"Custom comic generated successfully!")
+                app_logger.debug(f"Image saved at: {image_path}")
+                app_logger.debug(f"Summary: {summary}")
+                app_logger.debug("-" * 50)
+                
+                comic_dir = os.path.dirname(image_path)
+                file_summary = summarize_generated_files(comic_dir)
+                app_logger.debug("Summary of generated files:")
+                app_logger.debug(file_summary)
+                app_logger.debug("-" * 50)
+                
+                # Option to post to social media
+                if input("Would you like to post this comic to social media? (y/n): ").lower() == 'y':
+                    post_to_twitter(image_path, summary, "https://example.com/custom-comic")  # Replace with your actual comic URL
+                    post_to_facebook(image_path, summary, "https://example.com/custom-comic")  # Replace with your actual comic URL
+                    app_logger.info("Posted custom comic to social media")
+        
+        elif choice == '3':
+            location = input("Enter the location for news (press Enter for default location): ") or config.LOCATION
+            media_type = input("Enter 'video' for video processing or 'image' for image processing: ").lower()
+            if media_type not in ['video', 'image']:
+                print("Invalid media type. Please choose 'video' or 'image'.")
+                continue
+            
+            path = input(f"Enter the path to the {media_type} file or directory (press Enter for default SOURCE_DIR): ") or config.SOURCE_DIR
+            
+            if not os.path.exists(path):
+                app_logger.info(f"The specified path does not exist: {path}")
+                continue
+            
+            app_logger.info(f"\nGenerating comic from {media_type}... Please wait.")
+            
+            result = generate_media_comic(media_type, path, location)
+            
+            if result:
+                image_paths, summary = result
+                app_logger.info(f"Media comic generated successfully!")
+                for i, image_path in enumerate(image_paths, start=1):
+                    app_logger.debug(f"Comic {i} saved at: {image_path}")
+                app_logger.debug(f"Summary: {summary}")
+                app_logger.debug("-" * 50)
+                
+                comic_dir = os.path.dirname(image_paths[0])
+                file_summary = summarize_generated_files(comic_dir)
+                app_logger.debug("Summary of generated files:")
+                app_logger.debug(file_summary)
+                app_logger.debug("-" * 50)
+                
+                # Option to post to social media
+                if input("Would you like to post this comic to social media? (y/n): ").lower() == 'y':
+                    for image_path in image_paths:
+                        post_to_twitter(image_path, summary, "https://example.com/media-comic")  # Replace with your actual comic URL
+                        post_to_facebook(image_path, summary, "https://example.com/media-comic")  # Replace with your actual comic URL
+                        app_logger.info(f"Posted media comic to social media: {os.path.basename(image_path)}")
+        
+        elif choice == '4':
+            app_logger.info("Exiting the program. Goodbye!")
+            break
+        
+        else:
+            app_logger.warning("Invalid choice. Please try again.")
+
+if __name__ == "__main__":
+    main()
