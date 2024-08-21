@@ -98,38 +98,6 @@ def save_summary(location, filename, title, story="", source="", panel_summary="
     except Exception as e:
         app_logger.error(f"Error saving summary: {e}")
 
-def add_to_titles_list(title):
-    """
-    Adds a title to the titles_list.txt file.
-
-    Args:
-        title (str): The title to add to the list.
-    """
-    try:
-        titles_path = os.path.join(OUTPUT_DIR, "titles_list.txt")
-        with open(titles_path, "a") as f:
-            f.write(title + "\n")
-        app_logger.debug(f"Title added to titles_list.txt: {title}")
-    except Exception as e:
-        app_logger.error(f"Error adding title to titles_list.txt: {e}")
-
-def get_existing_titles():
-    """
-    Retrieves the list of existing titles from titles_list.txt.
-
-    Returns:
-        set: A set of existing titles.
-    """
-    titles_file_path = os.path.join(OUTPUT_DIR, "titles_list.txt")
-    
-    if os.path.exists(titles_file_path):
-        with open(titles_file_path, 'r') as file:
-            existing_titles = set(line.strip() for line in file)
-    else:
-        existing_titles = set()
-    
-    return existing_titles
-
 def save_image(image_data, filename, location):
     """
     Saves the generated image locally.
@@ -182,8 +150,8 @@ def filter_content(text):
         text = re.sub(pattern, '[content removed]', text, flags=re.IGNORECASE)
     
     # Remove any remaining instances of [content removed] at the start or end
-    text = re.sub(r'^\[content removed\]\s*', '', text)
-    text = re.sub(r'\s*\[content removed\]$', '', text)
+    text = re.sub(r'^\[content removed]\s*', '', text)
+    text = re.sub(r'\s*\[content removed]$', '', text)
     
     return text
 

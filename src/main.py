@@ -70,19 +70,38 @@ def summarize_generated_files(comic_dir):
 
 def view_all_comics():
     """
-    Displays all comics stored in the database.
+    Displays all comics stored in the database and the output folder.
     """
-    comics = get_all_comics()
-    if not comics:
-        app_logger.info("No comics found in the database.")
+    comics_from_db = get_all_comics()
+    comics_from_folder = []
+
+    # Get comics from the output folder
+    for root, dirs, files in os.walk(config.OUTPUT_DIR):
+        for file in files:
+            if file.endswith('.png'):
+                comics_from_folder.append(os.path.join(root, file))
+
+    if not comics_from_db and not comics_from_folder:
+        app_logger.info("No comics found in the database or output folder.")
         return
 
     app_logger.info("\nAll Comics:")
-    for comic in comics:
+
+    # Display comics from the database
+    for comic in comics_from_db:
         app_logger.info(f"Title: {comic[1]}")
         app_logger.info(f"Location: {comic[2]}")
         app_logger.info(f"Image Path: {comic[6]}")
         app_logger.info("-" * 50)
+
+    # Display comics from the output folder that are not in the database
+    db_image_paths = set(comic[6] for comic in comics_from_db)
+    for image_path in comics_from_folder:
+        if image_path not in db_image_paths:
+            app_logger.info(f"Title: Unknown (Not in database)")
+            app_logger.info(f"Location: Unknown")
+            app_logger.info(f"Image Path: {image_path}")
+            app_logger.info("-" * 50)
 
 def main():
     """
