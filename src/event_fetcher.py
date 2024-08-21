@@ -1,5 +1,4 @@
 import json
-import os
 from datetime import datetime
 from api_handlers import perplexity_client
 from logger import app_logger

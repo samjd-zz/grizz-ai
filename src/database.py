@@ -1,5 +1,6 @@
 import sqlite3
 from logger import app_logger
+from datetime import datetime
 
 class ComicDatabase:
     def __init__(self):
@@ -16,16 +17,18 @@ class ComicDatabase:
                 original_story TEXT NOT NULL,
                 comic_script TEXT NOT NULL,
                 story_source_url TEXT,
-                image_path TEXT NOT NULL
+                image_path TEXT NOT NULL,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         ''')
         self.conn.commit()
 
     def add_comic(self, title, location, original_story, comic_script, story_source_url, image_path):
+        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         self.cursor.execute('''
-            INSERT INTO comics (title, location, original_story, comic_script, story_source_url, image_path)
-            VALUES (?, ?, ?, ?, ?, ?)
-        ''', (title, location, original_story, comic_script, story_source_url, image_path))
+            INSERT INTO comics (title, location, original_story, comic_script, story_source_url, image_path, created_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+        ''', (title, location, original_story, comic_script, story_source_url, image_path, current_time))
         self.conn.commit()
 
     def get_comic_by_story(self, original_story):
@@ -33,7 +36,7 @@ class ComicDatabase:
         return self.cursor.fetchone()
 
     def get_all_comics(self):
-        self.cursor.execute('SELECT * FROM comics')
+        self.cursor.execute('SELECT * FROM comics ORDER BY created_at DESC')
         return self.cursor.fetchall()
 
     def close(self):

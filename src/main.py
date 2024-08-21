@@ -92,6 +92,7 @@ def view_all_comics():
         app_logger.info(f"Title: {comic[1]}")
         app_logger.info(f"Location: {comic[2]}")
         app_logger.info(f"Image Path: {comic[6]}")
+        app_logger.info(f"Created At: {comic[7]}")
         app_logger.info("-" * 50)
 
     # Display comics from the output folder that are not in the database
@@ -101,6 +102,7 @@ def view_all_comics():
             app_logger.info(f"Title: Unknown (Not in database)")
             app_logger.info(f"Location: Unknown")
             app_logger.info(f"Image Path: {image_path}")
+            app_logger.info(f"Created At: Unknown")
             app_logger.info("-" * 50)
 
 def main():
