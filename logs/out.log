@@ -22113,3 +22113,214 @@ UnboundLocalError: local variable 'local_events' referenced before assignment
 2024-08-20 15:25:21,952 INFO  * Lillooet News
 2024-08-20 15:25:21,952 INFO --------------------------------------------------
 2024-08-20 15:25:26,581 INFO Exiting the program. Goodbye!
+2024-08-20 18:10:11,040 INFO Using device: cuda
+2024-08-20 18:10:14,057 INFO Grizzly News: Daily AI-Generated Comics
+2024-08-20 18:10:14,057 INFO 
+Grizzly News: Daily AI-Generated Comics
+2024-08-20 18:10:14,057 INFO 1. News
+2024-08-20 18:10:14,057 INFO 2. Custom
+2024-08-20 18:10:14,057 INFO 3. Media Video/Image
+2024-08-20 18:10:14,057 INFO 4. View All Comics
+2024-08-20 18:10:14,057 INFO 5. Exit
+2024-08-20 18:10:30,149 INFO 
+Generating comic from image... Please wait.
+2024-08-20 18:10:53,114 INFO Added comic to database: img-test2.jpg
+2024-08-20 18:10:53,115 INFO Media comic generated successfully!
+2024-08-20 18:10:55,178 INFO 
+Grizzly News: Daily AI-Generated Comics
+2024-08-20 18:10:55,178 INFO 1. News
+2024-08-20 18:10:55,178 INFO 2. Custom
+2024-08-20 18:10:55,179 INFO 3. Media Video/Image
+2024-08-20 18:10:55,179 INFO 4. View All Comics
+2024-08-20 18:10:55,179 INFO 5. Exit
+2024-08-20 18:11:01,874 INFO 
+Generating comic from video... Please wait.
+2024-08-20 18:12:26,834 INFO Added comic to database: video-test.mp4
+2024-08-20 18:12:26,835 INFO Media comic generated successfully!
+2024-08-20 18:12:39,715 INFO 
+Grizzly News: Daily AI-Generated Comics
+2024-08-20 18:12:39,716 INFO 1. News
+2024-08-20 18:12:39,716 INFO 2. Custom
+2024-08-20 18:12:39,716 INFO 3. Media Video/Image
+2024-08-20 18:12:39,716 INFO 4. View All Comics
+2024-08-20 18:12:39,716 INFO 5. Exit
+2024-08-20 18:12:45,846 INFO Fetching local events. Please wait...
+2024-08-20 18:12:49,427 INFO Generating comics for 1 events in Lillooet and Lytton...
+2024-08-20 18:13:11,345 INFO Added comic to database: Meet the CAO
+2024-08-20 18:13:11,346 INFO --------------------------------------------------
+2024-08-20 18:13:11,346 INFO Comic generated successfully!
+2024-08-20 18:13:11,346 INFO 1 NEW local event(s) retrieved today in Lillooet and Lytton:
+2024-08-20 18:13:11,346 INFO --------------------------------------------------
+2024-08-20 18:13:11,346 INFO  * Meet the CAO
+2024-08-20 18:13:11,346 INFO --------------------------------------------------
+2024-08-20 18:13:14,281 INFO 
+Grizzly News: Daily AI-Generated Comics
+2024-08-20 18:13:14,281 INFO 1. News
+2024-08-20 18:13:14,282 INFO 2. Custom
+2024-08-20 18:13:14,282 INFO 3. Media Video/Image
+2024-08-20 18:13:14,282 INFO 4. View All Comics
+2024-08-20 18:13:14,282 INFO 5. Exit
+2024-08-20 18:15:36,992 INFO 
+Generating custom comic... Please wait.
+2024-08-20 18:15:36,993 INFO Starting custom comic generation process...
+2024-08-20 18:15:56,621 ERROR Error saving image: [Errno 36] File name too long: '/home/samjd/Apps/claude-dev/grizzly-news/output/Panel_1:_Scene_Description:_Wide_shot_of_the_food_truck,_“Grizzly_Grill_Smokes,”_parked_in_a_clearing_in_the_forest._The_truck_has_a_rustic_but_modern_look,_with_plumes_of_delicious-smelling_smoke_billowing_from_its_chimney._In_the_background,_tall_pine_trees_create_a_serene_atmosphere._A_banner_above_the_food_truck_reads_“Today’s_Special:_Secret_Ingredient!”_Character_Introduction:_Grizz:_Standing_proudly_next_to_the_food_truck_with_a_spatula_in_hand,_wearing_his_signature_plaid_shirt,_BBQ_apron,_and_chef\'s_hat._He_has_a_confident_grin,_his_fur_slightly_singed_from_hours_of_grilling._Riley_the_Raven:_Perched_on_the_roof_of_the_food_truck,_sleek_black_feathers_with_a_cheeky_smirk,_wearing_tiny_aviator_goggles._Suki_the_Squirrel:_Bounding_across_the_scene,_carrying_a_notepad_and_pen,_ready_to_take_orders._She_wears_a_small_apron_and_has_a_fanny_pack_for_tips._Dialogue:_Grizz_(big_grin,_confident):_"Today\'s_special_is_unlike_anything_you’ve_ever_tasted—packed_with_the_secret_ingredient!"_Riley_the_Raven_(perched_above,_curious):_"Secret?_What’s_so_secret_about_it,_Grizz?"_Panel_2:_Scene_Description:_Close-up_shot_of_Grizz_holding_up_a_tray_of_perfectly_smoked_chicken_and_pork_with_a_flourish._The_tray_gleams_in_the_sunlight,_showcasing_the_juicy_and_succulent_food_with_crispy_skin_and_a_smoky_glaze._Character_Actions:_Grizz:_Proudly_presenting_the_tray_of_food,_eyes_gleaming_with_excitement._Suki_the_Squirrel:_Hops_onto_the_counter,_sniffing_the_air_with_curiosity._Dialogue:_Grizz_(smirking):_"Ah,_Riley,_if_I_told_you,_it_wouldn’t_be_a_secret_now,_would_it?"_Suki_the_Squirrel_(sniffing_the_air):_"Ooooh,_smells_heavenly!_I’ll_have_one_of_everything!"_Panel_3:_Scene_Description:_Medium_shot_of_Grizz_standing_at_the_food_truck_window_as_customers_approach._The_customers_are_a_mix_of_local_woodland_creatures:_a_family_of_deer,_a_couple_of_beavers,_and_a_wise_old_owl._Everyone_is_eagerly_waiting_to_try_the_special._The_smell_of_food_is_wafting_through_the_air,_making_their_mouths_water._Character_Actions:_Grizz:_Leaning_out_of_the_window_with_a_smile,_handing_over_a_plate_of_smoked_goodness_to_a_deer._Riley_the_Raven:_Circling_above,_still_curious_about_the_secret_ingredient._Suki_the_Squirrel:_Quickly_jotting_down_orders_while_chatting_with_customers._Dialogue:_Riley_the_Raven_(teasing):_"C’mon_Grizz,_I’ve_got_to_know._Is_it_honey?_Garlic?_Or_something_crazy_like…_dragon’s_breath?"_Grizz_(chuckling):_"No_dragon’s_breath_here!_But_close._Let’s_just_say_it’s_a_little_bit_of_magic."_Panel_4:_Scene_Description:_Close-up_shot_of_the_customers_taking_their_first_bite._The_deer’s_eyes_widen_in_delight,_the_beaver_family_is_happily_munching,_and_the_wise_old_owl_nods_with_approval._Behind_them,_the_forest_seems_to_come_alive_with_vibrant_colors_as_if_even_the_trees_are_excited_by_the_delicious_food._Character_Actions:_Deer_family:_Eyes_wide_with_happiness,_savoring_every_bite._Wise_old_owl:_Nods_sagely,_approving_of_the_food._Beaver_couple:_Chomping_down_with_delight,_their_tails_slapping_the_ground_in_satisfaction._Dialogue:_Deer_(mouth_full,_smiling):_"This_is_amazing!_What’s_the_secret?"_Wise_old_owl_(knowingly):_"It’s_more_than_just_ingredients—it’s_Grizz’s_passion_for_the_craft."_Panel_5:_Scene_Description:_Final_wide_shot_of_the_food_truck_at_sunset._Grizz_is_relaxing_with_Riley_perched_on_his_shoulder,_and_Suki_is_counting_the_day’s_tips._The_banner_now_reads,_“Come_back_for_more_tomorrow!”_A_line_of_satisfied_customers_waves_goodbye_as_they_leave_the_scene._Character_Actions:_Grizz:_Sitting_on_a_log_next_to_the_food_truck,_looking_content_after_a_hard_day’s_work._Riley_the_Raven:_Finally_gives_up_trying_to_guess_the_secret,_nestling_into_Grizz\'s_shoulder._Suki_the_Squirrel:_Smiling,_jotting_down_notes_for_tomorrow’s_special._Dialogue:_Grizz_(smiling,_satisfied):_"At_the_end_of_the_day,_it’s_all_about_sharing_good_food_with_good_company."_Riley_the_Raven_(reluctant):_"Alright,_alright._I’ll_stop_asking…_for_now."_Panel_6_(Bonus_Ending_Panel):_Scene_Description:_Zoom_comics'
+2024-08-20 18:15:56,622 ERROR Failed to save the generated image for Grizzly's Great Feast: The Secret Ingredient. Aborting comic generation.
+2024-08-20 18:15:56,622 INFO 
+Grizzly News: Daily AI-Generated Comics
+2024-08-20 18:15:56,623 INFO 1. News
+2024-08-20 18:15:56,623 INFO 2. Custom
+2024-08-20 18:15:56,623 INFO 3. Media Video/Image
+2024-08-20 18:15:56,623 INFO 4. View All Comics
+2024-08-20 18:15:56,623 INFO 5. Exit
+2024-08-20 18:19:51,973 INFO Exiting the program. Goodbye!
+2024-08-20 18:19:51,974 INFO Database connection closed
+2024-08-20 18:20:10,795 INFO Using device: cuda
+2024-08-20 18:20:13,819 INFO Grizzly News: Daily AI-Generated Comics
+2024-08-20 18:20:13,819 INFO 
+Grizzly News: Daily AI-Generated Comics
+2024-08-20 18:20:13,819 INFO 1. News
+2024-08-20 18:20:13,819 INFO 2. Custom
+2024-08-20 18:20:13,819 INFO 3. Media Video/Image
+2024-08-20 18:20:13,819 INFO 4. View All Comics
+2024-08-20 18:20:13,819 INFO 5. Exit
+2024-08-20 18:20:47,520 INFO 
+Generating custom comic... Please wait.
+2024-08-20 18:20:47,520 INFO Starting custom comic generation process...
+2024-08-20 18:20:47,521 INFO Generating custom comic: Grizzly's Great Feast: The Secret Ingredient
+2024-08-20 18:21:13,473 ERROR Error saving image: [Errno 36] File name too long: '/home/samjd/Apps/claude-dev/grizzly-news/output/Panel_1:_Scene_Description:_Wide_shot_of_the_food_truck,_“Grizzly_Grill_Smokes,”_parked_in_a_clearing_in_the_forest._The_truck_has_a_rustic_but_modern_look,_with_plumes_of_delicious-smelling_smoke_billowing_from_its_chimney._In_the_background,_tall_pine_trees_create_a_serene_atmosphere._A_banner_above_the_food_truck_reads_“Today’s_Special:_Secret_Ingredient!”_Character_Introduction:_Grizz:_Standing_proudly_next_to_the_food_truck_with_a_spatula_in_hand,_wearing_his_signature_plaid_shirt,_BBQ_apron,_and_chef\'s_hat._He_has_a_confident_grin,_his_fur_slightly_singed_from_hours_of_grilling._Riley_the_Raven:_Perched_on_the_roof_of_the_food_truck,_sleek_black_feathers_with_a_cheeky_smirk,_wearing_tiny_aviator_goggles._Suki_the_Squirrel:_Bounding_across_the_scene,_carrying_a_notepad_and_pen,_ready_to_take_orders._She_wears_a_small_apron_and_has_a_fanny_pack_for_tips._Dialogue:_Grizz_(big_grin,_confident):_"Today\'s_special_is_unlike_anything_you’ve_ever_tasted—packed_with_the_secret_ingredient!"_Riley_the_Raven_(perched_above,_curious):_"Secret?_What’s_so_secret_about_it,_Grizz?"_Panel_2:_Scene_Description:_Close-up_shot_of_Grizz_holding_up_a_tray_of_perfectly_smoked_chicken_and_pork_with_a_flourish._The_tray_gleams_in_the_sunlight,_showcasing_the_juicy_and_succulent_food_with_crispy_skin_and_a_smoky_glaze._Character_Actions:_Grizz:_Proudly_presenting_the_tray_of_food,_eyes_gleaming_with_excitement._Suki_the_Squirrel:_Hops_onto_the_counter,_sniffing_the_air_with_curiosity._Dialogue:_Grizz_(smirking):_"Ah,_Riley,_if_I_told_you,_it_wouldn’t_be_a_secret_now,_would_it?"_Suki_the_Squirrel_(sniffing_the_air):_"Ooooh,_smells_heavenly!_I’ll_have_one_of_everything!"_Panel_3:_Scene_Description:_Medium_shot_of_Grizz_standing_at_the_food_truck_window_as_customers_approach._The_customers_are_a_mix_of_local_woodland_creatures:_a_family_of_deer,_a_couple_of_beavers,_and_a_wise_old_owl._Everyone_is_eagerly_waiting_to_try_the_special._The_smell_of_food_is_wafting_through_the_air,_making_their_mouths_water._Character_Actions:_Grizz:_Leaning_out_of_the_window_with_a_smile,_handing_over_a_plate_of_smoked_goodness_to_a_deer._Riley_the_Raven:_Circling_above,_still_curious_about_the_secret_ingredient._Suki_the_Squirrel:_Quickly_jotting_down_orders_while_chatting_with_customers._Dialogue:_Riley_the_Raven_(teasing):_"C’mon_Grizz,_I’ve_got_to_know._Is_it_honey?_Garlic?_Or_something_crazy_like…_dragon’s_breath?"_Grizz_(chuckling):_"No_dragon’s_breath_here!_But_close._Let’s_just_say_it’s_a_little_bit_of_magic."_Panel_4:_Scene_Description:_Close-up_shot_of_the_customers_taking_their_first_bite._The_deer’s_eyes_widen_in_delight,_the_beaver_family_is_happily_munching,_and_the_wise_old_owl_nods_with_approval._Behind_them,_the_forest_seems_to_come_alive_with_vibrant_colors_as_if_even_the_trees_are_excited_by_the_delicious_food._Character_Actions:_Deer_family:_Eyes_wide_with_happiness,_savoring_every_bite._Wise_old_owl:_Nods_sagely,_approving_of_the_food._Beaver_couple:_Chomping_down_with_delight,_their_tails_slapping_the_ground_in_satisfaction._Dialogue:_Deer_(mouth_full,_smiling):_"This_is_amazing!_What’s_the_secret?"_Wise_old_owl_(knowingly):_"It’s_more_than_just_ingredients—it’s_Grizz’s_passion_for_the_craft."_Panel_5:_Scene_Description:_Final_wide_shot_of_the_food_truck_at_sunset._Grizz_is_relaxing_with_Riley_perched_on_his_shoulder,_and_Suki_is_counting_the_day’s_tips._The_banner_now_reads,_“Come_back_for_more_tomorrow!”_A_line_of_satisfied_customers_waves_goodbye_as_they_leave_the_scene._Character_Actions:_Grizz:_Sitting_on_a_log_next_to_the_food_truck,_looking_content_after_a_hard_day’s_work._Riley_the_Raven:_Finally_gives_up_trying_to_guess_the_secret,_nestling_into_Grizz\'s_shoulder._Suki_the_Squirrel:_Smiling,_jotting_down_notes_for_tomorrow’s_special._Dialogue:_Grizz_(smiling,_satisfied):_"At_the_end_of_the_day,_it’s_all_about_sharing_good_food_with_good_company."_Riley_the_Raven_(reluctant):_"Alright,_alright._I’ll_stop_asking…_for_now."_Panel_6_(Bonus_Ending_Panel):_Scene_Description:_Zoom_comics'
+2024-08-20 18:21:13,473 ERROR Failed to save the generated image for Grizzly's Great Feast: The Secret Ingredient. Aborting comic generation.
+2024-08-20 18:21:13,474 INFO 
+Grizzly News: Daily AI-Generated Comics
+2024-08-20 18:21:13,474 INFO 1. News
+2024-08-20 18:21:13,474 INFO 2. Custom
+2024-08-20 18:21:13,474 INFO 3. Media Video/Image
+2024-08-20 18:21:13,474 INFO 4. View All Comics
+2024-08-20 18:21:13,474 INFO 5. Exit
+2024-08-20 18:30:40,368 INFO Exiting the program. Goodbye!
+2024-08-20 18:30:40,368 INFO Database connection closed
+2024-08-20 19:30:51,368 INFO Using device: cuda
+2024-08-20 19:30:54,433 INFO Grizzly News: Daily AI-Generated Comics
+2024-08-20 19:30:54,433 INFO 
+Grizzly News: Daily AI-Generated Comics
+2024-08-20 19:30:54,433 INFO 1. News
+2024-08-20 19:30:54,433 INFO 2. Custom
+2024-08-20 19:30:54,433 INFO 3. Media Video/Image
+2024-08-20 19:30:54,433 INFO 4. View All Comics
+2024-08-20 19:30:54,433 INFO 5. Exit
+2024-08-20 19:31:19,138 INFO 
+Generating custom comic... Please wait.
+2024-08-20 19:31:19,138 INFO Starting custom comic generation process...
+2024-08-20 19:31:19,139 INFO Generating custom comic: Grizzly's Great Feast: The Secret Ingredient
+2024-08-20 19:31:19,437 ERROR Error analyzing text with OpenAI: Error code: 404 - {'error': {'message': 'The model `gpt-4o-latest` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2024-08-20 19:31:19,437 ERROR Failed to analyze custom event: Grizzly's Great Feast: The Secret Ingredient. Aborting comic generation.
+2024-08-20 19:31:19,437 INFO 
+Grizzly News: Daily AI-Generated Comics
+2024-08-20 19:31:19,437 INFO 1. News
+2024-08-20 19:31:19,437 INFO 2. Custom
+2024-08-20 19:31:19,437 INFO 3. Media Video/Image
+2024-08-20 19:31:19,437 INFO 4. View All Comics
+2024-08-20 19:31:19,437 INFO 5. Exit
+2024-08-20 19:35:09,999 INFO Exiting the program. Goodbye!
+2024-08-20 19:35:10,000 INFO Database connection closed
+2024-08-20 19:35:21,516 INFO Using device: cuda
+2024-08-20 19:35:24,778 INFO Grizzly News: Daily AI-Generated Comics
+2024-08-20 19:35:24,778 INFO 
+Grizzly News: Daily AI-Generated Comics
+2024-08-20 19:35:24,778 INFO 1. News
+2024-08-20 19:35:24,778 INFO 2. Custom
+2024-08-20 19:35:24,778 INFO 3. Media Video/Image
+2024-08-20 19:35:24,778 INFO 4. View All Comics
+2024-08-20 19:35:24,778 INFO 5. Exit
+2024-08-20 19:35:42,508 INFO 
+Generating custom comic... Please wait.
+2024-08-20 19:35:42,509 INFO Starting custom comic generation process...
+2024-08-20 19:35:42,509 INFO Generating custom comic: Grizzly's Great Feast: The Secret Ingredient
+2024-08-20 19:36:00,657 INFO 
+Custom comic generation completed!
+2024-08-20 19:36:22,812 INFO 
+Grizzly News: Daily AI-Generated Comics
+2024-08-20 19:36:22,813 INFO 1. News
+2024-08-20 19:36:22,813 INFO 2. Custom
+2024-08-20 19:36:22,813 INFO 3. Media Video/Image
+2024-08-20 19:36:22,813 INFO 4. View All Comics
+2024-08-20 19:36:22,814 INFO 5. Exit
+2024-08-20 19:37:38,243 INFO 
+Generating custom comic... Please wait.
+2024-08-20 19:37:38,243 INFO Starting custom comic generation process...
+2024-08-20 19:37:38,244 INFO Generating custom comic: Grizzly's Great Feast: The Secret Ingredient 2
+2024-08-20 19:37:55,817 INFO 
+Custom comic generation completed!
+2024-08-20 19:37:58,936 INFO 
+Grizzly News: Daily AI-Generated Comics
+2024-08-20 19:37:58,936 INFO 1. News
+2024-08-20 19:37:58,936 INFO 2. Custom
+2024-08-20 19:37:58,936 INFO 3. Media Video/Image
+2024-08-20 19:37:58,937 INFO 4. View All Comics
+2024-08-20 19:37:58,937 INFO 5. Exit
+2024-08-20 20:01:13,276 INFO Exiting the program. Goodbye!
+2024-08-20 20:01:13,276 INFO Database connection closed
+2024-08-20 20:01:16,466 INFO Using device: cuda
+2024-08-20 20:01:19,682 INFO Grizzly News: Daily AI-Generated Comics
+2024-08-20 20:01:19,682 INFO 
+Grizzly News: Daily AI-Generated Comics
+2024-08-20 20:01:19,682 INFO 1. News
+2024-08-20 20:01:19,682 INFO 2. Custom
+2024-08-20 20:01:19,682 INFO 3. Media Video/Image
+2024-08-20 20:01:19,682 INFO 4. View All Comics
+2024-08-20 20:01:19,682 INFO 5. Exit
+2024-08-20 20:01:28,989 INFO 
+Generating comic from image... Please wait.
+2024-08-20 20:01:53,764 INFO Media comic generated successfully!
+2024-08-20 20:01:55,531 INFO 
+Grizzly News: Daily AI-Generated Comics
+2024-08-20 20:01:55,532 INFO 1. News
+2024-08-20 20:01:55,532 INFO 2. Custom
+2024-08-20 20:01:55,532 INFO 3. Media Video/Image
+2024-08-20 20:01:55,532 INFO 4. View All Comics
+2024-08-20 20:01:55,532 INFO 5. Exit
+2024-08-20 20:02:01,075 INFO 
+Generating comic from video... Please wait.
+2024-08-20 20:02:24,464 INFO Media comic generated successfully!
+2024-08-20 20:02:44,891 INFO 
+Grizzly News: Daily AI-Generated Comics
+2024-08-20 20:02:44,891 INFO 1. News
+2024-08-20 20:02:44,891 INFO 2. Custom
+2024-08-20 20:02:44,891 INFO 3. Media Video/Image
+2024-08-20 20:02:44,892 INFO 4. View All Comics
+2024-08-20 20:02:44,892 INFO 5. Exit
+2024-08-20 20:02:48,426 INFO 
+All Comics:
+2024-08-20 20:02:48,426 INFO Title: img-test2.jpg
+2024-08-20 20:02:48,427 INFO Location: Lillooet and Lytton
+2024-08-20 20:02:48,427 INFO Image Path: /home/samjd/Apps/claude-dev/grizzly-news/output/Lillooet_and_Lytton_comics/2024_08_20/image_comic_img-test2.jpg.png
+2024-08-20 20:02:48,427 INFO --------------------------------------------------
+2024-08-20 20:02:48,427 INFO Title: video-test.mp4
+2024-08-20 20:02:48,427 INFO Location: Lillooet and Lytton
+2024-08-20 20:02:48,427 INFO Image Path: /home/samjd/Apps/claude-dev/grizzly-news/output/Lillooet_and_Lytton_comics/2024_08_20/video_comic_video-test.mp4.png
+2024-08-20 20:02:48,428 INFO --------------------------------------------------
+2024-08-20 20:02:48,428 INFO 
+Grizzly News: Daily AI-Generated Comics
+2024-08-20 20:02:48,428 INFO 1. News
+2024-08-20 20:02:48,428 INFO 2. Custom
+2024-08-20 20:02:48,429 INFO 3. Media Video/Image
+2024-08-20 20:02:48,429 INFO 4. View All Comics
+2024-08-20 20:02:48,429 INFO 5. Exit
+2024-08-20 20:02:52,875 INFO 
+All Comics:
+2024-08-20 20:02:52,875 INFO Title: img-test2.jpg
+2024-08-20 20:02:52,875 INFO Location: Lillooet and Lytton
+2024-08-20 20:02:52,875 INFO Image Path: /home/samjd/Apps/claude-dev/grizzly-news/output/Lillooet_and_Lytton_comics/2024_08_20/image_comic_img-test2.jpg.png
+2024-08-20 20:02:52,875 INFO --------------------------------------------------
+2024-08-20 20:02:52,876 INFO Title: video-test.mp4
+2024-08-20 20:02:52,876 INFO Location: Lillooet and Lytton
+2024-08-20 20:02:52,876 INFO Image Path: /home/samjd/Apps/claude-dev/grizzly-news/output/Lillooet_and_Lytton_comics/2024_08_20/video_comic_video-test.mp4.png
+2024-08-20 20:02:52,876 INFO --------------------------------------------------
+2024-08-20 20:02:52,876 INFO 
+Grizzly News: Daily AI-Generated Comics
+2024-08-20 20:02:52,876 INFO 1. News
+2024-08-20 20:02:52,876 INFO 2. Custom
+2024-08-20 20:02:52,876 INFO 3. Media Video/Image
+2024-08-20 20:02:52,876 INFO 4. View All Comics
+2024-08-20 20:02:52,877 INFO 5. Exit
+2024-08-20 20:04:04,249 INFO Exiting the program. Goodbye!
+2024-08-20 20:04:04,249 INFO Database connection closed
