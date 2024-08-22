@@ -35,7 +35,7 @@ def generate_daily_comic(location):
         # Estimate total steps
         total_steps = len(local_events) * 5 + 1  # 5 steps per event + final summary
 
-        app_logger.info(f"Generating comics for {len(local_events)} events in {location}...")
+        print(f"Generating comics for {len(local_events)} events in {location}...")
         with tqdm(total=total_steps, bar_format='{l_bar}{bar}', ncols=50, colour='#00FF00') as pbar:
             # Step 2: Generate a comic panel for each event
             comic_panels = []

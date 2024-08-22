@@ -22677,3 +22677,95 @@ Grizzly News: Daily AI-Generated Comics
 2024-08-21 15:41:05,840 INFO 5. Exit
 2024-08-21 15:41:20,802 INFO Exiting the program. Goodbye!
 2024-08-21 15:41:20,802 INFO Database connection closed
+2024-08-21 18:04:21,196 INFO Using device: cuda
+2024-08-21 18:04:24,404 INFO Grizzly News: Daily AI-Generated Comics
+2024-08-21 18:04:24,404 INFO 
+Grizzly News: Daily AI-Generated Comics
+2024-08-21 18:04:24,404 INFO 1. News
+2024-08-21 18:04:24,404 INFO 2. Custom
+2024-08-21 18:04:24,404 INFO 3. Media Video/Image
+2024-08-21 18:04:24,404 INFO 4. View All Comics
+2024-08-21 18:04:24,404 INFO 5. Exit
+2024-08-21 18:04:37,409 INFO Exiting the program. Goodbye!
+2024-08-21 18:04:37,409 INFO Database connection closed
+2024-08-21 18:04:42,756 INFO Using device: cuda
+2024-08-21 18:04:46,140 INFO Grizzly News: Daily AI-Generated Comics
+2024-08-21 18:04:46,140 INFO 
+Grizzly News: Daily AI-Generated Comics
+2024-08-21 18:04:46,140 INFO 1. News
+2024-08-21 18:04:46,140 INFO 2. Custom
+2024-08-21 18:04:46,140 INFO 3. Media Video/Image
+2024-08-21 18:04:46,140 INFO 4. View All Comics
+2024-08-21 18:04:46,140 INFO 5. Exit
+2024-08-21 18:06:12,794 INFO Fetching local events. Please wait...
+2024-08-21 18:06:18,543 INFO Generating comics for 1 events in Lillooet and Lytton...
+2024-08-21 18:06:41,756 INFO --------------------------------------------------
+2024-08-21 18:06:41,756 INFO Comic generated successfully!
+2024-08-21 18:06:41,756 INFO 1 NEW local event(s) retrieved today in Lillooet and Lytton:
+2024-08-21 18:06:41,757 INFO --------------------------------------------------
+2024-08-21 18:06:41,757 INFO  * No Current News Events Reported
+2024-08-21 18:06:41,757 INFO --------------------------------------------------
+2024-08-21 18:09:35,297 INFO 
+Grizzly News: Daily AI-Generated Comics
+2024-08-21 18:09:35,297 INFO 1. News
+2024-08-21 18:09:35,298 INFO 2. Custom
+2024-08-21 18:09:35,298 INFO 3. Media Video/Image
+2024-08-21 18:09:35,298 INFO 4. View All Comics
+2024-08-21 18:09:35,298 INFO 5. Exit
+2024-08-21 18:09:58,369 INFO Database connection closed
+2024-08-21 18:10:07,835 INFO Grizzly News: Daily AI-Generated Comics
+2024-08-21 18:10:44,889 INFO Database connection closed
+2024-08-21 18:11:09,449 INFO Grizzly News: Daily AI-Generated Comics
+2024-08-21 18:11:12,904 INFO 
+All Comics:
+2024-08-21 18:11:12,904 INFO Title: Unknown (Not in database)
+2024-08-21 18:11:12,904 INFO Location: Unknown
+2024-08-21 18:11:12,905 INFO Image Path: /home/samjd/Apps/claude-dev/grizzly-news/output/Lillooet_and_Lytton_comics/2024_08_21/ggs_grizzly_news_Agricultural_Workshop_Series.png
+2024-08-21 18:11:12,905 INFO Created At: Unknown
+2024-08-21 18:11:12,905 INFO --------------------------------------------------
+2024-08-21 18:11:12,905 INFO Title: Unknown (Not in database)
+2024-08-21 18:11:12,905 INFO Location: Unknown
+2024-08-21 18:11:12,905 INFO Image Path: /home/samjd/Apps/claude-dev/grizzly-news/output/Lillooet_and_Lytton_comics/2024_08_21/video_comic_video-test.mp4.png
+2024-08-21 18:11:12,905 INFO Created At: Unknown
+2024-08-21 18:11:12,905 INFO --------------------------------------------------
+2024-08-21 18:11:12,906 INFO Title: Unknown (Not in database)
+2024-08-21 18:11:12,906 INFO Location: Unknown
+2024-08-21 18:11:12,906 INFO Image Path: /home/samjd/Apps/claude-dev/grizzly-news/output/Lillooet_and_Lytton_comics/2024_08_21/image_comic_img-test2.jpg.png
+2024-08-21 18:11:12,906 INFO Created At: Unknown
+2024-08-21 18:11:12,906 INFO --------------------------------------------------
+2024-08-21 18:11:12,906 INFO Title: Unknown (Not in database)
+2024-08-21 18:11:12,906 INFO Location: Unknown
+2024-08-21 18:11:12,906 INFO Image Path: /home/samjd/Apps/claude-dev/grizzly-news/output/Lillooet_and_Lytton_comics/2024_08_21/ggs_grizzly_news_No_Current_News_Events_Reported.png
+2024-08-21 18:11:12,906 INFO Created At: Unknown
+2024-08-21 18:11:12,907 INFO --------------------------------------------------
+2024-08-21 18:11:12,907 INFO Title: Unknown (Not in database)
+2024-08-21 18:11:12,907 INFO Location: Unknown
+2024-08-21 18:11:12,907 INFO Image Path: /home/samjd/Apps/claude-dev/grizzly-news/output/Lillooet_and_Lytton_comics/2024_08_21/ggs_grizzly_news_No_Current_News_Events.png
+2024-08-21 18:11:12,907 INFO Created At: Unknown
+2024-08-21 18:11:12,907 INFO --------------------------------------------------
+2024-08-21 18:11:12,907 INFO Title: Unknown (Not in database)
+2024-08-21 18:11:12,907 INFO Location: Unknown
+2024-08-21 18:11:12,907 INFO Image Path: /home/samjd/Apps/claude-dev/grizzly-news/output/Lillooet_and_Lytton_comics/2024_08_21/ggs_grizzly_news_No_Recent_Wildfire_Updates.png
+2024-08-21 18:11:12,908 INFO Created At: Unknown
+2024-08-21 18:11:12,908 INFO --------------------------------------------------
+2024-08-21 18:11:12,908 INFO Title: Unknown (Not in database)
+2024-08-21 18:11:12,908 INFO Location: Unknown
+2024-08-21 18:11:12,908 INFO Image Path: /home/samjd/Apps/claude-dev/grizzly-news/output/Lillooet_and_Lytton_comics/2024_08_21/ggs_grizzly_news_Emergency_Updates.png
+2024-08-21 18:11:12,908 INFO Created At: Unknown
+2024-08-21 18:11:12,908 INFO --------------------------------------------------
+2024-08-21 18:11:32,236 INFO 
+Generating comic from image. Please wait...
+2024-08-21 18:11:54,184 INFO Media comic generated successfully!
+2024-08-21 18:13:26,275 INFO Database connection closed
+2024-08-21 18:13:45,724 INFO Grizzly News: Daily AI-Generated Comics
+2024-08-21 18:13:55,859 INFO 
+Generating comic from video. Please wait...
+2024-08-21 18:17:33,962 INFO Exiting the program. Goodbye!
+2024-08-21 18:17:33,962 INFO Database connection closed
+2024-08-21 18:17:40,130 INFO Grizzly News: Daily AI-Generated Comics
+2024-08-21 18:23:10,605 INFO Exiting the program. Goodbye!
+2024-08-21 18:23:10,605 INFO Database connection closed
+2024-08-21 18:26:49,589 INFO Exiting the program. Goodbye!
+2024-08-21 18:26:49,590 INFO Database connection closed
+2024-08-21 18:27:13,679 INFO Exiting the program. Goodbye!
+2024-08-21 18:27:13,679 INFO Database connection closed

@@ -41,12 +41,11 @@ def display_menu():
     Returns:
         str: The user's menu choice.
     """
-    app_logger.info("\nGrizzly News: Daily AI-Generated Comics")
-    app_logger.info("1. News")
-    app_logger.info("2. Custom")
-    app_logger.info("3. Media Video/Image")
-    app_logger.info("4. View All Comics")
-    app_logger.info("5. Exit")
+    print("1. News")
+    print("2. Custom")
+    print("3. Media Video/Image")
+    print("4. View All Comics")
+    print("5. Exit")
     return input("Choose an option (1-5): ")
 
 def summarize_generated_files(comic_dir):
@@ -110,7 +109,6 @@ def main():
     The main function that runs the Grizzly News AI-Generated Comics program.
     It handles the main menu loop and user interactions.
     """
-    app_logger.info("Grizzly News: Daily AI-Generated Comics")
     
     try:
         while True:
@@ -118,16 +116,16 @@ def main():
             
             if choice == '1':
                 location = input("Enter the location for news (press Enter for default location): ") or config.LOCATION
-                app_logger.info("Fetching local events. Please wait...")
+                print("Fetching local events. Please wait...")
                 local_events = generate_daily_comic(location)
                 if local_events:
-                    app_logger.info("-" * 50)
-                    app_logger.info(f"Comic generated successfully!")
-                    app_logger.info(f"{len(local_events)} NEW local event(s) retrieved today in {location}:")
-                    app_logger.info("-" * 50)
+                    print("-" * 50)
+                    print(f"Comic generated successfully!")
+                    print(f"{len(local_events)} NEW local event(s) retrieved today in {location}:")
+                    print("-" * 50)
                     for i, event in enumerate(local_events, start=1):
-                        app_logger.info(f" * {event['title']}")
-                    app_logger.info("-" * 50)
+                        print(f" * {event['title']}")
+                    print("-" * 50)
                     
                     comic_dir = os.path.join(config.OUTPUT_DIR, f"{location.replace(' ', '_')}_comics", TODAY)
                     file_summary = summarize_generated_files(comic_dir)
@@ -151,7 +149,7 @@ def main():
                 title = input("Enter the title for your custom comic: ")
                 story = input("Enter the story for your custom comic: ")
                 location = input("Enter the location for your custom comic (press Enter for default location): ") or config.LOCATION
-                app_logger.info("\nGenerating custom comic... Please wait.")
+                print("\nGenerating custom comic. Please wait...")
                 result = generate_custom_comic(title, story, location)
                 if result:
                     image_path, summary = result
@@ -192,7 +190,7 @@ def main():
                 
                 if result:
                     image_paths, summary = result
-                    app_logger.info(f"Media comic generated successfully!")
+                    print(f"Media comic generated successfully!")
                     for i, image_path in enumerate(image_paths, start=1):
                         app_logger.debug(f"Comic {i} saved at: {image_path}")
                     app_logger.debug(f"Summary: {summary}")

@@ -13,8 +13,9 @@ import warnings
 TODAY = datetime.now().strftime("%Y_%m_%d")
 
 # Check if CUDA is available and set the device
+
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-app_logger.info(f"Using device: {device}")
+print(f"Grizzly News-({device}): Daily AI-Generated Comics:")
 
 # Load image captioning pipeline
 captioner = pipeline("image-to-text", model="nlpconnect/vit-gpt2-image-captioning", device=device)
