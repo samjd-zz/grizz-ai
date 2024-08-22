@@ -1,7 +1,8 @@
 import tweepy
 import requests
-from config import load_config
+
 from logger import app_logger
+from config import load_config
 
 config = load_config()
 

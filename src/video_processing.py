@@ -1,10 +1,13 @@
 import cv2
 import numpy as np
-from logger import app_logger
-from PIL import Image
 import traceback
-from text_analysis import analyze_text_opai
+from PIL import Image
+
+from logger import app_logger
 from utils import analyze_frames
+
+from text_analysis import analyze_text_opai
+
 
 def extract_frames(video_path, num_frames=5):
     """

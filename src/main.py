@@ -24,13 +24,15 @@ import os
 import logging
 from datetime import datetime
 
-# Custom modules
-from config import load_config
 from logger import app_logger
+from config import load_config
+
 from comic_generator import generate_daily_comic, generate_custom_comic, generate_media_comic
+from voice_recognition import is_voice_enabled, listen_for_command, toggle_voice
+
 from social_media import post_to_twitter, post_to_facebook
 from database import close_database, get_all_comics
-from voice_recognition import is_voice_enabled, listen_for_command, toggle_voice
+
 
 # Load configuration
 config = load_config()

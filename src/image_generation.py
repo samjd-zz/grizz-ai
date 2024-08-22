@@ -1,4 +1,5 @@
 import requests
+
 from api_handlers import getimg_api_request, openai_client
 from logger import app_logger
 from config import OUTPUT_DIR

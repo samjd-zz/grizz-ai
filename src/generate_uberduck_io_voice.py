@@ -1,4 +1,4 @@
-import requests # type: ignore
+import requests
 import json
 
 API_KEY = 'your_uberduck_api_key'

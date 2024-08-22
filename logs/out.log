@@ -22993,3 +22993,15 @@ All Comics:
 2024-08-21 21:13:07,435 INFO Database connection closed
 2024-08-21 21:27:44,971 INFO Exiting the program. Goodbye!
 2024-08-21 21:27:44,972 INFO Database connection closed
+2024-08-21 21:49:47,989 INFO Exiting the program. Goodbye!
+2024-08-21 21:49:47,990 INFO Database connection closed
+2024-08-21 22:41:39,001 INFO Exiting the program. Goodbye!
+2024-08-21 22:41:39,002 INFO Database connection closed
+2024-08-21 22:42:29,978 INFO Exiting the program. Goodbye!
+2024-08-21 22:42:29,978 INFO Database connection closed
+2024-08-21 22:44:29,519 ERROR Error generating image with DALL-E: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-08-21 22:44:29,519 ERROR Failed to generate comic panel for the event: Manhunt for Escaped Murder Suspect Ends in Chicago SWAT Restaurant Standoff. Skipping this event.
+2024-08-21 22:45:52,175 INFO Exiting the program. Goodbye!
+2024-08-21 22:45:52,175 INFO Database connection closed
+2024-08-21 22:46:39,374 INFO Exiting the program. Goodbye!
+2024-08-21 22:46:39,374 INFO Database connection closed

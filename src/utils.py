@@ -1,14 +1,15 @@
 import os
 import re
-from datetime import datetime
-from logger import app_logger
-from config import OUTPUT_DIR
-
 import torch
 import traceback
+import warnings
+
+from datetime import datetime
+from logger import app_logger
 from transformers import pipeline
 from PIL import Image
-import warnings
+
+from config import OUTPUT_DIR
 
 TODAY = datetime.now().strftime("%Y_%m_%d")
 

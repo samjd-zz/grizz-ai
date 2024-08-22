@@ -1,8 +1,9 @@
-import sqlite3
-from logger import app_logger
-from datetime import datetime
 import os
-from dotenv import load_dotenv # type: ignore
+import sqlite3
+from datetime import datetime
+from dotenv import load_dotenv
+
+from logger import app_logger
 
 # Load environment variables
 load_dotenv()

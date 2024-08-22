@@ -1,15 +1,16 @@
-from datetime import datetime
 import os
 import re
+from tqdm import tqdm
+from datetime import datetime
+
 from logger import app_logger
+from utils import analyze_frames, save_summary, save_image
+
 from image_generation import generate_dalle_images
-from utils import analyze_frames
 from text_analysis import analyze_text_opai
 from event_fetcher import get_local_events
-from utils import save_summary, save_image
-from config import OUTPUT_DIR, SOURCE_DIR
-from tqdm import tqdm # type: ignore
 from video_processing import get_video_summary
+
 from database import add_comic, get_comic_by_story
 
 TODAY = datetime.now().strftime("%Y_%m_%d")

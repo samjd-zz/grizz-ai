@@ -1,5 +1,6 @@
 import json
 from datetime import datetime
+
 from api_handlers import perplexity_client
 from logger import app_logger
 from config import load_config
