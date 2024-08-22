@@ -5,3 +5,4 @@ __pycache__/
 output/
 logs/
 published/
+data/comics.db

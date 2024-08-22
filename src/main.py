@@ -88,21 +88,21 @@ def view_all_comics():
 
     # Display comics from the database
     for comic in comics_from_db:
-        app_logger.info(f"Title: {comic[1]}")
-        app_logger.info(f"Location: {comic[2]}")
-        app_logger.info(f"Image Path: {comic[6]}")
-        app_logger.info(f"Created At: {comic[7]}")
-        app_logger.info("-" * 50)
+        print(f"Title: {comic[1]}")
+        print(f"Location: {comic[2]}")
+        print(f"Image Path: {comic[6]}")
+        print(f"Created At: {comic[7]}")
+        print("-" * 50)
 
     # Display comics from the output folder that are not in the database
     db_image_paths = set(comic[6] for comic in comics_from_db)
     for image_path in comics_from_folder:
         if image_path not in db_image_paths:
-            app_logger.info(f"Title: Unknown (Not in database)")
-            app_logger.info(f"Location: Unknown")
-            app_logger.info(f"Image Path: {image_path}")
-            app_logger.info(f"Created At: Unknown")
-            app_logger.info("-" * 50)
+            print(f"Title: Unknown (Not in database)")
+            print(f"Location: Unknown")
+            print(f"Image Path: {image_path}")
+            print(f"Created At: Unknown")
+            print("-" * 50)
 
 def main():
     """
