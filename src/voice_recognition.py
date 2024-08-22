@@ -2,12 +2,21 @@ import whisper
 import pyaudio
 import os
 import numpy as np
+import torch
 from dotenv import load_dotenv
 
 load_dotenv()
 
+# Check if CUDA is available
+device = "cuda" if torch.cuda.is_available() else "cpu"
+
 # Initialize the Whisper model
-model = whisper.load_model("base")
+# Tiny model: ~1 GB VRAM
+# Base model: ~2 GB VRAM
+# Small model: ~3 GB VRAM
+# Medium model: ~5 GB VRAM
+# Large model: ~10-12 GB VRAM
+model = whisper.load_model("large").to(device)
 
 # PyAudio configuration
 CHUNK = 1024
