@@ -53,7 +53,7 @@ def listen_to_user(duration=config.LISTEN_VOICE_DURATION_SHORT):
     p.terminate()
 
     audio_data = np.frombuffer(b''.join(frames), dtype=np.float32)
-    result = model.transcribe(audio_data)
+    result = whisper_model.transcribe(audio_data)
     
     return result['text'].strip().lower()
 
