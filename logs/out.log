@@ -22769,3 +22769,65 @@ Generating comic from video. Please wait...
 2024-08-21 18:26:49,590 INFO Database connection closed
 2024-08-21 18:27:13,679 INFO Exiting the program. Goodbye!
 2024-08-21 18:27:13,679 INFO Database connection closed
+2024-08-21 18:30:06,215 INFO 
+All Comics:
+2024-08-21 18:30:06,216 INFO Title: Campfire Ban Effective July 12, 2024
+2024-08-21 18:30:06,216 INFO Location: Lillooet and Lytton
+2024-08-21 18:30:06,216 INFO Image Path: /home/samjd/Apps/claude-dev/grizzly-news/output/Lillooet_and_Lytton_comics/2024_08_21/ggs_grizzly_news_Campfire_Ban_Effective_July_12,_2024.png
+2024-08-21 18:30:06,216 INFO Created At: 2024-08-21 18:29:44
+2024-08-21 18:30:06,216 INFO --------------------------------------------------
+2024-08-21 18:30:06,216 INFO Title: Flood Watch - Fraser River
+2024-08-21 18:30:06,216 INFO Location: Lillooet and Lytton
+2024-08-21 18:30:06,216 INFO Image Path: /home/samjd/Apps/claude-dev/grizzly-news/output/Lillooet_and_Lytton_comics/2024_08_21/ggs_grizzly_news_Flood_Watch_-_Fraser_River.png
+2024-08-21 18:30:06,217 INFO Created At: 2024-08-21 18:29:22
+2024-08-21 18:30:06,217 INFO --------------------------------------------------
+2024-08-21 18:30:06,217 INFO Title: Public Service Announcement - Lillooet Emergency Room Closure
+2024-08-21 18:30:06,217 INFO Location: Lillooet and Lytton
+2024-08-21 18:30:06,217 INFO Image Path: /home/samjd/Apps/claude-dev/grizzly-news/output/Lillooet_and_Lytton_comics/2024_08_21/ggs_grizzly_news_Public_Service_Announcement_-_Lillooet_Emergency_Room_Closure.png
+2024-08-21 18:30:06,217 INFO Created At: 2024-08-21 18:29:04
+2024-08-21 18:30:06,217 INFO --------------------------------------------------
+2024-08-21 18:30:06,217 INFO Title: Chilcotin River Landslide Update
+2024-08-21 18:30:06,217 INFO Location: Lillooet and Lytton
+2024-08-21 18:30:06,218 INFO Image Path: /home/samjd/Apps/claude-dev/grizzly-news/output/Lillooet_and_Lytton_comics/2024_08_21/ggs_grizzly_news_Chilcotin_River_Landslide_Update.png
+2024-08-21 18:30:06,218 INFO Created At: 2024-08-21 18:28:33
+2024-08-21 18:30:06,218 INFO --------------------------------------------------
+2024-08-21 18:30:06,218 INFO Title: Temporary Emergency Water Shutoff
+2024-08-21 18:30:06,218 INFO Location: Lillooet and Lytton
+2024-08-21 18:30:06,218 INFO Image Path: /home/samjd/Apps/claude-dev/grizzly-news/output/Lillooet_and_Lytton_comics/2024_08_21/ggs_grizzly_news_Temporary_Emergency_Water_Shutoff.png
+2024-08-21 18:30:06,218 INFO Created At: 2024-08-21 18:28:09
+2024-08-21 18:30:06,218 INFO --------------------------------------------------
+2024-08-21 18:30:06,218 INFO Title: Unknown (Not in database)
+2024-08-21 18:30:06,219 INFO Location: Unknown
+2024-08-21 18:30:06,219 INFO Image Path: /home/samjd/Apps/claude-dev/grizzly-news/output/Lillooet_and_Lytton_comics/2024_08_21/ggs_grizzly_news_Agricultural_Workshop_Series.png
+2024-08-21 18:30:06,219 INFO Created At: Unknown
+2024-08-21 18:30:06,219 INFO --------------------------------------------------
+2024-08-21 18:30:06,219 INFO Title: Unknown (Not in database)
+2024-08-21 18:30:06,219 INFO Location: Unknown
+2024-08-21 18:30:06,219 INFO Image Path: /home/samjd/Apps/claude-dev/grizzly-news/output/Lillooet_and_Lytton_comics/2024_08_21/video_comic_video-test.mp4.png
+2024-08-21 18:30:06,219 INFO Created At: Unknown
+2024-08-21 18:30:06,219 INFO --------------------------------------------------
+2024-08-21 18:30:06,220 INFO Title: Unknown (Not in database)
+2024-08-21 18:30:06,220 INFO Location: Unknown
+2024-08-21 18:30:06,220 INFO Image Path: /home/samjd/Apps/claude-dev/grizzly-news/output/Lillooet_and_Lytton_comics/2024_08_21/image_comic_img-test2.jpg.png
+2024-08-21 18:30:06,220 INFO Created At: Unknown
+2024-08-21 18:30:06,220 INFO --------------------------------------------------
+2024-08-21 18:30:06,220 INFO Title: Unknown (Not in database)
+2024-08-21 18:30:06,220 INFO Location: Unknown
+2024-08-21 18:30:06,220 INFO Image Path: /home/samjd/Apps/claude-dev/grizzly-news/output/Lillooet_and_Lytton_comics/2024_08_21/ggs_grizzly_news_No_Current_News_Events_Reported.png
+2024-08-21 18:30:06,220 INFO Created At: Unknown
+2024-08-21 18:30:06,220 INFO --------------------------------------------------
+2024-08-21 18:30:06,220 INFO Title: Unknown (Not in database)
+2024-08-21 18:30:06,220 INFO Location: Unknown
+2024-08-21 18:30:06,220 INFO Image Path: /home/samjd/Apps/claude-dev/grizzly-news/output/Lillooet_and_Lytton_comics/2024_08_21/ggs_grizzly_news_No_Current_News_Events.png
+2024-08-21 18:30:06,220 INFO Created At: Unknown
+2024-08-21 18:30:06,220 INFO --------------------------------------------------
+2024-08-21 18:30:06,220 INFO Title: Unknown (Not in database)
+2024-08-21 18:30:06,220 INFO Location: Unknown
+2024-08-21 18:30:06,220 INFO Image Path: /home/samjd/Apps/claude-dev/grizzly-news/output/Lillooet_and_Lytton_comics/2024_08_21/ggs_grizzly_news_No_Recent_Wildfire_Updates.png
+2024-08-21 18:30:06,220 INFO Created At: Unknown
+2024-08-21 18:30:06,220 INFO --------------------------------------------------
+2024-08-21 18:30:06,220 INFO Title: Unknown (Not in database)
+2024-08-21 18:30:06,220 INFO Location: Unknown
+2024-08-21 18:30:06,220 INFO Image Path: /home/samjd/Apps/claude-dev/grizzly-news/output/Lillooet_and_Lytton_comics/2024_08_21/ggs_grizzly_news_Emergency_Updates.png
+2024-08-21 18:30:06,220 INFO Created At: Unknown
+2024-08-21 18:30:06,220 INFO --------------------------------------------------
