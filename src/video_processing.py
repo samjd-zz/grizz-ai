@@ -6,7 +6,7 @@ from PIL import Image
 from logger import app_logger
 from utils import analyze_frames
 
-from text_analysis import analyze_text_opai
+from text_analysis import analyze_text_ollama
 
 
 def extract_frames(video_path, num_frames=5):
@@ -74,7 +74,8 @@ def get_video_summary(video_path, pbar, location="a generic city"):
         # Combine frame descriptions into a single text
         combined_description = "\n".join(frame_descriptions)
 
-        comic_script = analyze_text_opai(combined_description, location)
+        #comic_script = analyze_text_opai(combined_description, location)
+        comic_script = analyze_text_ollama(combined_description, location)
         pbar.update(1)
         if not comic_script:
             app_logger.error("Failed to generate comic script")

@@ -7,7 +7,7 @@ from logger import app_logger
 from utils import analyze_frames, save_summary, save_image
 
 from image_generation import generate_dalle_images
-from text_analysis import analyze_text_opai
+from text_analysis import analyze_text_ollama
 from event_fetcher import get_local_events
 from video_processing import get_video_summary
 
@@ -56,7 +56,8 @@ def generate_daily_comic(location):
                 
                 # Generate comic script for the event
                 app_logger.debug(f"Analyzing event: {event_title}")
-                event_analysis = analyze_text_opai(f"Generate a comic script for this event: {event_title}. {event_story}", location)
+                #event_analysis = analyze_text_opai(f"Generate a comic script for this event: {event_title}. {event_story}", location)
+                event_analysis = analyze_text_ollama(f"Generate a comic script for this event: {event_title}. {event_story}", location)
                 if not event_analysis:
                     app_logger.error(f"Failed to analyze event: {event_title}. Skipping this event.")
                     pbar.update(total_steps-2)
@@ -84,7 +85,8 @@ def generate_daily_comic(location):
 
                 # Generate a summary/caption for the comic panel
                 app_logger.debug(f"Generating summary for: {event_title}")
-                panel_summary = analyze_text_opai(f"Generate a brief summary for this comic panel based on the following event and script: Event: {event_title}. {event_story}. Script: {event_analysis}", location)
+                #panel_summary = analyze_text_opai(f"Generate a brief summary for this comic panel based on the following event and script: Event: {event_title}. {event_story}. Script: {event_analysis}", location)
+                panel_summary = analyze_text_ollama(f"Generate a brief summary for this comic panel based on the following event and script: Event: {event_title}. {event_story}. Script: {event_analysis}", location)
                 if not panel_summary:
                     app_logger.warning(f"Failed to generate panel summary for {event_title}. Using default summary.")
                     panel_summary = f"Summary of the event: {event_title}"
@@ -146,7 +148,8 @@ def generate_custom_comic(title, story, location):
         with tqdm(total=total_steps, bar_format='{l_bar}{bar}', ncols=50, colour='#00FF00') as pbar:
             # Generate comic script for the custom story
             app_logger.debug("Analyzing custom story")
-            event_analysis = analyze_text_opai(f"Generate a comic script for this event: {title}. {story}", location)
+            #event_analysis = analyze_text_opai(f"Generate a comic script for this event: {title}. {story}", location)
+            event_analysis = analyze_text_ollama(f"Generate a comic script for this event: {title}. {story}", location)
             if not event_analysis:
                 app_logger.error(f"Failed to analyze custom event: {title}. Aborting comic generation.")
                 pbar.update(total_steps)
@@ -178,7 +181,8 @@ def generate_custom_comic(title, story, location):
 
             # Generate a summary/caption for the comic panel
             app_logger.debug("Generating panel summary")
-            panel_summary = analyze_text_opai(f"Generate a brief summary for this comic panel based on the following event and script: Event: {title}. {story}. Script: {event_analysis}", location)
+            #panel_summary = analyze_text_opai(f"Generate a brief summary for this comic panel based on the following event and script: Event: {title}. {story}. Script: {event_analysis}", location)
+            panel_summary = analyze_text_ollama(f"Generate a brief summary for this comic panel based on the following event and script: Event: {title}. {story}. Script: {event_analysis}", location)
             if not panel_summary:
                 app_logger.warning(f"Failed to generate panel summary for {title}. Using default summary.")
                 panel_summary = f"Summary of the custom event: {title}"
@@ -255,7 +259,8 @@ def generate_media_comic(media_type, path, location):
                     pbar.update(1)
 
                     # Generate a single comic for the entire video summary
-                    event_analysis = analyze_text_opai(f"Generate a comic script for this event: {video_summary}", location)
+                    #event_analysis = analyze_text_opai(f"Generate a comic script for this event: {video_summary}", location)
+                    event_analysis = analyze_text_ollama(f"Generate a comic script for this event: {video_summary}", location)
                     if not event_analysis:
                         app_logger.error(f"Failed to analyze video. Aborting comic generation.")
                         pbar.update(total_steps-3)
@@ -307,7 +312,8 @@ def generate_media_comic(media_type, path, location):
                     pbar.update(1)
 
                     # Generate a single comic for the entire image description
-                    event_analysis = analyze_text_opai(f"Generate a comic script for this event: {image_description}", location)
+                    #event_analysis = analyze_text_opai(f"Generate a comic script for this event: {image_description}", location)
+                    event_analysis = analyze_text_ollama(f"Generate a comic script for this event: {image_description}", location)
                     if not event_analysis:
                         app_logger.error(f"Failed to analyze image. Aborting comic generation.")
                         pbar.update(total_steps-3)

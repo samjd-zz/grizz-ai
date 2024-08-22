@@ -23010,3 +23010,28 @@ All Comics:
 All Comics:
 2024-08-22 14:21:49,064 INFO Exiting the program. Goodbye!
 2024-08-22 14:21:49,065 INFO Database connection closed
+2024-08-22 14:44:28,211 INFO Exiting the program. Goodbye!
+2024-08-22 14:44:28,214 INFO Database connection closed
+2024-08-22 14:46:26,224 INFO 
+Generating comic from video. Please wait...
+2024-08-22 14:48:00,068 INFO 
+Generating comic from image. Please wait...
+2024-08-22 14:48:00,253 INFO Comic already exists for image: /home/samjd/Apps/claude-dev/grizzly-news/input/img-test2.jpg. Skipping this image.
+2024-08-22 14:49:14,421 INFO Exiting the program. Goodbye!
+2024-08-22 14:49:14,422 INFO Database connection closed
+2024-08-22 15:10:54,114 INFO Starting custom comic generation process...
+2024-08-22 15:10:54,114 INFO Generating custom comic: The Great Grill-Off Competition: A Tale of Pork Ribs and Friendly 
+2024-08-22 15:11:36,913 INFO 
+Custom comic generation completed!
+2024-08-22 15:17:15,396 INFO Starting custom comic generation process...
+2024-08-22 15:17:15,396 INFO Generating custom comic: The Great Grill-Off Competition: A Tale of Pork Ribs and Friendly 
+2024-08-22 15:18:01,601 INFO 
+Custom comic generation completed!
+2024-08-22 15:18:54,337 INFO 
+All Comics:
+2024-08-22 15:21:31,107 INFO Starting custom comic generation process...
+2024-08-22 15:21:31,108 INFO Generating custom comic: Grizzly Grill Smokes: All you can eat pork ribs contest!
+2024-08-22 15:22:16,632 INFO 
+Custom comic generation completed!
+2024-08-22 15:37:48,571 INFO Exiting the program. Goodbye!
+2024-08-22 15:37:48,572 INFO Database connection closed
