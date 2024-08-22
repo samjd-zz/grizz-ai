@@ -7,7 +7,7 @@ from utils import analyze_frames
 from text_analysis import analyze_text_opai
 from event_fetcher import get_local_events
 from utils import save_summary, save_image
-from config import OUTPUT_DIR, SOURCE_DIR, config
+from config import OUTPUT_DIR, SOURCE_DIR
 from tqdm import tqdm # type: ignore
 from video_processing import get_video_summary
 from database import add_comic, get_comic_by_story, get_all_comics
