@@ -1,4 +1,4 @@
-import requests
+import requests # type: ignore
 
 # Replace this with your actual ElevenLabs API key
 API_KEY = 'your_elevenlabs_api_key'
