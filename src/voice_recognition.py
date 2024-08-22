@@ -1,12 +1,11 @@
 import whisper
 import pyaudio
-import os
 import numpy as np
 import torch
-from dotenv import load_dotenv
 from config import load_config
 
-load_dotenv()
+# Load configuration
+config = load_config()
 
 # Initialize the Whisper model
 # Tiny model: ~1 GB VRAM
@@ -14,7 +13,7 @@ load_dotenv()
 # Small model: ~3 GB VRAM
 # Medium model: ~5 GB VRAM
 # Large model: ~10-12 GB VRAM
-whisper_model = whisper.load_model("small", device="cuda" if torch.cuda.is_available() else "cpu")
+whisper_model = whisper.load_model(api_key = config.WHISPER_MODEL_SIZE, device="cuda" if torch.cuda.is_available() else "cpu")
 
 # PyAudio configuration
 CHUNK = 1024
@@ -22,11 +21,8 @@ FORMAT = pyaudio.paFloat32
 CHANNELS = 1
 RATE = 16000
 
-# Load configuration
-config = load_config()
-
 def is_listen_voice_enabled():
-    return os.getenv('LISTEN_VOICE_ENABLED', 'false').lower() == 'true'
+    return config.LISTEN_VOICE_ENABLED.lower() == 'true'
 
 def listen_to_user(duration=config.LISTEN_VOICE_DURATION_SHORT):
     if not is_listen_voice_enabled():

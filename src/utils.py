@@ -7,10 +7,11 @@ import warnings
 from datetime import datetime
 from logger import app_logger
 from transformers import pipeline
+from config import load_config
+
 from PIL import Image
 
-from config import OUTPUT_DIR
-
+config = load_config()
 TODAY = datetime.now().strftime("%Y_%m_%d")
 
 # Suppress specific warnings
@@ -85,7 +86,7 @@ def save_summary(location, filename, title, story="", source="", panel_summary="
         panel_summary (str, optional): The summary of the comic panel. Defaults to "".
     """
     try:
-        comics_dir = os.path.join(OUTPUT_DIR, f"{location.replace(' ', '_')}_comics", TODAY)
+        comics_dir = os.path.join(config.OUTPUT_DIR, f"{location.replace(' ', '_')}_comics", TODAY)
         os.makedirs(comics_dir, exist_ok=True)
         summary_path = os.path.join(comics_dir, filename)
         with open(summary_path, "w") as f:
@@ -116,7 +117,7 @@ def save_image(image_data, filename, location):
         str: Path to the saved image file, or None if an error occurred.
     """
     try:
-        comics_dir = os.path.join(OUTPUT_DIR, f"{location.replace(' ', '_')}_comics", TODAY)
+        comics_dir = os.path.join(config.OUTPUT_DIR, f"{location.replace(' ', '_')}_comics", TODAY)
         os.makedirs(comics_dir, exist_ok=True)
         image_path = os.path.join(comics_dir, filename)
 

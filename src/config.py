@@ -24,11 +24,9 @@ class Config:
         self.LISTEN_VOICE_DURATION_SHORT = int(os.getenv('LISTEN_VOICE_DURATION_SHORT', 5))
         self.LISTEN_VOICE_DURATION_MED = int(os.getenv('LISTEN_VOICE_DURATION_MED', 10))
         self.LISTEN_VOICE_DURATION_LONG = int(os.getenv('LISTEN_VOICE_DURATION_LONG', 30))
+        self.WHISPER_MODEL_SIZE = os.getenv('WHISPER_MODEL_SIZE', 'tiny')
+        self.LISTEN_VOICE_ENABLED = os.getenv('LISTEN_VOICE_ENABLED', 'false')
         
-
 def load_config():
     return Config()
 
-config = load_config()
-OUTPUT_DIR = config.OUTPUT_DIR
-SOURCE_DIR = config.SOURCE_DIR
