@@ -23,16 +23,14 @@ warnings.filterwarnings("ignore", category=FutureWarning, message="You are using
 import os
 import logging
 from datetime import datetime
-
 from logger import app_logger
-from config import load_config
 
+from config import load_config
 from comic_generator import generate_daily_comic, generate_custom_comic, generate_media_comic
-from voice_recognition import is_voice_enabled, listen_for_command, toggle_voice
+from voice_recognition import is_listen_voice_enabled, listen_to_user, toggle_voice
 
 from social_media import post_to_twitter, post_to_facebook
 from database import close_database, get_all_comics
-
 
 # Load configuration
 config = load_config()
@@ -65,9 +63,9 @@ def get_user_choice():
     Returns:
         str: The user's choice.
     """
-    if is_voice_enabled():
+    if is_listen_voice_enabled():
         print("Please say your command...")
-        command = listen_for_command()
+        command = listen_to_user(config.LISTEN_VOICE_DURATION_SHORT)
         if command:
             print(f"Recognized command: {command}")
             if "news" in command:
@@ -152,7 +150,11 @@ def main():
             choice = get_user_choice()
             
             if choice == '1':
-                location = input("Enter the location for news (press Enter for default location): ") or config.LOCATION
+                if is_listen_voice_enabled():
+                    print("Please say your location...")
+                    location = listen_to_user(config.LISTEN_VOICE_DURATION_SHORT)
+                else:
+                    location = input("Enter the location for news (press Enter for default location): ") or config.LOCATION
                 print("Fetching local events. Please wait...")
                 local_events = generate_daily_comic(location)
                 if local_events:
@@ -183,7 +185,14 @@ def main():
                                 app_logger.info(f"Posted comic to social media: {filename}")
             
             elif choice == '2':
-                title = input("Enter the title for your custom comic: ")
+                if is_listen_voice_enabled():
+                    print("Please say your story title...")
+                    title = listen_to_user(config.LISTEN_VOICE_DURATION_MEDIUM)
+                    print("Please tell your story...")
+                    story = listen_to_user(config.LISTEN_VOICE_DURATION_LONG)
+                else:
+                    title = input("Enter the title for your custom comic: ")
+                
                 story = input("Enter the story for your custom comic: ")
                 location = input("Enter the location for your custom comic (press Enter for default location): ") or config.LOCATION
                 print("\nGenerating custom comic. Please wait...")
@@ -209,13 +218,26 @@ def main():
                         app_logger.info("Posted custom comic to social media")
             
             elif choice == '3':
-                location = input("Enter the location for news (press Enter for default location): ") or config.LOCATION
-                media_type = input("Enter 'video' for video processing or 'image' for image processing: ").lower()
+                if is_listen_voice_enabled():
+                    print("Please say your location...")
+                    location = listen_to_user(config.LISTEN_VOICE_DURATION_SHORT)
+                    print("Please say your media type, 'video' or 'image'...")
+                    media_type  = listen_to_user(config.LISTEN_VOICE_DURATION_SHORT)
+                else:
+                    location = input("Enter the location for news (press Enter for default location): ") or config.LOCATION
+                    media_type = input("Enter 'video' for video processing or 'image' for image processing: ").lower()
+                
                 if media_type not in ['video', 'image']:
                     app_logger.info("Invalid media type. Please choose 'video' or 'image'.")
                     continue
                 
-                path = input(f"Enter the path to the {media_type} file or directory (press Enter for default SOURCE_DIR): ") or config.SOURCE_DIR
+                if is_listen_voice_enabled():
+                    # print("Please say the path to the media file or directory...")
+                    # path = listen_to_user(config.LISTEN_VOICE_DURATION_LONG)
+                    print(f"Using default input path {config.SOURCE_DIR}...")
+                    path = config.SOURCE_DIR
+                else:
+                    path = input(f"Enter the path to the {media_type} file or directory (press Enter for default SOURCE_DIR): ") or config.SOURCE_DIR
                 
                 if not os.path.exists(path):
                     app_logger.info(f"The specified path does not exist: {path}")
@@ -251,6 +273,7 @@ def main():
             
             elif choice == '5':
                 toggle_voice()
+                config = load_config()
             
             elif choice == '6':
                 app_logger.info("Exiting the program. Goodbye!")

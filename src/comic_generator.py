@@ -34,7 +34,7 @@ def generate_daily_comic(location):
             return None
         
         # Estimate total steps
-        total_steps = len(local_events) * 5 + 1  # 5 steps per event + final summary
+        total_steps = len(local_events) * 6 + 1  # 5 steps per event + final summary
 
         print(f"Generating comics for {len(local_events)} events in {location}...")
         with tqdm(total=total_steps, bar_format='{l_bar}{bar}', ncols=50, colour='#00FF00') as pbar:
@@ -50,14 +50,16 @@ def generate_daily_comic(location):
                 existing_comic = get_comic_by_story(event_story)
                 if existing_comic:
                     app_logger.info(f"Comic already exists for story: {event_title}. Skipping this event.")
-                    pbar.update(5)
+                    pbar.update(total_steps-1)
                     continue
+                pbar.update(1)
                 
                 # Generate comic script for the event
                 app_logger.debug(f"Analyzing event: {event_title}")
                 event_analysis = analyze_text_opai(f"Generate a comic script for this event: {event_title}. {event_story}", location)
                 if not event_analysis:
                     app_logger.error(f"Failed to analyze event: {event_title}. Skipping this event.")
+                    pbar.update(total_steps-2)
                     continue
                 pbar.update(1)
 
@@ -66,6 +68,7 @@ def generate_daily_comic(location):
                 image_data = generate_dalle_images(event_analysis)
                 if not image_data:
                     app_logger.error(f"Failed to generate comic panel for the event: {event_title}. Skipping this event.")
+                    pbar.update(total_steps-3)
                     continue
                 pbar.update(1)
 
@@ -75,6 +78,7 @@ def generate_daily_comic(location):
                 image_path = save_image(image_data, image_filename, location)
                 if not image_path:
                     app_logger.error(f"Failed to save the generated image for {event_title}. Skipping this event.")
+                    pbar.update(total_steps-4)
                     continue
                 pbar.update(1)
 
@@ -84,6 +88,8 @@ def generate_daily_comic(location):
                 if not panel_summary:
                     app_logger.warning(f"Failed to generate panel summary for {event_title}. Using default summary.")
                     panel_summary = f"Summary of the event: {event_title}"
+                    pbar.update(total_steps-5)
+                    continue
                 pbar.update(1)
 
                 summary_filename = image_filename.replace(".png", "_summary.txt")
@@ -98,6 +104,7 @@ def generate_daily_comic(location):
 
             if not comic_panels:
                 app_logger.error("No comic panels were generated. Aborting comic generation.")
+                pbar.update(total_steps-6)
                 return None
 
             # Step 3: Combine all panel summaries into one final summary
@@ -133,7 +140,7 @@ def generate_custom_comic(title, story, location):
             app_logger.info(f"Comic already exists for story: {title}. Returning existing comic.")
             return existing_comic[6], existing_comic[4]  # Return image_path and comic_script
 
-        total_steps = 5  # Total number of steps in custom comic generation
+        total_steps = 6  # Total number of steps in custom comic generation
 
         app_logger.info(f"Generating custom comic: {title}")
         with tqdm(total=total_steps, bar_format='{l_bar}{bar}', ncols=50, colour='#00FF00') as pbar:
@@ -142,6 +149,7 @@ def generate_custom_comic(title, story, location):
             event_analysis = analyze_text_opai(f"Generate a comic script for this event: {title}. {story}", location)
             if not event_analysis:
                 app_logger.error(f"Failed to analyze custom event: {title}. Aborting comic generation.")
+                pbar.update(total_steps)
                 return None
             pbar.update(1)
 
@@ -150,6 +158,7 @@ def generate_custom_comic(title, story, location):
             image_data = generate_dalle_images(event_analysis)
             if not image_data:
                 app_logger.error(f"Failed to generate comic panel for the custom event: {title}. Aborting comic generation.")
+                pbar.update(total_steps-1)
                 return None
             pbar.update(1)
 
@@ -163,6 +172,7 @@ def generate_custom_comic(title, story, location):
             image_path = save_image(image_data, image_filename, location)
             if not image_path:
                 app_logger.error(f"Failed to save the generated image for {title}. Aborting comic generation.")
+                pbar.update(total_steps-2)
                 return None
             pbar.update(1)
 
@@ -172,11 +182,14 @@ def generate_custom_comic(title, story, location):
             if not panel_summary:
                 app_logger.warning(f"Failed to generate panel summary for {title}. Using default summary.")
                 panel_summary = f"Summary of the custom event: {title}"
+                pbar.update(total_steps-3)
+                return None
             pbar.update(1)
 
             app_logger.debug("Saving summary")
             summary_filename = image_filename.replace(".png", "_summary.txt")
             save_summary(location, summary_filename, title, story, "", panel_summary)
+            pbar.update(1)
 
             app_logger.debug(f"Adding custom comic to database: {title}")
             add_comic(title, location, story, event_analysis, "", image_path)
@@ -219,7 +232,7 @@ def generate_media_comic(media_type, path, location):
         comic_images = []
         summaries = []
 
-        total_steps = len(media_paths) * (8 if media_type == "video" else 5)
+        total_steps = (len(media_paths) * 6) + 1  # 6 steps per media file + final summary
         with tqdm(total=total_steps, bar_format='{l_bar}{bar}', ncols=50, colour='#00FF00') as pbar:
             for media_path in media_paths:
                 if media_type == 'video':
@@ -227,6 +240,7 @@ def generate_media_comic(media_type, path, location):
                     video_summary = get_video_summary(media_path,pbar)
                     if not video_summary:
                         app_logger.error(f"Failed to generate summary for video: {media_path}")
+                        pbar.update(total_steps-1)
                         continue
                     pbar.update(1)
 
@@ -236,19 +250,22 @@ def generate_media_comic(media_type, path, location):
                         app_logger.info(f"Comic already exists for video: {media_path}. Skipping this video.")
                         comic_images.append(existing_comic[6])  # Add existing image path
                         summaries.append(existing_comic[3])  # Add existing comic script
-                        pbar.update(7)
+                        pbar.update(total_steps-2)
                         continue
+                    pbar.update(1)
 
                     # Generate a single comic for the entire video summary
                     event_analysis = analyze_text_opai(f"Generate a comic script for this event: {video_summary}", location)
                     if not event_analysis:
                         app_logger.error(f"Failed to analyze video. Aborting comic generation.")
-                        return None
+                        pbar.update(total_steps-3)
+                        continue
                     pbar.update(1)
 
                     image_data = generate_dalle_images(event_analysis)
                     if not image_data:
                         app_logger.error("Failed to generate comic for the video")
+                        pbar.update(total_steps-4)
                         continue
                     pbar.update(1)
 
@@ -256,6 +273,7 @@ def generate_media_comic(media_type, path, location):
                     image_path = save_image(image_data, image_filename, location)
                     if not image_path:
                         app_logger.error("Failed to save the generated comic image")
+                        pbar.update(total_steps-5)
                         continue
                     pbar.update(1)
 
@@ -271,6 +289,7 @@ def generate_media_comic(media_type, path, location):
                     image_analysis = analyze_frames(media_path)
                     if not image_analysis:
                         app_logger.error(f"Failed to analyze image: {media_path}")
+                        pbar.update(total_steps-1)
                         continue
                     pbar.update(1)
 
@@ -283,19 +302,22 @@ def generate_media_comic(media_type, path, location):
                         app_logger.info(f"Comic already exists for image: {media_path}. Skipping this image.")
                         comic_images.append(existing_comic[6])  # Add existing image path
                         summaries.append(existing_comic[3])  # Add existing comic script
-                        pbar.update(4)
+                        pbar.update(total_steps-2)
                         continue
+                    pbar.update(1)
 
                     # Generate a single comic for the entire image description
                     event_analysis = analyze_text_opai(f"Generate a comic script for this event: {image_description}", location)
                     if not event_analysis:
                         app_logger.error(f"Failed to analyze image. Aborting comic generation.")
-                        return None
+                        pbar.update(total_steps-3)
+                        continue
                     pbar.update(1)
 
                     image_data = generate_dalle_images(event_analysis)
                     if not image_data:
                         app_logger.error("Failed to generate comic for the image")
+                        pbar.update(total_steps-4)
                         continue
                     pbar.update(1)
 
@@ -303,6 +325,7 @@ def generate_media_comic(media_type, path, location):
                     image_path = save_image(image_data, image_filename, location)
                     if not image_path:
                         app_logger.error("Failed to save the generated comic image")
+                        pbar.update(total_steps-5)
                         continue
                     pbar.update(1)
 
@@ -320,6 +343,7 @@ def generate_media_comic(media_type, path, location):
         # Create a final summary
         final_summary = "\n\n".join(summaries)
         save_summary(location, f"{media_type}_comic_summary.txt", f"{media_type.capitalize()} Comic", final_summary, "", "")
+        pbar.update(1)
 
         return comic_images, final_summary
 

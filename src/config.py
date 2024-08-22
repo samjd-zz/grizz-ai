@@ -21,6 +21,10 @@ class Config:
         self.X_CONSUMER_SECRET = os.getenv('X_CONSUMER_SECRET')
         self.X_ACCESS_TOKEN = os.getenv('X_ACCESS_TOKEN')
         self.X_ACCESS_TOKEN_SECRET = os.getenv('X_ACCESS_TOKEN_SECRET')
+        self.LISTEN_VOICE_DURATION_SHORT = int(os.getenv('LISTEN_VOICE_DURATION_SHORT', 5))
+        self.LISTEN_VOICE_DURATION_MED = int(os.getenv('LISTEN_VOICE_DURATION_MED', 10))
+        self.LISTEN_VOICE_DURATION_LONG = int(os.getenv('LISTEN_VOICE_DURATION_LONG', 30))
+        
 
 def load_config():
     return Config()

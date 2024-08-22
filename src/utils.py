@@ -13,13 +13,18 @@ from config import OUTPUT_DIR
 
 TODAY = datetime.now().strftime("%Y_%m_%d")
 
+# Suppress specific warnings
+warnings.filterwarnings("ignore", category=UserWarning)
+warnings.filterwarnings("ignore", category=FutureWarning)
+warnings.filterwarnings("ignore", category=DeprecationWarning)
+
 # Check if CUDA is available and set the device
+device = 0 if torch.cuda.is_available() else -1
+print(f"Grizzly News-({torch.cuda.get_device_name(0) if device == 0 else 'cpu'}) Daily AI-Generated Comics:")
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-print(f"Grizzly News-({device}) Daily AI-Generated Comics:")
-
-# Load image captioning pipeline
-captioner = pipeline("image-to-text", model="nlpconnect/vit-gpt2-image-captioning", device=device)
+# Load image captioning pipeline with fp16 precision for memory optimization
+captioner = pipeline("image-to-text", model="nlpconnect/vit-gpt2-image-captioning", device=device, torch_dtype=torch.float16 if torch.cuda.is_available() else None)
+# captioner = pipeline("image-to-text", model="nlpconnect/vit-gpt2-image-captioning", device=device)
 
 def analyze_frames(frames):
     """
@@ -56,9 +61,7 @@ def analyze_frames(frames):
             app_logger.debug(f"Analyzing frame {i+1}/{len(frames)}")
             
             # Generate caption using the image captioning pipeline
-            with warnings.catch_warnings():
-                warnings.simplefilter("ignore")
-                caption = captioner(frame, max_new_tokens=50)[0]['generated_text']
+            caption = captioner(frame, max_new_tokens=50)[0]['generated_text']
             
             frame_descriptions.append(f"Frame {i+1}: {caption}")
             

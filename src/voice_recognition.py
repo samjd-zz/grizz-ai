@@ -4,11 +4,9 @@ import os
 import numpy as np
 import torch
 from dotenv import load_dotenv
+from config import load_config
 
 load_dotenv()
-
-# Check if CUDA is available
-device = "cuda" if torch.cuda.is_available() else "cpu"
 
 # Initialize the Whisper model
 # Tiny model: ~1 GB VRAM
@@ -16,7 +14,7 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 # Small model: ~3 GB VRAM
 # Medium model: ~5 GB VRAM
 # Large model: ~10-12 GB VRAM
-model = whisper.load_model("large").to(device)
+whisper_model = whisper.load_model("small", device="cuda" if torch.cuda.is_available() else "cpu")
 
 # PyAudio configuration
 CHUNK = 1024
@@ -24,11 +22,14 @@ FORMAT = pyaudio.paFloat32
 CHANNELS = 1
 RATE = 16000
 
-def is_voice_enabled():
-    return os.getenv('VOICE_ENABLED', 'false').lower() == 'true'
+# Load configuration
+config = load_config()
 
-def listen_for_command():
-    if not is_voice_enabled():
+def is_listen_voice_enabled():
+    return os.getenv('LISTEN_VOICE_ENABLED', 'false').lower() == 'true'
+
+def listen_to_user(duration=config.LISTEN_VOICE_DURATION_SHORT):
+    if not is_listen_voice_enabled():
         return None
 
     p = pyaudio.PyAudio()
@@ -38,10 +39,10 @@ def listen_for_command():
                     input=True,
                     frames_per_buffer=CHUNK)
 
-    print("Listening... (Say your command)")
+    print(f"Listening {duration} seconds...")
 
     frames = []
-    for _ in range(0, int(RATE / CHUNK * 5)):  # Record for 5 seconds
+    for _ in range(0, int(RATE / CHUNK * duration)):  # Record for 5 seconds
         data = stream.read(CHUNK)
         frames.append(data)
 
@@ -57,17 +58,17 @@ def listen_for_command():
     return result['text'].strip().lower()
 
 def toggle_voice():
-    current_state = is_voice_enabled()
+    current_state = is_listen_voice_enabled()
     new_state = 'true' if not current_state else 'false'
     
     # Read the current .env file
     with open('.env', 'r') as file:
         lines = file.readlines()
     
-    # Update the VOICE_ENABLED line
+    # Update the LISTEN_VOICE_ENABLED line
     for i, line in enumerate(lines):
-        if line.startswith('VOICE_ENABLED='):
-            lines[i] = f'VOICE_ENABLED={new_state}\n'
+        if line.startswith('LISTEN_VOICE_ENABLED='):
+            lines[i] = f'LISTEN_VOICE_ENABLED={new_state}\n'
             break
     
     # Write the updated content back to .env
