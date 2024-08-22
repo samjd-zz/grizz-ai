@@ -144,6 +144,7 @@ def main():
     The main function that runs the Grizzly News AI-Generated Comics program.
     It handles the main menu loop and user interactions.
     """
+    global config  # Declare config as global to avoid UnboundLocalError
     
     try:
         while True:
@@ -273,7 +274,7 @@ def main():
             
             elif choice == '5':
                 toggle_voice()
-                config = load_config()
+                config = load_config()  # Reload the configuration after toggling voice recognition
             
             elif choice == '6':
                 app_logger.info("Exiting the program. Goodbye!")

@@ -13,7 +13,8 @@ config = load_config()
 # Small model: ~3 GB VRAM
 # Medium model: ~5 GB VRAM
 # Large model: ~10-12 GB VRAM
-whisper_model = whisper.load_model(api_key = config.WHISPER_MODEL_SIZE, device="cuda" if torch.cuda.is_available() else "cpu")
+device = 0 if torch.cuda.is_available() else -1
+whisper_model = whisper.load_model(config.WHISPER_MODEL_SIZE, device="cuda" if device == 0 else "cpu")
 
 # PyAudio configuration
 CHUNK = 1024
