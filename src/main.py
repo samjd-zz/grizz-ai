@@ -8,11 +8,17 @@
 #
 
 import warnings
+from numba.core.errors import NumbaDeprecationWarning
+
+warnings.filterwarnings("ignore", message="We strongly recommend passing in an `attention_mask` since your input_ids may be padded.")
+warnings.filterwarnings("ignore", category=FutureWarning, module='transformers')
 
 # Suppress specific UserWarnings related to attention mask in transformers
 warnings.filterwarnings("ignore", message="The attention mask is not set and cannot be inferred from input because pad token is same as eos token.")
-warnings.filterwarnings("ignore", message="We strongly recommend passing in an `attention_mask` since your input_ids may be padded.")
-warnings.filterwarnings("ignore", category=FutureWarning, module='transformers')
+# Suppress NumbaDeprecationWarning related to 'nopython' keyword argument
+warnings.filterwarnings("ignore", category=NumbaDeprecationWarning, message="The 'nopython' keyword argument was not supplied to the 'numba.jit' decorator.")
+# Suppress FutureWarning related to torch.load with weights_only=False
+warnings.filterwarnings("ignore", category=FutureWarning, message="You are using `torch.load` with `weights_only=False`")
 
 import os
 import logging
@@ -24,6 +30,7 @@ from logger import app_logger
 from comic_generator import generate_daily_comic, generate_custom_comic, generate_media_comic
 from social_media import post_to_twitter, post_to_facebook
 from database import close_database, get_all_comics
+from voice_recognition import is_voice_enabled, listen_for_command, toggle_voice
 
 # Load configuration
 config = load_config()
@@ -41,12 +48,40 @@ def display_menu():
     Returns:
         str: The user's menu choice.
     """
-    print("1. News")
-    print("2. Custom")
-    print("3. Media Video/Image")
-    print("4. View All Comics")
-    print("5. Exit")
-    return input("Choose an option (1-5): ")
+    print("1. News*")
+    print("2. Custom*")
+    print("3. Media* Video/Image")
+    print("4. View* All_Comics*")
+    print("5. Toggle* Voice* Recognition(*=spoken command)")
+    print("6. Exit* or Quit*")
+    return input("Choose an option (1-6): ")
+
+def get_user_choice():
+    """
+    Gets the user's choice, either through voice command or text input.
+
+    Returns:
+        str: The user's choice.
+    """
+    if is_voice_enabled():
+        print("Please say your command...")
+        command = listen_for_command()
+        if command:
+            print(f"Recognized command: {command}")
+            if "news" in command:
+                return "1"
+            elif "custom" in command:
+                return "2"
+            elif "media" in command:
+                return "3"
+            elif "view" in command or "all comics" in command:
+                return "4"
+            elif "toggle" in command or "voice" in command:
+                return "5"
+            elif "exit" in command or "quit" in command:
+                return "6"
+        print("Command not recognized. Please try again or use text input.")
+    return display_menu()
 
 def summarize_generated_files(comic_dir):
     """
@@ -112,7 +147,7 @@ def main():
     
     try:
         while True:
-            choice = display_menu()
+            choice = get_user_choice()
             
             if choice == '1':
                 location = input("Enter the location for news (press Enter for default location): ") or config.LOCATION
@@ -213,6 +248,9 @@ def main():
                 view_all_comics()
             
             elif choice == '5':
+                toggle_voice()
+            
+            elif choice == '6':
                 app_logger.info("Exiting the program. Goodbye!")
                 break
             
