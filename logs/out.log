@@ -23363,3 +23363,5 @@ Summary file: Grizzly_Grill_Smokes__Opening_Soon__summary.txt
 2024-08-24 08:36:33,947 DEBUG Retrieved 0 results from DuckDuckGo search.
 2024-08-24 08:36:33,949 WARNING No results found for query: vancouver legal precedents psychedelic therapy
 2024-08-24 08:36:33,950 WARNING No results found for any of the generated queries
+2024-08-24 08:37:23,269 INFO Exiting the program. Goodbye!
+2024-08-24 08:37:23,270 INFO Database connection closed

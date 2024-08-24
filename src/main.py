@@ -37,6 +37,8 @@ import ollama
 import json
 import re
 import requests
+import cv2
+import tempfile
 
 # Load configuration
 config = load_config()
@@ -220,7 +222,7 @@ def perform_duckduckgo_search():
     app_logger.debug(f"Generating {num_queries} search queries using Ollama")
     
     try:
-        response = ollama.chat(model='dolphin-llama3:8b-256k-v2.9-q4_1', messages=[
+        response = ollama.chat(model='mistral', messages=[
             {'role': 'system', 'content': system_message},
             {'role': 'user', 'content': f"Generate {num_queries} search queries related to '{user_query}' focusing on therapeutic use of psychedelics for treating depression and related conditions."}
         ])
@@ -298,7 +300,7 @@ def perform_duckduckgo_search():
         to support our client's case for the therapeutic use of psychedelics. Focus on scientific studies, legal precedents, 
         and expert opinions that strengthen our position. Ensure your response is in the specified JSON format.
         """
-        response = ollama.chat(model='dolphin-llama3:8b-256k-v2.9-q4_1', messages=[
+        response = ollama.chat(model='mistral', messages=[
             {'role': 'system', 'content': analysis_role_system_prompt},
             {'role': 'user', 'content': analysis_prompt}
         ])
@@ -327,6 +329,40 @@ def perform_duckduckgo_search():
             print(f"\n{i}. Title: {result['title']}")
             print(f"   URL: {result['url']}")
             print(f"   Description: {result['description']}")
+
+def capture_live_video(duration=5):
+    """
+    Captures a live video from the webcam for the specified duration.
+
+    Args:
+        duration (int): Duration of the video in seconds.
+
+    Returns:
+        str: Path to the saved video file.
+    """
+    cap = cv2.VideoCapture(0)
+    if not cap.isOpened():
+        print("Error: Could not open webcam.")
+        return None
+
+    # Define the codec and create VideoWriter object
+    fourcc = cv2.VideoWriter_fourcc(*'XVID')
+    out = cv2.VideoWriter(tempfile.mktemp(suffix='.avi'), fourcc, 20.0, (640, 480))
+
+    start_time = cv2.getTickCount()
+    while (cv2.getTickCount() - start_time) / cv2.getTickFrequency() < duration:
+        ret, frame = cap.read()
+        if ret:
+            out.write(frame)
+            cv2.imshow('Recording...', frame)
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+
+    cap.release()
+    out.release()
+    cv2.destroyAllWindows()
+
+    return out.getfilename()
 
 def main():
     """
@@ -409,29 +445,40 @@ def main():
             
             elif choice == '3':
                 if is_listen_voice_enabled():
-                    print("Please say your location...")
-                    location = listen_to_user(config.LISTEN_VOICE_DURATION_SHORT)
-                    print("Please say your media type, 'video' or 'image'...")
-                    media_type  = listen_to_user(config.LISTEN_VOICE_DURATION_SHORT)
+                    print("Please say your media type: 'video', 'image', or 'live'...")
+                    media_type = listen_to_user(config.LISTEN_VOICE_DURATION_SHORT)
                 else:
-                    location = input("Enter the location for news (press Enter for default location): ") or config.LOCATION
-                    media_type = input("Enter 'video' for video processing or 'image' for image processing: ").lower()
+                    media_type = input("Enter 'video' for video processing, 'image' for image processing, or 'live' for live video capture: ").lower()
                 
-                if media_type not in ['video', 'image']:
-                    app_logger.info("Invalid media type. Please choose 'video' or 'image'.")
+                if media_type not in ['video', 'image', 'live']:
+                    app_logger.info("Invalid media type. Please choose 'video', 'image', or 'live'.")
                     continue
                 
-                if is_listen_voice_enabled():
-                    # print("Please say the path to the media file or directory...")
-                    # path = listen_to_user(config.LISTEN_VOICE_DURATION_LONG)
-                    print(f"Using default input path {config.SOURCE_DIR}...")
-                    path = config.SOURCE_DIR
+                if media_type == 'live':
+                    if is_listen_voice_enabled():
+                        print("Please say the title for your live video...")
+                        title = listen_to_user(config.LISTEN_VOICE_DURATION_MEDIUM)
+                    else:
+                        title = input("Enter the title for your live video: ")
+                    
+                    print("Preparing to capture live video. Press 'q' to stop recording early.")
+                    video_path = capture_live_video()
+                    if video_path is None:
+                        print("Failed to capture live video. Please try again.")
+                        continue
+                    path = video_path
                 else:
-                    path = input(f"Enter the path to the {media_type} file or directory (press Enter for default SOURCE_DIR): ") or config.SOURCE_DIR
+                    if is_listen_voice_enabled():
+                        print(f"Using default input path {config.SOURCE_DIR}...")
+                        path = config.SOURCE_DIR
+                    else:
+                        path = input(f"Enter the path to the {media_type} file or directory (press Enter for default SOURCE_DIR): ") or config.SOURCE_DIR
                 
                 if not os.path.exists(path):
                     app_logger.info(f"The specified path does not exist: {path}")
                     continue
+                
+                location = input("Enter the location for your media comic (press Enter for default location): ") or config.LOCATION
                 
                 app_logger.info(f"\nGenerating comic from {media_type}. Please wait...")
                 
