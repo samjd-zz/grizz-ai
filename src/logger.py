@@ -29,5 +29,5 @@ def setup_logger(name, log_file, level=logging.DEBUG):
     return logger
 
 # Create a logger for the application
-log_file_path = os.path.join('/home/samjd/Apps/claude-dev/grizzly-news/logs', 'out.log')
+log_file_path = os.path.join('/home/samjd/Apps/claude-dev/grizz-ai/logs', 'out.log')
 app_logger = setup_logger('forest_chronicles', log_file_path)

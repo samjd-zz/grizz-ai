@@ -23035,3 +23035,331 @@ All Comics:
 Custom comic generation completed!
 2024-08-22 15:37:48,571 INFO Exiting the program. Goodbye!
 2024-08-22 15:37:48,572 INFO Database connection closed
+2024-08-22 19:51:42,128 INFO Exiting the program. Goodbye!
+2024-08-22 19:51:42,129 INFO Database connection closed
+2024-08-23 10:29:36,197 INFO Starting custom comic generation process...
+2024-08-23 10:29:36,198 INFO Generating custom comic: Grizzly Grill Smokes: Opening Soon!
+2024-08-23 10:29:36,198 DEBUG Analyzing custom story
+2024-08-23 10:29:36,198 DEBUG Analyzing text with Ollama...
+2024-08-23 10:29:46,289 DEBUG Text analyzed successfully with Ollama.
+2024-08-23 10:29:46,289 DEBUG Generating comic panel image
+2024-08-23 10:29:46,289 DEBUG Generating image with DALL-E...
+2024-08-23 10:30:15,348 DEBUG Successfully generated image with DALL-E.
+2024-08-23 10:30:15,349 DEBUG Saving generated image
+2024-08-23 10:30:15,353 DEBUG Image saved successfully: /home/samjd/Apps/claude-dev/grizz-ai/output/extraordinary_culinary_adventure_at_our_brand-new_outdoor_grill_and_smokehouse.__comics/2024_08_23/Grizzly_Grill_Smokes__Opening_Soon_.png
+2024-08-23 10:30:15,353 DEBUG Generating panel summary
+2024-08-23 10:30:15,353 DEBUG Analyzing text with Ollama...
+2024-08-23 10:30:28,123 DEBUG Text analyzed successfully with Ollama.
+2024-08-23 10:30:28,124 DEBUG Saving summary
+2024-08-23 10:30:28,124 DEBUG Summary saved successfully: /home/samjd/Apps/claude-dev/grizz-ai/output/extraordinary_culinary_adventure_at_our_brand-new_outdoor_grill_and_smokehouse.__comics/2024_08_23/Grizzly_Grill_Smokes__Opening_Soon__summary.txt
+2024-08-23 10:30:28,124 DEBUG Adding custom comic to database: Grizzly Grill Smokes: Opening Soon!
+2024-08-23 10:30:28,132 DEBUG Added comic to database: Grizzly Grill Smokes: Opening Soon!
+2024-08-23 10:30:28,133 INFO 
+Custom comic generation completed!
+2024-08-23 10:30:28,133 DEBUG Title: Grizzly Grill Smokes: Opening Soon!
+2024-08-23 10:30:28,133 DEBUG Image saved at: /home/samjd/Apps/claude-dev/grizz-ai/output/extraordinary_culinary_adventure_at_our_brand-new_outdoor_grill_and_smokehouse.__comics/2024_08_23/Grizzly_Grill_Smokes__Opening_Soon_.png
+2024-08-23 10:30:28,133 DEBUG --------------------------------------------------
+2024-08-23 10:30:28,133 DEBUG Custom comic generated successfully!
+2024-08-23 10:30:28,133 DEBUG Image saved at: /home/samjd/Apps/claude-dev/grizz-ai/output/extraordinary_culinary_adventure_at_our_brand-new_outdoor_grill_and_smokehouse.__comics/2024_08_23/Grizzly_Grill_Smokes__Opening_Soon_.png
+2024-08-23 10:30:28,133 DEBUG Summary: Title: Grizzly Grill Smokes: Opening Soon! 
+
+The comic opens on a bright and sunny day at the brand-new outdoor grill and smokehouse. Griselda, the determined chef with fiery red hair is preparing for their grand opening. She explains her vision for the menu to Oliver, the enthusiastic sous-chef who specializes in unique meat dishes.
+
+Panel 1: A wide shot of the outdoor grill and smokehouse as Griselda and Oliver prepare for their grand opening. The atmosphere is lively and full of anticipation.
+
+Panel 2: A close-up on Griselda's face as she explains her vision to Oliver, "Imagine a smorgasbord of delectable meat dishes that bring the outdoors to life!"
+
+Panel 3: Oliver is shown chopping vegetables with precision, surrounded by freshly harvested produce from the farm. The scene highlights his passion for fresh ingredients and mentions local farmers.
+
+Panel 4: Griselda confidently pours her signature BBQ sauce on a sizzling slab of ribs during a tasting event. Her excitement is palpable as she watches customers enjoy the food.
+
+Panel 5: Oliver grills fish skewers over an open flame, the scene shows his mastery of the grill and highlights the delicious aroma of the food.
+
+Panel 6: Griselda and Oliver exchange excited glances while they watch their customers enjoying the food. Griselda says, _"I can't believe we're this successful!"_ and Oliver replies, "Our passion for grilled perfection made us a hit! Don't you think?"_
+
+Panel 7: A close-up of Griselda's menu board showing the Grill and Smokehouse Specials.
+
+Panel 8: A panoramic view of the outdoor grill area with smoke billowing from the barbecue pit. 
+
+**Style and Color:** Use bold colors and dynamic lines to convey the excitement of opening day. Choose earthy tones for backgrounds, the vibrant color palette reflects the passion and energy of Griselda and Oliver's culinary adventure.
+
+Panel 9: Griselda and Oliver take a break from grilling while enjoying their customers' reactions. The scene conveys the duo's satisfaction with the food they created.
+
+Panel 10: A close-up of Griselda's face as she takes a deep breath, the image showcases her love for the art of grilling and the passion it brings.
+
+Panel 11: Oliver is shown taking a moment to appreciate their customers' reactions. The scene highlights his dedication to perfecting each dish.
+
+Panel 12: A panoramic view of the outdoor grill area at sunset. Griselda and Oliver are seen packing up their equipment while the customers linger around enjoying their meal.
+
+**Dialogue:** 
+Panel 13: Griselda and Oliver exchange a look as they watch their satisfied customers,The scene conveys their satisfaction with each other's company and their shared love for food.
+
+Griselda: "I can't believe we're this successful!"
+Oliver: "Our passion for grilled perfection made us a hit! Don't you think?"
+2024-08-23 10:30:28,133 DEBUG --------------------------------------------------
+2024-08-23 10:30:28,133 DEBUG Summary of generated files:
+2024-08-23 10:30:28,133 DEBUG Comic image: Grizzly_Grill_Smokes__Opening_Soon_.png
+Summary file: Grizzly_Grill_Smokes__Opening_Soon__summary.txt
+2024-08-23 10:30:28,133 DEBUG --------------------------------------------------
+2024-08-23 10:30:28,133 WARNING Invalid choice. Please try again.
+2024-08-23 10:30:28,133 WARNING Invalid choice. Please try again.
+2024-08-23 10:30:28,133 WARNING Invalid choice. Please try again.
+2024-08-23 10:30:28,133 WARNING Invalid choice. Please try again.
+2024-08-23 10:30:28,133 WARNING Invalid choice. Please try again.
+2024-08-23 10:30:28,133 WARNING Invalid choice. Please try again.
+2024-08-23 10:30:28,133 WARNING Invalid choice. Please try again.
+2024-08-23 10:32:07,642 INFO Exiting the program. Goodbye!
+2024-08-23 10:32:07,643 INFO Database connection closed
+2024-08-23 10:34:01,161 INFO Starting custom comic generation process...
+2024-08-23 10:34:01,162 INFO Generating custom comic: Grizzly Grill Smokes: Opening Soon!
+2024-08-23 10:34:01,165 DEBUG Analyzing custom story
+2024-08-23 10:34:01,165 DEBUG Analyzing text with Ollama...
+2024-08-23 10:34:05,059 DEBUG Text analyzed successfully with Ollama.
+2024-08-23 10:34:05,060 DEBUG Generating comic panel image
+2024-08-23 10:34:05,060 DEBUG Generating image with DALL-E...
+2024-08-23 10:34:23,975 DEBUG Successfully generated image with DALL-E.
+2024-08-23 10:34:23,976 DEBUG Saving generated image
+2024-08-23 10:34:23,978 DEBUG Image saved successfully: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet_and_Lytton_comics/2024_08_23/Grizzly_Grill_Smokes__Opening_Soon_.png
+2024-08-23 10:34:23,978 DEBUG Generating panel summary
+2024-08-23 10:34:23,978 DEBUG Analyzing text with Ollama...
+2024-08-23 10:34:27,797 DEBUG Text analyzed successfully with Ollama.
+2024-08-23 10:34:27,798 DEBUG Saving summary
+2024-08-23 10:34:27,798 DEBUG Summary saved successfully: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet_and_Lytton_comics/2024_08_23/Grizzly_Grill_Smokes__Opening_Soon__summary.txt
+2024-08-23 10:34:27,798 DEBUG Adding custom comic to database: Grizzly Grill Smokes: Opening Soon!
+2024-08-23 10:34:27,805 DEBUG Added comic to database: Grizzly Grill Smokes: Opening Soon!
+2024-08-23 10:34:27,805 INFO 
+Custom comic generation completed!
+2024-08-23 10:34:27,805 DEBUG Title: Grizzly Grill Smokes: Opening Soon!
+2024-08-23 10:34:27,805 DEBUG Image saved at: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet_and_Lytton_comics/2024_08_23/Grizzly_Grill_Smokes__Opening_Soon_.png
+2024-08-23 10:34:27,805 DEBUG --------------------------------------------------
+2024-08-23 10:34:27,805 DEBUG Custom comic generated successfully!
+2024-08-23 10:34:27,805 DEBUG Image saved at: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet_and_Lytton_comics/2024_08_23/Grizzly_Grill_Smokes__Opening_Soon_.png
+2024-08-23 10:34:27,805 DEBUG Summary: Title: Grizzly Grill Smokes: Opening Soon!
+
+Description:
+Join us for a unique culinary adventure at our brand-new outdoor grill and smokehouse. Savor mouth-watering meats cooked over an open flame.
+
+The Grizzly Grill will be serving up delicious smoked meats, freshly grilled vegetables, and other delightful dishes prepared with passion and care. Our experienced chef has created a menu full of flavor-packed options for you to enjoy in the comfort of our outdoor seating area.
+
+Don't miss out on this culinary delight! Stay tuned for updates on our grand opening date. Save the date and join us for an unforgettable experience. We can't wait to share our passion for food with you.
+
+Panel 1:
+Setting: Lillooet's bustling main street, lined with shops and buildings.
+Characters:
+- Chef Olivia (35)
+2024-08-23 10:34:27,805 DEBUG --------------------------------------------------
+2024-08-23 10:34:27,805 DEBUG Summary of generated files:
+2024-08-23 10:34:27,805 DEBUG Comic image: Grizzly_Grill_Smokes__Opening_Soon_.png
+Summary file: Grizzly_Grill_Smokes__Opening_Soon__summary.txt
+2024-08-23 10:34:27,805 DEBUG --------------------------------------------------
+2024-08-23 10:36:35,793 INFO Starting custom comic generation process...
+2024-08-23 10:36:35,793 INFO Generating custom comic: Grizzly Grill Smokes: Opening Soon!
+2024-08-23 10:36:35,794 DEBUG Analyzing custom story
+2024-08-23 10:36:35,794 DEBUG Analyzing text with Ollama...
+2024-08-23 10:36:40,000 DEBUG Text analyzed successfully with Ollama.
+2024-08-23 10:36:40,001 DEBUG Generating comic panel image
+2024-08-23 10:36:40,001 DEBUG Generating image with DALL-E...
+2024-08-23 10:36:57,472 DEBUG Successfully generated image with DALL-E.
+2024-08-23 10:36:57,474 DEBUG Saving generated image
+2024-08-23 10:36:57,477 DEBUG Image saved successfully: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet_and_Lytton_comics/2024_08_23/Grizzly_Grill_Smokes__Opening_Soon_.png
+2024-08-23 10:36:57,477 DEBUG Generating panel summary
+2024-08-23 10:36:57,477 DEBUG Analyzing text with Ollama...
+2024-08-23 10:36:58,888 DEBUG Text analyzed successfully with Ollama.
+2024-08-23 10:36:58,889 DEBUG Saving summary
+2024-08-23 10:36:58,889 DEBUG Summary saved successfully: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet_and_Lytton_comics/2024_08_23/Grizzly_Grill_Smokes__Opening_Soon__summary.txt
+2024-08-23 10:36:58,889 DEBUG Adding custom comic to database: Grizzly Grill Smokes: Opening Soon!
+2024-08-23 10:36:58,897 DEBUG Added comic to database: Grizzly Grill Smokes: Opening Soon!
+2024-08-23 10:36:58,898 INFO 
+Custom comic generation completed!
+2024-08-23 10:36:58,898 DEBUG Title: Grizzly Grill Smokes: Opening Soon!
+2024-08-23 10:36:58,898 DEBUG Image saved at: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet_and_Lytton_comics/2024_08_23/Grizzly_Grill_Smokes__Opening_Soon_.png
+2024-08-23 10:36:58,898 DEBUG --------------------------------------------------
+2024-08-23 10:36:58,898 DEBUG Custom comic generated successfully!
+2024-08-23 10:36:58,898 DEBUG Image saved at: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet_and_Lytton_comics/2024_08_23/Grizzly_Grill_Smokes__Opening_Soon_.png
+2024-08-23 10:36:58,898 DEBUG Summary: Grizzly Grill Smokes: Opening Soon! 
+
+Panel 1: A bright and lively outdoor scene in Lillooet,
+2024-08-23 10:36:58,898 DEBUG --------------------------------------------------
+2024-08-23 10:36:58,898 DEBUG Summary of generated files:
+2024-08-23 10:36:58,898 DEBUG Comic image: Grizzly_Grill_Smokes__Opening_Soon_.png
+Summary file: Grizzly_Grill_Smokes__Opening_Soon__summary.txt
+2024-08-23 10:36:58,898 DEBUG --------------------------------------------------
+2024-08-23 18:17:18,648 INFO Exiting the program. Goodbye!
+2024-08-23 18:17:18,649 INFO Database connection closed
+2024-08-23 18:18:14,360 DEBUG User entered search topic: depression
+2024-08-23 18:18:18,548 DEBUG Number of queries to generate: 3, Number of results per query: 3
+2024-08-23 18:18:18,548 DEBUG Generating 3 search queries using Ollama
+2024-08-23 18:18:32,272 DEBUG Successfully generated 3 search queries
+2024-08-23 18:18:32,272 DEBUG Search query 1: search_query_1
+2024-08-23 18:18:32,272 DEBUG Search query 2: search_query_2
+2024-08-23 18:18:32,272 DEBUG Search query 3: search_query_3
+2024-08-23 18:18:32,272 DEBUG Performing DuckDuckGo search for: search_query_1
+2024-08-23 18:18:32,273 DEBUG Performing DuckDuckGo search for: search_query_1
+2024-08-23 18:18:32,787 DEBUG Retrieved 0 results from DuckDuckGo search.
+2024-08-23 18:18:32,789 WARNING No results found for query: search_query_1
+2024-08-23 18:18:32,789 DEBUG Performing DuckDuckGo search for: search_query_2
+2024-08-23 18:18:32,789 DEBUG Performing DuckDuckGo search for: search_query_2
+2024-08-23 18:18:33,211 DEBUG Retrieved 0 results from DuckDuckGo search.
+2024-08-23 18:18:33,212 WARNING No results found for query: search_query_2
+2024-08-23 18:18:33,213 DEBUG Performing DuckDuckGo search for: search_query_3
+2024-08-23 18:18:33,213 DEBUG Performing DuckDuckGo search for: search_query_3
+2024-08-23 18:18:33,708 DEBUG Retrieved 0 results from DuckDuckGo search.
+2024-08-23 18:18:33,709 WARNING No results found for query: search_query_3
+2024-08-23 18:18:33,709 WARNING No results found for any of the generated queries
+2024-08-23 18:19:00,282 DEBUG User entered search topic: trees
+2024-08-23 18:19:01,823 DEBUG Number of queries to generate: 3, Number of results per query: 3
+2024-08-23 18:19:01,824 DEBUG Generating 3 search queries using Ollama
+2024-08-23 18:19:03,184 DEBUG Successfully generated 3 search queries
+2024-08-23 18:19:03,184 DEBUG Search query 1: Therapeutic effects of trees on depression: recent studies involving psychedelics
+2024-08-23 18:19:03,184 DEBUG Search query 2: Legal precedents for the therapeutic use of psychedelics in Canada for treating tree-related depression
+2024-08-23 18:19:03,184 DEBUG Search query 3: Psychedelic treatment for depression associated with trees: evidence-based research
+2024-08-23 18:19:03,184 DEBUG Performing DuckDuckGo search for: Therapeutic effects of trees on depression: recent studies involving psychedelics
+2024-08-23 18:19:03,184 DEBUG Performing DuckDuckGo search for: Therapeutic effects of trees on depression: recent studies involving psychedelics
+2024-08-23 18:19:03,541 DEBUG Retrieved 0 results from DuckDuckGo search.
+2024-08-23 18:19:03,544 WARNING No results found for query: Therapeutic effects of trees on depression: recent studies involving psychedelics
+2024-08-23 18:19:03,545 DEBUG Performing DuckDuckGo search for: Legal precedents for the therapeutic use of psychedelics in Canada for treating tree-related depression
+2024-08-23 18:19:03,545 DEBUG Performing DuckDuckGo search for: Legal precedents for the therapeutic use of psychedelics in Canada for treating tree-related depression
+2024-08-23 18:19:03,927 DEBUG Retrieved 0 results from DuckDuckGo search.
+2024-08-23 18:19:03,928 WARNING No results found for query: Legal precedents for the therapeutic use of psychedelics in Canada for treating tree-related depression
+2024-08-23 18:19:03,928 DEBUG Performing DuckDuckGo search for: Psychedelic treatment for depression associated with trees: evidence-based research
+2024-08-23 18:19:03,928 DEBUG Performing DuckDuckGo search for: Psychedelic treatment for depression associated with trees: evidence-based research
+2024-08-23 18:19:04,308 DEBUG Retrieved 0 results from DuckDuckGo search.
+2024-08-23 18:19:04,310 WARNING No results found for query: Psychedelic treatment for depression associated with trees: evidence-based research
+2024-08-23 18:19:04,311 WARNING No results found for any of the generated queries
+2024-08-23 18:19:46,425 DEBUG User entered search topic: 
+2024-08-23 18:19:47,718 DEBUG Number of queries to generate: 3, Number of results per query: 3
+2024-08-23 18:19:47,718 DEBUG Generating 3 search queries using Ollama
+2024-08-23 18:19:49,195 DEBUG Successfully generated 3 search queries
+2024-08-23 18:19:49,196 DEBUG Search query 1: search_query_1
+2024-08-23 18:19:49,196 DEBUG Search query 2: search_query_2
+2024-08-23 18:19:49,196 DEBUG Search query 3: search_query_3
+2024-08-23 18:19:49,196 DEBUG Performing DuckDuckGo search for: search_query_1
+2024-08-23 18:19:49,196 DEBUG Performing DuckDuckGo search for: search_query_1
+2024-08-23 18:19:49,544 DEBUG Retrieved 0 results from DuckDuckGo search.
+2024-08-23 18:19:49,545 WARNING No results found for query: search_query_1
+2024-08-23 18:19:49,545 DEBUG Performing DuckDuckGo search for: search_query_2
+2024-08-23 18:19:49,545 DEBUG Performing DuckDuckGo search for: search_query_2
+2024-08-23 18:19:49,934 DEBUG Retrieved 0 results from DuckDuckGo search.
+2024-08-23 18:19:49,936 WARNING No results found for query: search_query_2
+2024-08-23 18:19:49,937 DEBUG Performing DuckDuckGo search for: search_query_3
+2024-08-23 18:19:49,938 DEBUG Performing DuckDuckGo search for: search_query_3
+2024-08-23 18:19:50,321 DEBUG Retrieved 0 results from DuckDuckGo search.
+2024-08-23 18:19:50,324 WARNING No results found for query: search_query_3
+2024-08-23 18:19:50,325 WARNING No results found for any of the generated queries
+2024-08-23 18:20:40,699 DEBUG User entered search topic: mdma
+2024-08-23 18:20:41,898 DEBUG Number of queries to generate: 3, Number of results per query: 3
+2024-08-23 18:20:41,898 DEBUG Generating 3 search queries using Ollama
+2024-08-23 18:20:43,826 DEBUG Successfully generated 3 search queries
+2024-08-23 18:20:43,826 DEBUG Search query 1: query_1
+2024-08-23 18:20:43,826 DEBUG Search query 2: query_2
+2024-08-23 18:20:43,826 DEBUG Search query 3: query_3
+2024-08-23 18:20:43,826 DEBUG Performing DuckDuckGo search for: query_1
+2024-08-23 18:20:43,826 DEBUG Performing DuckDuckGo search for: query_1
+2024-08-23 18:20:44,222 DEBUG Retrieved 0 results from DuckDuckGo search.
+2024-08-23 18:20:44,224 WARNING No results found for query: query_1
+2024-08-23 18:20:44,225 DEBUG Performing DuckDuckGo search for: query_2
+2024-08-23 18:20:44,225 DEBUG Performing DuckDuckGo search for: query_2
+2024-08-23 18:20:44,611 DEBUG Retrieved 0 results from DuckDuckGo search.
+2024-08-23 18:20:44,613 WARNING No results found for query: query_2
+2024-08-23 18:20:44,614 DEBUG Performing DuckDuckGo search for: query_3
+2024-08-23 18:20:44,614 DEBUG Performing DuckDuckGo search for: query_3
+2024-08-23 18:20:44,975 DEBUG Retrieved 0 results from DuckDuckGo search.
+2024-08-23 18:20:44,977 WARNING No results found for query: query_3
+2024-08-23 18:20:44,978 WARNING No results found for any of the generated queries
+2024-08-23 20:27:09,566 INFO Exiting the program. Goodbye!
+2024-08-23 20:27:09,566 INFO Database connection closed
+2024-08-23 20:29:06,609 DEBUG User entered search topic: vancouver
+2024-08-23 20:29:09,391 DEBUG Number of queries to generate: 3, Number of results per query: 3
+2024-08-23 20:29:09,391 DEBUG Generating 3 search queries using Ollama
+2024-08-23 20:29:14,034 ERROR Error generating search queries with Ollama: Invalid response format
+2024-08-23 20:29:14,035 DEBUG Using default search queries
+2024-08-23 20:29:14,035 DEBUG Search query 1: vancouver therapeutic use psychedelics
+2024-08-23 20:29:14,035 DEBUG Search query 2: vancouver depression treatment ayahuasca DMT psilocybin
+2024-08-23 20:29:14,035 DEBUG Search query 3: vancouver legal precedents psychedelic therapy
+2024-08-23 20:29:14,035 DEBUG Performing DuckDuckGo search for: vancouver therapeutic use psychedelics
+2024-08-23 20:29:14,035 DEBUG Performing DuckDuckGo search for: vancouver therapeutic use psychedelics
+2024-08-23 20:29:14,805 DEBUG Retrieved 0 results from DuckDuckGo search.
+2024-08-23 20:29:14,806 WARNING No results found for query: vancouver therapeutic use psychedelics
+2024-08-23 20:29:14,807 DEBUG Performing DuckDuckGo search for: vancouver depression treatment ayahuasca DMT psilocybin
+2024-08-23 20:29:14,807 DEBUG Performing DuckDuckGo search for: vancouver depression treatment ayahuasca DMT psilocybin
+2024-08-23 20:29:15,475 DEBUG Retrieved 0 results from DuckDuckGo search.
+2024-08-23 20:29:15,476 WARNING No results found for query: vancouver depression treatment ayahuasca DMT psilocybin
+2024-08-23 20:29:15,476 DEBUG Performing DuckDuckGo search for: vancouver legal precedents psychedelic therapy
+2024-08-23 20:29:15,476 DEBUG Performing DuckDuckGo search for: vancouver legal precedents psychedelic therapy
+2024-08-23 20:29:16,189 DEBUG Retrieved 0 results from DuckDuckGo search.
+2024-08-23 20:29:16,190 WARNING No results found for query: vancouver legal precedents psychedelic therapy
+2024-08-23 20:29:16,190 WARNING No results found for any of the generated queries
+2024-08-23 20:33:08,626 INFO Exiting the program. Goodbye!
+2024-08-23 20:33:08,626 INFO Database connection closed
+2024-08-23 20:33:46,036 DEBUG User entered search topic: vancouver
+2024-08-23 20:33:48,213 DEBUG Number of queries to generate: 3, Number of results per query: 3
+2024-08-23 20:33:48,213 DEBUG Generating 3 search queries using Ollama
+2024-08-23 20:33:49,654 ERROR Error generating search queries with Ollama: Invalid response format
+2024-08-23 20:33:49,654 DEBUG Using default search queries
+2024-08-23 20:33:49,654 DEBUG Search query 1: vancouver therapeutic use psychedelics
+2024-08-23 20:33:49,654 DEBUG Search query 2: vancouver depression treatment ayahuasca DMT psilocybin
+2024-08-23 20:33:49,654 DEBUG Search query 3: vancouver legal precedents psychedelic therapy
+2024-08-23 20:33:49,654 DEBUG Performing DuckDuckGo search for: vancouver therapeutic use psychedelics
+2024-08-23 20:33:49,654 DEBUG Performing DuckDuckGo search for: vancouver therapeutic use psychedelics
+2024-08-23 20:33:50,032 DEBUG Retrieved 0 results from DuckDuckGo search.
+2024-08-23 20:33:50,034 WARNING No results found for query: vancouver therapeutic use psychedelics
+2024-08-23 20:33:50,035 DEBUG Performing DuckDuckGo search for: vancouver depression treatment ayahuasca DMT psilocybin
+2024-08-23 20:33:50,035 DEBUG Performing DuckDuckGo search for: vancouver depression treatment ayahuasca DMT psilocybin
+2024-08-23 20:33:50,352 DEBUG Retrieved 0 results from DuckDuckGo search.
+2024-08-23 20:33:50,354 WARNING No results found for query: vancouver depression treatment ayahuasca DMT psilocybin
+2024-08-23 20:33:50,355 DEBUG Performing DuckDuckGo search for: vancouver legal precedents psychedelic therapy
+2024-08-23 20:33:50,355 DEBUG Performing DuckDuckGo search for: vancouver legal precedents psychedelic therapy
+2024-08-23 20:33:50,704 DEBUG Retrieved 0 results from DuckDuckGo search.
+2024-08-23 20:33:50,706 WARNING No results found for query: vancouver legal precedents psychedelic therapy
+2024-08-23 20:33:50,707 WARNING No results found for any of the generated queries
+2024-08-23 20:34:07,942 INFO Exiting the program. Goodbye!
+2024-08-23 20:34:07,943 INFO Database connection closed
+2024-08-23 21:36:39,895 DEBUG User entered search topic: vancouver
+2024-08-23 21:36:41,746 DEBUG Number of queries to generate: 3, Number of results per query: 3
+2024-08-23 21:36:41,747 DEBUG Generating 3 search queries using Ollama
+2024-08-23 21:36:46,516 ERROR Failed to extract JSON from text: [ 
+   "Therapeutic effects of Vancouver-based initiatives involving psychedelics for treatment of depression",
+   "Legal implications of utilizing Vancouver as a center for research on the therapeutic use of psychedelics for depression treatment", 
+   "Psychedelic-assisted therapy in Vancouver: examining evidence and potential benefits for patients with depression" 
+]
+2024-08-23 21:36:46,516 ERROR Error generating search queries with Ollama: Invalid response format
+2024-08-23 21:36:46,516 DEBUG Using default search queries
+2024-08-23 21:36:46,516 DEBUG Search query 1: vancouver therapeutic use psychedelics
+2024-08-23 21:36:46,516 DEBUG Search query 2: vancouver depression treatment ayahuasca DMT psilocybin
+2024-08-23 21:36:46,516 DEBUG Search query 3: vancouver legal precedents psychedelic therapy
+2024-08-23 21:36:46,516 DEBUG Performing DuckDuckGo search for: vancouver therapeutic use psychedelics
+2024-08-23 21:36:46,516 DEBUG Performing DuckDuckGo search for: vancouver therapeutic use psychedelics
+2024-08-23 21:36:46,930 DEBUG Retrieved 0 results from DuckDuckGo search.
+2024-08-23 21:36:46,932 WARNING No results found for query: vancouver therapeutic use psychedelics
+2024-08-23 21:36:46,933 DEBUG Performing DuckDuckGo search for: vancouver depression treatment ayahuasca DMT psilocybin
+2024-08-23 21:36:46,934 DEBUG Performing DuckDuckGo search for: vancouver depression treatment ayahuasca DMT psilocybin
+2024-08-23 21:36:47,259 DEBUG Retrieved 0 results from DuckDuckGo search.
+2024-08-23 21:36:47,261 WARNING No results found for query: vancouver depression treatment ayahuasca DMT psilocybin
+2024-08-23 21:36:47,262 DEBUG Performing DuckDuckGo search for: vancouver legal precedents psychedelic therapy
+2024-08-23 21:36:47,262 DEBUG Performing DuckDuckGo search for: vancouver legal precedents psychedelic therapy
+2024-08-23 21:36:47,572 DEBUG Retrieved 0 results from DuckDuckGo search.
+2024-08-23 21:36:47,574 WARNING No results found for query: vancouver legal precedents psychedelic therapy
+2024-08-23 21:36:47,575 WARNING No results found for any of the generated queries
+2024-08-24 07:40:05,732 INFO Exiting the program. Goodbye!
+2024-08-24 07:40:05,736 INFO Database connection closed
+2024-08-24 08:36:15,899 DEBUG User entered search topic: vancouver
+2024-08-24 08:36:17,383 DEBUG Number of queries to generate: 3, Number of results per query: 3
+2024-08-24 08:36:17,383 DEBUG Generating 3 search queries using Ollama
+2024-08-24 08:36:33,277 ERROR Error generating search queries with Ollama: Invalid response format
+2024-08-24 08:36:33,280 DEBUG Using default search queries
+2024-08-24 08:36:33,280 DEBUG Search query 1: vancouver therapeutic use psychedelics
+2024-08-24 08:36:33,280 DEBUG Search query 2: vancouver depression treatment ayahuasca DMT psilocybin
+2024-08-24 08:36:33,280 DEBUG Search query 3: vancouver legal precedents psychedelic therapy
+2024-08-24 08:36:33,280 DEBUG Performing DuckDuckGo search for: vancouver therapeutic use psychedelics
+2024-08-24 08:36:33,280 DEBUG Performing DuckDuckGo search for: vancouver therapeutic use psychedelics
+2024-08-24 08:36:33,542 DEBUG Retrieved 0 results from DuckDuckGo search.
+2024-08-24 08:36:33,543 WARNING No results found for query: vancouver therapeutic use psychedelics
+2024-08-24 08:36:33,543 DEBUG Performing DuckDuckGo search for: vancouver depression treatment ayahuasca DMT psilocybin
+2024-08-24 08:36:33,543 DEBUG Performing DuckDuckGo search for: vancouver depression treatment ayahuasca DMT psilocybin
+2024-08-24 08:36:33,736 DEBUG Retrieved 0 results from DuckDuckGo search.
+2024-08-24 08:36:33,738 WARNING No results found for query: vancouver depression treatment ayahuasca DMT psilocybin
+2024-08-24 08:36:33,739 DEBUG Performing DuckDuckGo search for: vancouver legal precedents psychedelic therapy
+2024-08-24 08:36:33,739 DEBUG Performing DuckDuckGo search for: vancouver legal precedents psychedelic therapy
+2024-08-24 08:36:33,947 DEBUG Retrieved 0 results from DuckDuckGo search.
+2024-08-24 08:36:33,949 WARNING No results found for query: vancouver legal precedents psychedelic therapy
+2024-08-24 08:36:33,950 WARNING No results found for any of the generated queries

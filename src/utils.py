@@ -21,7 +21,7 @@ warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 # Check if CUDA is available and set the device
 device = 0 if torch.cuda.is_available() else -1
-print(f"Grizzly News-({torch.cuda.get_device_name(0) if device == 0 else 'cpu'}) Daily AI-Generated Comics:")
+print(f"Grizz-AI-({torch.cuda.get_device_name(0) if device == 0 else 'cpu'})")
 
 # Load image captioning pipeline with fp16 precision for memory optimization
 captioner = pipeline("image-to-text", model="nlpconnect/vit-gpt2-image-captioning", device=device, torch_dtype=torch.float16 if torch.cuda.is_available() else None)

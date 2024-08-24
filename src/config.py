@@ -26,7 +26,7 @@ class Config:
         self.LISTEN_VOICE_DURATION_LONG = int(os.getenv('LISTEN_VOICE_DURATION_LONG', 30))
         self.WHISPER_MODEL_SIZE = os.getenv('WHISPER_MODEL_SIZE', 'tiny')
         self.LISTEN_VOICE_ENABLED = os.getenv('LISTEN_VOICE_ENABLED', 'false')
+        self.DUCKDUCKGO_APP_NAME = os.getenv('DUCKDUCKGO_APP_NAME', 'grizz_ai_app')
         
 def load_config():
     return Config()
-

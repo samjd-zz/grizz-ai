@@ -47,7 +47,9 @@ def analyze_text_groq(text, location, model_version="llama3-groq-70b-8192-tool-u
         app_logger.error(f"Error analyzing text with Groq: {e}.")
         return None
 
-def analyze_text_ollama(text, location, model="dolphin-llama3:8b-256k-v2.9-q4_1", system_prompt=None):
+def analyze_text_ollama(text, location, model="mistral-nemo:12b-instruct-2407-q2_K", system_prompt=None):
+    # mistral-nemo:12b-instruct-2407-q2_K
+    # dolphin-llama3:8b-256k-v2.9-q4_1
     app_logger.debug(f"Analyzing text with Ollama...")
     
     try:

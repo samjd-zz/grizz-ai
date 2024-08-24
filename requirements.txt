@@ -16,3 +16,4 @@ transformers>=4.0.0
 openai-whisper
 pyaudio
 ollama==0.1.4
+beautifulsoup4==4.10.0
