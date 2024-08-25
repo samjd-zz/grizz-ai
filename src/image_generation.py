@@ -1,15 +1,8 @@
 import requests
 
-from api_handlers import getimg_api_request, openai_client
+from api_handlers import openai_client
 from logger import app_logger
 
-def generate_getimg_images(description):
-    endpoint = "essential-v2/text-to-image"
-    payload = {
-        "prompt": description,
-        "output_format": "png"
-    }
-    return getimg_api_request(endpoint, payload)
 
 def generate_dalle_images(desc):
     try:
