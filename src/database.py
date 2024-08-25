@@ -1,21 +1,17 @@
 import os
 import sqlite3
 from datetime import datetime
-from dotenv import load_dotenv
+from config import load_config
 
 from logger import app_logger
 
-# Load environment variables
-load_dotenv()
-
-# Get the database path from the environment variable
-DB_PATH = os.getenv('DB_PATH')
+config = load_config()
 
 class ComicDatabase:
     def __init__(self):
         # Ensure the directory exists
-        os.makedirs(os.path.dirname(DB_PATH), exist_ok=True)
-        self.conn = sqlite3.connect(DB_PATH)
+        os.makedirs(os.path.dirname(config.DB_PATH), exist_ok=True)
+        self.conn = sqlite3.connect(config.DB_PATH)
         self.cursor = self.conn.cursor()
         self.create_table()
 

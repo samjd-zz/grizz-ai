@@ -3,6 +3,7 @@ import re
 import torch
 import traceback
 import warnings
+import requests
 
 from datetime import datetime
 from logger import app_logger
@@ -11,21 +12,16 @@ from config import load_config
 
 from PIL import Image
 
+TORCH_IMAGE_TO_TEXT_MODEL = "nlpconnect/vit-gpt2-image-captioning"
+
 config = load_config()
+
 TODAY = datetime.now().strftime("%Y_%m_%d")
 
 # Suppress specific warnings
 warnings.filterwarnings("ignore", category=UserWarning)
 warnings.filterwarnings("ignore", category=FutureWarning)
 warnings.filterwarnings("ignore", category=DeprecationWarning)
-
-# Check if CUDA is available and set the device
-device = 0 if torch.cuda.is_available() else -1
-print(f"Grizz-AI-({torch.cuda.get_device_name(0) if device == 0 else 'cpu'})")
-
-# Load image captioning pipeline with fp16 precision for memory optimization
-captioner = pipeline("image-to-text", model="nlpconnect/vit-gpt2-image-captioning", device=device, torch_dtype=torch.float16 if torch.cuda.is_available() else None)
-# captioner = pipeline("image-to-text", model="nlpconnect/vit-gpt2-image-captioning", device=device)
 
 def analyze_frames(frames):
     """
@@ -35,6 +31,9 @@ def analyze_frames(frames):
     :return: List of detailed frame descriptions
     """
     try:
+
+        # Load the image captioning pipeline model
+        captioner = load_pipeline_model()
         app_logger.debug("Analyzing frames with image captioning")
         frame_descriptions = []
 
@@ -67,6 +66,8 @@ def analyze_frames(frames):
             frame_descriptions.append(f"Frame {i+1}: {caption}")
             
         app_logger.debug("Frame analysis completed successfully")
+        # Call the function to unload
+        unload_pipeline_model(captioner)
         return frame_descriptions
     except Exception as e:
         app_logger.error(f"Error analyzing frames with image captioning: {e}")
@@ -161,4 +162,47 @@ def filter_content(text):
     
     return text
 
-# You can add more utility functions here as needed
+# Unload the pipeline model
+def unload_pipeline_model(captioner):
+    # Move the model to CPU
+    captioner.model.to('cpu')
+    
+    # Clear CUDA cache
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
+    
+    # Delete the pipeline and model
+    del captioner.model
+    del captioner
+    
+    # Force garbage collection
+    import gc
+    gc.collect()
+
+# Load the pipline model
+def load_pipeline_model():
+    # Check if CUDA is available and set the device
+    device = 0 if torch.cuda.is_available() else -1
+    print(f"{torch.cuda.get_device_name(0) if device == 0 else 'cpu'}")
+
+    # Load image captioning pipeline with fp16 precision for memory optimization
+    captioner = pipeline("image-to-text", model=TORCH_IMAGE_TO_TEXT_MODEL, device=device, torch_dtype=torch.float16 if torch.cuda.is_available() else None)
+    return captioner
+
+def unload_ollama_model(model_name):
+    url = "http://localhost:11434/api/generate"
+    payload = {
+        "model": model_name,
+        "prompt": "",
+        "keep_alive": 0
+    }
+    
+    try:
+        response = requests.post(url, json=payload)
+        if response.status_code == 200:
+            print(f"Successfully unloaded model: {model_name}")
+        else:
+            print(f"Failed to unload model. Status code: {response.status_code}")
+            print(f"Response: {response.text}")
+    except requests.exceptions.RequestException as e:
+        print(f"An error occurred: {e}")

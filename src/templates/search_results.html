@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+</head>
+<body>
+    <h1>Search Results</h1>
+    <h2>Summary:</h2>
+    <p>{{ results.summary }}</p>
+    
+    <h2>Legal Arguments:</h2>
+    <ul>
+    {% for argument in results.legal_arguments %}
+        <li>{{ argument }}</li>
+    {% endfor %}
+    </ul>
+    
+    <h2>Evidence:</h2>
+    <ul>
+    {% for evidence in results.evidence %}
+        <li>{{ evidence }}</li>
+    {% endfor %}
+    </ul>
+    
+    <a href="{{ url_for('search') }}">Perform Another Search</a>
+    <br>
+    <a href="{{ url_for('index') }}">Back to Home</a>
+</body>
+</html>

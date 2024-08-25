@@ -1,6 +1,6 @@
 import requests
-import groq
 from openai import OpenAI
+from elevenlabs import Client
 
 from config import load_config
 
@@ -21,8 +21,11 @@ def getimg_api_request(endpoint, payload):
 def openai_client():
     return OpenAI(api_key=config.OPENAI_API_KEY)
 
-def groq_client():
-    return groq.Groq(api_key=config.GROQ_API_KEY)
-
 def perplexity_client():
     return OpenAI(api_key=config.PERPLEXITY_API_KEY, base_url="https://api.perplexity.ai")
+
+# Use the text-to-speech endpoint to convert text into speech
+# response = client.text_to_speech("Hello, world!")
+# print(response["audio"])
+def elevenLabs_client():
+    return Client(api_key=config.API_KEY_ELEVENLABS)

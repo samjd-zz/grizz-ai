@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View All Comics</title>
+</head>
+<body>
+    <h1>All Comics</h1>
+    {% for comic in comics %}
+        <div>
+            <h2>{{ comic.title }}</h2>
+            <p>Location: {{ comic.location }}</p>
+            <p>Created At: {{ comic.created_at }}</p>
+            <img src="{{ url_for('static', filename=comic.image_path) }}" alt="{{ comic.title }}">
+            <p>{{ comic.summary }}</p>
+        </div>
+        <hr>
+    {% endfor %}
+    <a href="{{ url_for('index') }}">Back to Home</a>
+</body>
+</html>

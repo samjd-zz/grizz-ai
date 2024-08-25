@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Comic Result</title>
+</head>
+<body>
+    <h1>Media Comic Generated</h1>
+    {% for image_path in image_paths %}
+        <img src="{{ url_for('static', filename=image_path) }}" alt="Generated Comic">
+    {% endfor %}
+    <h2>Summary:</h2>
+    <p>{{ summary }}</p>
+    <a href="{{ url_for('media_comic') }}">Generate Another Media Comic</a>
+    <br>
+    <a href="{{ url_for('index') }}">Back to Home</a>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Comic Result</title>
+</head>
+<body>
+    <h1>Daily Comic for {{ location }}</h1>
+    <h2>{{ events|length }} New local event(s) retrieved today:</h2>
+    <ul>
+    {% for event in events %}
+        <li>
+            <h3>{{ event.title }}</h3>
+            <p>{{ event.story }}</p>
+            <a href="{{ event.full_story_source_url }}" target="_blank">Read full story</a>
+        </li>
+    {% endfor %}
+    </ul>
+    <a href="{{ url_for('daily_comic') }}">Generate Another Daily Comic</a>
+    <br>
+    <a href="{{ url_for('index') }}">Back to Home</a>
+</body>
+</html>

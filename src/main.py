@@ -56,12 +56,13 @@ def display_menu():
     Returns:
         str: The user's menu choice.
     """
-    print("1. Perplexity News*")
-    print("2. Custom*")
-    print("3. Media* Video/Image")
+    print("********Grizz-AI-Main Menu********")
+    print("1. Create Perplexity News Comics*")
+    print("2. Create Custom* Story Comics")
+    print("3. Create Media* Video/Image Comics")
     print("4. View* All_Comics*")
     print("5. Toggle* Voice* Recognition(*=spoken command)")
-    print("6. DuckDuckGo* Search*")
+    print("6. Psy-researcher: DuckDuckGo* Search*")
     print("7. Exit* or Quit*")
     return input("Choose an option (1-7): ")
 

@@ -1,7 +1,6 @@
 import json
 from datetime import datetime
 import requests
-import urllib.parse
 
 from api_handlers import perplexity_client
 from logger import app_logger
@@ -9,7 +8,7 @@ from config import load_config
 
 config = load_config()
 
-def perplexity_search(query: str, model_name="llama-3.1-sonar-large-128k-online"):
+def perplexity_search(query: str, model_name=PERPLEXITY_SEARCH_MODEL):
     client = perplexity_client()
     
     messages = [{"role": "system",

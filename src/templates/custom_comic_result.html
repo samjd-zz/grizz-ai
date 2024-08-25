@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Comic Result</title>
+</head>
+<body>
+    <h1>Custom Comic Generated</h1>
+    <img src="{{ url_for('static', filename=image_path) }}" alt="Generated Comic">
+    <h2>Summary:</h2>
+    <p>{{ summary }}</p>
+    <a href="{{ url_for('custom_comic') }}">Create Another Custom Comic</a>
+    <br>
+    <a href="{{ url_for('index') }}">Back to Home</a>
+</body>
+</html>

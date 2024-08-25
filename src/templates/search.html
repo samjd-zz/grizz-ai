@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DuckDuckGo Search</title>
+</head>
+<body>
+    <h1>DuckDuckGo Search</h1>
+    <form action="{{ url_for('search') }}" method="post">
+        <label for="query">Search Query:</label>
+        <input type="text" id="query" name="query" required><br>
+        <label for="num_queries">Number of Search Queries:</label>
+        <input type="number" id="num_queries" name="num_queries" value="3" min="1" max="10"><br>
+        <label for="num_results">Number of Results per Query:</label>
+        <input type="number" id="num_results" name="num_results" value="3" min="1" max="10"><br>
+        <button type="submit">Search</button>
+    </form>
+    <a href="{{ url_for('index') }}">Back to Home</a>
+</body>
+</html>
