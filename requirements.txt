@@ -18,5 +18,5 @@ pyaudio
 ollama==0.1.4
 beautifulsoup4==4.10.0
 flask==2.0.1
-elevenlabs==0.2.24
+elevenlabs
 metagen

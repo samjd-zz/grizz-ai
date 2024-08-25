@@ -27,6 +27,10 @@ class Config:
         self.LISTEN_VOICE_DURATION_SHORT = int(os.getenv('LISTEN_VOICE_DURATION_SHORT', 5))
         self.LISTEN_VOICE_DURATION_MED = int(os.getenv('LISTEN_VOICE_DURATION_MED', 10))
         self.LISTEN_VOICE_DURATION_LONG = int(os.getenv('LISTEN_VOICE_DURATION_LONG', 30))
+
+        self.ELEVENLABS_VOICE = os.getenv('ELEVENLABS_VOICE', 'callum')
+        self.ELEVENLABS_VOICE_SPEED = os.getenv('ELEVENLABS_VOICE_SPEED', 'regular')
+        self.ELEVENLABS_VOICE_SPEED = os.getenv('ELEVENLABS_REC_MINS', '2.5')
         
         self.FB_APP_ID = os.getenv('FB_APP_ID')
         self.FB_APP_SECRET = os.getenv('FB_APP_SECRET')

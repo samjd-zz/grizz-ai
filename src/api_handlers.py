@@ -1,8 +1,8 @@
 import requests
 from openai import OpenAI
-from elevenlabs import Client
 
 from config import load_config
+
 
 config = load_config()
 
@@ -23,9 +23,3 @@ def openai_client():
 
 def perplexity_client():
     return OpenAI(api_key=config.PERPLEXITY_API_KEY, base_url="https://api.perplexity.ai")
-
-# Use the text-to-speech endpoint to convert text into speech
-# response = client.text_to_speech("Hello, world!")
-# print(response["audio"])
-def elevenLabs_client():
-    return Client(api_key=config.API_KEY_ELEVENLABS)

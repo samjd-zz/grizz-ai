@@ -1,4 +1,5 @@
 import ollama
+import elevenlabs
 
 from api_handlers import openai_client
 from utils import unload_ollama_model
@@ -49,3 +50,10 @@ def analyze_text_ollama(text, location, model=config.OLLAMA_TEXT_ANALYZE_MODEL, 
         # Ensure model gets unloaded after the conversation is complete or in case of errors
         unload_ollama_model(config.OLLAMA_TEXT_ANALYZE_MODEL)
         app_logger.info("Unloaded the Ollama model.")
+
+# Use the text-to-speech endpoint to convert text into speech
+# response = client.text_to_speech("Hello, world!")
+# print(response["audio"])
+def speak_elevenLabs(text="Hello, world!"):
+    elevenlabs.set_api_key(config.API_KEY_ELEVENLABS)
+    return elevenlabs.generate(text=text, voice=config.ELEVENLABS_VOICE, speed=config.ELEVENLABS_VOICE_SPEED)        

@@ -8,7 +8,7 @@ from config import load_config
 
 config = load_config()
 
-def perplexity_search(query: str, model_name=PERPLEXITY_SEARCH_MODEL):
+def perplexity_search(query: str, model_name=config.PERPLEXITY_SEARCH_MODEL):
     client = perplexity_client()
     
     messages = [{"role": "system",
