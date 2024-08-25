@@ -21,6 +21,7 @@ class Config:
         self.STABLE_DIFFUSION_API_KEY = os.getenv("API_KEY_STABLE")
         self.GROQ_API_KEY = os.getenv("API_KEY_GROQ")
         self.API_KEY_ELEVENLABS = os.getenv('API_KEY_ELEVENLABS')
+        self.API_KEY_OPENROUTER = os.getenv('API_KEY_OPENROUTER')
 
         self.WHISPER_MODEL_SIZE = os.getenv('WHISPER_MODEL_SIZE', 'tiny')
         self.LISTEN_VOICE_ENABLED = os.getenv('LISTEN_VOICE_ENABLED', 'false')
