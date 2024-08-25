@@ -31,7 +31,7 @@ class Config:
 
         self.ELEVENLABS_VOICE = os.getenv('ELEVENLABS_VOICE', 'callum')
         self.ELEVENLABS_VOICE_SPEED = os.getenv('ELEVENLABS_VOICE_SPEED', 'regular')
-        self.ELEVENLABS_VOICE_SPEED = os.getenv('ELEVENLABS_REC_MINS', '2.5')
+        self.ELEVENLABS_REC_MINS = os.getenv('ELEVENLABS_REC_MINS', '2.5')
         
         self.FB_APP_ID = os.getenv('FB_APP_ID')
         self.FB_APP_SECRET = os.getenv('FB_APP_SECRET')

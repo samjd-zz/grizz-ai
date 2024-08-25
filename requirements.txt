@@ -17,6 +17,7 @@ openai-whisper
 pyaudio
 ollama==0.1.4
 beautifulsoup4==4.10.0
-flask==2.0.1
+flask==2.0.2
+werkzeug==2.0.3
 elevenlabs
 metagen
