@@ -23538,3 +23538,97 @@ Custom comic generation completed!
 2024-08-25 21:57:59,658 DEBUG Title: Lillooet River Fishing – Fly-Fishing on a River Lost in Time
 2024-08-25 21:57:59,658 DEBUG Image saved at: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet_&_Lytton_comics/2024_08_25/Lillooet_River_Fishing___Fly-Fishing_on_a_River_Lost_in_Time.png
 2024-08-25 21:57:59,663 INFO Successfully generated custom comic: Lillooet River Fishing – Fly-Fishing on a River Lost in Time
+2024-08-25 23:12:12,925 INFO Starting Grizz-AI web application
+2024-08-25 23:12:19,567 INFO Starting Grizz-AI web application
+2024-08-25 23:12:39,934 INFO Viewing all comics: 6 comics found
+2024-08-25 23:12:50,484 INFO Generating daily comic for location: Lillooet & Lytton
+2024-08-25 23:14:40,942 INFO Starting Grizz-AI web application
+2024-08-25 23:15:02,086 INFO Generating daily comic for location: Lillooet & Lytton
+2024-08-25 23:19:09,695 INFO Starting Grizz-AI web application
+2024-08-25 23:19:37,768 INFO Generating daily comic for location: Lillooet & Lytton
+2024-08-25 23:28:53,022 INFO Starting Grizz-AI web application
+2024-08-25 23:33:56,216 INFO Starting Grizz-AI web application
+2024-08-25 23:34:02,827 INFO Starting Grizz-AI web application
+2024-08-25 23:34:16,752 INFO Generating daily comic for location: Lillooet & Lytton
+2024-08-25 23:44:57,259 INFO Starting Grizz-AI web application
+2024-08-25 23:45:03,920 INFO Starting Grizz-AI web application
+2024-08-25 23:45:17,455 INFO Viewing all comics: 14 comics found
+2024-08-25 23:45:32,596 INFO Generating daily comic for location: Lillooet & Lytton
+2024-08-26 00:01:08,382 INFO 
+All Comics:
+2024-08-26 00:01:34,382 INFO Database purged
+2024-08-26 00:01:34,383 INFO Database purged successfully
+2024-08-26 00:01:39,986 INFO Exiting the program. Goodbye!
+2024-08-26 00:01:39,987 INFO Database connection closed
+2024-08-26 00:01:50,800 INFO Starting Grizz-AI web application
+2024-08-26 00:01:57,598 INFO Starting Grizz-AI web application
+2024-08-26 00:02:07,670 INFO Viewing all comics: 0 comics found
+2024-08-26 00:02:14,165 INFO Generating daily comic for location: Lillooet & Lytton
+2024-08-26 00:02:20,207 ERROR Error analyzing text with Ollama: messages must contain content.
+2024-08-26 00:02:21,350 ERROR Failed to analyze event: Temporary Service Interruption at Lillooet Hospital Emergency Department. Skipping this event.
+2024-08-26 00:02:21,351 ERROR Error analyzing text with Ollama: messages must contain content.
+2024-08-26 00:02:22,613 ERROR Failed to analyze event: Campfire Ban and Wildfire Smoke Safety. Skipping this event.
+2024-08-26 00:02:22,614 ERROR Error analyzing text with Ollama: messages must contain content.
+2024-08-26 00:02:23,912 ERROR Failed to analyze event: Flood Watch - Fraser River. Skipping this event.
+2024-08-26 00:02:23,913 ERROR No comic panels were generated. Aborting comic generation.
+2024-08-26 00:02:23,914 ERROR Failed to generate daily comic for Lillooet & Lytton
+2024-08-26 00:06:36,658 INFO Starting Grizz-AI web application
+2024-08-26 00:06:43,262 INFO Starting Grizz-AI web application
+2024-08-26 00:07:04,341 INFO Viewing all comics: 0 comics found
+2024-08-26 00:07:10,188 INFO Generating daily comic for location: Lillooet & Lytton
+2024-08-26 00:07:19,419 ERROR Error parsing JSON from Perplexity API: Expecting value: line 1 column 2 (char 1)
+2024-08-26 00:07:19,420 ERROR Raw response: As of August 26, 2024, there are no specific news events reported within the last 24 hours for Lillooet and Lytton. However, here are some recent updates and ongoing situations that might be relevant:
+
+1. **Temporary Service Interruption at Lillooet Hospital Emergency Department**
+   - **Title:** Temporary Service Interruption at Lillooet Hospital Emergency Department
+   - **Story:** The Lillooet Hospital emergency department is experiencing a temporary service interruption. Residents are advised to seek medical attention at alternative facilities if necessary.
+   - **Full Story Source URL:** [https://www.lillooet.ca/news-1]
+
+2. **Chilcotin River Landslide Update**
+   - **Title:** Chilcotin River Landslide Update
+   - **Story:** Although not within the last 24 hours, the Chilcotin River landslide situation is ongoing and may still be relevant. Updates on the landslide and its impact are available.
+   - **Full Story Source URL:** [https://www.lillooet.ca/news-1]
+
+3. **Flood Watch - Fraser River**
+   - **Title:** Flood Watch - Fraser River
+   - **Story:** A flood watch for the Fraser River was updated recently, indicating ongoing monitoring of water levels.
+   - **Full Story Source URL:** [https://www.lillooet.ca/news-1]
+
+4. **Campfire Ban**
+   - **Title:** Campfire Ban Effective
+   - **Story:** A campfire ban remains in effect to mitigate wildfire risks in the area.
+   - **Full Story Source URL:** [https://www.lillooet.ca/news-1]
+
+### JSON List of Events
+
+
+[
+  {
+    "title": "Temporary Service Interruption at Lillooet Hospital Emergency Department",
+    "story": "The Lillooet Hospital emergency department is experiencing a temporary service interruption. Residents are advised to seek medical attention at alternative facilities if necessary.",
+    "full_story_source_url": "https://www.lillooet.ca/news-1"
+  },
+  {
+    "title": "Chilcotin River Landslide Update",
+    "story": "Although not within the last 24 hours, the Chilcotin River landslide situation is ongoing and may still be relevant. Updates on the landslide and its impact are available.",
+    "full_story_source_url": "https://www.lillooet.ca/news-1"
+  },
+  {
+    "title": "Flood Watch - Fraser River",
+    "story": "A flood watch for the Fraser River was updated recently, indicating ongoing monitoring of water levels.",
+    "full_story_source_url": "https://www.lillooet.ca/news-1"
+  },
+  {
+    "title": "Campfire Ban Effective",
+    "story": "A campfire ban remains in effect to mitigate wildfire risks in the area.",
+    "full_story_source_url": "https://www.lillooet.ca/news-1"
+  }
+]
+2024-08-26 00:07:19,420 WARNING Failed to retrieve local events for Lillooet & Lytton.
+2024-08-26 00:07:19,420 WARNING No new local events in the past 24 hours for Lillooet & Lytton. Aborting comic generation.
+2024-08-26 00:07:19,420 ERROR Failed to generate daily comic for Lillooet & Lytton
+2024-08-26 00:10:16,581 INFO Starting Grizz-AI web application
+2024-08-26 00:10:23,164 INFO Starting Grizz-AI web application
+2024-08-26 00:10:56,237 INFO Viewing all comics: 0 comics found
+2024-08-26 00:11:00,831 INFO Generating daily comic for location: Lillooet & Lytton
+2024-08-26 00:13:13,369 INFO Successfully generated daily comic for Lillooet & Lytton

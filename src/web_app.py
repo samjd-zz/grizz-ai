@@ -38,6 +38,10 @@ def daily_comic():
         app_logger.info(f"Generating daily comic for location: {location}")
         local_events = generate_daily_comic(location)
         if local_events:
+            # Update image paths to be relative to the static folder
+            for event in local_events:
+                event['image_path'] = os.path.relpath(event['image_path'], app.config['GENERATED_IMAGES_FOLDER'])
+                event['image_path'] = url_for('static', filename=event['image_path'])
             app_logger.info(f"Successfully generated daily comic for {location}")
             return render_template('daily_comic_result.html', events=local_events, location=location)
         else:
@@ -59,7 +63,7 @@ def custom_comic():
             db = get_db()
             db.add_comic(title, location, story, summary, "", relative_image_path)
             app_logger.info(f"Successfully generated custom comic: {title}")
-            return render_template('custom_comic_result.html', image_path=relative_image_path, summary=summary)
+            return render_template('custom_comic_result.html', image_path=url_for('static', filename=relative_image_path), summary=summary)
         else:
             app_logger.error(f"Failed to generate custom comic: {title}")
             return "Failed to generate custom comic. Please try again."
@@ -90,7 +94,7 @@ def media_comic():
             for i, image_path in enumerate(relative_image_paths):
                 db.add_comic(f"Media Comic {i+1}", location, f"{media_type} comic", summary, "", image_path)
             app_logger.info(f"Successfully generated media comic from {media_type}")
-            return render_template('media_comic_result.html', image_paths=relative_image_paths, summary=summary)
+            return render_template('media_comic_result.html', image_paths=[url_for('static', filename=path) for path in relative_image_paths], summary=summary)
         else:
             app_logger.error(f"Failed to generate media comic from {media_type}")
             return "Failed to generate media comic. Please try again."
@@ -111,6 +115,8 @@ def search():
 def view_all_comics():
     db = get_db()
     comics = db.get_all_comics()
+    for comic in comics:
+        comic['image_path'] = url_for('static', filename=comic['image_path'])
     app_logger.info(f"Viewing all comics: {len(comics)} comics found")
     return render_template('view_all_comics.html', comics=comics)
 

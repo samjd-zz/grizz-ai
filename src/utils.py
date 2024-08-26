@@ -198,9 +198,9 @@ def unload_ollama_model(model_name):
     try:
         response = requests.post(url, json=payload)
         if response.status_code == 200:
-            print(f"Successfully unloaded model: {model_name}")
+            app_logger.debug(f"Successfully unloaded model: {model_name}")
         else:
-            print(f"Failed to unload model. Status code: {response.status_code}")
-            print(f"Response: {response.text}")
+            app_logger.error(f"Failed to unload model. Status code: {response.status_code}")
+            app_logger.error(f"Response: {response.text}")
     except requests.exceptions.RequestException as e:
-        print(f"An error occurred: {e}")
+        app_logger.error(f"An error occurred: {e}")

@@ -49,13 +49,13 @@ def generate_daily_comic(location):
                 # Check if a comic with this story already exists
                 existing_comic = get_comic_by_story(event_story)
                 if existing_comic:
-                    app_logger.info(f"Comic already exists for story: {event_title}. Skipping this event.")
+                    print(f"Comic already exists for story: {event_title}. Skipping this event.")
                     pbar.update(total_steps-1)
                     continue
                 pbar.update(1)
                 
                 # Generate comic script for the event
-                app_logger.debug(f"Analyzing event: {event_title}")
+                print(f"Analyzing event: {event_title}...")
                 #event_analysis = analyze_text_opai(f"Generate a comic script for this event: {event_title}. {event_story}", location)
                 event_analysis = analyze_text_ollama(f"Generate a comic script for this event: {event_title}. {event_story}", location)
                 if not event_analysis:
@@ -65,7 +65,7 @@ def generate_daily_comic(location):
                 pbar.update(1)
 
                 # Generate comic panel image
-                app_logger.debug(f"Generating image for: {event_title}")
+                print("Generating image...")
                 image_data = generate_dalle_images(event_analysis)
                 if not image_data:
                     app_logger.error(f"Failed to generate comic panel for the event: {event_title}. Skipping this event.")
@@ -74,7 +74,7 @@ def generate_daily_comic(location):
                 pbar.update(1)
 
                 # Save the generated image
-                app_logger.debug(f"Saving image for: {event_title}")
+                app_logger.debug("Saving image...")
                 image_filename = f"ggs_grizzly_news_{event_title.replace(' ', '_')}.png"
                 image_path = save_image(image_data, image_filename, location)
                 if not image_path:
@@ -84,7 +84,7 @@ def generate_daily_comic(location):
                 pbar.update(1)
 
                 # Generate a summary/caption for the comic panel
-                app_logger.debug(f"Generating summary for: {event_title}")
+                print("Generating summary...")
                 #panel_summary = analyze_text_opai(f"Generate a brief summary for this comic panel based on the following event and script: Event: {event_title}. {event_story}. Script: {event_analysis}", location)
                 panel_summary = analyze_text_ollama(f"Generate a brief summary for this comic panel based on the following event and script: Event: {event_title}. {event_story}. Script: {event_analysis}", location)
                 if not panel_summary:
@@ -104,6 +104,9 @@ def generate_daily_comic(location):
                 comic_panels.append((image_path, panel_summary))
                 all_panel_summaries.append(panel_summary)
 
+                # Add image_path to the event dictionary
+                event['image_path'] = image_path
+
             if not comic_panels:
                 app_logger.error("No comic panels were generated. Aborting comic generation.")
                 pbar.update(total_steps-6)
@@ -116,7 +119,7 @@ def generate_daily_comic(location):
             pbar.update(1)
 
             # Print summary for the user
-            print(f"Daily comic generation completed!")
+            app_logger.debug(f"Daily comic generation completed!")
             
         return local_events
 
@@ -138,20 +141,19 @@ def generate_custom_comic(title, story, location):
         None: If an error occurs during comic generation.
     """
     try:
-        app_logger.info("Starting custom comic generation process...")
-
+        
         # Check if a comic with this story already exists
         existing_comic = get_comic_by_story(story)
         if existing_comic:
-            app_logger.info(f"Comic already exists for story: {title}. Returning existing comic.")
+            print(f"Comic already exists for story: {title}. Returning existing comic.")
             return existing_comic[6], existing_comic[4]  # Return image_path and comic_script
 
         total_steps = 6  # Total number of steps in custom comic generation
 
-        app_logger.info(f"Generating custom comic: {title}")
+        print(f"Generating custom comic for: {title}...")
         with tqdm(total=total_steps, bar_format='{l_bar}{bar}', ncols=50, colour='#00FF00') as pbar:
             # Generate comic script for the custom story
-            app_logger.debug("Analyzing custom story")
+            print("Analyzing custom comic story...")
             #event_analysis = analyze_text_opai(f"Generate a comic script for this event: {title}. {story}", location)
             event_analysis = analyze_text_ollama(f"Generate a comic script for this event: {title}. {story}", location)
             if not event_analysis:
@@ -161,7 +163,7 @@ def generate_custom_comic(title, story, location):
             pbar.update(1)
 
             # Generate comic panel image
-            app_logger.debug("Generating comic panel image")
+            print(f"Generating image...")
             image_data = generate_dalle_images(event_analysis)
             if not image_data:
                 app_logger.error(f"Failed to generate comic panel for the custom event: {title}. Aborting comic generation.")
@@ -170,7 +172,7 @@ def generate_custom_comic(title, story, location):
             pbar.update(1)
 
             # Save the generated image
-            app_logger.debug("Saving generated image")
+            app_logger.debug("Saving image...")
             # Use the title for the file name, replacing invalid characters and limiting length
             safe_title = re.sub(r'[^\w\-_\. ]', '_', title)
             safe_title = safe_title.replace(' ', '_')
@@ -184,7 +186,7 @@ def generate_custom_comic(title, story, location):
             pbar.update(1)
 
             # Generate a summary/caption for the comic panel
-            app_logger.debug("Generating panel summary")
+            print("Generating summary...")
             #panel_summary = analyze_text_opai(f"Generate a brief summary for this comic panel based on the following event and script: Event: {title}. {story}. Script: {event_analysis}", location)
             panel_summary = analyze_text_ollama(f"Generate a brief summary for this comic panel based on the following event and script: Event: {title}. {story}. Script: {event_analysis}", location)
             if not panel_summary:
@@ -204,7 +206,7 @@ def generate_custom_comic(title, story, location):
             pbar.update(1)
 
         # Print summary for the user
-        print(f"Custom comic generation completed!")
+        app_logger.debug(f"Custom comic generation completed!")
 
         app_logger.debug(f"Title: {title}")
         app_logger.debug(f"Image saved at: {image_path}")
