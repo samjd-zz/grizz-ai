@@ -44,6 +44,11 @@ class Config:
         self.X_ACCESS_TOKEN_SECRET = os.getenv('X_ACCESS_TOKEN_SECRET')
         
         self.DUCKDUCKGO_APP_NAME = os.getenv('DUCKDUCKGO_APP_NAME', 'grizz_ai_app')
+
+        self.WEB_PORT = os.getenv('WEB_PORT', 5000)
+        self.WEB_DEBUG = os.getenv('WEB_DEBUG', 'true')
+
+
         
         
 def load_config():

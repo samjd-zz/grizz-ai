@@ -36,7 +36,6 @@ from database import close_database, get_all_comics
 import ollama
 import json
 import re
-import requests
 import cv2
 import tempfile
 
