@@ -12,7 +12,7 @@ def generate_dalle_images(desc):
     try:
         app_logger.debug(f"Generating image with DALL-E...")
         client = openai_client()
-        truncated_desc = truncate_prompt(desc) + " NEVER GENERATE HUMAN FACES! YOU ARE A COMIC GRIZZLY BEAR!"
+        truncated_desc = truncate_prompt(desc) + " YOU ARE A COMIC GRIZZLY BEAR!"
         response = client.images.generate(
             model='dall-e-3',
             prompt=truncated_desc,

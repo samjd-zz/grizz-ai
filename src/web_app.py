@@ -53,7 +53,7 @@ def daily_comic():
                     event['image_path'] = url_for('serve_image', filename=relative_path)
                 event['created_at'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 if 'comic_script' not in event:
-                    event['comic_script'] = event.get('summary', 'No comic script available')
+                    event['comic_script'] = "No comic script available"
             app_logger.info(f"Successfully generated daily comic for {location}")
             return render_template('daily_comic_result.html', events=generated_comics, location=location)
         else:
@@ -70,18 +70,18 @@ def custom_comic():
         app_logger.info(f"Generating custom comic: {title}")
         result = generate_custom_comic(title, story, location)
         if result:
-            image_path, summary = result
+            image_path, summary, comic_script = result
             relative_path = os.path.relpath(image_path, app.config['GENERATED_IMAGES_FOLDER'])
             created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             db = get_db()
-            db.add_comic(title, location, story, summary, "", relative_path, created_at)
+            db.add_comic(title, location, story, comic_script, "", relative_path, created_at)
             app_logger.info(f"Successfully generated custom comic: {title}")
             return render_template('custom_comic_result.html', 
                                    title=title,
                                    original_story=story,
                                    created_at=created_at,
                                    image_path=url_for('serve_image', filename=relative_path),
-                                   comic_script=summary)
+                                   comic_script=comic_script)
         else:
             app_logger.error(f"Failed to generate custom comic: {title}")
             return "Failed to generate custom comic. Please try again."
@@ -120,20 +120,20 @@ def media_comic():
         app_logger.info(f"Generating media comic from {media_type}")
         result = generate_media_comic(media_type, path, location)
         if result:
-            image_paths, summary = result
+            image_paths, summary, comic_scripts = result
             relative_paths = [os.path.relpath(path, app.config['GENERATED_IMAGES_FOLDER']) for path in image_paths]
             db = get_db()
             comics = []
-            for i, relative_path in enumerate(relative_paths):
+            for i, (relative_path, comic_script) in enumerate(zip(relative_paths, comic_scripts)):
                 created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 title = f"Media Comic {i+1}"
-                db.add_comic(title, location, f"{media_type} comic", summary, "", relative_path, created_at)
+                db.add_comic(title, location, f"{media_type} comic", comic_script, "", relative_path, created_at)
                 comics.append({
                     'title': title,
                     'original_story': f"{media_type} comic",
                     'created_at': created_at,
                     'image_path': url_for('serve_image', filename=relative_path),
-                    'comic_script': summary,
+                    'comic_script': comic_script,
                     'story_source_url': ''
                 })
             app_logger.info(f"Successfully generated media comic from {media_type}")
@@ -176,6 +176,9 @@ def view_all_comics():
                 comic['image_path'] = None
         else:
             app_logger.warning(f"Comic missing image path: {comic.get('title', 'Unknown')}")
+        
+        if 'comic_script' not in comic or not comic['comic_script']:
+            comic['comic_script'] = "No comic script available"
     
     return render_template('view_all_comics.html', comics=comics)
 

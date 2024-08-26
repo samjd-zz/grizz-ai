@@ -412,6 +412,8 @@ def main():
                                 post_to_twitter(image_path, summary, "https://example.com/comic")  # Replace with your actual comic URL
                                 post_to_facebook(image_path, summary, "https://example.com/comic")  # Replace with your actual comic URL
                                 app_logger.info(f"Posted comic to social media: {filename}")
+                else:
+                    print("No new events found or comic generation failed.")
             
             elif choice == '2':
                 if is_listen_voice_enabled():
