@@ -3,14 +3,19 @@ import requests
 from api_handlers import openai_client
 from logger import app_logger
 
+def truncate_prompt(prompt, max_length=1000):
+    if len(prompt) <= max_length:
+        return prompt
+    return prompt[:max_length-3] + "..."
 
 def generate_dalle_images(desc):
     try:
         app_logger.debug(f"Generating image with DALL-E...")
         client = openai_client()
+        truncated_desc = truncate_prompt(desc)
         response = client.images.generate(
             model='dall-e-3',
-            prompt=desc,
+            prompt=truncated_desc,
             size='1024x1024',
             quality='standard',
             n=1,

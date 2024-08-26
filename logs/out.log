@@ -23407,3 +23407,29 @@ Summary file: Grizzly_Grill_Smokes__Opening_Soon__summary.txt
 2024-08-25 17:48:13,355 DEBUG Image saved successfully: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet,_BC,_CAN_comics/2024_08_25/ggs_grizzly_news_Chilcotin_River_Landslide_Update.png
 2024-08-25 17:48:13,355 DEBUG Generating summary for: Chilcotin River Landslide Update
 2024-08-25 17:48:13,356 DEBUG Analyzing text with Ollama...
+2024-08-25 18:01:53,693 INFO Starting Grizz-AI web application
+2024-08-25 18:02:00,520 INFO Starting Grizz-AI web application
+2024-08-25 18:02:37,755 INFO Viewing all comics: 19 comics found
+2024-08-25 18:02:53,246 INFO Generating daily comic for location: Lillooet
+2024-08-25 18:02:53,246 DEBUG Getting local events for Lillooet.
+2024-08-25 18:02:57,698 DEBUG Retrieved 1 local events for Lillooet.
+2024-08-25 18:02:57,701 DEBUG Analyzing event: Meeting to Discuss Lillooet Hospital Emergency Department Closures
+2024-08-25 18:02:57,701 DEBUG Analyzing text with Ollama...
+2024-08-25 18:03:58,816 DEBUG Text analyzed successfully with Ollama.
+2024-08-25 18:03:58,863 INFO Unloaded the Ollama model.
+2024-08-25 18:03:58,864 DEBUG Generating image for: Meeting to Discuss Lillooet Hospital Emergency Department Closures
+2024-08-25 18:03:58,864 DEBUG Generating image with DALL-E...
+2024-08-25 18:04:17,763 DEBUG Successfully generated image with DALL-E.
+2024-08-25 18:04:17,765 DEBUG Saving image for: Meeting to Discuss Lillooet Hospital Emergency Department Closures
+2024-08-25 18:04:17,769 DEBUG Image saved successfully: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet_comics/2024_08_25/ggs_grizzly_news_Meeting_to_Discuss_Lillooet_Hospital_Emergency_Department_Closures.png
+2024-08-25 18:04:17,769 DEBUG Generating summary for: Meeting to Discuss Lillooet Hospital Emergency Department Closures
+2024-08-25 18:04:17,769 DEBUG Analyzing text with Ollama...
+2024-08-25 18:05:17,761 DEBUG Text analyzed successfully with Ollama.
+2024-08-25 18:05:17,764 INFO Unloaded the Ollama model.
+2024-08-25 18:05:17,765 DEBUG Summary saved successfully: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet_comics/2024_08_25/ggs_grizzly_news_Meeting_to_Discuss_Lillooet_Hospital_Emergency_Department_Closures_summary.txt
+2024-08-25 18:05:17,765 DEBUG Adding comic to database: Meeting to Discuss Lillooet Hospital Emergency Department Closures
+2024-08-25 18:05:17,775 DEBUG Added comic to database: Meeting to Discuss Lillooet Hospital Emergency Department Closures
+2024-08-25 18:05:17,775 DEBUG Creating final summary
+2024-08-25 18:05:17,775 DEBUG Summary saved successfully: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet_comics/2024_08_25/final_summary.txt
+2024-08-25 18:05:17,776 INFO Successfully generated daily comic for Lillooet
+2024-08-25 18:06:09,404 INFO Viewing all comics: 20 comics found
