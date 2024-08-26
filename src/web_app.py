@@ -4,12 +4,13 @@ from main import generate_daily_comic, generate_custom_comic, generate_media_com
 from config import load_config
 from database import ComicDatabase, add_comic, get_all_comics
 from logger import app_logger
+from event_fetcher import get_local_events
 
 app = Flask(__name__)
 config = load_config()
 
-# Configure static file serving for generated images
-app.config['GENERATED_IMAGES_FOLDER'] = os.path.join(config.OUTPUT_DIR, 'static')
+# Configure image serving for generated images
+app.config['GENERATED_IMAGES_FOLDER'] = config.OUTPUT_DIR
 os.makedirs(app.config['GENERATED_IMAGES_FOLDER'], exist_ok=True)
 
 def get_db():
@@ -23,9 +24,15 @@ def close_db(error):
     if db is not None:
         db.close()
 
-@app.route('/static/<path:filename>')
-def serve_static(filename):
-    return send_from_directory(app.config['GENERATED_IMAGES_FOLDER'], filename)
+@app.route('/images/<path:filename>')
+def serve_image(filename):
+    # Split the filename into parts
+    parts = filename.split('/')
+    # The last part is the actual filename
+    actual_filename = parts[-1]
+    # The rest is the subdirectory path
+    subdir = '/'.join(parts[:-1])
+    return send_from_directory(os.path.join(app.config['GENERATED_IMAGES_FOLDER'], subdir), actual_filename)
 
 @app.route('/')
 def index():
@@ -35,18 +42,25 @@ def index():
 def daily_comic():
     if request.method == 'POST':
         location = request.form['location']
-        app_logger.info(f"Generating daily comic for location: {location}")
-        local_events = generate_daily_comic(location)
-        if local_events:
-            # Update image paths to be relative to the static folder
-            for event in local_events:
-                event['image_path'] = os.path.relpath(event['image_path'], app.config['GENERATED_IMAGES_FOLDER'])
-                event['image_path'] = url_for('static', filename=event['image_path'])
+        app_logger.debug(f"Checking for local events in: {location}")
+        local_events = get_local_events(location)
+        if not local_events or (len(local_events) == 1 and local_events[0]['title'] == "No Current News Events Reported"):
+            app_logger.info(f"No events found for {location}")
+            return render_template('daily_comic_result.html', events=[], location=location, message="No events found for today. Please try again later.")
+        
+        app_logger.debug(f"Generating daily comic for location: {location}")
+        generated_comics = generate_daily_comic(location)
+        if generated_comics:
+            # Update image paths to use the custom image route
+            for event in generated_comics:
+                if 'image_path' in event:
+                    relative_path = os.path.relpath(event['image_path'], app.config['GENERATED_IMAGES_FOLDER'])
+                    event['image_path'] = url_for('serve_image', filename=relative_path)
             app_logger.info(f"Successfully generated daily comic for {location}")
-            return render_template('daily_comic_result.html', events=local_events, location=location)
+            return render_template('daily_comic_result.html', events=generated_comics, location=location)
         else:
             app_logger.error(f"Failed to generate daily comic for {location}")
-            return "Failed to generate daily comic. Please try again."
+            return render_template('daily_comic_result.html', events=[], location=location, message="Failed to generate daily comic. Please try again later.")
     return render_template('daily_comic.html')
 
 @app.route('/custom_comic', methods=['GET', 'POST'])
@@ -59,11 +73,11 @@ def custom_comic():
         result = generate_custom_comic(title, story, location)
         if result:
             image_path, summary = result
-            relative_image_path = os.path.relpath(image_path, app.config['GENERATED_IMAGES_FOLDER'])
+            relative_path = os.path.relpath(image_path, app.config['GENERATED_IMAGES_FOLDER'])
             db = get_db()
-            db.add_comic(title, location, story, summary, "", relative_image_path)
+            db.add_comic(title, location, story, summary, "", relative_path)
             app_logger.info(f"Successfully generated custom comic: {title}")
-            return render_template('custom_comic_result.html', image_path=url_for('static', filename=relative_image_path), summary=summary)
+            return render_template('custom_comic_result.html', image_path=url_for('serve_image', filename=relative_path), summary=summary)
         else:
             app_logger.error(f"Failed to generate custom comic: {title}")
             return "Failed to generate custom comic. Please try again."
@@ -83,18 +97,32 @@ def media_comic():
                 return "Failed to capture live video. Please try again."
             path = video_path
         else:
-            path = request.form['path']
+            if 'file' not in request.files:
+                app_logger.error("No file part in the request")
+                return "No file part in the request. Please try again."
+            file = request.files['file']
+            if file.filename == '':
+                app_logger.error("No file selected")
+                return "No file selected. Please try again."
+            if file:
+                filename = file.filename
+                path = os.path.join(app.config['GENERATED_IMAGES_FOLDER'], 'uploads', filename)
+                os.makedirs(os.path.dirname(path), exist_ok=True)
+                file.save(path)
+            else:
+                app_logger.error("File upload failed")
+                return "File upload failed. Please try again."
         
         app_logger.info(f"Generating media comic from {media_type}")
         result = generate_media_comic(media_type, path, location)
         if result:
             image_paths, summary = result
-            relative_image_paths = [os.path.relpath(path, app.config['GENERATED_IMAGES_FOLDER']) for path in image_paths]
+            relative_paths = [os.path.relpath(path, app.config['GENERATED_IMAGES_FOLDER']) for path in image_paths]
             db = get_db()
-            for i, image_path in enumerate(relative_image_paths):
-                db.add_comic(f"Media Comic {i+1}", location, f"{media_type} comic", summary, "", image_path)
+            for i, relative_path in enumerate(relative_paths):
+                db.add_comic(f"Media Comic {i+1}", location, f"{media_type} comic", summary, "", relative_path)
             app_logger.info(f"Successfully generated media comic from {media_type}")
-            return render_template('media_comic_result.html', image_paths=[url_for('static', filename=path) for path in relative_image_paths], summary=summary)
+            return render_template('media_comic_result.html', image_paths=[url_for('serve_image', filename=path) for path in relative_paths], summary=summary)
         else:
             app_logger.error(f"Failed to generate media comic from {media_type}")
             return "Failed to generate media comic. Please try again."
@@ -116,7 +144,7 @@ def view_all_comics():
     db = get_db()
     comics = db.get_all_comics()
     for comic in comics:
-        comic['image_path'] = url_for('static', filename=comic['image_path'])
+        comic['image_path'] = url_for('serve_image', filename=comic['image_path'])
     app_logger.info(f"Viewing all comics: {len(comics)} comics found")
     return render_template('view_all_comics.html', comics=comics)
 

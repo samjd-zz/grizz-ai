@@ -23,7 +23,7 @@
             <h2>{{ comic.title }}</h2>
             <p>Location: {{ comic.location }}</p>
             <p>Created At: {{ comic.created_at }}</p>
-            <img src="{{ url_for('static', filename=comic.image_path) }}" alt="{{ comic.title }}" class="comic-image">
+            <img src="{{ comic.image_path }}" alt="{{ comic.title }}" class="comic-image">
             <p>Original Story: {{ comic.original_story }}</p>
             <p>Comic Script: {{ comic.comic_script }}</p>
             {% if comic.story_source_url %}

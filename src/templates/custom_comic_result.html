@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Custom Comic Generated</h1>
-    <img src="{{ url_for('static', filename=image_path) }}" alt="Generated Comic">
+    <img src="{{ image_path }}" alt="Generated Comic">
     <h2>Summary:</h2>
     <p>{{ summary }}</p>
     <a href="{{ url_for('custom_comic') }}">Create Another Custom Comic</a>

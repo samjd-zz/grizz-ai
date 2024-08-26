@@ -8,7 +8,7 @@
 <body>
     <h1>Media Comic Generated</h1>
     {% for image_path in image_paths %}
-        <img src="{{ url_for('static', filename=image_path) }}" alt="Generated Comic">
+        <img src="{{ image_path }}" alt="Generated Comic">
     {% endfor %}
     <h2>Summary:</h2>
     <p>{{ summary }}</p>
