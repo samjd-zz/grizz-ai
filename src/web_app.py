@@ -26,13 +26,7 @@ def close_db(error):
 
 @app.route('/images/<path:filename>')
 def serve_image(filename):
-    # Split the filename into parts
-    parts = filename.split('/')
-    # The last part is the actual filename
-    actual_filename = parts[-1]
-    # The rest is the subdirectory path
-    subdir = '/'.join(parts[:-1])
-    return send_from_directory(os.path.join(app.config['GENERATED_IMAGES_FOLDER'], subdir), actual_filename)
+    return send_from_directory(app.config['GENERATED_IMAGES_FOLDER'], filename)
 
 @app.route('/')
 def index():
@@ -143,9 +137,25 @@ def search():
 def view_all_comics():
     db = get_db()
     comics = db.get_all_comics()
-    for comic in comics:
-        comic['image_path'] = url_for('serve_image', filename=comic['image_path'])
     app_logger.info(f"Viewing all comics: {len(comics)} comics found")
+    
+    for comic in comics:
+        if 'image_path' in comic and comic['image_path']:
+            app_logger.debug(f"Original image path: {comic['image_path']}")
+            # Use os.path.relpath to get the relative path from OUTPUT_DIR
+            relative_path = os.path.relpath(comic['image_path'], config.OUTPUT_DIR)
+            app_logger.debug(f"Relative image path: {relative_path}")
+            full_path = os.path.join(config.OUTPUT_DIR, relative_path)
+            app_logger.debug(f"Full image path: {full_path}")
+            if os.path.exists(full_path):
+                comic['image_path'] = url_for('serve_image', filename=relative_path)
+                app_logger.debug(f"Updated image path: {comic['image_path']}")
+            else:
+                app_logger.warning(f"Image file not found: {full_path}")
+                comic['image_path'] = None
+        else:
+            app_logger.warning(f"Comic missing image path: {comic.get('title', 'Unknown')}")
+    
     return render_template('view_all_comics.html', comics=comics)
 
 if __name__ == '__main__':

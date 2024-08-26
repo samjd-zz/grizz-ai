@@ -14,6 +14,12 @@
             max-width: 100%;
             height: auto;
         }
+        .debug-info {
+            background-color: #f0f0f0;
+            padding: 10px;
+            margin-top: 10px;
+            font-family: monospace;
+        }
     </style>
 </head>
 <body>
@@ -23,12 +29,20 @@
             <h2>{{ comic.title }}</h2>
             <p>Location: {{ comic.location }}</p>
             <p>Created At: {{ comic.created_at }}</p>
-            <img src="{{ comic.image_path }}" alt="{{ comic.title }}" class="comic-image">
+            {% if comic.image_path %}
+                <img src="{{ comic.image_path }}" alt="{{ comic.title }}" class="comic-image">
+            {% else %}
+                <p>Image not available</p>
+            {% endif %}
             <p>Original Story: {{ comic.original_story }}</p>
             <p>Comic Script: {{ comic.comic_script }}</p>
             {% if comic.story_source_url %}
                 <p><a href="{{ comic.story_source_url }}" target="_blank">Source URL</a></p>
             {% endif %}
+            <div class="debug-info">
+                <p>Debug Info:</p>
+                <p>Image Path: {{ comic.image_path }}</p>
+            </div>
         </div>
     {% else %}
         <p>No comics found.</p>
