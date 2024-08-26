@@ -14,6 +14,7 @@ class ComicDatabase:
     def get_connection(cls):
         if not hasattr(cls._local, "connection"):
             cls._local.connection = sqlite3.connect(config.DB_PATH)
+            cls._local.connection.row_factory = sqlite3.Row
         return cls._local.connection
 
     @classmethod
@@ -51,19 +52,27 @@ class ComicDatabase:
     def get_comic_by_story(cls, original_story):
         cursor = cls.get_cursor()
         cursor.execute('SELECT * FROM comics WHERE original_story = ?', (original_story,))
-        return cursor.fetchone()
+        result = cursor.fetchone()
+        return dict(result) if result else None
 
     @classmethod
     def get_all_comics(cls):
         cursor = cls.get_cursor()
         cursor.execute('SELECT * FROM comics ORDER BY created_at DESC')
-        return cursor.fetchall()
+        return [dict(row) for row in cursor.fetchall()]
 
     @classmethod
     def close(cls):
         if hasattr(cls._local, "connection"):
             cls._local.connection.close()
             del cls._local.connection
+
+    @classmethod
+    def purge_database(cls):
+        cursor = cls.get_cursor()
+        cursor.execute('DELETE FROM comics')
+        cls.get_connection().commit()
+        app_logger.info("Database purged")
 
 # Ensure the table is created
 ComicDatabase.create_table()
@@ -92,3 +101,10 @@ def get_all_comics():
 def close_database():
     ComicDatabase.close()
     app_logger.info("Database connection closed")
+
+def purge_database():
+    try:
+        ComicDatabase.purge_database()
+        app_logger.info("Database purged successfully")
+    except Exception as e:
+        app_logger.error(f"Error purging database: {e}")

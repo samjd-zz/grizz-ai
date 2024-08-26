@@ -10,11 +10,13 @@ class Config:
         self.SOURCE_DIR = os.getenv("SOURCE_DIR")
         self.OUTPUT_DIR = os.getenv("OUTPUT_DIR")
         self.DB_PATH = os.getenv("DB_PATH")
+        self.LOG_PATH = os.getenv("LOG_PATH")
 
         self.OPENAI_TEXT_ANALYZE_MODEL=os.getenv('OPENAI_TEXT_ANALYZE_MODEL', 'gpt-4o') #model="chatgpt-4o-latest"
         self.PERPLEXITY_SEARCH_MODEL=os.getenv('PERPLEXITY_SEARCH_MODEL', "llama-3.1-sonar-large-128k-online")
         self.OLLAMA_GROQ_TOOL_MODEL=os.getenv('OLLAMA_GROQ_TOOL_MODEL', "llama-3-groq-70b-tool-use")
         self.OLLAMA_TEXT_ANALYZE_MODEL=os.getenv('OLLAMA_TEXT_ANALYZE_MODEL', 'mistral')
+        self.TORCH_IMAGE_TO_TEXT_MODEL=os.getenv('TORCH_IMAGE_TO_TEXT_MODEL', 'unified-vl-t5-base')
 
         self.OPENAI_API_KEY = os.getenv("API_KEY_OPENAI")
         self.PERPLEXITY_API_KEY = os.getenv("API_KEY_PERPLEXITY")

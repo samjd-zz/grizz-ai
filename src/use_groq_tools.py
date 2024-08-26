@@ -124,4 +124,4 @@ def chat_with_tools(query: str) -> str:
     finally:
         # Ensure model gets unloaded after the conversation is complete or in case of errors
         unload_ollama_model(config.OLLAMA_GROQ_TOOL_MODEL)
-        app_logger.info("Unloaded the Ollama model.")
+        app_logger.debug("Unloaded the Ollama model.")

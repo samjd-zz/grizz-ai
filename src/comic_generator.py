@@ -114,6 +114,10 @@ def generate_daily_comic(location):
             final_summary = f"Today's Events in {location}:\n" + "\n".join(all_panel_summaries)
             save_summary(location, "final_summary.txt", final_summary)
             pbar.update(1)
+
+            # Print summary for the user
+            print(f"Daily comic generation completed!")
+            
         return local_events
 
     except Exception as e:
@@ -200,7 +204,8 @@ def generate_custom_comic(title, story, location):
             pbar.update(1)
 
         # Print summary for the user
-        app_logger.info(f"\nCustom comic generation completed!")
+        print(f"Custom comic generation completed!")
+
         app_logger.debug(f"Title: {title}")
         app_logger.debug(f"Image saved at: {image_path}")
 

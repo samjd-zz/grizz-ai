@@ -12,8 +12,6 @@ from config import load_config
 
 from PIL import Image
 
-TORCH_IMAGE_TO_TEXT_MODEL = "nlpconnect/vit-gpt2-image-captioning"
-
 config = load_config()
 
 TODAY = datetime.now().strftime("%Y_%m_%d")
@@ -186,7 +184,7 @@ def load_pipeline_model():
     print(f"{torch.cuda.get_device_name(0) if device == 0 else 'cpu'}")
 
     # Load image captioning pipeline with fp16 precision for memory optimization
-    captioner = pipeline("image-to-text", model=TORCH_IMAGE_TO_TEXT_MODEL, device=device, torch_dtype=torch.float16 if torch.cuda.is_available() else None)
+    captioner = pipeline("image-to-text", model=config.TORCH_IMAGE_TO_TEXT_MODEL, device=device, torch_dtype=torch.float16 if torch.cuda.is_available() else None)
     return captioner
 
 def unload_ollama_model(model_name):

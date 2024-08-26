@@ -4,18 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View All Comics</title>
+    <style>
+        .comic-container {
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+        .comic-image {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
 </head>
 <body>
     <h1>All Comics</h1>
     {% for comic in comics %}
-        <div>
+        <div class="comic-container">
             <h2>{{ comic.title }}</h2>
             <p>Location: {{ comic.location }}</p>
             <p>Created At: {{ comic.created_at }}</p>
-            <img src="{{ url_for('static', filename=comic.image_path) }}" alt="{{ comic.title }}">
-            <p>{{ comic.summary }}</p>
+            <img src="{{ url_for('static', filename=comic.image_path) }}" alt="{{ comic.title }}" class="comic-image">
+            <p>Original Story: {{ comic.original_story }}</p>
+            <p>Comic Script: {{ comic.comic_script }}</p>
+            {% if comic.story_source_url %}
+                <p><a href="{{ comic.story_source_url }}" target="_blank">Source URL</a></p>
+            {% endif %}
         </div>
-        <hr>
+    {% else %}
+        <p>No comics found.</p>
     {% endfor %}
     <a href="{{ url_for('index') }}">Back to Home</a>
 </body>

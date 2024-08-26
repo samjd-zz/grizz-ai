@@ -2,8 +2,11 @@ import logging
 import os
 
 from logging.handlers import RotatingFileHandler
+from config import load_config
 
-def setup_logger(name, log_file, level=logging.DEBUG):
+config = load_config()
+
+def setup_logger(name, log_file, level=logging.INFO):
     """Function to set up a logger with file and console handlers"""
     formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
     
@@ -29,5 +32,5 @@ def setup_logger(name, log_file, level=logging.DEBUG):
     return logger
 
 # Create a logger for the application
-log_file_path = os.path.join('/home/samjd/Apps/claude-dev/grizz-ai/logs', 'out.log')
-app_logger = setup_logger('forest_chronicles', log_file_path)
+log_file_path = os.path.join(config.LOG_PATH, 'out.log')
+app_logger = setup_logger('grizz-ai', log_file_path)

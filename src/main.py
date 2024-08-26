@@ -31,7 +31,7 @@ from voice_recognition import is_listen_voice_enabled, listen_to_user, toggle_vo
 from event_fetcher import duckduckgo_search
 
 from social_media import post_to_twitter, post_to_facebook
-from database import close_database, get_all_comics
+from database import close_database, get_all_comics, purge_database
 
 import ollama
 import json
@@ -62,8 +62,9 @@ def display_menu():
     print("4. View* All_Comics*")
     print("5. Toggle* Voice* Recognition(*=spoken command)")
     print("6. Psy-researcher: DuckDuckGo* Search*")
-    print("7. Exit* or Quit*")
-    return input("Choose an option (1-7): ")
+    print("7. Purge Database")
+    print("8. Exit* or Quit*")
+    return input("Choose an option (1-8): ")
 
 def get_user_choice():
     """
@@ -89,8 +90,10 @@ def get_user_choice():
                 return "5"
             elif "duckduckgo" in command or "search" in command:
                 return "6"
-            elif "exit" in command or "quit" in command:
+            elif "purge" in command or "database" in command:
                 return "7"
+            elif "exit" in command or "quit" in command:
+                return "8"
         print("Command not recognized. Please try again or use text input.")
     return display_menu()
 
@@ -134,14 +137,14 @@ def view_all_comics():
 
     # Display comics from the database
     for comic in comics_from_db:
-        print(f"Title: {comic[1]}")
-        print(f"Location: {comic[2]}")
-        print(f"Image Path: {comic[6]}")
-        print(f"Created At: {comic[7]}")
+        print(f"Title: {comic['title']}")
+        print(f"Location: {comic['location']}")
+        print(f"Image Path: {comic['image_path']}")
+        print(f"Created At: {comic['created_at']}")
         print("-" * 50)
 
     # Display comics from the output folder that are not in the database
-    db_image_paths = set(comic[6] for comic in comics_from_db)
+    db_image_paths = set(comic['image_path'] for comic in comics_from_db)
     for image_path in comics_from_folder:
         if image_path not in db_image_paths:
             print(f"Title: Unknown (Not in database)")
@@ -516,6 +519,14 @@ def main():
                 perform_duckduckgo_search()
             
             elif choice == '7':
+                confirmation = input("Are you sure you want to purge the database? This action cannot be undone. (y/n): ")
+                if confirmation.lower() == 'y':
+                    purge_database()
+                    print("Database purged successfully.")
+                else:
+                    print("Database purge cancelled.")
+            
+            elif choice == '8':
                 app_logger.info("Exiting the program. Goodbye!")
                 break
             

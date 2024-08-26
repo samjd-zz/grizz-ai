@@ -23433,3 +23433,108 @@ Summary file: Grizzly_Grill_Smokes__Opening_Soon__summary.txt
 2024-08-25 18:05:17,775 DEBUG Summary saved successfully: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet_comics/2024_08_25/final_summary.txt
 2024-08-25 18:05:17,776 INFO Successfully generated daily comic for Lillooet
 2024-08-25 18:06:09,404 INFO Viewing all comics: 20 comics found
+2024-08-25 18:10:43,907 INFO Viewing all comics: 20 comics found
+2024-08-25 21:37:04,743 INFO Starting Grizz-AI web application
+2024-08-25 21:37:11,551 INFO Starting Grizz-AI web application
+2024-08-25 21:38:04,549 INFO Database purged
+2024-08-25 21:38:04,550 INFO Database purged successfully
+2024-08-25 21:38:09,213 INFO Exiting the program. Goodbye!
+2024-08-25 21:38:09,213 INFO Database connection closed
+2024-08-25 21:38:51,032 INFO Starting Grizz-AI web application
+2024-08-25 21:38:57,732 INFO Starting Grizz-AI web application
+2024-08-25 21:39:02,653 INFO Viewing all comics: 0 comics found
+2024-08-25 21:39:22,948 INFO Generating daily comic for location: Lillooet & Lytton
+2024-08-25 21:39:22,948 DEBUG Getting local events for Lillooet & Lytton.
+2024-08-25 21:39:29,825 DEBUG Retrieved 4 local events for Lillooet & Lytton.
+2024-08-25 21:39:29,832 DEBUG Analyzing event: Emergency Room Closure Update
+2024-08-25 21:39:29,832 DEBUG Analyzing text with Ollama...
+2024-08-25 21:41:01,465 DEBUG Text analyzed successfully with Ollama.
+2024-08-25 21:41:01,511 INFO Unloaded the Ollama model.
+2024-08-25 21:41:01,511 DEBUG Generating image for: Emergency Room Closure Update
+2024-08-25 21:41:01,511 DEBUG Generating image with DALL-E...
+2024-08-25 21:41:22,325 DEBUG Successfully generated image with DALL-E.
+2024-08-25 21:41:22,327 DEBUG Saving image for: Emergency Room Closure Update
+2024-08-25 21:41:22,330 DEBUG Image saved successfully: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet_&_Lytton_comics/2024_08_25/ggs_grizzly_news_Emergency_Room_Closure_Update.png
+2024-08-25 21:41:22,330 DEBUG Generating summary for: Emergency Room Closure Update
+2024-08-25 21:41:22,331 DEBUG Analyzing text with Ollama...
+2024-08-25 21:42:37,093 DEBUG Text analyzed successfully with Ollama.
+2024-08-25 21:42:37,150 INFO Unloaded the Ollama model.
+2024-08-25 21:42:37,151 DEBUG Summary saved successfully: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet_&_Lytton_comics/2024_08_25/ggs_grizzly_news_Emergency_Room_Closure_Update_summary.txt
+2024-08-25 21:42:37,151 DEBUG Adding comic to database: Emergency Room Closure Update
+2024-08-25 21:42:37,156 DEBUG Added comic to database: Emergency Room Closure Update
+2024-08-25 21:42:37,156 DEBUG Analyzing event: Campfire Ban
+2024-08-25 21:42:37,156 DEBUG Analyzing text with Ollama...
+2024-08-25 21:43:39,013 DEBUG Text analyzed successfully with Ollama.
+2024-08-25 21:43:39,059 INFO Unloaded the Ollama model.
+2024-08-25 21:43:39,060 DEBUG Generating image for: Campfire Ban
+2024-08-25 21:43:39,060 DEBUG Generating image with DALL-E...
+2024-08-25 21:44:05,453 DEBUG Successfully generated image with DALL-E.
+2024-08-25 21:44:05,454 DEBUG Saving image for: Campfire Ban
+2024-08-25 21:44:05,458 DEBUG Image saved successfully: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet_&_Lytton_comics/2024_08_25/ggs_grizzly_news_Campfire_Ban.png
+2024-08-25 21:44:05,458 DEBUG Generating summary for: Campfire Ban
+2024-08-25 21:44:05,458 DEBUG Analyzing text with Ollama...
+2024-08-25 21:44:35,793 DEBUG Text analyzed successfully with Ollama.
+2024-08-25 21:44:35,843 INFO Unloaded the Ollama model.
+2024-08-25 21:44:35,845 DEBUG Summary saved successfully: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet_&_Lytton_comics/2024_08_25/ggs_grizzly_news_Campfire_Ban_summary.txt
+2024-08-25 21:44:35,845 DEBUG Adding comic to database: Campfire Ban
+2024-08-25 21:44:35,853 DEBUG Added comic to database: Campfire Ban
+2024-08-25 21:44:35,853 DEBUG Analyzing event: Wildfire Season Updates
+2024-08-25 21:44:35,853 DEBUG Analyzing text with Ollama...
+2024-08-25 21:45:33,600 DEBUG Text analyzed successfully with Ollama.
+2024-08-25 21:45:33,646 INFO Unloaded the Ollama model.
+2024-08-25 21:45:33,647 DEBUG Generating image for: Wildfire Season Updates
+2024-08-25 21:45:33,647 DEBUG Generating image with DALL-E...
+2024-08-25 21:45:51,418 DEBUG Successfully generated image with DALL-E.
+2024-08-25 21:45:51,419 DEBUG Saving image for: Wildfire Season Updates
+2024-08-25 21:45:51,420 DEBUG Image saved successfully: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet_&_Lytton_comics/2024_08_25/ggs_grizzly_news_Wildfire_Season_Updates.png
+2024-08-25 21:45:51,420 DEBUG Generating summary for: Wildfire Season Updates
+2024-08-25 21:45:51,420 DEBUG Analyzing text with Ollama...
+2024-08-25 21:46:32,535 DEBUG Text analyzed successfully with Ollama.
+2024-08-25 21:46:32,539 INFO Unloaded the Ollama model.
+2024-08-25 21:46:32,540 DEBUG Summary saved successfully: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet_&_Lytton_comics/2024_08_25/ggs_grizzly_news_Wildfire_Season_Updates_summary.txt
+2024-08-25 21:46:32,540 DEBUG Adding comic to database: Wildfire Season Updates
+2024-08-25 21:46:32,544 DEBUG Added comic to database: Wildfire Season Updates
+2024-08-25 21:46:32,545 DEBUG Analyzing event: Flood Watch and Water Conservation
+2024-08-25 21:46:32,545 DEBUG Analyzing text with Ollama...
+2024-08-25 21:47:46,383 DEBUG Text analyzed successfully with Ollama.
+2024-08-25 21:47:46,430 INFO Unloaded the Ollama model.
+2024-08-25 21:47:46,431 DEBUG Generating image for: Flood Watch and Water Conservation
+2024-08-25 21:47:46,431 DEBUG Generating image with DALL-E...
+2024-08-25 21:48:02,938 DEBUG Successfully generated image with DALL-E.
+2024-08-25 21:48:02,940 DEBUG Saving image for: Flood Watch and Water Conservation
+2024-08-25 21:48:02,944 DEBUG Image saved successfully: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet_&_Lytton_comics/2024_08_25/ggs_grizzly_news_Flood_Watch_and_Water_Conservation.png
+2024-08-25 21:48:02,944 DEBUG Generating summary for: Flood Watch and Water Conservation
+2024-08-25 21:48:02,944 DEBUG Analyzing text with Ollama...
+2024-08-25 21:48:53,256 DEBUG Text analyzed successfully with Ollama.
+2024-08-25 21:48:53,303 INFO Unloaded the Ollama model.
+2024-08-25 21:48:53,304 DEBUG Summary saved successfully: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet_&_Lytton_comics/2024_08_25/ggs_grizzly_news_Flood_Watch_and_Water_Conservation_summary.txt
+2024-08-25 21:48:53,304 DEBUG Adding comic to database: Flood Watch and Water Conservation
+2024-08-25 21:48:53,309 DEBUG Added comic to database: Flood Watch and Water Conservation
+2024-08-25 21:48:53,309 DEBUG Creating final summary
+2024-08-25 21:48:53,309 DEBUG Summary saved successfully: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet_&_Lytton_comics/2024_08_25/final_summary.txt
+2024-08-25 21:48:53,310 INFO Successfully generated daily comic for Lillooet & Lytton
+2024-08-25 21:55:57,746 INFO Generating custom comic: Lillooet River Fishing – Fly-Fishing on a River Lost in Time
+2024-08-25 21:55:57,746 INFO Starting custom comic generation process...
+2024-08-25 21:55:57,747 INFO Generating custom comic: Lillooet River Fishing – Fly-Fishing on a River Lost in Time
+2024-08-25 21:55:57,749 DEBUG Analyzing custom story
+2024-08-25 21:55:57,749 DEBUG Analyzing text with Ollama...
+2024-08-25 21:56:54,575 DEBUG Text analyzed successfully with Ollama.
+2024-08-25 21:56:54,619 INFO Unloaded the Ollama model.
+2024-08-25 21:56:54,620 DEBUG Generating comic panel image
+2024-08-25 21:56:54,620 DEBUG Generating image with DALL-E...
+2024-08-25 21:57:14,202 DEBUG Successfully generated image with DALL-E.
+2024-08-25 21:57:14,203 DEBUG Saving generated image
+2024-08-25 21:57:14,208 DEBUG Image saved successfully: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet_&_Lytton_comics/2024_08_25/Lillooet_River_Fishing___Fly-Fishing_on_a_River_Lost_in_Time.png
+2024-08-25 21:57:14,208 DEBUG Generating panel summary
+2024-08-25 21:57:14,208 DEBUG Analyzing text with Ollama...
+2024-08-25 21:57:59,607 DEBUG Text analyzed successfully with Ollama.
+2024-08-25 21:57:59,651 INFO Unloaded the Ollama model.
+2024-08-25 21:57:59,652 DEBUG Saving summary
+2024-08-25 21:57:59,652 DEBUG Summary saved successfully: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet_&_Lytton_comics/2024_08_25/Lillooet_River_Fishing___Fly-Fishing_on_a_River_Lost_in_Time_summary.txt
+2024-08-25 21:57:59,652 DEBUG Adding custom comic to database: Lillooet River Fishing – Fly-Fishing on a River Lost in Time
+2024-08-25 21:57:59,657 DEBUG Added comic to database: Lillooet River Fishing – Fly-Fishing on a River Lost in Time
+2024-08-25 21:57:59,658 INFO 
+Custom comic generation completed!
+2024-08-25 21:57:59,658 DEBUG Title: Lillooet River Fishing – Fly-Fishing on a River Lost in Time
+2024-08-25 21:57:59,658 DEBUG Image saved at: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet_&_Lytton_comics/2024_08_25/Lillooet_River_Fishing___Fly-Fishing_on_a_River_Lost_in_Time.png
+2024-08-25 21:57:59,663 INFO Successfully generated custom comic: Lillooet River Fishing – Fly-Fishing on a River Lost in Time

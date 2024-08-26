@@ -58,7 +58,7 @@ def analyze_text_ollama(text, location, model=config.OLLAMA_TEXT_ANALYZE_MODEL, 
     finally:
         # Ensure model gets unloaded after the conversation is complete or in case of errors
         unload_ollama_model(config.OLLAMA_TEXT_ANALYZE_MODEL)
-        app_logger.info("Unloaded the Ollama model.")
+        app_logger.debug("Unloaded the Ollama model.")
 
 # Use the text-to-speech endpoint to convert text into speech
 # response = client.text_to_speech("Hello, world!")
