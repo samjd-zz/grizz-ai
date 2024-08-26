@@ -27,11 +27,11 @@
     
     {% from 'comic_display.html' import display_comic %}
     {{ display_comic({
-        'title': 'Custom Comic',
-        'original_story': summary,
-        'created_at': '',
+        'title': title,
+        'original_story': original_story,
+        'created_at': created_at,
         'image_path': image_path,
-        'comic_script': summary,
+        'comic_script': comic_script,
         'story_source_url': ''
     }) }}
     

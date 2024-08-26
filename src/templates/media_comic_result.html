@@ -26,14 +26,14 @@
     <h1>Media Comic Result</h1>
     
     {% from 'comic_display.html' import display_comic %}
-    {% for image_path in image_paths %}
+    {% for comic in comics %}
         {{ display_comic({
-            'title': 'Media Comic ' ~ loop.index,
-            'original_story': summary,
-            'created_at': '',
-            'image_path': image_path,
-            'comic_script': summary,
-            'story_source_url': ''
+            'title': comic.title,
+            'original_story': comic.original_story,
+            'created_at': comic.created_at,
+            'image_path': comic.image_path,
+            'comic_script': comic.comic_script,
+            'story_source_url': comic.story_source_url
         }) }}
     {% endfor %}
     
