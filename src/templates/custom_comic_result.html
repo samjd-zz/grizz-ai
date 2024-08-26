@@ -4,12 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Custom Comic Result</title>
+    <style>
+        .comic-container {
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+        .comic-image {
+            max-width: 100%;
+            height: auto;
+        }
+        .debug-info {
+            background-color: #f0f0f0;
+            padding: 10px;
+            margin-top: 10px;
+            font-family: monospace;
+        }
+    </style>
 </head>
 <body>
-    <h1>Custom Comic Generated</h1>
-    <img src="{{ image_path }}" alt="Generated Comic">
-    <h2>Summary:</h2>
-    <p>{{ summary }}</p>
+    <h1>Custom Comic Result</h1>
+    
+    {% from 'comic_display.html' import display_comic %}
+    {{ display_comic({
+        'title': 'Custom Comic',
+        'original_story': summary,
+        'created_at': '',
+        'image_path': image_path,
+        'comic_script': summary,
+        'story_source_url': ''
+    }) }}
+    
     <a href="{{ url_for('custom_comic') }}">Create Another Custom Comic</a>
     <br>
     <a href="{{ url_for('index') }}">Back to Home</a>

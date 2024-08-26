@@ -24,26 +24,9 @@
 </head>
 <body>
     <h1>All Comics</h1>
+    {% from 'comic_display.html' import display_comic %}
     {% for comic in comics %}
-        <div class="comic-container">
-            <h2>{{ comic.title }}</h2>
-            <p>Location: {{ comic.location }}</p>
-            <p>Created At: {{ comic.created_at }}</p>
-            {% if comic.image_path %}
-                <img src="{{ comic.image_path }}" alt="{{ comic.title }}" class="comic-image">
-            {% else %}
-                <p>Image not available</p>
-            {% endif %}
-            <p>Original Story: {{ comic.original_story }}</p>
-            <p>Comic Script: {{ comic.comic_script }}</p>
-            {% if comic.story_source_url %}
-                <p><a href="{{ comic.story_source_url }}" target="_blank">Source URL</a></p>
-            {% endif %}
-            <div class="debug-info">
-                <p>Debug Info:</p>
-                <p>Image Path: {{ comic.image_path }}</p>
-            </div>
-        </div>
+        {{ display_comic(comic) }}
     {% else %}
         <p>No comics found.</p>
     {% endfor %}

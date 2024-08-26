@@ -22,6 +22,12 @@
             border: 1px solid #f5c6cb;
             border-radius: 4px;
         }
+        .debug-info {
+            background-color: #f0f0f0;
+            padding: 10px;
+            margin-top: 10px;
+            font-family: monospace;
+        }
     </style>
 </head>
 <body>
@@ -33,19 +39,9 @@
         </div>
     {% elif events %}
         <h2>{{ events|length }} New local event(s) retrieved today:</h2>
+        {% from 'comic_display.html' import display_comic %}
         {% for event in events %}
-            <div class="comic-container">
-                <h3>{{ event.title }}</h3>
-                {% if event.image_path %}
-                    <img src="{{ event.image_path }}" alt="{{ event.title }}" class="comic-image">
-                {% else %}
-                    <p>Image not available</p>
-                {% endif %}
-                <p>{{ event.story }}</p>
-                {% if event.full_story_source_url %}
-                    <a href="{{ event.full_story_source_url }}" target="_blank">Read full story</a>
-                {% endif %}
-            </div>
+            {{ display_comic(event) }}
         {% endfor %}
     {% else %}
         <p>No comics were generated. Please try again later.</p>

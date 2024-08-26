@@ -1,0 +1,20 @@
+{% macro display_comic(comic) %}
+<div class="comic-container">
+    <h2>{{ comic.title }}</h2>
+    <p><strong>Event Story:</strong> {{ comic.original_story }}</p>
+    <p><strong>Created At:</strong> {{ comic.created_at }}</p>
+    {% if comic.image_path %}
+        <img src="{{ comic.image_path }}" alt="{{ comic.title }}" class="comic-image">
+    {% else %}
+        <p>Image not available</p>
+    {% endif %}
+    <p><strong>Generated Comic Script:</strong> {{ comic.comic_script }}</p>
+    {% if comic.story_source_url %}
+        <p><strong>Original Source:</strong> <a href="{{ comic.story_source_url }}" target="_blank">{{ comic.story_source_url }}</a></p>
+    {% endif %}
+    <div class="debug-info">
+        <p><strong>Debug Info:</strong></p>
+        <p>Image Path: {{ comic.image_path }}</p>
+    </div>
+</div>
+{% endmacro %}
