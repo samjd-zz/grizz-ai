@@ -32,7 +32,7 @@ from psy_researcher import perform_duckduckgo_search
 from utils import capture_live_video, summarize_generated_files
 
 from social_media import post_to_twitter, post_to_facebook
-from database import close_database, get_all_comics, purge_database
+from database import close_database, view_all_comics, purge_database
 
 # Load configuration
 config = load_config()
@@ -91,43 +91,6 @@ def get_user_choice():
                 return "8"
         print("Command not recognized. Please try again or use text input.")
     return display_menu()
-
-def view_all_comics():
-    """
-    Displays all comics stored in the database and the output folder.
-    """
-    comics_from_db = get_all_comics()
-    comics_from_folder = []
-
-    # Get comics from the output folder
-    for root, dirs, files in os.walk(config.OUTPUT_DIR):
-        for file in files:
-            if file.endswith('.png'):
-                comics_from_folder.append(os.path.join(root, file))
-
-    if not comics_from_db and not comics_from_folder:
-        app_logger.info("No comics found in the database or output folder.")
-        return
-
-    app_logger.info("\nAll Comics:")
-
-    # Display comics from the database
-    for comic in comics_from_db:
-        print(f"Title: {comic['title']}")
-        print(f"Location: {comic['location']}")
-        print(f"Image Path: {comic['image_path']}")
-        print(f"Created At: {comic['created_at']}")
-        print("-" * 50)
-
-    # Display comics from the output folder that are not in the database
-    db_image_paths = set(comic['image_path'] for comic in comics_from_db)
-    for image_path in comics_from_folder:
-        if image_path not in db_image_paths:
-            print(f"Title: Unknown (Not in database)")
-            print(f"Location: Unknown")
-            print(f"Image Path: {image_path}")
-            print(f"Created At: Unknown")
-            print("-" * 50)
 
 
 def main():
