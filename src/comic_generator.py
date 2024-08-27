@@ -10,8 +10,10 @@ from image_generation import generate_dalle_images
 from text_analysis import analyze_text_ollama, speak_elevenLabs
 from event_fetcher import get_local_events
 from video_processing import get_video_summary
-
+from config import load_config
 from database import add_comic, get_comic_by_story
+
+config = load_config()
 
 TODAY = datetime.now().strftime("%Y_%m_%d")
 
@@ -91,10 +93,13 @@ def generate_daily_comic(location):
                 pbar.update(1)
 
                 # Generate audio narration
-                print("Generating audio narration...")
-                audio_path = speak_elevenLabs(event_story, event_title)
-                if not audio_path:
-                    app_logger.warning(f"Failed to generate audio narration for {event_title}.")
+                if config.GENERATE_AUDIO:
+                    print("Generating audio narration...")
+                    audio_path = speak_elevenLabs(event_story, event_title)
+                    if not audio_path:
+                        app_logger.warning(f"Failed to generate audio narration for {event_title}.")
+                else:
+                    audio_path = ""
                 pbar.update(1)
 
                 summary_filename = image_filename.replace(".png", "_summary.txt")
@@ -197,10 +202,13 @@ def generate_custom_comic(title, story, location):
             pbar.update(1)
 
             # Generate audio narration
-            print("Generating audio narration...")
-            audio_path = speak_elevenLabs(story, title)
-            if not audio_path:
-                app_logger.warning(f"Failed to generate audio narration for {title}.")
+            if config.GENERATE_AUDIO:
+                print("Generating audio narration...")
+                audio_path = speak_elevenLabs(story, title)
+                if not audio_path:
+                    app_logger.warning(f"Failed to generate audio narration for {title}.")
+            else:
+                audio_path = ""
             pbar.update(1)
 
             app_logger.debug("Saving summary")
@@ -300,10 +308,13 @@ def generate_media_comic(media_type, path, location):
                     pbar.update(1)
 
                     # Generate audio narration
-                    print("Generating audio narration...")
-                    audio_path = speak_elevenLabs(video_summary, os.path.basename(media_path))
-                    if not audio_path:
-                        app_logger.warning(f"Failed to generate audio narration for video: {media_path}")
+                    if config.GENERATE_AUDIO:
+                        print("Generating audio narration...")
+                        audio_path = speak_elevenLabs(video_summary, os.path.basename(media_path))
+                        if not audio_path:
+                            app_logger.warning(f"Failed to generate audio narration for video: {media_path}")
+                    else:
+                        audio_path = ""
                     pbar.update(1)
 
                     comic_images.append(image_path)
@@ -363,10 +374,13 @@ def generate_media_comic(media_type, path, location):
                     pbar.update(1)
 
                     # Generate audio narration
-                    print("Generating audio narration...")
-                    audio_path = speak_elevenLabs(image_description, os.path.basename(media_path))
-                    if not audio_path:
-                        app_logger.warning(f"Failed to generate audio narration for image: {media_path}")
+                    if config.GENERATE_AUDIO:
+                        print("Generating audio narration...")
+                        audio_path = speak_elevenLabs(image_description, os.path.basename(media_path))
+                        if not audio_path:
+                            app_logger.warning(f"Failed to generate audio narration for image: {media_path}")
+                    else:
+                        audio_path = ""
                     pbar.update(1)
 
                     comic_images.append(image_path)
