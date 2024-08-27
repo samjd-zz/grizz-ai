@@ -2,20 +2,19 @@
 <div class="comic-container">
     <h2>{{ comic.title }}</h2>
     <p><strong>Event Story:</strong> {{ comic.original_story }}</p>
-    <p><strong>Created At:</strong> {{ comic.created_at }}</p>
-    {% if comic.image_path %}
-        <img src="{{ comic.image_path }}" alt="{{ comic.title }}" class="comic-image">
-    {% else %}
-        <p>Image not available</p>
-    {% endif %}
     {% if comic.audio_path %}
-        <br>
         <audio controls>
             <source src="{{ comic.audio_path }}" type="audio/mpeg">
             Your browser does not support the audio element.
         </audio>
     {% else %}
         <p>Audio narration not available</p>
+    {% endif %}
+    <p><strong>Created At:</strong> {{ comic.created_at }}</p>
+    {% if comic.image_path %}
+        <img src="{{ comic.image_path }}" alt="{{ comic.title }}" class="comic-image">
+    {% else %}
+        <p>Image not available</p>
     {% endif %}
     <p><strong>Generated Comic Script:</strong> {{ comic.comic_script }}</p>
     {% if comic.story_source_url %}
