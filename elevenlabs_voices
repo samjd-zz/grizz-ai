@@ -1,0 +1,299 @@
+### Voices:
+
+#### **1. Sarah**
+- **Voice ID:** EXAVITQu4vr4xnSDxMaL
+- **Accent:** American
+- **Description:** Soft
+- **Age:** Young
+- **Gender:** Female
+- **Use Case:** News
+- **Fine Tuning:** Allowed
+- **Language:** English
+- **Fine-Tuned Models:** Not yet fine-tuned
+- **Verification Required:** No
+- **Verification Status:** Not Verified
+- **Preview:** [Click Here](https://storage.googleapis.com/eleven-public-prod/premade/voices/EXAVITQu4vr4xnSDxMaL/01a3e33c-6e99-4ee7-8543-ff2216a32186.mp3)
+
+---
+
+#### **2. Laura**
+- **Voice ID:** FGY2WhTYpPnrIDTdsKH5
+- **Accent:** American
+- **Description:** Upbeat
+- **Age:** Young
+- **Gender:** Female
+- **Use Case:** Social Media
+- **Fine Tuning:** Allowed
+- **Language:** English
+- **Fine-Tuned Models:** 
+  - eleven_multilingual_v2
+  - eleven_turbo_v2_5
+  - eleven_turbo_v2
+- **Verification Required:** No
+- **Verification Status:** Not Verified
+- **Preview:** [Click Here](https://storage.googleapis.com/eleven-public-prod/premade/voices/FGY2WhTYpPnrIDTdsKH5/67341759-ad08-41a5-be6e-de12fe448618.mp3)
+
+---
+
+#### **3. Charlie**
+- **Voice ID:** IKne3meq5aSn9XLyUdCD
+- **Accent:** Australian
+- **Description:** Natural
+- **Age:** Middle-aged
+- **Gender:** Male
+- **Use Case:** Conversational
+- **Fine Tuning:** Allowed
+- **Language:** English
+- **Fine-Tuned Models:** 
+  - eleven_turbo_v2
+- **Verification Required:** No
+- **Verification Status:** Not Verified
+- **Preview:** [Click Here](https://storage.googleapis.com/eleven-public-prod/premade/voices/IKne3meq5aSn9XLyUdCD/102de6f2-22ed-43e0-a1f1-111fa75c5481.mp3)
+
+---
+
+#### **4. George**
+- **Voice ID:** JBFqnCBsd6RMkjVDRZzb
+- **Accent:** British
+- **Description:** Warm
+- **Age:** Middle-aged
+- **Gender:** Male
+- **Use Case:** Narration
+- **Fine Tuning:** Allowed
+- **Language:** English
+- **Fine-Tuned Models:** 
+  - eleven_turbo_v2
+- **Verification Required:** No
+- **Verification Status:** Not Verified
+- **Preview:** [Click Here](https://storage.googleapis.com/eleven-public-prod/premade/voices/JBFqnCBsd6RMkjVDRZzb/e6206d1a-0721-4787-aafb-06a6e705cac5.mp3)
+
+---
+
+#### **5. Callum**
+- **Voice ID:** N2lVS1w4EtoT3dr4eOWO
+- **Accent:** Transatlantic
+- **Description:** Intense
+- **Age:** Middle-aged
+- **Gender:** Male
+- **Use Case:** Characters
+- **Fine Tuning:** Allowed
+- **Language:** English
+- **Fine-Tuned Models:** 
+  - eleven_turbo_v2
+- **Verification Required:** No
+- **Verification Status:** Not Verified
+- **Preview:** [Click Here](https://storage.googleapis.com/eleven-public-prod/premade/voices/N2lVS1w4EtoT3dr4eOWO/ac833bd8-ffda-4938-9ebc-b0f99ca25481.mp3)
+
+---
+
+#### **6. Liam**
+- **Voice ID:** TX3LPaxmHKxFdv7VOQHJ
+- **Accent:** American
+- **Description:** Articulate
+- **Age:** Young
+- **Gender:** Male
+- **Use Case:** Narration
+- **Fine Tuning:** Allowed
+- **Language:** English
+- **Fine-Tuned Models:** 
+  - eleven_turbo_v2
+- **Verification Required:** No
+- **Verification Status:** Not Verified
+- **Preview:** [Click Here](https://storage.googleapis.com/eleven-public-prod/premade/voices/TX3LPaxmHKxFdv7VOQHJ/63148076-6363-42db-aea8-31424308b92c.mp3)
+
+---
+
+#### **7. Charlotte**
+- **Voice ID:** XB0fDUnXU5powFXDhCwa
+- **Accent:** Swedish
+- **Description:** Seductive
+- **Age:** Young
+- **Gender:** Female
+- **Use Case:** Characters
+- **Fine Tuning:** Allowed
+- **Language:** English
+- **Fine-Tuned Models:** 
+  - eleven_multilingual_v2
+  - eleven_turbo_v2_5
+  - eleven_turbo_v2
+- **Verification Required:** No
+- **Verification Status:** Not Verified
+- **Preview:** [Click Here](https://storage.googleapis.com/eleven-public-prod/premade/voices/XB0fDUnXU5powFXDhCwa/942356dc-f10d-4d89-bda5-4f8505ee038b.mp3)
+
+---
+
+#### **8. Alice**
+- **Voice ID:** Xb7hH8MSUJpSbSDYk0k2
+- **Accent:** British
+- **Description:** Confident
+- **Age:** Middle-aged
+- **Gender:** Female
+- **Use Case:** News
+- **Fine Tuning:** Allowed
+- **Language:** English
+- **Fine-Tuned Models:** 
+  - eleven_turbo_v2
+- **Verification Required:** No
+- **Verification Status:** Not Verified
+- **Preview:** [Click Here](https://storage.googleapis.com/eleven-public-prod/premade/voices/Xb7hH8MSUJpSbSDYk0k2/d10f7534-11f6-41fe-a012-2de1e482d336.mp3)
+
+---
+
+#### **9. Matilda**
+- **Voice ID:** XrExE9yKIg1WjnnlVkGX
+- **Accent:** American
+- **Description:** Friendly
+- **Age:** Middle-aged
+- **Gender:** Female
+- **Use Case:** Narration
+- **Fine Tuning:** Allowed
+- **Language:** English
+- **Fine-Tuned Models:** 
+  - eleven_turbo_v2
+- **Verification Required:** No
+- **Verification Status:** Not Verified
+- **Preview:** [Click Here](https://storage.googleapis.com/eleven-public-prod/premade/voices/XrExE9yKIg1WjnnlVkGX/b930e18d-6b4d-466e-bab2-0ae97c6d8535.mp3)
+
+---
+
+#### **10. Will**
+- **Voice ID:** bIHbv24MWmeRgasZH58o
+- **Accent:** American
+- **Description:** Friendly
+- **Age:** Young
+- **Gender:** Male
+- **Use Case:** Social Media
+- **Fine Tuning:** Allowed
+- **Language:** English
+- **Fine-Tuned Models:** 
+  - eleven_multilingual_v2
+  - eleven_turbo_v2_5
+  - eleven_turbo_v2
+- **Verification Required:** No
+- **Verification Status:** Not Verified
+- **Preview:** [Click Here](https://storage.googleapis.com/eleven-public-prod/premade/voices/bIHbv24MWmeRgasZH58o/8caf8f3d-ad29-4980-af41-53f20c72d7a4.mp3)
+
+---
+
+#### **11. Jessica**
+- **Voice ID:** cgSgspJ2msm6clMCkdW9
+- **Accent:** American
+- **Description:** Expressive
+- **Age:** Young
+- **Gender:** Female
+- **Use Case:** Conversational
+- **Fine Tuning:** Allowed
+- **Language:** English
+- **Fine-Tuned Models:**
+  - eleven_multilingual_v2
+  - eleven_turbo_v2_5
+  - eleven_turbo_v2
+- **Verification Required:** No
+- **Verification Status:** Not Verified
+- **Preview:** [Click Here](https://storage.googleapis.com/eleven-public-prod/premade/voices/cgSgspJ2msm6clMCkdW9/56a97bf8-b69b-448f-846c-c3a11683d45a.mp3)
+
+---
+
+#### **12. Eric**
+- **Voice ID:** cjVigY5qzO86Huf0OWal
+- **Accent:** American
+- **Description:** Friendly
+- **Age:** Middle-aged
+- **Gender:** Male
+- **Use Case:** Conversational
+- **Fine Tuning:** Allowed
+- **Language:** English
+- **Fine-Tuned Models:**
+  - eleven_multilingual_v2
+  - eleven_turbo_v2_5
+  - eleven_turbo_v2
+- **Verification Required:** No
+- **Verification Status:** Not Verified
+- **Preview:** [Click Here](https://storage.googleapis.com/eleven-public-prod/premade/voices/cjVigY5qzO86Huf0OWal/d098fda0-6456-4030-b3d8-63aa048c9070.mp3)
+
+---
+
+#### **13. Chris**
+- **Voice ID:** iP95p4xoKVk53GoZ742B
+- **Accent:** American
+- **Description:** Casual
+- **Age:** Middle-aged
+- **Gender:** Male
+- **Use Case:** Conversational
+- **Fine Tuning:** Allowed
+- **Language:** English
+- **Fine-Tuned Models:**
+  - eleven_turbo_v2
+- **Verification Required:** No
+- **Verification Status:** Not Verified
+- **Preview:** [Click Here](https://storage.googleapis.com/eleven-public-prod/premade/voices/iP95p4xoKVk53GoZ742B/3f4bde72-cc48-40dd-829f-57fbf906f4d7.mp3)
+  
+---
+
+#### **14. Brian**
+- **Voice ID:** nPczCjzI2devNBz1zQrb
+- **Accent:** American
+- **Description:** Deep
+- **Age:** Middle-aged
+- **Gender:** Male
+- **Use Case:** Narration
+- **Fine Tuning:** Allowed
+- **Language:** English
+- **Fine-Tuned Models:**
+  - eleven_turbo_v2
+- **Verification Required:** No
+- **Verification Status:** Not Verified
+- **Preview:** [Click Here](https://storage.googleapis.com/eleven-public-prod/premade/voices/nPczCjzI2devNBz1zQrb/2dd3e72c-4fd3-42f1-93ea-abc5d4e5aa1d.mp3)
+  
+---
+
+#### **15. Daniel**
+- **Voice ID:** onwK4e9ZLuTAKqWW03F9
+- **Accent:** British
+- **Description:** Authoritative
+- **Age:** Middle-aged
+- **Gender:** Male
+- **Use Case:** News
+- **Fine Tuning:** Allowed
+- **Language:** English
+- **Fine-Tuned Models:**
+  - eleven_turbo_v2
+- **Verification Required:** No
+- **Verification Status:** Not Verified
+- **Preview:** [Click Here](https://storage.googleapis.com/eleven-public-prod/premade/voices/onwK4e9ZLuTAKqWW03F9/7eee0236-1a72-4b86-b303-5dcadc007ba9.mp3)
+  
+---
+
+#### **16. Lily**
+- **Voice ID:** pFZP5JQG7iQjIQuC4Bku
+- **Accent:** British
+- **Description:** Warm
+- **Age:** Middle-aged
+- **Gender:** Female
+- **Use Case:** Narration
+- **Fine Tuning:** Allowed
+- **Language:** English
+- **Fine-Tuned Models:**
+  - eleven_turbo_v2
+- **Verification Required:** No
+- **Verification Status:** Not Verified
+- **Preview:** [Click Here](https://storage.googleapis.com/eleven-public-prod/premade/voices/pFZP5JQG7iQjIQuC4Bku/89b68b35-b3dd-4348-a84a-a3c13a3c2b30.mp3)
+  
+---
+
+#### **17. Bill**
+- **Voice ID:** pqHfZKP75CvOlQylNhV4
+- **Accent:** American
+- **Description:** Trustworthy
+- **Age:** Old
+- **Gender:** Male
+- **Use Case:** Narration
+- **Fine Tuning:** Allowed
+- **Language:** English
+- **Fine-Tuned Models:**
+  - eleven_turbo_v2
+- **Verification Required:** No
+- **Verification Status:** Not Verified
+- **Preview:** [Click Here](https://storage.googleapis.com/eleven-public-prod/premade/voices/pqHfZKP75CvOlQylNhV4/d782b3ff-84ba-4029-848c-acf01285524d.mp3)
+
+---

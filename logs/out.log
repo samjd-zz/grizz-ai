@@ -23925,3 +23925,15 @@ Please note that these updates are based on the most recent information availabl
 2024-08-26 20:20:04,086 INFO Viewing all comics: 5 comics found
 2024-08-26 20:20:13,849 INFO Viewing all comics: 5 comics found
 2024-08-26 20:20:43,965 INFO Viewing all comics: 5 comics found
+2024-08-26 20:46:48,688 INFO Starting Grizz-AI web application
+2024-08-26 20:46:55,577 INFO Starting Grizz-AI web application
+2024-08-26 20:49:14,101 INFO Generating custom comic: World’s Best Salmon Fishing a Short Drive from Vancouver
+2024-08-26 20:50:37,117 INFO Successfully generated custom comic: World’s Best Salmon Fishing a Short Drive from Vancouver
+2024-08-26 20:51:34,783 INFO Viewing all comics: 7 comics found
+2024-08-26 20:51:34,783 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/../vancouver_comics/2024_08_26/World_s_Best_Salmon_Fishing_a_Short_Drive_from_Vancouver.png
+2024-08-26 20:55:51,664 INFO Generating custom comic: Panning for Gold in beautiful British Columbia
+2024-08-26 20:57:01,818 INFO Successfully generated custom comic: Panning for Gold in beautiful British Columbia
+2024-08-26 20:59:04,098 INFO Database purged
+2024-08-26 20:59:04,098 INFO Database purged successfully
+2024-08-26 20:59:05,604 INFO Exiting the program. Goodbye!
+2024-08-26 20:59:05,605 INFO Database connection closed
