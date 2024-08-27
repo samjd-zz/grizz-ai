@@ -204,3 +204,10 @@ def unload_ollama_model(model_name):
             app_logger.error(f"Response: {response.text}")
     except requests.exceptions.RequestException as e:
         app_logger.error(f"An error occurred: {e}")
+
+def brave_search(query, num_results=10):
+    url = 'https://api.search.brave.com/res/v1/web/search'
+    headers = {'Authorization': f'Bearer {config.API_KEY_BRAVE_SEARCH}'}
+    params = {'q': query, 'count': num_results}
+    response = requests.get(url, headers=headers, params=params)
+    return response.json()
