@@ -9,6 +9,7 @@
         <p>Image not available</p>
     {% endif %}
     {% if comic.audio_path %}
+        <br>
         <audio controls>
             <source src="{{ comic.audio_path }}" type="audio/mpeg">
             Your browser does not support the audio element.
@@ -20,10 +21,10 @@
     {% if comic.story_source_url %}
         <p><strong>Original Source:</strong> <a href="{{ comic.story_source_url }}" target="_blank">{{ comic.story_source_url }}</a></p>
     {% endif %}
-    <div class="debug-info">
+    <!-- <div class="debug-info">
         <p><strong>Debug Info:</strong></p>
         <p>Image Path: {{ comic.image_path }}</p>
         <p>Audio Path: {{ comic.audio_path }}</p>
-    </div>
+    </div> -->
 </div>
 {% endmacro %}

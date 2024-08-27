@@ -92,7 +92,7 @@ def generate_daily_comic(location):
 
                 # Generate audio narration
                 print("Generating audio narration...")
-                audio_path = speak_elevenLabs(event_story, event_title, location)
+                audio_path = speak_elevenLabs(event_story, event_title)
                 if not audio_path:
                     app_logger.warning(f"Failed to generate audio narration for {event_title}.")
                 pbar.update(1)
@@ -198,7 +198,7 @@ def generate_custom_comic(title, story, location):
 
             # Generate audio narration
             print("Generating audio narration...")
-            audio_path = speak_elevenLabs(story, title, location)
+            audio_path = speak_elevenLabs(story, title)
             if not audio_path:
                 app_logger.warning(f"Failed to generate audio narration for {title}.")
             pbar.update(1)
@@ -301,7 +301,7 @@ def generate_media_comic(media_type, path, location):
 
                     # Generate audio narration
                     print("Generating audio narration...")
-                    audio_path = speak_elevenLabs(video_summary, os.path.basename(media_path), location)
+                    audio_path = speak_elevenLabs(video_summary, os.path.basename(media_path))
                     if not audio_path:
                         app_logger.warning(f"Failed to generate audio narration for video: {media_path}")
                     pbar.update(1)
@@ -364,7 +364,7 @@ def generate_media_comic(media_type, path, location):
 
                     # Generate audio narration
                     print("Generating audio narration...")
-                    audio_path = speak_elevenLabs(image_description, os.path.basename(media_path), location)
+                    audio_path = speak_elevenLabs(image_description, os.path.basename(media_path))
                     if not audio_path:
                         app_logger.warning(f"Failed to generate audio narration for image: {media_path}")
                     pbar.update(1)

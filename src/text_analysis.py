@@ -61,9 +61,8 @@ def analyze_text_ollama(text, location, model=config.OLLAMA_TEXT_ANALYZE_MODEL, 
         unload_ollama_model(config.OLLAMA_TEXT_ANALYZE_MODEL)
         app_logger.debug("Unloaded the Ollama model.")
 
-def speak_elevenLabs(text, title, location):
+def speak_elevenLabs(text, title):
     try:
-        text += f" The story takes place in {location}."
         app_logger.debug(f"Generating speech with ElevenLabs...")
         
         client = elevenlabs_client()
