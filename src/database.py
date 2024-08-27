@@ -33,19 +33,20 @@ class ComicDatabase:
                 comic_script TEXT NOT NULL,
                 story_source_url TEXT,
                 image_path TEXT NOT NULL,
+                audio_path TEXT,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         ''')
         cls.get_connection().commit()
 
     @classmethod
-    def add_comic(cls, title, location, original_story, comic_script, story_source_url, image_path):
+    def add_comic(cls, title, location, original_story, comic_script, story_source_url, image_path, audio_path=None):
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         cursor = cls.get_cursor()
         cursor.execute('''
-            INSERT INTO comics (title, location, original_story, comic_script, story_source_url, image_path, created_at)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
-        ''', (title, location, original_story, comic_script, story_source_url, image_path, current_time))
+            INSERT INTO comics (title, location, original_story, comic_script, story_source_url, image_path, audio_path, created_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        ''', (title, location, original_story, comic_script, story_source_url, image_path, audio_path, current_time))
         cls.get_connection().commit()
 
     @classmethod
@@ -74,12 +75,26 @@ class ComicDatabase:
         cls.get_connection().commit()
         app_logger.info("Database purged")
 
-# Ensure the table is created
-ComicDatabase.create_table()
+    @classmethod
+    def add_audio_path_column(cls):
+        cursor = cls.get_cursor()
+        try:
+            cursor.execute('ALTER TABLE comics ADD COLUMN audio_path TEXT')
+            cls.get_connection().commit()
+            app_logger.debug("Added audio_path column to comics table")
+        except sqlite3.OperationalError as e:
+            if "duplicate column name" in str(e):
+                app_logger.debug("audio_path column already exists in comics table")
+            else:
+                raise e
 
-def add_comic(title, location, original_story, comic_script, story_source_url, image_path):
+# Ensure the table is created and updated
+ComicDatabase.create_table()
+ComicDatabase.add_audio_path_column()
+
+def add_comic(title, location, original_story, comic_script, story_source_url, image_path, audio_path=None):
     try:
-        ComicDatabase.add_comic(title, location, original_story, comic_script, story_source_url, image_path)
+        ComicDatabase.add_comic(title, location, original_story, comic_script, story_source_url, image_path, audio_path)
         app_logger.debug(f"Added comic to database: {title}")
     except Exception as e:
         app_logger.error(f"Error adding comic to database: {e}")

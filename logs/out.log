@@ -23800,3 +23800,110 @@ Please note that these updates are based on the most recent information availabl
 2024-08-26 09:30:44,858 INFO Starting Grizz-AI web application
 2024-08-26 09:35:35,205 INFO Successfully generated daily comic for Lillooet & Lytton
 2024-08-26 09:36:54,703 INFO Viewing all comics: 3 comics found
+2024-08-26 09:41:37,197 INFO Viewing all comics: 3 comics found
+2024-08-26 15:59:40,278 INFO Starting Grizz-AI web application
+2024-08-26 15:59:47,053 INFO Starting Grizz-AI web application
+2024-08-26 16:02:25,299 ERROR Error generating speech with ElevenLabs: generate() got an unexpected keyword argument 'speed'
+2024-08-26 16:02:25,299 WARNING Failed to generate audio narration for High Streamflow Advisory in Effect.
+2024-08-26 16:02:25,299 ERROR Error adding comic to database: table comics has no column named audio_path
+2024-08-26 16:11:04,804 INFO Added audio_path column to comics table
+2024-08-26 16:11:09,731 INFO Starting Grizz-AI web application
+2024-08-26 16:11:11,398 INFO audio_path column already exists in comics table
+2024-08-26 16:11:16,400 INFO Starting Grizz-AI web application
+2024-08-26 16:13:06,504 ERROR Error generating speech with ElevenLabs: module 'elevenlabs' has no attribute 'set_api_key'
+2024-08-26 16:13:06,504 WARNING Failed to generate audio narration for High Streamflow Advisory in Effect.
+2024-08-26 16:35:57,361 INFO audio_path column already exists in comics table
+2024-08-26 16:36:02,206 INFO Starting Grizz-AI web application
+2024-08-26 16:36:03,947 INFO audio_path column already exists in comics table
+2024-08-26 16:36:08,900 INFO Starting Grizz-AI web application
+2024-08-26 16:37:07,218 INFO Starting Grizz-AI web application
+2024-08-26 16:40:30,584 ERROR Error generating speech with ElevenLabs: ElevenLabs.__init__() takes 1 positional argument but 2 were given
+2024-08-26 16:40:30,584 WARNING Failed to generate audio narration for High Streamflow Advisory in Effect.
+2024-08-26 16:42:26,697 ERROR Error generating speech with ElevenLabs: ElevenLabs.__init__() takes 1 positional argument but 2 were given
+2024-08-26 16:42:26,697 WARNING Failed to generate audio narration for Upcoming Community Events in Lytton.
+2024-08-26 16:52:33,257 INFO Starting Grizz-AI web application
+2024-08-26 16:53:26,877 INFO Starting Grizz-AI web application
+2024-08-26 16:53:33,433 INFO Starting Grizz-AI web application
+2024-08-26 16:55:23,843 ERROR Error generating speech with ElevenLabs: ElevenLabs.__init__() takes 1 positional argument but 2 were given
+2024-08-26 16:55:23,843 WARNING Failed to generate audio narration for High Streamflow Advisory in Effect.
+2024-08-26 17:00:15,927 ERROR Error generating speech with ElevenLabs: ElevenLabs.__init__() takes 1 positional argument but 2 were given
+2024-08-26 17:00:15,927 WARNING Failed to generate audio narration for Upcoming Coffee with Mayor and Council.
+2024-08-26 17:00:15,936 INFO Successfully generated daily comic for Lillooet & Lytton
+2024-08-26 17:03:06,130 INFO Starting Grizz-AI web application
+2024-08-26 17:05:24,026 INFO Starting Grizz-AI web application
+2024-08-26 17:07:45,310 ERROR Error generating speech with ElevenLabs: ElevenLabs.generate() got an unexpected keyword argument 'voice_id'
+2024-08-26 17:07:45,310 WARNING Failed to generate audio narration for Road Surface Repairs in Lytton.
+2024-08-26 17:09:21,713 ERROR Error generating speech with ElevenLabs: ElevenLabs.generate() got an unexpected keyword argument 'voice_id'
+2024-08-26 17:09:21,714 WARNING Failed to generate audio narration for High Streamflow Advisory.
+2024-08-26 17:11:19,747 INFO Starting Grizz-AI web application
+2024-08-26 17:11:26,443 INFO Starting Grizz-AI web application
+2024-08-26 17:14:12,723 ERROR Error generating speech with ElevenLabs: name 'client' is not defined
+2024-08-26 17:14:12,723 WARNING Failed to generate audio narration for Regular Council Meeting Preparation.
+2024-08-26 17:14:55,078 INFO Starting Grizz-AI web application
+2024-08-26 17:15:31,750 INFO Starting Grizz-AI web application
+2024-08-26 17:15:38,507 INFO Starting Grizz-AI web application
+2024-08-26 17:16:57,681 ERROR Error generating speech with ElevenLabs: ElevenLabs.generate() takes 1 positional argument but 2 positional arguments (and 2 keyword-only arguments) were given
+2024-08-26 17:16:57,682 WARNING Failed to generate audio narration for High Streamflow Advisory in Effect.
+2024-08-26 17:19:58,576 INFO Starting Grizz-AI web application
+2024-08-26 17:20:05,166 INFO Starting Grizz-AI web application
+2024-08-26 17:31:27,752 INFO Starting Grizz-AI web application
+2024-08-26 17:31:34,460 INFO Starting Grizz-AI web application
+2024-08-26 17:35:28,138 ERROR Error generating speech with ElevenLabs: status_code: 401, body: {'detail': {'status': 'invalid_api_key', 'message': 'Invalid API key'}}
+2024-08-26 17:35:28,138 WARNING Failed to generate audio narration for High Streamflow Advisory.
+2024-08-26 17:36:55,814 ERROR Error generating speech with ElevenLabs: status_code: 401, body: {'detail': {'status': 'invalid_api_key', 'message': 'Invalid API key'}}
+2024-08-26 17:36:55,814 WARNING Failed to generate audio narration for Upcoming Council Meeting.
+2024-08-26 17:38:09,605 ERROR Error generating speech with ElevenLabs: status_code: 401, body: {'detail': {'status': 'invalid_api_key', 'message': 'Invalid API key'}}
+2024-08-26 17:38:09,605 WARNING Failed to generate audio narration for Recent Wildfires in the Area.
+2024-08-26 17:38:09,617 INFO Successfully generated daily comic for Lillooet & Lytton
+2024-08-26 18:19:34,174 INFO Starting Grizz-AI web application
+2024-08-26 18:19:41,175 INFO Starting Grizz-AI web application
+2024-08-26 18:21:40,424 INFO Starting Grizz-AI web application
+2024-08-26 18:22:29,098 INFO Database purged
+2024-08-26 18:22:29,099 INFO Database purged successfully
+2024-08-26 18:22:30,761 INFO Exiting the program. Goodbye!
+2024-08-26 18:22:30,762 INFO Database connection closed
+2024-08-26 18:22:39,569 INFO Starting Grizz-AI web application
+2024-08-26 18:22:46,495 INFO Starting Grizz-AI web application
+2024-08-26 18:25:19,623 ERROR Error generating speech with ElevenLabs: tuple indices must be integers or slices, not str
+2024-08-26 18:25:19,623 WARNING Failed to generate audio narration for High Streamflow Advisory in Effect.
+2024-08-26 18:40:27,253 INFO Starting Grizz-AI web application
+2024-08-26 18:40:34,364 INFO Starting Grizz-AI web application
+2024-08-26 18:42:06,340 ERROR Error generating speech with ElevenLabs: 'tuple' object has no attribute 'voice_id'
+2024-08-26 18:42:06,340 WARNING Failed to generate audio narration for High Streamflow Advisory in Effect.
+2024-08-26 18:46:25,273 INFO Starting Grizz-AI web application
+2024-08-26 18:46:52,030 INFO Starting Grizz-AI web application
+2024-08-26 18:46:59,292 INFO Starting Grizz-AI web application
+2024-08-26 18:47:54,262 INFO Starting Grizz-AI web application
+2024-08-26 18:48:01,237 INFO Starting Grizz-AI web application
+2024-08-26 18:51:09,162 ERROR Error generating speech with ElevenLabs: 'tuple' object has no attribute 'voice_id'
+2024-08-26 18:51:09,162 WARNING Failed to generate audio narration for High Streamflow Advisory in Effect.
+2024-08-26 18:51:50,154 INFO Starting Grizz-AI web application
+2024-08-26 18:51:57,181 INFO Starting Grizz-AI web application
+2024-08-26 18:55:02,025 ERROR Error generating speech with ElevenLabs: tuple indices must be integers or slices, not str
+2024-08-26 18:55:02,025 WARNING Failed to generate audio narration for High Streamflow Advisory.
+2024-08-26 19:07:08,758 INFO Starting Grizz-AI web application
+2024-08-26 19:07:15,843 INFO Starting Grizz-AI web application
+2024-08-26 19:11:15,361 ERROR Error generating speech with ElevenLabs: a bytes-like object is required, not 'generator'
+2024-08-26 19:11:15,361 WARNING Failed to generate audio narration for Upcoming Council Meeting.
+2024-08-26 19:13:22,431 INFO Starting Grizz-AI web application
+2024-08-26 19:13:29,566 INFO Starting Grizz-AI web application
+2024-08-26 19:15:53,598 ERROR Error generating speech with ElevenLabs: string indices must be integers
+2024-08-26 19:15:53,598 WARNING Failed to generate audio narration for Upcoming Council Meeting.
+2024-08-26 19:17:33,264 INFO Starting Grizz-AI web application
+2024-08-26 19:17:40,358 INFO Starting Grizz-AI web application
+2024-08-26 19:21:04,922 INFO Successfully generated daily comic for Lillooet & Lytton
+2024-08-26 19:33:56,026 INFO Starting Grizz-AI web application
+2024-08-26 19:34:02,723 INFO Starting Grizz-AI web application
+2024-08-26 19:35:49,157 INFO Database purged
+2024-08-26 19:35:49,157 INFO Database purged successfully
+2024-08-26 19:35:50,581 INFO Exiting the program. Goodbye!
+2024-08-26 19:35:50,581 INFO Database connection closed
+2024-08-26 19:36:34,104 INFO Starting Grizz-AI web application
+2024-08-26 19:36:40,808 INFO Starting Grizz-AI web application
+2024-08-26 19:36:46,333 INFO Viewing all comics: 0 comics found
+2024-08-26 19:40:35,405 INFO Successfully generated daily comic for Lillooet & Lytton
+2024-08-26 19:41:08,708 INFO Starting Grizz-AI web application
+2024-08-26 19:42:03,277 INFO Database purged
+2024-08-26 19:42:03,278 INFO Database purged successfully
+2024-08-26 19:42:05,051 INFO Exiting the program. Goodbye!
+2024-08-26 19:42:05,051 INFO Database connection closed

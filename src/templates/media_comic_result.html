@@ -27,14 +27,7 @@
     
     {% from 'comic_display.html' import display_comic %}
     {% for comic in comics %}
-        {{ display_comic({
-            'title': comic.title,
-            'original_story': comic.original_story,
-            'created_at': comic.created_at,
-            'image_path': comic.image_path,
-            'comic_script': comic.comic_script,
-            'story_source_url': comic.story_source_url
-        }) }}
+        {{ display_comic(comic) }}
     {% endfor %}
     
     <a href="{{ url_for('media_comic') }}">Create Another Media Comic</a>

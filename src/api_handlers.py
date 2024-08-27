@@ -1,4 +1,5 @@
 # Description: This file contains the API handlers for OpenAI, Perplexity and OpenRouter APIs. 
+from elevenlabs.client import ElevenLabs
 from openai import OpenAI
 from config import load_config
 
@@ -12,3 +13,7 @@ def perplexity_client():
 
 def openrouter_client():
     return OpenAI(api_key=config.API_KEY_OPENROUTER, base_url="https://openrouter.ai/api/v1")
+
+def elevenlabs_client():
+    client = ElevenLabs(api_key=config.API_KEY_ELEVENLABS)
+    return client

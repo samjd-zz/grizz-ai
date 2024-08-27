@@ -29,6 +29,10 @@ def close_db(error):
 def serve_image(filename):
     return send_from_directory(app.config['GENERATED_IMAGES_FOLDER'], filename)
 
+@app.route('/audio/<path:filename>')
+def serve_audio(filename):
+    return send_from_directory(os.path.join(app.config['GENERATED_IMAGES_FOLDER'], 'audio'), filename)
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -51,6 +55,11 @@ def daily_comic():
                 if 'image_path' in event:
                     relative_path = os.path.relpath(event['image_path'], app.config['GENERATED_IMAGES_FOLDER'])
                     event['image_path'] = url_for('serve_image', filename=relative_path)
+                if 'audio_path' in event and event['audio_path']:
+                    relative_audio_path = os.path.relpath(event['audio_path'], os.path.join(app.config['GENERATED_IMAGES_FOLDER'], 'audio'))
+                    event['audio_path'] = url_for('serve_audio', filename=relative_audio_path)
+                else:
+                    event['audio_path'] = None
                 event['created_at'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 if 'comic_script' not in event:
                     event['comic_script'] = "No comic script available"
@@ -70,17 +79,19 @@ def custom_comic():
         app_logger.info(f"Generating custom comic: {title}")
         result = generate_custom_comic(title, story, location)
         if result:
-            image_path, summary, comic_script = result
+            image_path, summary, comic_script, audio_path = result
             relative_path = os.path.relpath(image_path, app.config['GENERATED_IMAGES_FOLDER'])
+            relative_audio_path = os.path.relpath(audio_path, os.path.join(app.config['GENERATED_IMAGES_FOLDER'], 'audio')) if audio_path else None
             created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             db = get_db()
-            db.add_comic(title, location, story, comic_script, "", relative_path, created_at)
+            db.add_comic(title, location, story, comic_script, "", relative_path, relative_audio_path)
             app_logger.info(f"Successfully generated custom comic: {title}")
             return render_template('custom_comic_result.html', 
                                    title=title,
                                    original_story=story,
                                    created_at=created_at,
                                    image_path=url_for('serve_image', filename=relative_path),
+                                   audio_path=url_for('serve_audio', filename=relative_audio_path) if relative_audio_path else None,
                                    comic_script=comic_script)
         else:
             app_logger.error(f"Failed to generate custom comic: {title}")
@@ -120,19 +131,21 @@ def media_comic():
         app_logger.info(f"Generating media comic from {media_type}")
         result = generate_media_comic(media_type, path, location)
         if result:
-            image_paths, summary, comic_scripts = result
+            image_paths, summary, comic_scripts, audio_paths = result
             relative_paths = [os.path.relpath(path, app.config['GENERATED_IMAGES_FOLDER']) for path in image_paths]
+            relative_audio_paths = [os.path.relpath(path, os.path.join(app.config['GENERATED_IMAGES_FOLDER'], 'audio')) if path else None for path in audio_paths]
             db = get_db()
             comics = []
-            for i, (relative_path, comic_script) in enumerate(zip(relative_paths, comic_scripts)):
+            for i, (relative_path, comic_script, relative_audio_path) in enumerate(zip(relative_paths, comic_scripts, relative_audio_paths)):
                 created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 title = f"Media Comic {i+1}"
-                db.add_comic(title, location, f"{media_type} comic", comic_script, "", relative_path, created_at)
+                db.add_comic(title, location, f"{media_type} comic", comic_script, "", relative_path, relative_audio_path)
                 comics.append({
                     'title': title,
                     'original_story': f"{media_type} comic",
                     'created_at': created_at,
                     'image_path': url_for('serve_image', filename=relative_path),
+                    'audio_path': url_for('serve_audio', filename=relative_audio_path) if relative_audio_path else None,
                     'comic_script': comic_script,
                     'story_source_url': ''
                 })
@@ -176,6 +189,12 @@ def view_all_comics():
                 comic['image_path'] = None
         else:
             app_logger.warning(f"Comic missing image path: {comic.get('title', 'Unknown')}")
+        
+        if 'audio_path' in comic and comic['audio_path']:
+            relative_audio_path = os.path.relpath(comic['audio_path'], os.path.join(config.OUTPUT_DIR, 'audio'))
+            comic['audio_path'] = url_for('serve_audio', filename=relative_audio_path)
+        else:
+            comic['audio_path'] = None
         
         if 'comic_script' not in comic or not comic['comic_script']:
             comic['comic_script'] = "No comic script available"

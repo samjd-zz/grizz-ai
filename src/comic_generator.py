@@ -7,7 +7,7 @@ from logger import app_logger
 from utils import analyze_frames, save_summary, save_image
 
 from image_generation import generate_dalle_images
-from text_analysis import analyze_text_ollama
+from text_analysis import analyze_text_ollama, speak_elevenLabs
 from event_fetcher import get_local_events
 from video_processing import get_video_summary
 
@@ -34,7 +34,7 @@ def generate_daily_comic(location):
             return None
         
         # Estimate total steps
-        total_steps = len(local_events) * 6 + 1  # 5 steps per event + final summary
+        total_steps = len(local_events) * 7 + 1  # 7 steps per event + final summary
 
         print(f"Generating comics for {len(local_events)} events in {location}...")
         with tqdm(total=total_steps, bar_format='{l_bar}{bar}', ncols=50, colour='#00FF00') as pbar:
@@ -50,7 +50,7 @@ def generate_daily_comic(location):
                 existing_comic = get_comic_by_story(event_story)
                 if existing_comic:
                     print(f"Comic already exists for story: {event_title}. Skipping this event.")
-                    pbar.update(6)
+                    pbar.update(7)
                     continue
                 pbar.update(1)
                 
@@ -59,7 +59,7 @@ def generate_daily_comic(location):
                 event_analysis = analyze_text_ollama(f"Generate a comic script for this event: {event_title}. {event_story}", location)
                 if not event_analysis:
                     app_logger.error(f"Failed to analyze event: {event_title}. Skipping this event.")
-                    pbar.update(5)
+                    pbar.update(6)
                     continue
                 pbar.update(1)
 
@@ -68,7 +68,7 @@ def generate_daily_comic(location):
                 image_data = generate_dalle_images(event_analysis)
                 if not image_data:
                     app_logger.error(f"Failed to generate comic panel for the event: {event_title}. Skipping this event.")
-                    pbar.update(4)
+                    pbar.update(5)
                     continue
                 pbar.update(1)
 
@@ -78,7 +78,7 @@ def generate_daily_comic(location):
                 image_path = save_image(image_data, image_filename, location)
                 if not image_path:
                     app_logger.error(f"Failed to save the generated image for {event_title}. Skipping this event.")
-                    pbar.update(3)
+                    pbar.update(4)
                     continue
                 pbar.update(1)
 
@@ -90,19 +90,27 @@ def generate_daily_comic(location):
                     panel_summary = f"Summary of the event: {event_title}"
                 pbar.update(1)
 
+                # Generate audio narration
+                print("Generating audio narration...")
+                audio_path = speak_elevenLabs(event_story, event_title, location)
+                if not audio_path:
+                    app_logger.warning(f"Failed to generate audio narration for {event_title}.")
+                pbar.update(1)
+
                 summary_filename = image_filename.replace(".png", "_summary.txt")
                 save_summary(location, summary_filename, event_title, event_story, event_source, panel_summary)
 
                 app_logger.debug(f"Adding comic to database: {event_title}")
-                add_comic(event_title, location, event_story, event_analysis, event_source, image_path)
+                add_comic(event_title, location, event_story, event_analysis, event_source, image_path, audio_path)
                 pbar.update(1)
 
                 comic_panels.append((image_path, panel_summary))
                 all_panel_summaries.append(panel_summary)
 
-                # Add image_path and comic_script to the event dictionary
+                # Add image_path, comic_script, and audio_path to the event dictionary
                 event['image_path'] = image_path
                 event['comic_script'] = event_analysis
+                event['audio_path'] = audio_path
 
             if not comic_panels:
                 app_logger.error("No comic panels were generated. Aborting comic generation.")
@@ -133,7 +141,7 @@ def generate_custom_comic(title, story, location):
         location (str): The location setting for the custom comic.
 
     Returns:
-        tuple: A tuple containing the image path and panel summary of the generated comic.
+        tuple: A tuple containing the image path, panel summary, comic script, and audio path of the generated comic.
         None: If an error occurs during comic generation.
     """
     try:
@@ -142,9 +150,9 @@ def generate_custom_comic(title, story, location):
         existing_comic = get_comic_by_story(story)
         if existing_comic:
             print(f"Comic already exists for story: {title}. Returning existing comic.")
-            return existing_comic[6], existing_comic[4]  # Return image_path and comic_script
+            return existing_comic['image_path'], existing_comic['comic_script'], existing_comic['comic_script'], existing_comic['audio_path']
 
-        total_steps = 6  # Total number of steps in custom comic generation
+        total_steps = 7  # Total number of steps in custom comic generation
 
         print(f"Generating custom comic for: {title}...")
         with tqdm(total=total_steps, bar_format='{l_bar}{bar}', ncols=50, colour='#00FF00') as pbar:
@@ -188,13 +196,20 @@ def generate_custom_comic(title, story, location):
                 panel_summary = f"Summary of the custom event: {title}"
             pbar.update(1)
 
+            # Generate audio narration
+            print("Generating audio narration...")
+            audio_path = speak_elevenLabs(story, title, location)
+            if not audio_path:
+                app_logger.warning(f"Failed to generate audio narration for {title}.")
+            pbar.update(1)
+
             app_logger.debug("Saving summary")
             summary_filename = image_filename.replace(".png", "_summary.txt")
             save_summary(location, summary_filename, title, story, "", panel_summary)
             pbar.update(1)
 
             app_logger.debug(f"Adding custom comic to database: {title}")
-            add_comic(title, location, story, event_analysis, "", image_path)
+            add_comic(title, location, story, event_analysis, "", image_path, audio_path)
             pbar.update(1)
 
         # Print summary for the user
@@ -203,7 +218,7 @@ def generate_custom_comic(title, story, location):
         app_logger.debug(f"Title: {title}")
         app_logger.debug(f"Image saved at: {image_path}")
 
-        return image_path, panel_summary, event_analysis  # Added event_analysis to the return value
+        return image_path, panel_summary, event_analysis, audio_path
 
     except Exception as e:
         app_logger.error(f"Unexpected error in generate_custom_comic: {e}", exc_info=True)
@@ -219,7 +234,7 @@ def generate_media_comic(media_type, path, location):
         location (str): The location for saving the comic.
 
     Returns:
-        tuple: A tuple containing a list of image paths and a summary of the generated comic.
+        tuple: A tuple containing a list of image paths, a summary of the generated comic, a list of comic scripts, and a list of audio paths.
         None: If an error occurs during comic generation.
     """
     try:
@@ -234,9 +249,10 @@ def generate_media_comic(media_type, path, location):
 
         comic_images = []
         summaries = []
-        comic_scripts = []  # New list to store comic scripts
+        comic_scripts = []
+        audio_paths = []
 
-        total_steps = (len(media_paths) * 6) + 1  # 6 steps per media file + final summary
+        total_steps = (len(media_paths) * 7) + 1  # 7 steps per media file + final summary
         with tqdm(total=total_steps, bar_format='{l_bar}{bar}', ncols=50, colour='#00FF00') as pbar:
             for media_path in media_paths:
                 if media_type == 'video':
@@ -252,9 +268,10 @@ def generate_media_comic(media_type, path, location):
                     existing_comic = get_comic_by_story(video_summary)
                     if existing_comic:
                         app_logger.info(f"Comic already exists for video: {media_path}. Skipping this video.")
-                        comic_images.append(existing_comic[6])  # Add existing image path
-                        summaries.append(existing_comic[3])  # Add existing comic script
-                        comic_scripts.append(existing_comic[3])  # Add existing comic script
+                        comic_images.append(existing_comic['image_path'])
+                        summaries.append(existing_comic['comic_script'])
+                        comic_scripts.append(existing_comic['comic_script'])
+                        audio_paths.append(existing_comic['audio_path'])
                         pbar.update(total_steps-2)
                         continue
                     pbar.update(1)
@@ -282,12 +299,20 @@ def generate_media_comic(media_type, path, location):
                         continue
                     pbar.update(1)
 
+                    # Generate audio narration
+                    print("Generating audio narration...")
+                    audio_path = speak_elevenLabs(video_summary, os.path.basename(media_path), location)
+                    if not audio_path:
+                        app_logger.warning(f"Failed to generate audio narration for video: {media_path}")
+                    pbar.update(1)
+
                     comic_images.append(image_path)
                     summaries.append(video_summary)
                     comic_scripts.append(event_analysis)
+                    audio_paths.append(audio_path)
 
                     app_logger.debug(f"Adding video comic to database: {os.path.basename(media_path)}")
-                    add_comic(os.path.basename(media_path), location, video_summary, event_analysis, "", image_path)
+                    add_comic(os.path.basename(media_path), location, video_summary, event_analysis, "", image_path, audio_path)
                     pbar.update(1)
 
                 elif media_type == 'image':
@@ -306,9 +331,10 @@ def generate_media_comic(media_type, path, location):
                     existing_comic = get_comic_by_story(image_description)
                     if existing_comic:
                         app_logger.info(f"Comic already exists for image: {media_path}. Skipping this image.")
-                        comic_images.append(existing_comic[6])  # Add existing image path
-                        summaries.append(existing_comic[3])  # Add existing comic script
-                        comic_scripts.append(existing_comic[3])  # Add existing comic script
+                        comic_images.append(existing_comic['image_path'])
+                        summaries.append(existing_comic['comic_script'])
+                        comic_scripts.append(existing_comic['comic_script'])
+                        audio_paths.append(existing_comic['audio_path'])
                         pbar.update(total_steps-2)
                         continue
                     pbar.update(1)
@@ -336,12 +362,20 @@ def generate_media_comic(media_type, path, location):
                         continue
                     pbar.update(1)
 
+                    # Generate audio narration
+                    print("Generating audio narration...")
+                    audio_path = speak_elevenLabs(image_description, os.path.basename(media_path), location)
+                    if not audio_path:
+                        app_logger.warning(f"Failed to generate audio narration for image: {media_path}")
+                    pbar.update(1)
+
                     comic_images.append(image_path)
                     summaries.append(image_description)
                     comic_scripts.append(event_analysis)
+                    audio_paths.append(audio_path)
 
                     app_logger.debug(f"Adding image comic to database: {os.path.basename(media_path)}")
-                    add_comic(os.path.basename(media_path), location, image_description, event_analysis, "", image_path)
+                    add_comic(os.path.basename(media_path), location, image_description, event_analysis, "", image_path, audio_path)
                     pbar.update(1)
 
         if not comic_images:
@@ -353,7 +387,7 @@ def generate_media_comic(media_type, path, location):
         save_summary(location, f"{media_type}_comic_summary.txt", f"{media_type.capitalize()} Comic", final_summary, "", "")
         pbar.update(1)
 
-        return comic_images, final_summary, comic_scripts  # Added comic_scripts to the return value
+        return comic_images, final_summary, comic_scripts, audio_paths
 
     except Exception as e:
         app_logger.error(f"Unexpected error in generate_media_comic: {e}", exc_info=True)
