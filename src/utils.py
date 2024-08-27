@@ -211,3 +211,17 @@ def brave_search(query, num_results=10):
     params = {'q': query, 'count': num_results}
     response = requests.get(url, headers=headers, params=params)
     return response.json()
+
+
+
+def brave_search(query, num_results=10):
+        url = "https://api.search.brave.com/res/v1/web/search"
+        headers = {
+            "Authorization": f"Bearer {config.API_KEY_BRAVE_SEARCH}",
+            "Accept": "application/json",
+            "Accept-Encoding": "gzip",
+            "X-Subscription-Token": {config.API_KEY_BRAVE_SEARCH}
+        }
+        params = {"q": query, "count": num_results}
+        response = requests.get(url, headers=headers, params=params)
+        return response.json()
