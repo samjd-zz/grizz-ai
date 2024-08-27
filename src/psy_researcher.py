@@ -4,7 +4,9 @@ import re
 import requests
 
 from logger import app_logger
+from config import load_config
 
+config = load_config()
 
 def perform_duckduckgo_search():
     """
