@@ -11,7 +11,7 @@ class Config:
         self.OUTPUT_DIR = os.getenv("OUTPUT_DIR")
         self.DB_PATH = os.getenv("DB_PATH")
         self.LOG_PATH = os.getenv("LOG_PATH")
-        self.GENERATE_AUDIO = os.getenv("GENERATE_AUDIO", "false")
+        self.GENERATE_AUDIO = os.getenv("GENERATE_AUDIO", "false").tolower() == "true"
 
         self.OPENAI_TEXT_ANALYZE_MODEL=os.getenv('OPENAI_TEXT_ANALYZE_MODEL', 'gpt-4o') #model="chatgpt-4o-latest"
         self.PERPLEXITY_SEARCH_MODEL=os.getenv('PERPLEXITY_SEARCH_MODEL', "llama-3.1-sonar-large-128k-online")
@@ -28,7 +28,7 @@ class Config:
         self.API_KEY_BRAVE_SEARCH = os.getenv('API_KEY_BRAVE_SEARCH')
 
         self.WHISPER_MODEL_SIZE = os.getenv('WHISPER_MODEL_SIZE', 'tiny')
-        self.LISTEN_VOICE_ENABLED = os.getenv('LISTEN_VOICE_ENABLED', 'false')
+        self.LISTEN_VOICE_ENABLED = os.getenv('LISTEN_VOICE_ENABLED', 'false') == 'true'
         self.LISTEN_VOICE_DURATION_SHORT = int(os.getenv('LISTEN_VOICE_DURATION_SHORT', 5))
         self.LISTEN_VOICE_DURATION_MED = int(os.getenv('LISTEN_VOICE_DURATION_MED', 10))
         self.LISTEN_VOICE_DURATION_LONG = int(os.getenv('LISTEN_VOICE_DURATION_LONG', 30))
