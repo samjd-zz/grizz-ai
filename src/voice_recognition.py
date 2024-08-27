@@ -23,7 +23,7 @@ CHANNELS = 1
 RATE = 16000
 
 def is_listen_voice_enabled():
-    return config.LISTEN_VOICE_ENABLED.lower() == 'true'
+    return config.LISTEN_VOICE_ENABLED
 
 def listen_to_user(duration=config.LISTEN_VOICE_DURATION_SHORT):
     if not is_listen_voice_enabled():

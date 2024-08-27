@@ -4,6 +4,7 @@ import torch
 import traceback
 import warnings
 import requests
+import cv2
 
 from datetime import datetime
 from logger import app_logger
@@ -206,15 +207,6 @@ def unload_ollama_model(model_name):
         app_logger.error(f"An error occurred: {e}")
 
 def brave_search(query, num_results=10):
-    url = 'https://api.search.brave.com/res/v1/web/search'
-    headers = {'Authorization': f'Bearer {config.API_KEY_BRAVE_SEARCH}'}
-    params = {'q': query, 'count': num_results}
-    response = requests.get(url, headers=headers, params=params)
-    return response.json()
-
-
-
-def brave_search(query, num_results=10):
         url = "https://api.search.brave.com/res/v1/web/search"
         headers = {
             "Authorization": f"Bearer {config.API_KEY_BRAVE_SEARCH}",
@@ -225,3 +217,50 @@ def brave_search(query, num_results=10):
         params = {"q": query, "count": num_results}
         response = requests.get(url, headers=headers, params=params)
         return response.json()
+
+def capture_live_video(duration=5):
+    """
+    Captures a live video from the webcam for the specified duration.
+    Args:
+        duration (int): Duration of the video in seconds.
+    Returns:
+        str: Path to the saved video file.
+    """
+    cap = cv2.VideoCapture(0)
+    if not cap.isOpened():
+        return "Error: Could not open webcam. Please check if the camera is connected."
+    fourcc = cv2.VideoWriter_fourcc(*'XVID')
+    video_path = os.path.join(os.path.expanduser('~'), 'captured_video.avi')
+    out = cv2.VideoWriter(video_path, fourcc, 20.0, (640, 480))
+    start_time = cv2.getTickCount()
+    while (cv2.getTickCount() - start_time) / cv2.getTickFrequency() < duration:
+        ret, frame = cap.read()
+        if ret:
+            out.write(frame)
+            cv2.imshow('Recording...', frame)
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+    cap.release()
+    out.release()
+    cv2.destroyAllWindows()
+    return video_path
+
+def summarize_generated_files(comic_dir):
+    """
+    Summarizes the comics and files created during the generation process.
+
+    Args:
+        comic_dir (str): The directory where the comic files are stored.
+
+    Returns:
+        str: A summary of the generated files.
+    """
+    summary = []
+    for filename in os.listdir(comic_dir):
+        if filename.endswith('.png'):
+            summary.append(f"Comic image: {filename}")
+        elif filename.endswith('_summary.txt'):
+            summary.append(f"Summary file: {filename}")
+    
+    return "\n".join(summary)
+

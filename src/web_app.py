@@ -1,9 +1,11 @@
-from flask import Flask, render_template, request, redirect, url_for, jsonify, send_from_directory, g
 import os
+
 from datetime import datetime
-from main import generate_daily_comic, generate_custom_comic, generate_media_comic, perform_duckduckgo_search, capture_live_video
+from main import generate_daily_comic, generate_custom_comic, generate_media_comic, capture_live_video
+from flask import Flask, render_template, request, url_for, send_from_directory, g
+from psy_researcher import perform_duckduckgo_search
 from config import load_config
-from database import ComicDatabase, add_comic, get_all_comics
+from database import ComicDatabase
 from logger import app_logger
 from event_fetcher import get_local_events
 
