@@ -25,3 +25,7 @@ langchain==0.2.14
 langchain-openai==0.1.15
 langchain-community==0.2.7
 duckduckgo_search==6.1.12
+ezsynth
+tensorflow
+numpy
+pillow
