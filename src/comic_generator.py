@@ -1,3 +1,7 @@
+import warnings
+# Suppress the specific LangChain deprecation warning
+warnings.filterwarnings("ignore", category=DeprecationWarning, message=".*BaseChatModel.__call__.*")
+
 import os
 import re
 from tqdm import tqdm

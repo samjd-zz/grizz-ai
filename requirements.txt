@@ -21,6 +21,7 @@ flask==2.0.2
 werkzeug==2.0.3
 elevenlabs==1.7.0
 metagen
-langchain
-langchain-openai
-langchain-community
+langchain==0.2.14
+langchain-openai==0.1.15
+langchain-community==0.2.7
+duckduckgo_search==6.1.12

@@ -1,4 +1,4 @@
-# Description: Main script to run the Grizzly News AI-Generated Comics program.
+# Description: Main script to run the Grizz-AI-Generated Comics program.
 #
 # This script provides a command-line interface for generating AI-generated comics based on news articles, custom stories, and video/image content.
 # It allows users to choose from different options to generate comics and post them to social media platforms.

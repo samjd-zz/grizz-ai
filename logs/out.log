@@ -23956,3 +23956,37 @@ Generating comic from live. Please wait...
 All Comics:
 2024-08-27 15:14:42,195 INFO Exiting the program. Goodbye!
 2024-08-27 15:14:42,196 INFO Database connection closed
+2024-08-27 19:18:57,437 INFO Exiting the program. Goodbye!
+2024-08-27 19:18:57,441 INFO Database connection closed
+2024-08-27 19:19:12,834 INFO Starting Grizz-AI web application
+2024-08-27 19:19:19,795 INFO Starting Grizz-AI web application
+2024-08-27 19:24:38,638 INFO Successfully generated daily comic for Lillooet & Lytton
+2024-08-27 19:25:55,050 INFO Starting Grizz-AI web application
+2024-08-27 19:26:01,974 INFO Starting Grizz-AI web application
+2024-08-27 19:28:17,188 INFO Successfully generated daily comic for Lillooet & Lytton
+2024-08-27 19:31:20,587 INFO Starting Grizz-AI web application
+2024-08-27 19:32:22,783 ERROR Error generating image with DALL-E using langchain: bad operand type for unary +: 'str'
+2024-08-27 19:32:22,783 ERROR Failed to generate comic panel for the event: Upcoming Lytton River Festival. Skipping this event.
+2024-08-27 19:35:33,491 INFO Starting Grizz-AI web application
+2024-08-27 19:35:40,545 INFO Starting Grizz-AI web application
+2024-08-27 19:40:38,722 INFO Successfully generated daily comic for Lillooet & Lytton
+2024-08-27 19:45:42,240 INFO Starting Grizz-AI web application
+2024-08-27 19:50:31,868 INFO Successfully generated daily comic for Lillooet & Lytton
+2024-08-27 19:59:35,167 INFO Starting Grizz-AI web application
+2024-08-27 19:59:42,266 INFO Starting Grizz-AI web application
+2024-08-27 20:00:20,379 INFO Starting Grizz-AI web application
+2024-08-27 20:04:29,986 INFO Successfully generated daily comic for Lillooet & Lytton
+2024-08-27 20:08:07,734 INFO Starting Grizz-AI web application
+2024-08-27 20:31:28,496 INFO Starting Grizz-AI web application
+2024-08-27 20:31:35,643 INFO Starting Grizz-AI web application
+2024-08-27 20:38:16,225 INFO Successfully generated daily comic for Lillooet & Lytton
+2024-08-27 20:40:50,884 INFO Starting Grizz-AI web application
+2024-08-27 20:41:11,617 INFO Starting Grizz-AI web application
+2024-08-27 20:43:31,414 INFO Successfully generated daily comic for vancouver
+2024-08-27 20:44:57,836 INFO Starting Grizz-AI web application
+2024-08-27 20:46:20,419 ERROR Error generating image with DALL-E using langchain: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-08-27 20:46:20,419 ERROR Failed to generate comic panel for the event: Busy Weekend for Morden Police During Corn and Apple Festival. Skipping this event.
+2024-08-27 20:46:20,420 ERROR No comic panels were generated. Aborting comic generation.
+2024-08-27 20:46:20,421 ERROR Failed to generate daily comic for morden
+2024-08-27 20:48:25,530 INFO Successfully generated daily comic for morden
+2024-08-27 21:00:44,320 INFO Successfully generated daily comic for Texas

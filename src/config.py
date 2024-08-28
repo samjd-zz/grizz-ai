@@ -12,6 +12,7 @@ class Config:
         self.DB_PATH = os.getenv("DB_PATH")
         self.LOG_PATH = os.getenv("LOG_PATH")
         self.GENERATE_AUDIO = os.getenv("GENERATE_AUDIO", "false").lower() == "true"
+        self.COMIC_ARTIST_STYLE = os.getenv("COMIC_ARTIST_STYLE", "Herbert Block")
 
         self.OPENAI_TEXT_ANALYZE_MODEL=os.getenv('OPENAI_TEXT_ANALYZE_MODEL', 'gpt-4o') #model="chatgpt-4o-latest"
         self.PERPLEXITY_SEARCH_MODEL=os.getenv('PERPLEXITY_SEARCH_MODEL', "llama-3.1-sonar-large-128k-online")

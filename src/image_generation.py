@@ -1,5 +1,10 @@
+import warnings
+# Suppress the specific LangChain deprecation warning
+warnings.filterwarnings("ignore", category=DeprecationWarning, message=".*BaseChatModel.__call__.*")
+
 import requests
-from langchain_community.utilities.dalle_image_generator import DallEAPIWrapper
+from langchain_community.utilities.dalle_image_generator import DallEAPIWrapper 
+
 
 from logger import app_logger
 from config import load_config
@@ -18,7 +23,7 @@ def generate_dalle_images(desc):
         # Create a DallEAPIWrapper instance
         dalle = DallEAPIWrapper(api_key=config.OPENAI_API_KEY, model='dall-e-3')
         
-        truncated_desc = truncate_prompt(desc)
+        truncated_desc = truncate_prompt(f"In the style of {config.COMIC_ARTIST_STYLE}: " + desc)
         
         # Generate the image
         image_url = dalle.run(truncated_desc)

@@ -254,3 +254,5 @@ def duckduckgo_search(query: str, num_results: int = 5):
     except Exception as e:
         app_logger.error(f"Unexpected error in DuckDuckGo search: {e}")
         return None
+    
+    

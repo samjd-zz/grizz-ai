@@ -1,3 +1,7 @@
+import warnings
+# Suppress the specific LangChain deprecation warning
+warnings.filterwarnings("ignore", category=DeprecationWarning, message=".*BaseChatModel.__call__.*")
+
 import os
 from datetime import datetime
 from langchain_community.chat_models import ChatOllama
@@ -23,7 +27,7 @@ def analyze_text_opai(text, location):
         app_logger.debug(f"Analyzing text with OpenAI using langchain...")
         chat = ChatOpenAI(model=config.OPENAI_TEXT_ANALYZE_MODEL, temperature=0.7)
         
-        system_prompt = f"""You are a visionary comic scriptwriter collaborating with an AI that generates comic strip visuals. Your task is to write a highly detailed and imaginative comic strip script that clearly describes characters, scenes, actions, and dialogue. This script will guide an image generator AI like DALL-E to bring the comic to life. Please go into great detail when explaining the scene to the AI. The comic is set in {location}, so make sure to incorporate relevant local elements and characteristics in your script.
+        system_prompt = f"""You are a visionary comic scriptwriter collaborating with an AI inspired by {config.COMIC_ARTIST_STYLE} that generates comic strip visuals. Your task is to write a highly detailed and imaginative comic strip script that clearly describes characters, scenes, actions, and dialogue. This script will guide an image generator AI like DALL-E to bring the comic to life. Please go into great detail when explaining the scene to the AI. The comic is set in {location}, so make sure to incorporate relevant local elements and characteristics in your script.
 Instructions:
 1. Characters: Provide distinct and vivid descriptions of each character's physical appearance, clothing, and defining traits. Make the descriptions visually rich and ensure the AI can clearly visualize them.
 2. Scenes: Describe each scene with specific visual details, including the setting, mood, and atmosphere. Mention any key objects or elements that should be in the background. Include local landmarks or characteristics of {location} when appropriate.
@@ -36,12 +40,8 @@ Output Format: Provide your script in a sequential format that breaks down the s
 
 IMPORTANT: Keep your entire response under 1000 characters to ensure it can be used as a DALL-E prompt."""
 
-        messages = [
-            SystemMessage(content=system_prompt),
-            HumanMessage(content=text)
-        ]
         
-        response = chat(messages)
+        response = chat.invoke(system_prompt + text)
         analysis = response.content.strip()
         analysis = truncate_script(analysis)
         app_logger.debug(f"Text analyzed successfully with OpenAI using langchain")
@@ -56,7 +56,7 @@ def analyze_text_ollama(text, location, model=config.OLLAMA_TEXT_ANALYZE_MODEL, 
     
     try:
         if system_prompt is None:
-            system_prompt = f"""You are a visionary comic scriptwriter collaborating with an AI that generates comic strip visuals. Your task is to write a highly detailed and imaginative comic strip script that clearly describes characters, scenes, actions, and dialogue. This script will guide an image generator AI like DALL-E to bring the comic to life. Please go into great detail when explaining the scene to the AI. The comic is set in {location}, so make sure to incorporate relevant local elements and characteristics in your script.
+            system_prompt = f"""You are a visionary comic scriptwriter collaborating with an AI inspired by {config.COMIC_ARTIST_STYLE} that generates comic strip visuals. Your task is to write a highly detailed and imaginative comic strip script that clearly describes characters, scenes, actions, and dialogue. This script will guide an image generator AI like DALL-E to bring the comic to life. Please go into great detail when explaining the scene to the AI. The comic is set in {location}, so make sure to incorporate relevant local elements and characteristics in your script.
 Instructions:
 1. Characters: Provide distinct and vivid descriptions of each character's physical appearance, clothing, and defining traits. Make the descriptions visually rich and ensure the AI can clearly visualize them.
 2. Scenes: Describe each scene with specific visual details, including the setting, mood, and atmosphere. Mention any key objects or elements that should be in the background. Include local landmarks or characteristics of {location} when appropriate.
