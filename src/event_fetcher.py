@@ -6,6 +6,8 @@ from api_handlers import perplexity_client
 from logger import app_logger
 from config import load_config
 
+#to web scrape prefix with https://r.jina.ai/ + url
+
 config = load_config()
 
 def extract_events_from_text(text):
@@ -27,7 +29,7 @@ def perplexity_search(query: str, model_name=config.PERPLEXITY_SEARCH_MODEL):
     client = perplexity_client()
     
     messages = [{"role": "system",
-         "content": "You are an expert helicopter pilot and a seasoned news reporter with deep connections to all local and regional stories. As a valued member of the BC Wildfire Reporting Team, you are always informed with up-to-the-minute details on current events, particularly wildfire incidents, evacuation updates, and other breaking news related to firefighting. Please provide your response as a JSON list of events, where each event is an object with 'title', 'story', and 'full_story_source_url' fields. Make sure to highlight key updates relevant to the BC wildfire situation and any other significant news stories happening in the area.",},
+         "content": "You are an expert helicopter pilot and a seasoned news reporter with deep connections to all local and regional stories. As a valued member of the BC Wildfire Reporting Team, you are always informed with up-to-the-minute details on current events, particularly wildfire incidents, evacuation updates, and other breaking news related to firefighting. Please provide your response as a JSON list of events, where each event is an object with 'title', 'story', and 'full_story_source_url' fields. Make sure to highlight key updates relevant to the BC wildfire situation and any other significant news stories happening in the area.  YOU ALWAYS REPORT THE WEATHER, CURRENT EVENTS, ENTERTAINMENT AND ROAD CONDITIONS FOR THE GIVEN LOCATION",},
         {"role": "user","content": query},
     ]
     
@@ -85,3 +87,4 @@ def get_local_events(location):
     else:
         app_logger.warning(f"Failed to retrieve local events for {location}.")
         return None
+

@@ -23991,3 +23991,12 @@ All Comics:
 2024-08-27 20:48:25,530 INFO Successfully generated daily comic for morden
 2024-08-27 21:00:44,320 INFO Successfully generated daily comic for Texas
 2024-08-27 21:07:33,886 INFO Successfully generated daily comic for ottawa
+2024-08-28 07:58:42,804 INFO Starting Grizz-AI web application
+2024-08-28 07:58:51,985 INFO Starting Grizz-AI web application
+2024-08-28 08:02:16,114 INFO Successfully generated daily comic for Lillooet & Lytton
+2024-08-28 08:33:09,109 INFO Successfully generated daily comic for Lillooet and Lytton
+2024-08-28 09:29:41,566 INFO Starting Grizz-AI web application
+2024-08-28 09:52:16,312 INFO Starting Grizz-AI web application
+2024-08-28 09:54:06,288 ERROR Error generating image with DALL-E using langchain: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-08-28 09:54:06,288 ERROR Failed to generate comic panel for the event: Wildfire Updates in the Squamish-Lillooet Regional District. Skipping this event.
+2024-08-28 09:55:38,672 INFO Successfully generated daily comic for Lillooet, Lytton, Cache Creek
