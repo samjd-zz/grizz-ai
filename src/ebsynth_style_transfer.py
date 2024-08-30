@@ -18,7 +18,7 @@ import time
 from ezsynth import ImageSynth, load_guide
 from config import Config
 from logger import app_logger
-from database import insert_ebsynth_style_transfer_operation
+from database import ComicDatabase
 
 # Load environment variables
 config = Config()
@@ -66,7 +66,7 @@ def ebsynth_style_transfer(style_path, src_path, tgt_path, output_path, use_guid
         result.save(output_path)
         
         # Log the operation in the database
-        insert_ebsynth_style_transfer_operation(
+        ComicDatabase.insert_ebsynth_style_transfer_operation(
             style_path, src_path, tgt_path, output_path, use_guide, guide_path, time.time()
         )
         

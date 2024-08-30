@@ -15,7 +15,7 @@ from text_analysis import analyze_text_ollama, speak_elevenLabs
 from event_fetcher import get_local_events
 from video_processing import get_video_summary
 from config import load_config
-from database import add_comic, get_comic_by_story
+from database import ComicDatabase
 
 config = load_config()
 
@@ -53,7 +53,7 @@ def generate_daily_comic(location):
                 event_source = event['full_story_source_url']
                 
                 # Check if a comic with this story already exists
-                existing_comic = get_comic_by_story(event_story)
+                existing_comic = ComicDatabase.get_comic_by_story(event_story)
                 if existing_comic:
                     print(f"Comic already exists for story: {event_title}. Skipping this event.")
                     pbar.update(7)
@@ -110,7 +110,7 @@ def generate_daily_comic(location):
                 save_summary(location, summary_filename, event_title, event_story, event_source, panel_summary)
 
                 app_logger.debug(f"Adding comic to database: {event_title}")
-                add_comic(event_title, location, event_story, event_analysis, event_source, image_path, audio_path)
+                ComicDatabase.add_comic(event_title, location, event_story, event_analysis, event_source, image_path, audio_path)
                 pbar.update(1)
 
                 comic_panels.append((image_path, panel_summary))
@@ -156,7 +156,7 @@ def generate_custom_comic(title, story, location):
     try:
         
         # Check if a comic with this story already exists
-        existing_comic = get_comic_by_story(story)
+        existing_comic = ComicDatabase.get_comic_by_story(story)
         if existing_comic:
             print(f"Comic already exists for story: {title}. Returning existing comic.")
             return existing_comic['image_path'], existing_comic['comic_script'], existing_comic['comic_script'], existing_comic['audio_path']
@@ -221,7 +221,7 @@ def generate_custom_comic(title, story, location):
             pbar.update(1)
 
             app_logger.debug(f"Adding custom comic to database: {title}")
-            add_comic(title, location, story, event_analysis, "", image_path, audio_path)
+            ComicDatabase.add_comic(title, location, story, event_analysis, "", image_path, audio_path)
             pbar.update(1)
 
         # Print summary for the user
@@ -277,7 +277,7 @@ def generate_media_comic(media_type, path, location):
                     pbar.update(1)
 
                     # Check if a comic with this summary already exists
-                    existing_comic = get_comic_by_story(video_summary)
+                    existing_comic = ComicDatabase.get_comic_by_story(video_summary)
                     if existing_comic:
                         app_logger.info(f"Comic already exists for video: {media_path}. Skipping this video.")
                         comic_images.append(existing_comic['image_path'])
@@ -327,7 +327,7 @@ def generate_media_comic(media_type, path, location):
                     audio_paths.append(audio_path)
 
                     app_logger.debug(f"Adding video comic to database: {os.path.basename(media_path)}")
-                    add_comic(os.path.basename(media_path), location, video_summary, event_analysis, "", image_path, audio_path)
+                    ComicDatabase.add_comic(os.path.basename(media_path), location, video_summary, event_analysis, "", image_path, audio_path)
                     pbar.update(1)
 
                 elif media_type == 'image':
@@ -343,7 +343,7 @@ def generate_media_comic(media_type, path, location):
                     image_description = " ".join(image_analysis)
 
                     # Check if a comic with this description already exists
-                    existing_comic = get_comic_by_story(image_description)
+                    existing_comic = ComicDatabase.get_comic_by_story(image_description)
                     if existing_comic:
                         app_logger.info(f"Comic already exists for image: {media_path}. Skipping this image.")
                         comic_images.append(existing_comic['image_path'])
@@ -393,7 +393,7 @@ def generate_media_comic(media_type, path, location):
                     audio_paths.append(audio_path)
 
                     app_logger.debug(f"Adding image comic to database: {os.path.basename(media_path)}")
-                    add_comic(os.path.basename(media_path), location, image_description, event_analysis, "", image_path, audio_path)
+                    ComicDatabase.add_comic(os.path.basename(media_path), location, image_description, event_analysis, "", image_path, audio_path)
                     pbar.update(1)
 
         if not comic_images:

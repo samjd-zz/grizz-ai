@@ -28,3 +28,4 @@ duckduckgo_search==6.1.12
 ezsynth
 numpy
 pillow
+psycopg2

@@ -41,39 +41,55 @@ class ComicDatabase:
 
     @classmethod
     def add_comic(cls, title, location, original_story, comic_script, story_source_url, image_path, audio_path=None):
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        cursor = cls.get_cursor()
-        cursor.execute('''
-            INSERT INTO comics (title, location, original_story, comic_script, story_source_url, image_path, audio_path, created_at)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-        ''', (title, location, original_story, comic_script, story_source_url, image_path, audio_path, current_time))
-        cls.get_connection().commit()
+        try:
+            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            cursor = cls.get_cursor()
+            cursor.execute('''
+                INSERT INTO comics (title, location, original_story, comic_script, story_source_url, image_path, audio_path, created_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+            ''', (title, location, original_story, comic_script, story_source_url, image_path, audio_path, current_time))
+            cls.get_connection().commit()
+            app_logger.debug(f"Added comic to database: {title}")
+        except Exception as e:
+            app_logger.error(f"Error adding comic to database: {e}")
 
     @classmethod
     def get_comic_by_story(cls, original_story):
-        cursor = cls.get_cursor()
-        cursor.execute('SELECT * FROM comics WHERE original_story = ?', (original_story,))
-        result = cursor.fetchone()
-        return dict(result) if result else None
+        try:
+            cursor = cls.get_cursor()
+            cursor.execute('SELECT * FROM comics WHERE original_story = ?', (original_story,))
+            result = cursor.fetchone()
+            return dict(result) if result else None
+        except Exception as e:
+            app_logger.error(f"Error getting comic from database: {e}")
+            return None
 
     @classmethod
     def get_all_comics(cls):
-        cursor = cls.get_cursor()
-        cursor.execute('SELECT * FROM comics ORDER BY created_at DESC')
-        return [dict(row) for row in cursor.fetchall()]
+        try:
+            cursor = cls.get_cursor()
+            cursor.execute('SELECT * FROM comics ORDER BY created_at DESC')
+            return [dict(row) for row in cursor.fetchall()]
+        except Exception as e:
+            app_logger.error(f"Error getting all comics from database: {e}")
+            return []
 
     @classmethod
     def close(cls):
         if hasattr(cls._local, "connection"):
             cls._local.connection.close()
             del cls._local.connection
+        app_logger.info("Database connection closed")
 
     @classmethod
     def purge_database(cls):
-        cursor = cls.get_cursor()
-        cursor.execute('DELETE FROM comics')
-        cls.get_connection().commit()
-        app_logger.info("Database purged")
+        try:
+            cursor = cls.get_cursor()
+            cursor.execute('DELETE FROM comics')
+            cls.get_connection().commit()
+            app_logger.info("Database purged successfully")
+        except Exception as e:
+            app_logger.error(f"Error purging database: {e}")
 
     @classmethod
     def add_audio_path_column(cls):
@@ -88,77 +104,44 @@ class ComicDatabase:
             else:
                 raise e
 
+    @classmethod
+    def view_all_comics(cls):
+        """
+        Displays all comics stored in the database and the output folder.
+        """
+        comics_from_db = cls.get_all_comics()
+        comics_from_folder = []
+
+        # Get comics from the output folder
+        for root, dirs, files in os.walk(config.OUTPUT_DIR):
+            for file in files:
+                if file.endswith('.png'):
+                    comics_from_folder.append(os.path.join(root, file))
+
+        if not comics_from_db and not comics_from_folder:
+            app_logger.info("No comics found in the database or output folder.")
+            return
+
+        app_logger.info("\nAll Comics:")
+
+        # Display comics from the database
+        for comic in comics_from_db:
+            print(f"Title: {comic['title']}")
+            print(f"Location: {comic['location']}")
+            print(f"Image Path: {comic['image_path']}")
+            print(f"Created At: {comic['created_at']}")
+            print("-" * 50)
+
+        # Display comics from the output folder that are not in the database
+        db_image_paths = set(comic['image_path'] for comic in comics_from_db)
+        for image_path in comics_from_folder:
+            if image_path not in db_image_paths:
+                print(f"Title: Unknown (Not in database)")
+                print(f"Location: Unknown")
+                print(f"Image Path: {image_path}")
+                print(f"Created At: Unknown")
+                print("-" * 50)
+
 # Ensure the table is created and updated
 ComicDatabase.create_table()
 ComicDatabase.add_audio_path_column()
-
-def add_comic(title, location, original_story, comic_script, story_source_url, image_path, audio_path=None):
-    try:
-        ComicDatabase.add_comic(title, location, original_story, comic_script, story_source_url, image_path, audio_path)
-        app_logger.debug(f"Added comic to database: {title}")
-    except Exception as e:
-        app_logger.error(f"Error adding comic to database: {e}")
-
-def get_comic_by_story(original_story):
-    try:
-        return ComicDatabase.get_comic_by_story(original_story)
-    except Exception as e:
-        app_logger.error(f"Error getting comic from database: {e}")
-        return None
-
-def get_all_comics():
-    try:
-        return ComicDatabase.get_all_comics()
-    except Exception as e:
-        app_logger.error(f"Error getting all comics from database: {e}")
-        return []
-
-def close_database():
-    ComicDatabase.close()
-    app_logger.info("Database connection closed")
-
-def purge_database():
-    try:
-        ComicDatabase.purge_database()
-        app_logger.info("Database purged successfully")
-    except Exception as e:
-        app_logger.error(f"Error purging database: {e}")
-
-def view_all_comics():
-    """
-    Displays all comics stored in the database and the output folder.
-    """
-    comics_from_db = get_all_comics()
-    comics_from_folder = []
-
-    # Get comics from the output folder
-    for root, dirs, files in os.walk(config.OUTPUT_DIR):
-        for file in files:
-            if file.endswith('.png'):
-                comics_from_folder.append(os.path.join(root, file))
-
-    if not comics_from_db and not comics_from_folder:
-        app_logger.info("No comics found in the database or output folder.")
-        return
-
-    app_logger.info("\nAll Comics:")
-
-    # Display comics from the database
-    for comic in comics_from_db:
-        print(f"Title: {comic['title']}")
-        print(f"Location: {comic['location']}")
-        print(f"Image Path: {comic['image_path']}")
-        print(f"Created At: {comic['created_at']}")
-        print("-" * 50)
-
-    # Display comics from the output folder that are not in the database
-    db_image_paths = set(comic['image_path'] for comic in comics_from_db)
-    for image_path in comics_from_folder:
-        if image_path not in db_image_paths:
-            print(f"Title: Unknown (Not in database)")
-            print(f"Location: Unknown")
-            print(f"Image Path: {image_path}")
-            print(f"Created At: Unknown")
-            print("-" * 50)
-
-

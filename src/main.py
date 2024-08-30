@@ -32,7 +32,7 @@ from psy_researcher import perform_duckduckgo_search
 from utils import capture_live_video, summarize_generated_files
 
 from social_media import post_to_twitter, post_to_facebook
-from database import close_database, view_all_comics, purge_database
+from database import ComicDatabase
 
 # Load configuration
 config = load_config()
@@ -237,7 +237,7 @@ def main():
                             app_logger.info(f"Posted media comic to social media: {os.path.basename(image_path)}")
             
             elif choice == '4':
-                view_all_comics()
+                ComicDatabase.view_all_comics()
             
             elif choice == '5':
                 toggle_voice()
@@ -249,7 +249,7 @@ def main():
             elif choice == '7':
                 confirmation = input("Are you sure you want to purge the database? This action cannot be undone. (y/n): ")
                 if confirmation.lower() == 'y':
-                    purge_database()
+                    ComicDatabase.purge_database()
                     print("Database purged successfully.")
                 else:
                     print("Database purge cancelled.")
@@ -261,7 +261,7 @@ def main():
             else:
                 app_logger.warning("Invalid choice. Please try again.")
     finally:
-        close_database()
+        ComicDatabase.close()
 
 if __name__ == "__main__":
     main()
