@@ -1,5 +1,7 @@
 import json
 import ollama
+import psycopg2
+import os
 
 from logger import app_logger
 from typing import Dict, Any
@@ -9,13 +11,6 @@ from config import load_config
 config = load_config()
 
 # Define your tools
-def multiply(a: float, b: float) -> float:
-    return a * b
-
-def add(a: float, b: float) -> float:
-    return a + b
-
-import psycopg2
 
 #def query_sql(query: str) -> Any:
     # Placeholder function to query an SQL database
@@ -35,37 +30,25 @@ def query_rag(question: str) -> Any:
     # Implement your RAG retrieval and generation logic here
     return f"RAG response for: {question}"
 
+def save_to_disk(file_path: str, data: str) -> str:
+    try:
+        with open(file_path, 'w') as file:
+            file.write(data)
+        return f"Data successfully saved to {file_path}"
+    except Exception as e:
+        return f"Failed to save data: {str(e)}"
+
+def fetch_from_disk(file_path: str) -> str:
+    try:
+        if not os.path.exists(file_path):
+            return f"File not found: {file_path}"
+        with open(file_path, 'r') as file:
+            data = file.read()
+        return data
+    except Exception as e:
+        return f"Failed to fetch data: {str(e)}"
+
 tools = [
-    {
-        "type": "function",
-        "function": {
-            "name": "multiply",
-            "description": "Multiply two numbers",
-            "parameters": {
-                "type": "object",
-                "properties": {
-                    "a": {"type": "number"},
-                    "b": {"type": "number"}
-                },
-                "required": ["a", "b"]
-            }
-        }
-    },
-    {
-        "type": "function",
-        "function": {
-            "name": "add",
-            "description": "Add two numbers",
-            "parameters": {
-                "type": "object",
-                "properties": {
-                    "a": {"type": "number"},
-                    "b": {"type": "number"}
-                },
-                "required": ["a", "b"]
-            }
-        }
-    },
     {
         "type": "function",
         "function": {
@@ -93,6 +76,35 @@ tools = [
                 "required": ["question"]
             }
         }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "fetch_from_disk",
+            "description": "Fetch data from a specified file on the disk",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "file_path": {"type": "string"}
+                },
+                "required": ["file_path"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "save_to_disk",
+            "description": "Save data to a specified file on the disk",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "file_path": {"type": "string"},
+                    "data": {"type": "string"}
+                },
+                "required": ["file_path", "data"]
+            }
+        }
     }
 ]
 
@@ -100,14 +112,14 @@ def handle_tool_call(tool_call: Dict[str, Any]) -> Dict[str, Any]:
     function_name = tool_call['function']['name']
     arguments = json.loads(tool_call['function']['arguments'])
     
-    if function_name == "multiply":
-        result = multiply(arguments['a'], arguments['b'])
-    elif function_name == "add":
-        result = add(arguments['a'], arguments['b'])
-    elif function_name == "query_sql":
+    if function_name == "query_sql":
         result = query_sql(arguments['query'])
     elif function_name == "query_rag":
         result = query_rag(arguments['question'])
+    elif function_name == "save_to_disk":
+        result = save_to_disk(arguments['file_path'], arguments['data'])
+    elif function_name == "fetch_from_disk":
+        result = fetch_from_disk(arguments['file_path'])    
     else:
         raise ValueError(f"Unknown function: {function_name}")
     
@@ -121,19 +133,11 @@ def chat_with_tools(query: str) -> str:
     system_prompt = """You are an AI assistant with access to specific tools to help you complete tasks. 
                         Here are the tools available to you:
 
-                        1. multiply: This tool multiplies two numbers.
-                        - Input: Two numbers (a and b)
-                        - Output: The product of a and b
-
-                        2. add: This tool adds two numbers.
-                        - Input: Two numbers (a and b)
-                        - Output: The sum of a and b
-
-                        3. query_sql: This tool queries an SQL database.
+                        1. query_sql: This tool queries an SQL database.
                         - Input: A SQL query string
                         - Output: The result of the SQL query
 
-                        4. query_rag: This tool queries a Retrieval-Augmented Generation system.
+                        2. query_rag: This tool queries a Retrieval-Augmented Generation system.
                         - Input: A question string
                         - Output: The RAG-generated response
 
@@ -149,7 +153,7 @@ def chat_with_tools(query: str) -> str:
                         After using a tool, I will provide you with the result. You can then use this result in your response or use another tool if needed.
 
                         Remember:
-                        - Only use tools when necessary for calculations or data retrieval.
+                        - Only use tools when necessary for data retrieval.
                         - Provide clear explanations along with your tool usage.
                         - Be concise and precise in your responses.
                         - Use the tools in a logical order to achieve the desired outcome.
