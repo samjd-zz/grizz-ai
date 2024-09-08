@@ -23,7 +23,7 @@ def generate_dalle_images(desc):
         # Create a DallEAPIWrapper instance
         dalle = DallEAPIWrapper(api_key=config.OPENAI_API_KEY, model='dall-e-3')
         
-        truncated_desc = truncate_prompt(f"In the style of {config.COMIC_ARTIST_STYLE}: " + desc)
+        truncated_desc = truncate_prompt(f"{config.COMIC_ARTIST_STYLE}: " + desc)
         
         # Generate the image
         image_url = dalle.run(truncated_desc)

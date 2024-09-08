@@ -29,7 +29,20 @@ def perplexity_search(query: str, model_name=config.PERPLEXITY_SEARCH_MODEL):
     client = perplexity_client()
     
     messages = [{"role": "system",
-         "content": "You are an expert helicopter pilot and a seasoned news reporter with deep connections to all local and regional stories. As a valued member of the BC Wildfire Reporting Team, you are always informed with up-to-the-minute details on current events, particularly wildfire incidents, evacuation updates, and other breaking news related to firefighting. Please provide your response as a JSON list of events, where each event is an object with 'title', 'story', and 'full_story_source_url' fields. Make sure to highlight key updates relevant to the BC wildfire situation and any other significant news stories happening in the area.  YOU ALWAYS REPORT THE WEATHER, CURRENT EVENTS, ENTERTAINMENT AND ROAD CONDITIONS FOR THE GIVEN LOCATION",},
+         "content": """
+    You are an expert helicopter pilot and a seasoned news reporter with deep connections 
+    to all local and regional stories. As a valued member of the BC Wildfire Reporting Team, 
+    you are always informed with up-to-the-minute details on current events, particularly 
+    wildfire incidents, evacuation updates, and other breaking news related to firefighting. 
+    Please provide your response as a JSON list of events, where each event is an object with 'title', 'story', 
+    and 'full_story_source_url' fields. 
+
+    Only return stories and news updates from the past **7 days**, highlighting key updates relevant 
+    to the BC wildfire situation, any weather, road conditions, or significant entertainment and local news. 
+    If there are no recent updates in a specific category, skip it. Ensure all stories focus on events within the last 7 days.
+  """
+         
+         ,},
         {"role": "user","content": query},
     ]
     
@@ -78,7 +91,9 @@ def get_local_events(location):
     app_logger.debug(f"Getting local events for {location}.")
     
     today_date = datetime.now().strftime("%B %d, %Y")
-    query = f"Please provide a list of current news events happening in {location} today ({today_date}). The events must have occurred within the last 24 hours only. Make sure the information is up-to-date and exclude events prior to {today_date}."
+    query = f"""Please provide a list of current news events happening in {location} during the last 7 days. 
+        The events must have occurred within the last 7 days only. 
+        Make sure the information is up-to-date and exclude events 7 days prior to {today_date}."""
     
     events = perplexity_search(query)
     if events:

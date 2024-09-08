@@ -8,7 +8,7 @@ from tqdm import tqdm
 from datetime import datetime
 
 from logger import app_logger
-from utils import analyze_frames, save_summary, save_image
+from utils import analyze_frames, save_summary, save_image, filter_content
 
 from image_generation import generate_dalle_images
 from text_analysis import analyze_text_ollama, speak_elevenLabs
@@ -36,7 +36,7 @@ def generate_daily_comic(location):
         # Step 1: Get local events based on user's location
         local_events = get_local_events(location)
         if not local_events:
-            app_logger.warning(f"No new local events in the past 24 hours for {location}. Aborting comic generation.")
+            app_logger.warning(f"No new local events in the past 7 days for {location}. Aborting comic generation.")
             return None
         
         # Estimate total steps
@@ -55,7 +55,7 @@ def generate_daily_comic(location):
                 # Check if a comic with this story already exists
                 existing_comic = ComicDatabase.get_comic_by_story(event_story)
                 if existing_comic:
-                    print(f"Comic already exists for story: {event_title}. Skipping this event.")
+                    print(f"\nComic already exists for story: {event_title}. Skipping this event.")
                     pbar.update(7)
                     continue
                 pbar.update(1)
@@ -71,7 +71,7 @@ def generate_daily_comic(location):
 
                 # Generate comic panel image
                 print("Generating image...")
-                image_data = generate_dalle_images(event_analysis)
+                image_data = generate_dalle_images(filter_content(event_analysis))
                 if not image_data:
                     app_logger.error(f"Failed to generate comic panel for the event: {event_title}. Skipping this event.")
                     pbar.update(5)
@@ -158,7 +158,7 @@ def generate_custom_comic(title, story, location):
         # Check if a comic with this story already exists
         existing_comic = ComicDatabase.get_comic_by_story(story)
         if existing_comic:
-            print(f"Comic already exists for story: {title}. Returning existing comic.")
+            app_logger.debug(f"Comic already exists for story: {title}. Returning existing comic.")
             return existing_comic['image_path'], existing_comic['comic_script'], existing_comic['comic_script'], existing_comic['audio_path']
 
         total_steps = 7  # Total number of steps in custom comic generation
@@ -176,7 +176,7 @@ def generate_custom_comic(title, story, location):
 
             # Generate comic panel image
             print(f"Generating image...")
-            image_data = generate_dalle_images(event_analysis)
+            image_data = generate_dalle_images(filter_content(event_analysis))
             if not image_data:
                 app_logger.error(f"Failed to generate comic panel for the custom event: {title}. Aborting comic generation.")
                 pbar.update(total_steps-1)

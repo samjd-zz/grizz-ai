@@ -26,6 +26,4 @@ langchain-openai==0.1.15
 langchain-community==0.2.7
 duckduckgo_search==6.1.12
 ezsynth
-numpy
-pillow
-psycopg2
+psycopg2-binary

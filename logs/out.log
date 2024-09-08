@@ -24000,3 +24000,46 @@ All Comics:
 2024-08-28 09:54:06,288 ERROR Error generating image with DALL-E using langchain: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
 2024-08-28 09:54:06,288 ERROR Failed to generate comic panel for the event: Wildfire Updates in the Squamish-Lillooet Regional District. Skipping this event.
 2024-08-28 09:55:38,672 INFO Successfully generated daily comic for Lillooet, Lytton, Cache Creek
+2024-09-07 17:13:19,826 INFO Exiting the program. Goodbye!
+2024-09-07 17:13:19,830 INFO Database connection closed
+2024-09-07 17:29:09,894 INFO Starting Grizz-AI web application
+2024-09-07 17:29:17,306 INFO Starting Grizz-AI web application
+2024-09-07 17:32:16,207 ERROR Error generating image with DALL-E using langchain: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-07 17:32:16,211 ERROR Failed to generate comic panel for the event: Road Closures and Maintenance. Skipping this event.
+2024-09-07 17:33:50,743 INFO Successfully generated daily comic for Lillooet & Lytton
+2024-09-07 17:39:47,454 INFO Database purged successfully
+2024-09-07 17:39:49,106 INFO Exiting the program. Goodbye!
+2024-09-07 17:39:49,106 INFO Database connection closed
+2024-09-07 17:40:03,959 INFO Starting Grizz-AI web application
+2024-09-07 17:40:11,228 INFO Starting Grizz-AI web application
+2024-09-07 17:40:20,909 INFO Viewing all comics: 0 comics found
+2024-09-07 17:40:20,914 INFO Database connection closed
+2024-09-07 17:50:46,186 INFO Starting Grizz-AI web application
+2024-09-07 17:50:53,391 INFO Starting Grizz-AI web application
+2024-09-07 17:54:18,895 INFO Starting Grizz-AI web application
+2024-09-07 17:54:25,909 INFO Starting Grizz-AI web application
+2024-09-07 18:00:09,217 INFO Successfully generated daily comic for Lillooet & Lytton
+2024-09-07 18:05:35,505 INFO Starting Grizz-AI web application
+2024-09-07 18:08:33,482 INFO Successfully generated daily comic for Lillooet & Lytton
+2024-09-07 18:12:31,825 INFO Successfully generated daily comic for Lillooet & Lytton
+2024-09-07 18:57:10,025 INFO Starting Grizz-AI web application
+2024-09-07 18:57:17,149 INFO Starting Grizz-AI web application
+2024-09-07 19:01:37,717 INFO Successfully generated daily comic for Lillooet & Lytton
+2024-09-07 19:09:15,316 INFO Starting Grizz-AI web application
+2024-09-07 19:09:22,380 INFO Starting Grizz-AI web application
+2024-09-07 19:10:15,952 WARNING Failed to retrieve local events for Lillooet & Lytton.
+2024-09-07 19:10:15,952 WARNING No new local events in the past 24 hours for Lillooet & Lytton. Aborting comic generation.
+2024-09-07 19:10:15,952 ERROR Failed to generate daily comic for Lillooet & Lytton
+2024-09-07 19:10:39,702 INFO Starting Grizz-AI web application
+2024-09-07 19:10:46,717 INFO Starting Grizz-AI web application
+2024-09-07 19:11:19,977 INFO Starting Grizz-AI web application
+2024-09-07 19:11:29,248 WARNING Failed to retrieve local events for Lillooet & Lytton.
+2024-09-07 19:11:29,248 INFO No events found for Lillooet & Lytton
+2024-09-07 19:14:40,385 INFO Successfully generated daily comic for Lillooet, BC, CAN
+2024-09-07 19:17:34,167 WARNING Failed to retrieve local events for Lillooet & Lytton.
+2024-09-07 19:17:34,167 INFO No events found for Lillooet & Lytton
+2024-09-07 19:21:03,707 INFO Successfully generated daily comic for Lillooet, BC, CAN
+2024-09-07 19:22:45,994 INFO Starting Grizz-AI web application
+2024-09-07 19:27:39,828 INFO Successfully generated daily comic for Lillooet, BC, CAN
+2024-09-07 19:34:36,736 INFO Viewing all comics: 17 comics found
+2024-09-07 19:34:36,738 INFO Database connection closed
