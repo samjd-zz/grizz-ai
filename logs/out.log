@@ -24043,3 +24043,32 @@ All Comics:
 2024-09-07 19:27:39,828 INFO Successfully generated daily comic for Lillooet, BC, CAN
 2024-09-07 19:34:36,736 INFO Viewing all comics: 17 comics found
 2024-09-07 19:34:36,738 INFO Database connection closed
+2024-09-07 21:43:08,825 INFO Starting Grizz-AI web application
+2024-09-07 21:50:31,088 INFO Successfully generated daily comic for Lillooet & Lytton
+2024-09-08 12:54:13,142 WARNING Failed to retrieve local events for Lillooet & Lytton.
+2024-09-08 12:54:13,143 WARNING No new local events in the past 7 days for Lillooet & Lytton. Aborting comic generation.
+2024-09-08 12:54:13,143 ERROR Failed to generate daily comic for Lillooet & Lytton
+2024-09-08 12:57:24,228 INFO Successfully generated daily comic for Lillooet, BC, CAN
+2024-09-08 15:46:06,347 INFO Starting Grizz-AI web application
+2024-09-08 21:10:48,391 INFO Successfully generated daily comic for Lillooet, BC, CAN
+2024-09-09 12:04:04,930 ERROR Error generating image with DALL-E using langchain: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-09 12:04:04,930 ERROR Failed to generate comic panel for the event: Storytime. Skipping this event.
+2024-09-09 12:07:11,582 INFO Successfully generated daily comic for Lillooet, BC, CAN
+2024-09-10 09:47:22,640 INFO Successfully generated daily comic for Lillooet, BC, CAN
+2024-09-10 19:08:34,678 INFO Successfully generated daily comic for Lillooet, BC, CAN
+2024-09-11 15:39:38,620 INFO Successfully generated daily comic for Lillooet & Lytton
+2024-09-12 09:53:47,869 INFO Successfully generated daily comic for Lillooet, BC, CAN
+2024-09-12 20:14:37,717 INFO Successfully generated daily comic for Lillooet, BC, CAN
+2024-09-13 10:04:47,663 INFO Successfully generated daily comic for Lillooet, BC, CAN
+2024-09-22 13:27:27,580 INFO Starting Grizz-AI web application
+2024-09-22 13:27:35,841 INFO Starting Grizz-AI web application
+2024-09-22 13:35:28,941 INFO Starting Grizz-AI web application
+2024-09-22 13:35:35,979 INFO Starting Grizz-AI web application
+2024-09-22 13:37:21,924 INFO Starting Grizz-AI web application
+2024-09-22 13:37:28,809 INFO Starting Grizz-AI web application
+2024-09-22 13:45:35,166 INFO Successfully generated daily comic for Lillooet, BC, CAN
+2024-09-22 13:50:14,952 INFO Successfully generated daily comic for Lillooet & Lytton
+2024-09-22 13:52:10,466 INFO Starting Grizz-AI web application
+2024-09-22 13:52:17,345 INFO Starting Grizz-AI web application
+2024-09-22 13:56:01,164 INFO Successfully generated daily comic for Lillooet, BC, CAN
+2024-09-22 13:57:10,548 INFO Starting Grizz-AI web application

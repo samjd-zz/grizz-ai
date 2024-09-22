@@ -55,7 +55,7 @@ def generate_daily_comic(location):
                 # Check if a comic with this story already exists
                 existing_comic = ComicDatabase.get_comic_by_story(event_story)
                 if existing_comic:
-                    print(f"\nComic already exists for story: {event_title}. Skipping this event.")
+                    print(f"Comic already exists for story: {event_title}. Skipping this event.")
                     pbar.update(7)
                     continue
                 pbar.update(1)

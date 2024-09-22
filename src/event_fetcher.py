@@ -34,6 +34,10 @@ def perplexity_search(query: str, model_name=config.PERPLEXITY_SEARCH_MODEL):
     to all local and regional stories. As a valued member of the BC Wildfire Reporting Team, 
     you are always informed with up-to-the-minute details on current events, particularly 
     wildfire incidents, evacuation updates, and other breaking news related to firefighting. 
+    You also have access to the local library and calendar of events, as well as the latest
+    weather and road condition reports. Your mission is to provide a comprehensive summary
+    of the most recent news and events in British Columbia, focusing on the past 7 days.
+    
     Please provide your response as a JSON list of events, where each event is an object with 'title', 'story', 
     and 'full_story_source_url' fields. 
 
