@@ -1,29 +1,97 @@
 {% macro display_comic(comic) %}
 <div class="comic-container">
-    <h2>{{ comic.title }}</h2>
-    <p><strong>Event Story:</strong> {{ comic.original_story }}</p>
-    {% if comic.audio_path %}
-        <audio controls>
-            <source src="{{ comic.audio_path }}" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
-    {% else %}
-        <p>Audio narration not available</p>
-    {% endif %}
-    <p><strong>Created At:</strong> {{ comic.created_at }}</p>
-    {% if comic.image_path %}
-        <img src="{{ comic.image_path }}" alt="{{ comic.title }}" class="comic-image">
-    {% else %}
-        <p>Image not available</p>
-    {% endif %}
-    <p><strong>Generated Comic Script:</strong> {{ comic.comic_script }}</p>
-    {% if comic.story_source_url %}
-        <p><strong>Original Source:</strong> <a href="{{ comic.story_source_url }}" target="_blank">{{ comic.story_source_url }}</a></p>
-    {% endif %}
-    <!-- <div class="debug-info">
-        <p><strong>Debug Info:</strong></p>
-        <p>Image Path: {{ comic.image_path }}</p>
-        <p>Audio Path: {{ comic.audio_path }}</p>
-    </div> -->
+    <h2 class="comic-title">{{ comic.title }}</h2>
+    <div class="comic-metadata">
+        <p><strong>Location:</strong> {{ comic.location }}</p>
+        <p><strong>Date:</strong> 
+        {% if comic.date %}
+            {% if comic.date is string %}
+                {{ comic.date }}
+            {% else %}
+                {{ comic.date.strftime('%B %d, %Y') }}
+            {% endif %}
+        {% else %}
+            Unknown
+        {% endif %}
+        </p>
+    </div>
+    <div class="comic-content">
+        {% if comic.image_path %}
+            <img src="{{ comic.image_path }}" alt="{{ comic.title }}" class="comic-image">
+        {% else %}
+            <p class="image-placeholder">Image not available</p>
+        {% endif %}
+        <div class="comic-details">
+            <h3>Event Story:</h3>
+            <p>{{ comic.original_story }}</p>
+            {% if comic.audio_path %}
+                <h3>Audio Narration:</h3>
+                <audio controls>
+                    <source src="{{ comic.audio_path }}" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            {% endif %}
+            {% if comic.comic_script %}
+                <h3>Generated Comic Script:</h3>
+                <p>{{ comic.comic_script }}</p>
+            {% endif %}
+            {% if comic.story_source_url %}
+                <p><strong>Original Source:</strong> <a href="{{ comic.story_source_url }}" target="_blank">{{ comic.story_source_url }}</a></p>
+            {% endif %}
+        </div>
+    </div>
 </div>
 {% endmacro %}
+
+<style>
+    .comic-container {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 30px;
+        background-color: #f9f9f9;
+    }
+    .comic-title {
+        color: #333;
+        border-bottom: 2px solid #333;
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+    }
+    .comic-metadata {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+        font-size: 0.9em;
+        color: #666;
+    }
+    .comic-content {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+    .comic-image {
+        max-width: 100%;
+        height: auto;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .comic-details {
+        flex: 1;
+        min-width: 300px;
+    }
+    .comic-details h3 {
+        color: #444;
+        margin-top: 15px;
+        margin-bottom: 10px;
+    }
+    .image-placeholder {
+        background-color: #eee;
+        padding: 20px;
+        text-align: center;
+        border-radius: 4px;
+    }
+    audio {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+</style>

@@ -1,5 +1,4 @@
 import os
-
 from datetime import datetime
 from main import generate_daily_comic, generate_custom_comic, generate_media_comic, capture_live_video
 from flask import Flask, render_template, request, url_for, send_from_directory, g
@@ -86,7 +85,7 @@ def custom_comic():
             relative_audio_path = os.path.relpath(audio_path, os.path.join(app.config['GENERATED_IMAGES_FOLDER'], 'audio')) if audio_path else None
             created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             db = get_db()
-            db.add_comic(title, location, story, comic_script, "", relative_path, relative_audio_path)
+            db.add_comic(title, location, story, comic_script, "", relative_path, relative_audio_path, datetime.now().date())
             app_logger.info(f"Successfully generated custom comic: {title}")
             return render_template('custom_comic_result.html', 
                                    title=title,
@@ -141,7 +140,7 @@ def media_comic():
             for i, (relative_path, comic_script, relative_audio_path) in enumerate(zip(relative_paths, comic_scripts, relative_audio_paths)):
                 created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 title = f"Media Comic {i+1}"
-                db.add_comic(title, location, f"{media_type} comic", comic_script, "", relative_path, relative_audio_path)
+                db.add_comic(title, location, f"{media_type} comic", comic_script, "", relative_path, relative_audio_path, datetime.now().date())
                 comics.append({
                     'title': title,
                     'original_story': f"{media_type} comic",
@@ -169,11 +168,27 @@ def search():
         return render_template('search_results.html', results=results)
     return render_template('search.html')
 
+def get_unique_locations():
+    db = get_db()
+    return db.get_unique_locations()
+
 @app.route('/view_all_comics')
 def view_all_comics():
     db = get_db()
-    comics = db.get_all_comics()
-    app_logger.info(f"Viewing all comics: {len(comics)} comics found")
+    start_date = request.args.get('start_date')
+    end_date = request.args.get('end_date')
+    location = request.args.get('location')
+    
+    # Convert date strings to datetime objects
+    if start_date:
+        start_date = datetime.strptime(start_date, '%Y-%m-%d').date()
+    if end_date:
+        end_date = datetime.strptime(end_date, '%Y-%m-%d').date()
+    
+    app_logger.debug(f"Filtering comics - Start Date: {start_date}, End Date: {end_date}, Location: {location}")
+    
+    comics = db.get_filtered_comics(start_date, end_date, location)
+    app_logger.info(f"Viewing filtered comics: {len(comics)} comics found")
     
     for comic in comics:
         if 'image_path' in comic and comic['image_path']:
@@ -200,8 +215,32 @@ def view_all_comics():
         
         if 'comic_script' not in comic or not comic['comic_script']:
             comic['comic_script'] = "No comic script available"
+        
+        # Ensure date is in the correct format for display
+        if 'date' in comic and comic['date']:
+            try:
+                if isinstance(comic['date'], str):
+                    # If it's already a string, try to parse it as a date
+                    comic['date'] = datetime.strptime(comic['date'], '%Y-%m-%d').strftime('%Y-%m-%d')
+                elif isinstance(comic['date'], datetime):
+                    comic['date'] = comic['date'].strftime('%Y-%m-%d')
+                else:
+                    app_logger.warning(f"Unexpected date format for comic: {comic.get('title', 'Unknown')}")
+                    comic['date'] = str(comic['date'])  # Convert to string as a fallback
+                app_logger.debug(f"Successfully processed date for comic: {comic.get('title', 'Unknown')}, Date: {comic['date']}")
+            except ValueError:
+                app_logger.error(f"Invalid date format for comic: {comic.get('title', 'Unknown')}")
+                comic['date'] = "Unknown Date"
+        else:
+            comic['date'] = "Unknown Date"
     
-    return render_template('view_all_comics.html', comics=comics)
+    locations = get_unique_locations()
+    return render_template('view_all_comics.html', 
+                           comics=comics, 
+                           locations=locations, 
+                           start_date=start_date.strftime('%Y-%m-%d') if start_date else '',
+                           end_date=end_date.strftime('%Y-%m-%d') if end_date else '',
+                           selected_location=location)
 
 if __name__ == '__main__':
     app_logger.info("Starting Grizz-AI web application")

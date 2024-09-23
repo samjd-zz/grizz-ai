@@ -34,20 +34,23 @@ class ComicDatabase:
                 story_source_url TEXT,
                 image_path TEXT NOT NULL,
                 audio_path TEXT,
-                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                date DATE NOT NULL
             )
         ''')
         cls.get_connection().commit()
 
     @classmethod
-    def add_comic(cls, title, location, original_story, comic_script, story_source_url, image_path, audio_path=None):
+    def add_comic(cls, title, location, original_story, comic_script, story_source_url, image_path, audio_path=None, date=None):
         try:
             current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            if date is None:
+                date = datetime.now().date()
             cursor = cls.get_cursor()
             cursor.execute('''
-                INSERT INTO comics (title, location, original_story, comic_script, story_source_url, image_path, audio_path, created_at)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-            ''', (title, location, original_story, comic_script, story_source_url, image_path, audio_path, current_time))
+                INSERT INTO comics (title, location, original_story, comic_script, story_source_url, image_path, audio_path, created_at, date)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ''', (title, location, original_story, comic_script, story_source_url, image_path, audio_path, current_time, date))
             cls.get_connection().commit()
             app_logger.debug(f"Added comic to database: {title}")
         except Exception as e:
@@ -68,10 +71,43 @@ class ComicDatabase:
     def get_all_comics(cls):
         try:
             cursor = cls.get_cursor()
-            cursor.execute('SELECT * FROM comics ORDER BY created_at DESC')
+            cursor.execute('SELECT * FROM comics ORDER BY date DESC, created_at DESC')
             return [dict(row) for row in cursor.fetchall()]
         except Exception as e:
             app_logger.error(f"Error getting all comics from database: {e}")
+            return []
+
+    @classmethod
+    def get_filtered_comics(cls, start_date=None, end_date=None, location=None):
+        try:
+            cursor = cls.get_cursor()
+            query = 'SELECT * FROM comics WHERE 1=1'
+            params = []
+            if start_date:
+                query += ' AND date >= ?'
+                params.append(start_date)
+            if end_date:
+                query += ' AND date <= ?'
+                params.append(end_date)
+            if location:
+                query += ' AND location = ?'
+                params.append(location)
+            query += ' ORDER BY date DESC, created_at DESC'
+            app_logger.debug(f"Executing query: {query} with params: {params}")
+            cursor.execute(query, params)
+            return [dict(row) for row in cursor.fetchall()]
+        except Exception as e:
+            app_logger.error(f"Error getting filtered comics from database: {e}")
+            return []
+
+    @classmethod
+    def get_unique_locations(cls):
+        try:
+            cursor = cls.get_cursor()
+            cursor.execute('SELECT DISTINCT location FROM comics ORDER BY location')
+            return [row['location'] for row in cursor.fetchall()]
+        except Exception as e:
+            app_logger.error(f"Error getting unique locations from database: {e}")
             return []
 
     @classmethod
@@ -105,43 +141,57 @@ class ComicDatabase:
                 raise e
 
     @classmethod
-    def view_all_comics(cls):
-        """
-        Displays all comics stored in the database and the output folder.
-        """
-        comics_from_db = cls.get_all_comics()
-        comics_from_folder = []
+    def add_date_column(cls):
+        cursor = cls.get_cursor()
+        try:
+            cursor.execute('ALTER TABLE comics ADD COLUMN date DATE')
+            cls.get_connection().commit()
+            app_logger.debug("Added date column to comics table")
+        except sqlite3.OperationalError as e:
+            if "duplicate column name" in str(e):
+                app_logger.debug("date column already exists in comics table")
+            else:
+                raise e
 
-        # Get comics from the output folder
-        for root, dirs, files in os.walk(config.OUTPUT_DIR):
-            for file in files:
-                if file.endswith('.png'):
-                    comics_from_folder.append(os.path.join(root, file))
+    @classmethod
+    def populate_from_output_folder(cls):
+        output_dir = config.OUTPUT_DIR
+        for location_folder in os.listdir(output_dir):
+            location_path = os.path.join(output_dir, location_folder)
+            if os.path.isdir(location_path):
+                location = location_folder.replace('_', ' ')
+                for date_folder in os.listdir(location_path):
+                    date_path = os.path.join(location_path, date_folder)
+                    if os.path.isdir(date_path):
+                        date = datetime.strptime(date_folder, "%Y_%m_%d").date()
+                        for file in os.listdir(date_path):
+                            if file.endswith('.png'):
+                                image_path = os.path.join(date_path, file)
+                                title = file.replace('ggs_grizzly_news_', '').replace('.png', '').replace('_', ' ')
+                                summary_file = file.replace('.png', '_summary.txt')
+                                summary_path = os.path.join(date_path, summary_file)
+                                if os.path.exists(summary_path):
+                                    with open(summary_path, 'r') as f:
+                                        original_story = f.read()
+                                else:
+                                    original_story = "Summary not available"
+                                
+                                # Check for audio file
+                                audio_file = file.replace('.png', '.mp3')
+                                audio_path = os.path.join(date_path, audio_file)
+                                if not os.path.exists(audio_path):
+                                    audio_path = None
+                                
+                                cls.add_comic(title, location, original_story, "Comic script not available", "", image_path, audio_path, date)
+        app_logger.info("Database populated from output folder")
 
-        if not comics_from_db and not comics_from_folder:
-            app_logger.info("No comics found in the database or output folder.")
-            return
+    @classmethod
+    def initialize_database(cls):
+        cls.create_table()
+        cls.add_audio_path_column()
+        cls.add_date_column()
+        cls.purge_database()
+        cls.populate_from_output_folder()
 
-        app_logger.info("\nAll Comics:")
-
-        # Display comics from the database
-        for comic in comics_from_db:
-            print(f"Title: {comic['title']}")
-            print(f"Location: {comic['location']}")
-            print(f"Image Path: {comic['image_path']}")
-            print(f"Created At: {comic['created_at']}")
-            print("-" * 50)
-
-        # Display comics from the output folder that are not in the database
-        db_image_paths = set(comic['image_path'] for comic in comics_from_db)
-        for image_path in comics_from_folder:
-            if image_path not in db_image_paths:
-                print(f"Title: Unknown (Not in database)")
-                print(f"Location: Unknown")
-                print(f"Image Path: {image_path}")
-                print(f"Created At: Unknown")
-                print("-" * 50)
-
-# Ensure the table is created and updated
-ComicDatabase.create_table()
-ComicDatabase.add_audio_path_column()
+# Initialize the database
+ComicDatabase.initialize_database()

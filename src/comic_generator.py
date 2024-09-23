@@ -110,7 +110,7 @@ def generate_daily_comic(location):
                 save_summary(location, summary_filename, event_title, event_story, event_source, panel_summary)
 
                 app_logger.debug(f"Adding comic to database: {event_title}")
-                ComicDatabase.add_comic(event_title, location, event_story, event_analysis, event_source, image_path, audio_path)
+                ComicDatabase.add_comic(event_title, location, event_story, event_analysis, event_source, image_path, audio_path, datetime.now().date())
                 pbar.update(1)
 
                 comic_panels.append((image_path, panel_summary))
@@ -221,7 +221,7 @@ def generate_custom_comic(title, story, location):
             pbar.update(1)
 
             app_logger.debug(f"Adding custom comic to database: {title}")
-            ComicDatabase.add_comic(title, location, story, event_analysis, "", image_path, audio_path)
+            ComicDatabase.add_comic(title, location, story, event_analysis, "", image_path, audio_path, datetime.now().date())
             pbar.update(1)
 
         # Print summary for the user
@@ -327,7 +327,7 @@ def generate_media_comic(media_type, path, location):
                     audio_paths.append(audio_path)
 
                     app_logger.debug(f"Adding video comic to database: {os.path.basename(media_path)}")
-                    ComicDatabase.add_comic(os.path.basename(media_path), location, video_summary, event_analysis, "", image_path, audio_path)
+                    ComicDatabase.add_comic(os.path.basename(media_path), location, video_summary, event_analysis, "", image_path, audio_path, datetime.now().date())
                     pbar.update(1)
 
                 elif media_type == 'image':
@@ -393,7 +393,7 @@ def generate_media_comic(media_type, path, location):
                     audio_paths.append(audio_path)
 
                     app_logger.debug(f"Adding image comic to database: {os.path.basename(media_path)}")
-                    ComicDatabase.add_comic(os.path.basename(media_path), location, image_description, event_analysis, "", image_path, audio_path)
+                    ComicDatabase.add_comic(os.path.basename(media_path), location, image_description, event_analysis, "", image_path, audio_path, datetime.now().date())
                     pbar.update(1)
 
         if not comic_images:

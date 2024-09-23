@@ -1,43 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Custom Comic Result</title>
-    <style>
-        .comic-container {
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            padding: 10px;
-        }
-        .comic-image {
-            max-width: 100%;
-            height: auto;
-        }
-        .debug-info {
-            background-color: #f0f0f0;
-            padding: 10px;
-            margin-top: 10px;
-            font-family: monospace;
-        }
-    </style>
-</head>
-<body>
-    <h1>Custom Comic Result</h1>
-    
-    {% from 'comic_display.html' import display_comic %}
-    {{ display_comic({
-        'title': title,
-        'original_story': original_story,
-        'created_at': created_at,
-        'image_path': image_path,
-        'audio_path': audio_path,
-        'comic_script': comic_script,
-        'story_source_url': ''
-    }) }}
-    
-    <a href="{{ url_for('custom_comic') }}">Create Another Custom Comic</a>
-    <br>
-    <a href="{{ url_for('index') }}">Back to Home</a>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}Custom Comic Result{% endblock %}
+
+{% block header %}Custom Comic Result{% endblock %}
+
+{% block content %}
+    <div class="comic-container">
+        <h2>{{ title }}</h2>
+        <p><strong>Created at:</strong> {{ created_at }}</p>
+        <img src="{{ image_path }}" alt="{{ title }}" class="comic-image">
+        <div class="comic-details">
+            <h3>Original Story:</h3>
+            <p>{{ original_story }}</p>
+            {% if audio_path %}
+                <h3>Audio Narration:</h3>
+                <audio controls>
+                    <source src="{{ audio_path }}" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            {% endif %}
+            <h3>Generated Comic Script:</h3>
+            <p>{{ comic_script }}</p>
+        </div>
+    </div>
+    <a href="{{ url_for('custom_comic') }}" class="btn">Create Another Custom Comic</a>
+    <a href="{{ url_for('index') }}" class="btn">Back to Home</a>
+{% endblock %}
+
+{% block extra_styles %}
+<style>
+    .comic-details {
+        margin-top: 20px;
+    }
+    .comic-details h3 {
+        margin-top: 15px;
+        margin-bottom: 10px;
+    }
+    audio {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+</style>
+{% endblock %}

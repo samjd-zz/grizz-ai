@@ -1,20 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grizz-AI Comic Generator</title>
-</head>
-<body>
-    <h1>Welcome to Grizz-AI Comic Generator</h1>
-    <nav>
-        <ul>
-            <li><a href="{{ url_for('daily_comic') }}">Generate Daily Comic</a></li>
-            <li><a href="{{ url_for('custom_comic') }}">Create Custom Comic</a></li>
-            <li><a href="{{ url_for('media_comic') }}">Generate Media Comic</a></li>
-            <li><a href="{{ url_for('search') }}">DuckDuckGo Search</a></li>
-            <li><a href="{{ url_for('view_all_comics') }}">View All Comics</a></li>
-        </ul>
-    </nav>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}Grizz-AI Comics - Home{% endblock %}
+
+{% block header %}Welcome to Grizz-AI Comics{% endblock %}
+
+{% block content %}
+    <p>Choose an option to generate comics:</p>
+    <ul>
+        <li><a href="{{ url_for('daily_comic') }}" class="btn">Generate Daily Comic</a></li>
+        <li><a href="{{ url_for('custom_comic') }}" class="btn">Create Custom Comic</a></li>
+        <li><a href="{{ url_for('media_comic') }}" class="btn">Generate Media Comic</a></li>
+        <li><a href="{{ url_for('search') }}" class="btn">Search</a></li>
+        <li><a href="{{ url_for('view_all_comics') }}" class="btn">View All Comics</a></li>
+    </ul>
+{% endblock %}

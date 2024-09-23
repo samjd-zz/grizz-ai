@@ -22,7 +22,7 @@ warnings.filterwarnings("ignore", category=FutureWarning, message="You are using
 
 import os
 import logging
-from datetime import datetime
+from datetime import datetime, timedelta
 from logger import app_logger
 
 from config import load_config
@@ -92,6 +92,39 @@ def get_user_choice():
         print("Command not recognized. Please try again or use text input.")
     return display_menu()
 
+def view_filtered_comics():
+    """
+    Allows users to view comics with optional date and location filters.
+    """
+    db = ComicDatabase()
+    
+    # Get filter inputs
+    start_date_str = input("Enter start date (YYYY-MM-DD) or press Enter for no start date: ")
+    end_date_str = input("Enter end date (YYYY-MM-DD) or press Enter for no end date: ")
+    location = input("Enter location or press Enter for all locations: ")
+
+    # Convert date strings to datetime objects
+    start_date = datetime.strptime(start_date_str, "%Y-%m-%d").date() if start_date_str else None
+    end_date = datetime.strptime(end_date_str, "%Y-%m-%d").date() if end_date_str else None
+
+    # Get filtered comics
+    comics = db.get_filtered_comics(start_date, end_date, location)
+
+    if not comics:
+        print("No comics found matching the specified criteria.")
+        return
+
+    print("\nFiltered Comics:")
+    print("-" * 50)
+    for comic in comics:
+        print(f"Title: {comic['title']}")
+        print(f"Location: {comic['location']}")
+        print(f"Date: {comic['date']}")
+        print(f"Image Path: {comic['image_path']}")
+        if comic['audio_path']:
+            print(f"Audio Path: {comic['audio_path']}")
+        print(f"Original Story: {comic['original_story'][:100]}...")  # Display first 100 characters
+        print("-" * 50)
 
 def main():
     """
@@ -237,7 +270,7 @@ def main():
                             app_logger.info(f"Posted media comic to social media: {os.path.basename(image_path)}")
             
             elif choice == '4':
-                ComicDatabase.view_all_comics()
+                view_filtered_comics()
             
             elif choice == '5':
                 toggle_voice()

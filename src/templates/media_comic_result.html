@@ -1,37 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Media Comic Result</title>
-    <style>
-        .comic-container {
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            padding: 10px;
-        }
-        .comic-image {
-            max-width: 100%;
-            height: auto;
-        }
-        .debug-info {
-            background-color: #f0f0f0;
-            padding: 10px;
-            margin-top: 10px;
-            font-family: monospace;
-        }
-    </style>
-</head>
-<body>
-    <h1>Media Comic Result</h1>
-    
-    {% from 'comic_display.html' import display_comic %}
-    {% for comic in comics %}
-        {{ display_comic(comic) }}
-    {% endfor %}
-    
-    <a href="{{ url_for('media_comic') }}">Create Another Media Comic</a>
-    <br>
-    <a href="{{ url_for('index') }}">Back to Home</a>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}Media Comic Result{% endblock %}
+
+{% block header %}Media Comic Result{% endblock %}
+
+{% block content %}
+    {% if comics %}
+        {% for comic in comics %}
+            <div class="comic-container">
+                <h2>{{ comic.title }}</h2>
+                <p><strong>Created at:</strong> {{ comic.created_at }}</p>
+                <img src="{{ comic.image_path }}" alt="{{ comic.title }}" class="comic-image">
+                <div class="comic-details">
+                    <h3>Original Story:</h3>
+                    <p>{{ comic.original_story }}</p>
+                    {% if comic.audio_path %}
+                        <h3>Audio Narration:</h3>
+                        <audio controls>
+                            <source src="{{ comic.audio_path }}" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                    {% endif %}
+                    <h3>Generated Comic Script:</h3>
+                    <p>{{ comic.comic_script }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No comics were generated. Please try again.</p>
+    {% endif %}
+    <a href="{{ url_for('media_comic') }}" class="btn">Generate Another Media Comic</a>
+    <a href="{{ url_for('index') }}" class="btn">Back to Home</a>
+{% endblock %}
+
+{% block extra_styles %}
+<style>
+    .comic-details {
+        margin-top: 20px;
+    }
+    .comic-details h3 {
+        margin-top: 15px;
+        margin-bottom: 10px;
+    }
+    audio {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+</style>
+{% endblock %}

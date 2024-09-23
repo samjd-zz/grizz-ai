@@ -1,43 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generate Media Comic</title>
-</head>
-<body>
-    <h1>Generate Media Comic</h1>
+{% extends "base.html" %}
+
+{% block title %}Generate Media Comic{% endblock %}
+
+{% block header %}Generate Media Comic{% endblock %}
+
+{% block content %}
     <form method="POST" enctype="multipart/form-data">
-        <label for="media_type">Media Type:</label>
-        <select name="media_type" id="media_type" required>
-            <option value="image">Image</option>
-            <option value="video">Video</option>
-            <option value="live">Live Video</option>
-        </select>
-        <br><br>
-        <label for="location">Location:</label>
-        <input type="text" name="location" id="location" required>
-        <br><br>
-        <div id="file_upload" style="display: block;">
-            <label for="file">Upload File:</label>
-            <input type="file" name="file" id="file">
+        <div class="form-group">
+            <label for="media_type">Media Type:</label>
+            <select id="media_type" name="media_type" required>
+                <option value="image">Image</option>
+                <option value="video">Video</option>
+                <option value="live">Live Video</option>
+            </select>
         </div>
-        <br>
-        <input type="submit" value="Generate Comic">
+        <div class="form-group">
+            <label for="file">Upload File (for Image or Video):</label>
+            <input type="file" id="file" name="file">
+        </div>
+        <div class="form-group">
+            <label for="location">Location:</label>
+            <input type="text" id="location" name="location" required>
+        </div>
+        <button type="submit" class="btn">Generate Comic</button>
     </form>
-
-    <script>
-        document.getElementById('media_type').addEventListener('change', function() {
-            var fileUpload = document.getElementById('file_upload');
-            if (this.value === 'live') {
-                fileUpload.style.display = 'none';
-            } else {
-                fileUpload.style.display = 'block';
-            }
-        });
-    </script>
-
     <br>
-    <a href="{{ url_for('index') }}">Back to Home</a>
-</body>
-</html>
+    <a href="{{ url_for('index') }}" class="btn">Back to Home</a>
+{% endblock %}
+
+{% block extra_styles %}
+<style>
+    #file {
+        margin-top: 10px;
+    }
+</style>
+{% endblock %}
