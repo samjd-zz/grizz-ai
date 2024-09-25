@@ -5,12 +5,44 @@
 {% block header %}Welcome to Grizz-AI Comics{% endblock %}
 
 {% block content %}
-    <p>Choose an option to generate comics:</p>
-    <ul>
-        <li><a href="{{ url_for('daily_comic') }}" class="btn">Generate Daily Comic</a></li>
-        <li><a href="{{ url_for('custom_comic') }}" class="btn">Create Custom Comic</a></li>
-        <li><a href="{{ url_for('media_comic') }}" class="btn">Generate Media Comic</a></li>
-        <li><a href="{{ url_for('search') }}" class="btn">Search</a></li>
-        <li><a href="{{ url_for('view_all_comics') }}" class="btn">View All Comics</a></li>
-    </ul>
+    <div class="app-description">
+        <p>Grizz-AI Comics is an innovative platform that brings your stories to life through AI-generated comic strips. Whether you're looking for daily news in comic form, want to create custom comics from your own stories, or generate comics from media, we've got you covered!</p>
+        
+        <h2>Our Features:</h2>
+        <ul>
+            <li><strong>Daily Comics:</strong> Get your daily dose of news and events in comic strip format.</li>
+            <li><strong>Custom Comics:</strong> Turn your own stories into vibrant comic strips.</li>
+            <li><strong>Media Comics:</strong> Generate comics from images, videos, or even live captures.</li>
+            <li><strong>Search:</strong> Find specific comics or explore our vast collection.</li>
+            <li><strong>View All Comics:</strong> Browse through all the comics we've generated.</li>
+        </ul>
+        
+        <p>Start exploring our features using the navigation bar above and unleash your creativity with Grizz-AI Comics!</p>
+    </div>
+{% endblock %}
+
+{% block extra_styles %}
+<style>
+    .app-description {
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        padding: 20px;
+        margin-top: 20px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .app-description h2 {
+        color: #2c3e50;
+        margin-top: 20px;
+    }
+    .app-description ul {
+        list-style-type: none;
+        padding-left: 0;
+    }
+    .app-description li {
+        margin-bottom: 10px;
+    }
+    .app-description li strong {
+        color: #3498db;
+    }
+</style>
 {% endblock %}

@@ -23,7 +23,7 @@
         {% endif %}
         <div class="comic-details">
             <h3>Event Story:</h3>
-            <p>{{ comic.original_story }}</p>
+            <p>{{ comic.original_story | replace('\n', '<br>') | safe }}</p>
             {% if comic.audio_path %}
                 <h3>Audio Narration:</h3>
                 <audio controls>
@@ -33,7 +33,7 @@
             {% endif %}
             {% if comic.comic_script %}
                 <h3>Generated Comic Script:</h3>
-                <p>{{ comic.comic_script }}</p>
+                <p>{{ comic.comic_script | replace('\n', '<br>') | safe }}</p>
             {% endif %}
             {% if comic.story_source_url %}
                 <p><strong>Original Source:</strong> <a href="{{ comic.story_source_url }}" target="_blank">{{ comic.story_source_url }}</a></p>

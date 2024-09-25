@@ -37,7 +37,9 @@
     {% endif %}
 
     <br>
-    <a href="{{ url_for('index') }}" class="btn">Back to Home</a>
+    {% if request.path != url_for('index') %}
+        <a href="{{ url_for('index') }}" class="back-arrow"><i class="fas fa-arrow-left"></i></a>
+    {% endif %}
 {% endblock %}
 
 {% block extra_styles %}

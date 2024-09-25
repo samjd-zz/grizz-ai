@@ -5,13 +5,52 @@
 {% block header %}Generate Daily Comic{% endblock %}
 
 {% block content %}
-    <form method="POST">
+    <form id="daily-comic-form" method="POST">
         <div class="form-group">
             <label for="location">Enter a location:</label>
             <input type="text" id="location" name="location" required>
+            <button type="submit" class="btn">Generate Comic</button>
         </div>
-        <button type="submit" class="btn">Generate Comic</button>
     </form>
-    <br>
-    <a href="{{ url_for('index') }}" class="btn">Back to Home</a>
+    <div id="result-container"></div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var form = document.getElementById('daily-comic-form');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            var formData = new FormData(form);
+
+            showProgress('Generating comic...');
+            document.querySelector('input').disabled = true;
+            document.querySelector('button').disabled = true;
+            document.getElementById('result-container').innerHTML = '';
+
+            fetch(form.action, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                hideProgress();
+                document.querySelector('input').disabled = false;
+                document.querySelector('button').disabled = false;
+                if (data.success) {
+                    document.getElementById('result-container').innerHTML = data.html;
+                } else {
+                    document.getElementById('result-container').innerHTML = '<p>' + data.message + '</p>';
+                }
+            })
+            .catch(error => {
+                hideProgress();
+                document.querySelector('input').disabled = false;
+                document.querySelector('button').disabled = false;
+                document.getElementById('result-container').innerHTML = '<p>An error occurred. Please try again.</p>';
+                console.error('Error:', error);
+            });
+        });
+    });
+</script>
 {% endblock %}

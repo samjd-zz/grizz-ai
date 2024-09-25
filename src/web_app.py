@@ -1,7 +1,8 @@
 import os
+import re
 from datetime import datetime
+from flask import Flask, render_template, request, url_for, send_from_directory, g, jsonify, make_response
 from main import generate_daily_comic, generate_custom_comic, generate_media_comic, capture_live_video
-from flask import Flask, render_template, request, url_for, send_from_directory, g
 from psy_researcher import perform_duckduckgo_search
 from config import load_config
 from database import ComicDatabase
@@ -15,6 +16,12 @@ config = load_config()
 app.config['GENERATED_IMAGES_FOLDER'] = config.OUTPUT_DIR
 os.makedirs(app.config['GENERATED_IMAGES_FOLDER'], exist_ok=True)
 
+@app.after_request
+def add_csp_header(response):
+    csp = "default-src 'self'; script-src 'self' 'unsafe-inline' https://code.jquery.com; style-src 'self' 'unsafe-inline';"
+    response.headers['Content-Security-Policy'] = csp
+    return response
+
 def get_db():
     if 'db' not in g:
         g.db = ComicDatabase()
@@ -25,6 +32,16 @@ def close_db(error):
     db = g.pop('db', None)
     if db is not None:
         db.close()
+
+def format_comic_script(script):
+    # Remove extra characters like '+' and '**'
+    script = re.sub(r'[+*]', '', script)
+    # Split the script into lines
+    lines = script.split('\n')
+    # Remove empty lines and strip whitespace
+    lines = [line.strip() for line in lines if line.strip()]
+    # Join the lines back together
+    return '\n'.join(lines)
 
 @app.route('/images/<path:filename>')
 def serve_image(filename):
@@ -46,7 +63,7 @@ def daily_comic():
         local_events = get_local_events(location)
         if not local_events or (len(local_events) == 1 and local_events[0]['title'] == "No Current News Events Reported"):
             app_logger.info(f"No events found for {location}")
-            return render_template('daily_comic_result.html', events=[], location=location, message="No events found for today. Please try again later.")
+            return jsonify({'success': False, 'message': 'No events found for today. Please try again later.'})
         
         app_logger.debug(f"Generating daily comic for location: {location}")
         generated_comics = generate_daily_comic(location)
@@ -55,20 +72,22 @@ def daily_comic():
             for event in generated_comics:
                 if 'image_path' in event:
                     relative_path = os.path.relpath(event['image_path'], app.config['GENERATED_IMAGES_FOLDER'])
-                    event['image_path'] = url_for('serve_image', filename=relative_path)
+                    event['image_path'] = url_for('serve_image', filename=relative_path, _external=True)
                 if 'audio_path' in event and event['audio_path']:
                     relative_audio_path = os.path.relpath(event['audio_path'], os.path.join(app.config['GENERATED_IMAGES_FOLDER'], 'audio'))
-                    event['audio_path'] = url_for('serve_audio', filename=relative_audio_path)
+                    event['audio_path'] = url_for('serve_audio', filename=relative_audio_path, _external=True)
                 else:
                     event['audio_path'] = None
                 event['created_at'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 if 'comic_script' not in event:
                     event['comic_script'] = "No comic script available"
+                event['story'] = event['story'].replace('-', '').strip()
+                event['comic_script'] = format_comic_script(event['comic_script'])
             app_logger.info(f"Successfully generated daily comic for {location}")
-            return render_template('daily_comic_result.html', events=generated_comics, location=location)
+            return jsonify({'success': True, 'html': render_template('daily_comic_result.html', events=generated_comics, location=location)})
         else:
             app_logger.error(f"Failed to generate daily comic for {location}")
-            return render_template('daily_comic_result.html', events=[], location=location, message="Failed to generate daily comic. Please try again later.")
+            return jsonify({'success': False, 'message': 'Failed to generate daily comic. Please try again later.'})
     return render_template('daily_comic.html')
 
 @app.route('/custom_comic', methods=['GET', 'POST'])
