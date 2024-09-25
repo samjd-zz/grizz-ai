@@ -24489,3 +24489,13 @@ All Comics:
 2024-09-25 13:47:15,933 INFO Successfully generated daily comic for Lillooet, BC, CAN
 2024-09-25 13:48:15,348 INFO Viewing filtered comics: 32 comics found
 2024-09-25 13:48:15,360 INFO Database connection closed
+2024-09-25 13:54:28,466 INFO Successfully generated daily comic for Lillooet, BC, CAN
+2024-09-25 14:37:26,331 INFO Database purged successfully
+2024-09-25 14:37:26,451 INFO Database populated from output folder
+2024-09-25 14:37:31,508 INFO Starting Grizz-AI web application
+2024-09-25 14:37:33,533 INFO Database purged successfully
+2024-09-25 14:37:33,661 INFO Database populated from output folder
+2024-09-25 14:37:38,837 INFO Starting Grizz-AI web application
+2024-09-25 14:37:48,376 INFO Viewing filtered comics: 30 comics found
+2024-09-25 14:37:48,394 INFO Database connection closed
+2024-09-25 14:42:23,761 INFO Successfully generated daily comic for Lillooet, BC, CAN

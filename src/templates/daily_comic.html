@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
-{% block title %}Generate Daily Comic{% endblock %}
+{% block title %}Generate Daily News Comics{% endblock %}
 
-{% block header %}Generate Daily Comic{% endblock %}
+{% block header %}Generate Daily News Comics{% endblock %}
 
 {% block content %}
     <form id="daily-comic-form" method="POST">
@@ -23,7 +23,7 @@
             e.preventDefault();
             var formData = new FormData(form);
 
-            showProgress('Generating comic...');
+            showProgress('Generating daily comics...');
             document.querySelector('input').disabled = true;
             document.querySelector('button').disabled = true;
             document.getElementById('result-container').innerHTML = '';
@@ -40,14 +40,14 @@
                 if (data.success) {
                     document.getElementById('result-container').innerHTML = data.html;
                 } else {
-                    document.getElementById('result-container').innerHTML = '<p>' + data.message + '</p>';
+                    document.getElementById('result-container').innerHTML = '<p class="message message-error">' + data.message + '</p>';
                 }
             })
             .catch(error => {
                 hideProgress();
                 document.querySelector('input').disabled = false;
                 document.querySelector('button').disabled = false;
-                document.getElementById('result-container').innerHTML = '<p>An error occurred. Please try again.</p>';
+                document.getElementById('result-container').innerHTML = '<p class="message message-error">An error occurred. Please try again.</p>';
                 console.error('Error:', error);
             });
         });
