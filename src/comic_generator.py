@@ -5,7 +5,7 @@ warnings.filterwarnings("ignore", category=DeprecationWarning, message=".*BaseCh
 import os
 import re
 from tqdm import tqdm
-from datetime import datetime
+from datetime import datetime 
 
 from logger import app_logger
 from utils import analyze_frames, save_summary, save_image, filter_content
@@ -120,6 +120,8 @@ def generate_daily_comic(location):
                 event['image_path'] = image_path
                 event['comic_script'] = event_analysis
                 event['audio_path'] = audio_path
+                # Ensure the original story is preserved
+                event['story'] = event_story
 
             if not comic_panels:
                 app_logger.error("No comic panels were generated. Aborting comic generation.")
