@@ -8,6 +8,7 @@ from config import load_config
 from database import ComicDatabase
 from logger import app_logger
 from event_fetcher import get_local_events
+from text_analysis import create_yogi_bear_voice
 
 app = Flask(__name__)
 config = load_config()
@@ -15,6 +16,11 @@ config = load_config()
 # Configure image serving for generated images
 app.config['GENERATED_IMAGES_FOLDER'] = config.OUTPUT_DIR
 os.makedirs(app.config['GENERATED_IMAGES_FOLDER'], exist_ok=True)
+
+@app.before_first_request
+def before_first_request():
+    # Create Yogi Bear voice when the application starts
+    create_yogi_bear_voice()
 
 @app.after_request
 def add_csp_header(response):

@@ -30,6 +30,7 @@ from comic_generator import generate_daily_comic, generate_custom_comic, generat
 from voice_recognition import is_listen_voice_enabled, listen_to_user, toggle_voice
 from psy_researcher import perform_duckduckgo_search
 from utils import capture_live_video, summarize_generated_files
+from text_analysis import create_yogi_bear_voice
 
 from social_media import post_to_twitter, post_to_facebook
 from database import ComicDatabase
@@ -134,6 +135,9 @@ def main():
     global config  # Declare config as global to avoid UnboundLocalError
     
     try:
+        # Create Yogi Bear voice at startup
+        create_yogi_bear_voice()
+        
         while True:
             choice = get_user_choice()
             

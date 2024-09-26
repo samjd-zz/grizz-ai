@@ -17,6 +17,8 @@ config = load_config()
 
 MAX_SCRIPT_LENGTH = 1000  # Maximum length for DALL-E prompt
 
+YOGI_BEAR_VOICE_ID = None  # Global variable to store Yogi Bear voice ID
+
 def truncate_script(script, max_length=MAX_SCRIPT_LENGTH):
     if len(script) <= max_length:
         return script
@@ -89,16 +91,70 @@ IMPORTANT: Keep your entire response under 1000 characters to ensure it can be u
         unload_ollama_model(config.OLLAMA_TEXT_ANALYZE_MODEL)
         app_logger.debug("Unloaded the Ollama model.")
 
+def create_yogi_bear_voice():
+    global YOGI_BEAR_VOICE_ID
+    try:
+        app_logger.debug("Creating Yogi Bear voice...")
+        client = elevenlabs_client()
+
+        # Check if the Yogi Bear voice already exists
+        voices = client.voices.get_all()
+        app_logger.debug(f"Retrieved {len(voices)} voices from ElevenLabs")
+        
+        yogi_bear_voice = next((voice for voice in voices if voice.name == "Yogi Bear"), None)
+
+        if not yogi_bear_voice:
+            app_logger.debug("Yogi Bear voice not found. Creating a new one.")
+            # Create a new voice if it doesn't exist
+            voice_files = [
+                os.path.join(config.TRAINING_FOLDER, 'voices', f)
+                for f in os.listdir(os.path.join(config.TRAINING_FOLDER, 'voices'))
+                if f.startswith('yogi') and f.endswith('.mp3')
+            ]
+            
+            if not voice_files:
+                app_logger.error("No Yogi Bear voice samples found in the training folder.")
+                return None
+
+            app_logger.debug(f"Found {len(voice_files)} Yogi Bear voice samples")
+            
+            try:
+                yogi_bear_voice = client.voices.add(
+                    name="Yogi Bear",
+                    description="Yogi Bear's voice from the classic cartoons",
+                    files=voice_files
+                )
+                app_logger.debug(f"Yogi Bear voice created with ID: {yogi_bear_voice.voice_id}")
+            except Exception as e:
+                app_logger.error(f"Error adding Yogi Bear voice: {e}")
+                app_logger.error(f"Exception type: {type(e)}")
+                app_logger.error(f"Exception args: {e.args}")
+                return None
+        else:
+            app_logger.debug(f"Using existing Yogi Bear voice with ID: {yogi_bear_voice.voice_id}")
+
+        YOGI_BEAR_VOICE_ID = yogi_bear_voice.voice_id
+        return YOGI_BEAR_VOICE_ID
+    except Exception as e:
+        app_logger.error(f"Error creating Yogi Bear voice: {e}")
+        app_logger.error(f"Exception type: {type(e)}")
+        app_logger.error(f"Exception args: {e.args}")
+        return None
+
 def speak_elevenLabs(text, title):
     try:
         app_logger.debug(f"Generating speech with ElevenLabs...")
         
         client = elevenlabs_client()
 
+        # Use the Yogi Bear voice if available, otherwise fall back to "Liam"
+        voice = YOGI_BEAR_VOICE_ID if YOGI_BEAR_VOICE_ID else "Liam"
+        app_logger.debug(f"Using voice: {voice}")
+
         # Generate audio
         audio_generator = client.generate(
             text=text,
-            voice="Liam",
+            voice=voice,
             model="eleven_multilingual_v2"
         )
 

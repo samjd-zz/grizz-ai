@@ -24531,3 +24531,16 @@ All Comics:
 2024-09-25 20:14:25,517 INFO Successfully generated daily comic for Lillooet, BC, CAN
 2024-09-25 20:15:39,857 INFO Viewing filtered comics: 9 comics found
 2024-09-25 20:15:39,874 INFO Database connection closed
+2024-09-25 20:21:48,204 INFO Database purged successfully
+2024-09-25 20:21:48,204 INFO Database populated from output folder
+2024-09-25 20:21:57,613 INFO Database purged successfully
+2024-09-25 20:21:59,696 INFO Exiting the program. Goodbye!
+2024-09-25 20:21:59,697 INFO Database connection closed
+2024-09-26 09:38:35,437 INFO Database purged successfully
+2024-09-26 09:38:35,438 INFO Database populated from output folder
+2024-09-26 09:38:40,568 INFO Starting Grizz-AI web application
+2024-09-26 09:38:42,705 INFO Database purged successfully
+2024-09-26 09:38:42,705 INFO Database populated from output folder
+2024-09-26 09:38:47,884 INFO Starting Grizz-AI web application
+2024-09-26 09:38:59,132 ERROR Error creating Yogi Bear voice: 'tuple' object has no attribute 'name'
+2024-09-26 09:45:54,630 INFO Successfully generated daily comic for Lillooet, BC, CAN
