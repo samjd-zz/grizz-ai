@@ -24544,3 +24544,44 @@ All Comics:
 2024-09-26 09:38:47,884 INFO Starting Grizz-AI web application
 2024-09-26 09:38:59,132 ERROR Error creating Yogi Bear voice: 'tuple' object has no attribute 'name'
 2024-09-26 09:45:54,630 INFO Successfully generated daily comic for Lillooet, BC, CAN
+2024-09-26 14:08:38,622 INFO Database purged successfully
+2024-09-26 14:08:38,638 INFO Database populated from output folder
+2024-09-26 14:08:43,979 INFO Starting Grizz-AI web application
+2024-09-26 14:08:46,125 INFO Database purged successfully
+2024-09-26 14:08:46,141 INFO Database populated from output folder
+2024-09-26 14:08:51,476 INFO Starting Grizz-AI web application
+2024-09-26 14:09:39,768 INFO Database purged successfully
+2024-09-26 14:09:39,785 INFO Database populated from output folder
+2024-09-26 14:09:45,252 INFO Starting Grizz-AI web application
+2024-09-26 14:09:47,412 INFO Database purged successfully
+2024-09-26 14:09:47,429 INFO Database populated from output folder
+2024-09-26 14:09:52,810 INFO Starting Grizz-AI web application
+2024-09-26 14:10:00,916 ERROR Error creating Yogi Bear voice: object of type 'GetVoicesResponse' has no len()
+2024-09-26 14:10:00,916 ERROR Exception type: <class 'TypeError'>
+2024-09-26 14:10:00,916 ERROR Exception args: ("object of type 'GetVoicesResponse' has no len()",)
+2024-09-26 14:11:31,639 ERROR Error generating image with DALL-E using langchain: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-26 14:11:31,639 ERROR Failed to generate comic panel for the event: Fatal Carpenter Lake Crash Investigation. Skipping this event.
+2024-09-26 14:13:24,476 INFO Successfully generated daily comic for Lillooet, BC, CAN
+2024-09-26 14:20:58,158 INFO Database purged successfully
+2024-09-26 14:20:58,179 INFO Database populated from output folder
+2024-09-26 14:21:03,418 INFO Starting Grizz-AI web application
+2024-09-26 14:21:05,475 INFO Database purged successfully
+2024-09-26 14:21:05,496 INFO Database populated from output folder
+2024-09-26 14:21:10,622 INFO Starting Grizz-AI web application
+2024-09-26 14:21:27,215 ERROR Error creating Yogi Bear voice: 'tuple' object has no attribute 'name'
+2024-09-26 14:21:27,216 ERROR Exception type: <class 'AttributeError'>
+2024-09-26 14:21:27,216 ERROR Exception args: ("'tuple' object has no attribute 'name'",)
+2024-09-26 14:27:01,136 INFO Database purged successfully
+2024-09-26 14:27:01,160 INFO Database populated from output folder
+2024-09-26 14:27:06,378 INFO Starting Grizz-AI web application
+2024-09-26 14:27:11,662 ERROR Error creating Yogi Bear voice: 'function' object has no attribute 'get_all'
+2024-09-26 14:27:11,662 ERROR Exception type: <class 'AttributeError'>
+2024-09-26 14:27:11,662 ERROR Exception args: ("'function' object has no attribute 'get_all'",)
+2024-09-26 14:27:31,545 INFO Database purged successfully
+2024-09-26 14:27:31,566 INFO Database populated from output folder
+2024-09-26 14:27:36,807 INFO Starting Grizz-AI web application
+2024-09-26 14:27:39,530 ERROR Error adding Yogi Bear voice: status_code: 400, body: {'detail': {'status': 'can_not_use_instant_voice_cloning', 'message': 'Your subscription has no access to use instant voice cloning, please upgrade.'}}
+2024-09-26 14:27:39,530 ERROR Exception type: <class 'elevenlabs.core.api_error.ApiError'>
+2024-09-26 14:27:39,530 ERROR Exception args: ()
+2024-09-26 14:30:38,974 INFO Database purged successfully
+2024-09-26 14:30:38,997 INFO Database populated from output folder

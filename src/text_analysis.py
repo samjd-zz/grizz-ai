@@ -99,9 +99,8 @@ def create_yogi_bear_voice():
 
         # Check if the Yogi Bear voice already exists
         voices = client.voices.get_all()
-        app_logger.debug(f"Retrieved {len(voices)} voices from ElevenLabs")
-        
-        yogi_bear_voice = next((voice for voice in voices if voice.name == "Yogi Bear"), None)
+
+        yogi_bear_voice = next((voice for voice in voices if voice[1] == "Yogi Bear"), None)
 
         if not yogi_bear_voice:
             app_logger.debug("Yogi Bear voice not found. Creating a new one.")

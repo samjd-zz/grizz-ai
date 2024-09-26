@@ -17,10 +17,10 @@ config = load_config()
 app.config['GENERATED_IMAGES_FOLDER'] = config.OUTPUT_DIR
 os.makedirs(app.config['GENERATED_IMAGES_FOLDER'], exist_ok=True)
 
-@app.before_first_request
-def before_first_request():
-    # Create Yogi Bear voice when the application starts
-    create_yogi_bear_voice()
+# @app.before_first_request
+# def before_first_request():
+#     # Create Yogi Bear voice when the application starts
+#     create_yogi_bear_voice()
 
 @app.after_request
 def add_csp_header(response):

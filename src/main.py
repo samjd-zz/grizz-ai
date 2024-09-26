@@ -136,7 +136,7 @@ def main():
     
     try:
         # Create Yogi Bear voice at startup
-        create_yogi_bear_voice()
+        #create_yogi_bear_voice()
         
         while True:
             choice = get_user_choice()
