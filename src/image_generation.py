@@ -12,7 +12,7 @@ config = load_config()
 def parse_comic_script(comic_script):
     panels = re.findall(r'Panel \d+:(.*?)(?=Panel \d+:|$)', comic_script, re.DOTALL)
     parsed_panels = []
-    for panel in panels:
+    for panel in panels[:3]:  # Limit to 3 panels
         frame_match = re.search(r'\(Frame: (.*?)\)', panel)
         setting_match = re.search(r'Setting: (.*?)(?=Characters:|Action:|Dialogue:|$)', panel, re.DOTALL)
         characters_match = re.search(r'Characters: (.*?)(?=Action:|Dialogue:|$)', panel, re.DOTALL)
@@ -29,24 +29,22 @@ def parse_comic_script(comic_script):
         parsed_panels.append(parsed_panel)
     return parsed_panels
 
-def generate_safe_prompt(panel, retry_count):
+def generate_safe_prompt(panel, retry_count, original_story=None):
     if retry_count == 0:
         prompt = f"{config.COMIC_ARTIST_STYLE}: {panel['frame']} of {panel['setting']}. "
         prompt += f"Characters: {panel['characters']}. "
         prompt += f"Action: {panel['action']}. "
         if panel['dialogue']:
             prompt += f"Include speech bubble with: '{panel['dialogue']}'"
-    elif retry_count == 1:
-        prompt = f"{config.COMIC_ARTIST_STYLE}: A scene depicting {panel['setting']}. "
-        prompt += f"Show characters in general terms. "
-        prompt += f"Suggest {panel['action']} without explicit details. "
+    elif retry_count == 1 and original_story:
+        prompt = f"{config.COMIC_ARTIST_STYLE}: Create an image based on this story: {original_story}"
     else:
         prompt = f"{config.COMIC_ARTIST_STYLE}: A generic scene related to the story. "
         prompt += "Show abstract or symbolic representations of characters and actions. "
     
     return filter_content(prompt, strict=(retry_count > 0))
 
-def generate_dalle_images(comic_script):
+def generate_dalle_images(comic_script, original_story):
     try:
         app_logger.debug(f"Generating images with DALL-E using langchain...")
         
@@ -60,7 +58,7 @@ def generate_dalle_images(comic_script):
         last_request_time = 0
         for i, panel in enumerate(panels, 1):
             retry_count = 0
-            max_retries = 3
+            max_retries = 2  # We now only need 2 retries: original prompt and original story
             while retry_count < max_retries:
                 try:
                     # Implement rate limiting
@@ -72,7 +70,7 @@ def generate_dalle_images(comic_script):
                         time.sleep(sleep_time)
 
                     # Generate a safe prompt
-                    prompt = generate_safe_prompt(panel, retry_count)
+                    prompt = generate_safe_prompt(panel, retry_count, original_story)
                     app_logger.debug(f"Attempt {retry_count + 1} for Panel {i}. Prompt: {prompt}")
 
                     # Generate the image
@@ -92,8 +90,13 @@ def generate_dalle_images(comic_script):
                         app_logger.warning(f"Rate limit exceeded for Panel {i}. Retrying in {wait_time} seconds. Attempt {retry_count}/{max_retries}")
                         time.sleep(wait_time)
                     elif "safety system" in error_message:
-                        app_logger.warning(f"Content rejected by safety system for Panel {i}. Attempting with a more generic prompt.")
-                        retry_count += 1
+                        if retry_count == 0:
+                            app_logger.warning(f"Content rejected by safety system for Panel {i}. Trying with original story.")
+                            retry_count += 1
+                        else:
+                            app_logger.warning(f"Content rejected by safety system for Panel {i} using original story. Skipping this panel.")
+                            image_urls.append(None)
+                            break
                     else:
                         app_logger.error(f"Unhandled error generating image for Panel {i}: {panel_error}")
                         image_urls.append(None)

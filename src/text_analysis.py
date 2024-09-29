@@ -32,6 +32,8 @@ def analyze_text_opai(text, location):
         system_prompt = f"""You are a visionary comic scriptwriter collaborating with an AI inspired by {config.COMIC_ARTIST_STYLE} that generates comic strip visuals. Your task is to write a highly detailed and imaginative comic strip script that clearly describes characters, scenes, actions, and dialogue. This script will guide an image generator AI like DALL-E to bring the comic to life. Please go into great detail when explaining the scene to the AI. The comic is set in {location}, so make sure to incorporate relevant local elements and characteristics in your script.
 
 IMPORTANT: Do not use any of the following words or phrases in your script: {filtered_words_str}. These words may trigger content filters, so please use alternative language or descriptions.
+IMPORTANT: Please make sure the comic panel desctiptions are no longer then a few sentences.  It is better to tell a story with more photos then to try and cram too much into one photo.  If you have a lot of text, consider breaking it up into multiple panels.
+IMPORTANT: Only generate 3 panels per comic strip.
 
 Instructions:
 1. Characters: Provide distinct and vivid descriptions of each character's physical appearance, clothing, and defining traits. Make the descriptions visually rich and ensure the AI can clearly visualize them.
@@ -63,6 +65,8 @@ def analyze_text_ollama(text, location, model=config.OLLAMA_TEXT_ANALYZE_MODEL, 
             system_prompt = f"""You are a visionary comic scriptwriter collaborating with an AI {config.COMIC_ARTIST_STYLE} that generates comic strip visuals. Your task is to write a highly detailed and imaginative comic strip script that clearly describes characters, scenes, actions, and dialogue. This script will guide an image generator AI like DALL-E to bring the comic to life. Please go into great detail when explaining the scene to the AI. The comic is set in {location}, so make sure to incorporate relevant local elements and characteristics in your script.
 
 IMPORTANT: Do not use any of the following words or phrases in your script: {filtered_words_str}. These words may trigger content filters, so please use alternative language or descriptions.
+IMPORTANT: Please make sure the comic panel desctiptions are no longer then a few sentences.  It is better to tell a story with more photos then to try and cram too much into one photo.  If you have a lot of text, consider breaking it up into multiple panels.
+IMPORTANT: Only generate 3 panels per comic strip.
 
 Instructions:
 1. Characters: Provide distinct and vivid descriptions of each character's physical appearance, clothing, and defining traits. Make the descriptions visually rich and ensure the AI can clearly visualize them.

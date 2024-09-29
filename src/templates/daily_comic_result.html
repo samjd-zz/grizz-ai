@@ -16,7 +16,17 @@
                 <div class="comic-panel">
                     <img src="{{ image_path }}" alt="Panel {{ loop.index }} for {{ event.title }}" class="comic-image">
                     <p class="panel-number">Panel {{ loop.index }}</p>
-                    <p class="panel-text">{{ event.comic_script.split('Panel ' + loop.index|string + ':')[1].split('Panel')[0]|trim }}</p>
+                    {% if event.comic_script %}
+                        {% set panel_text = event.comic_script.split('Panel ' + loop.index|string + ':') %}
+                        {% if panel_text|length > 1 %}
+                            {% set panel_content = panel_text[1].split('Panel ' + (loop.index + 1)|string + ':')[0]|trim %}
+                            <p class="panel-text">{{ panel_content }}</p>
+                        {% else %}
+                            <p class="panel-text">Panel description not available.</p>
+                        {% endif %}
+                    {% else %}
+                        <p class="panel-text">Comic script not available.</p>
+                    {% endif %}
                 </div>
             {% endfor %}
         </div>

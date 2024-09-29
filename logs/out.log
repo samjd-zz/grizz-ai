@@ -24834,3 +24834,143 @@ All Comics:
 2024-09-28 17:12:45,782 ERROR Error for Panel 2, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
 2024-09-28 17:12:45,783 WARNING Content rejected by safety system for Panel 2. Attempting with a more generic prompt.
 2024-09-28 17:19:10,628 INFO Successfully generated daily comic for Lillooet, BC, CAN
+2024-09-28 17:24:02,542 INFO Database purged successfully
+2024-09-28 17:24:02,584 INFO Database populated from output folder
+2024-09-28 17:24:07,826 INFO Starting Grizz-AI web application
+2024-09-28 17:24:09,848 INFO Database purged successfully
+2024-09-28 17:24:09,892 INFO Database populated from output folder
+2024-09-28 17:24:15,018 INFO Starting Grizz-AI web application
+2024-09-28 17:24:33,510 INFO Viewing filtered comics: 11 comics found
+2024-09-28 17:24:33,520 INFO Database connection closed
+2024-09-28 17:26:43,314 ERROR Error for Panel 1, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 17:26:43,314 WARNING Content rejected by safety system for Panel 1. Attempting with a more generic prompt.
+2024-09-28 17:27:07,069 ERROR Error for Panel 2, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 17:27:07,069 WARNING Content rejected by safety system for Panel 2. Attempting with a more generic prompt.
+2024-09-28 17:27:32,363 ERROR Error for Panel 3, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 17:27:32,363 WARNING Content rejected by safety system for Panel 3. Attempting with a more generic prompt.
+2024-09-28 17:27:56,166 ERROR Error for Panel 4, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 17:27:56,167 WARNING Content rejected by safety system for Panel 4. Attempting with a more generic prompt.
+2024-09-28 17:28:19,931 ERROR Error for Panel 5, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 17:28:19,932 WARNING Content rejected by safety system for Panel 5. Attempting with a more generic prompt.
+2024-09-28 17:28:44,163 ERROR Error for Panel 6, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 17:28:44,163 WARNING Content rejected by safety system for Panel 6. Attempting with a more generic prompt.
+2024-09-28 17:29:29,202 ERROR Error for Panel 8, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 17:29:29,202 WARNING Content rejected by safety system for Panel 8. Attempting with a more generic prompt.
+2024-09-28 17:29:57,157 ERROR Error for Panel 9, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 17:29:57,157 WARNING Content rejected by safety system for Panel 9. Attempting with a more generic prompt.
+2024-09-28 17:30:21,017 ERROR Error for Panel 10, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 17:30:21,017 WARNING Content rejected by safety system for Panel 10. Attempting with a more generic prompt.
+2024-09-28 17:33:02,229 ERROR Error for Panel 4, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 17:33:02,230 WARNING Content rejected by safety system for Panel 4. Attempting with a more generic prompt.
+2024-09-28 17:33:52,169 ERROR Error for Panel 6, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 17:33:52,170 WARNING Content rejected by safety system for Panel 6. Attempting with a more generic prompt.
+2024-09-28 17:34:48,078 ERROR Error for Panel 8, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 17:34:48,079 WARNING Content rejected by safety system for Panel 8. Attempting with a more generic prompt.
+2024-09-28 17:37:34,784 ERROR Error for Panel 4, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 17:37:34,785 WARNING Content rejected by safety system for Panel 4. Attempting with a more generic prompt.
+2024-09-28 17:38:22,201 ERROR Error for Panel 6, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 17:38:22,202 WARNING Content rejected by safety system for Panel 6. Attempting with a more generic prompt.
+2024-09-28 17:40:20,881 ERROR Error for Panel 1, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 17:40:20,881 WARNING Content rejected by safety system for Panel 1. Attempting with a more generic prompt.
+2024-09-28 17:42:42,910 ERROR Error for Panel 7, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 17:42:42,910 WARNING Content rejected by safety system for Panel 7. Attempting with a more generic prompt.
+2024-09-28 17:42:44,958 ERROR Error for Panel 7, Attempt 2: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 17:42:44,958 WARNING Content rejected by safety system for Panel 7. Attempting with a more generic prompt.
+2024-09-28 17:44:06,252 INFO Successfully generated daily comic for Lillooet, BC, CAN
+2024-09-28 18:44:07,433 INFO Database purged successfully
+2024-09-28 18:44:07,577 INFO Database populated from output folder
+2024-09-28 18:44:13,324 INFO Starting Grizz-AI web application
+2024-09-28 18:44:15,435 INFO Database purged successfully
+2024-09-28 18:44:15,581 INFO Database populated from output folder
+2024-09-28 18:44:20,784 INFO Starting Grizz-AI web application
+2024-09-28 18:44:29,753 INFO Viewing filtered comics: 37 comics found
+2024-09-28 18:44:29,768 INFO Database connection closed
+2024-09-28 18:45:48,403 ERROR Failed to generate comic panel for the event: Roundtable on Retail Theft. Skipping this event.
+2024-09-28 18:46:21,359 ERROR Error for Panel 1, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 18:46:21,359 WARNING Content rejected by safety system for Panel 1. Attempting with a more generic prompt.
+2024-09-28 18:46:46,667 ERROR Error for Panel 2, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 18:46:46,667 WARNING Content rejected by safety system for Panel 2. Attempting with a more generic prompt.
+2024-09-28 18:47:10,323 ERROR Error for Panel 3, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 18:47:10,324 WARNING Content rejected by safety system for Panel 3. Attempting with a more generic prompt.
+2024-09-28 18:47:39,374 ERROR Error for Panel 4, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 18:47:39,375 WARNING Content rejected by safety system for Panel 4. Attempting with a more generic prompt.
+2024-09-28 18:48:04,494 ERROR Error for Panel 5, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 18:48:04,494 WARNING Content rejected by safety system for Panel 5. Attempting with a more generic prompt.
+2024-09-28 18:49:04,823 INFO Successfully generated daily comic for Lillooet, BC, CAN
+2024-09-28 18:54:24,853 ERROR Error for Panel 2, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 18:54:24,853 WARNING Content rejected by safety system for Panel 2. Attempting with a more generic prompt.
+2024-09-28 18:54:47,244 ERROR Error for Panel 3, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 18:54:47,244 WARNING Content rejected by safety system for Panel 3. Attempting with a more generic prompt.
+2024-09-28 18:55:11,720 ERROR Error for Panel 4, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 18:55:11,721 WARNING Content rejected by safety system for Panel 4. Attempting with a more generic prompt.
+2024-09-28 18:55:36,316 ERROR Error for Panel 5, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 18:55:36,317 WARNING Content rejected by safety system for Panel 5. Attempting with a more generic prompt.
+2024-09-28 18:56:43,427 ERROR Error for Panel 1, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 18:56:43,428 WARNING Content rejected by safety system for Panel 1. Attempting with a more generic prompt.
+2024-09-28 18:57:06,890 ERROR Error for Panel 2, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 18:57:06,891 WARNING Content rejected by safety system for Panel 2. Attempting with a more generic prompt.
+2024-09-28 18:57:33,750 ERROR Error for Panel 3, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 18:57:33,751 WARNING Content rejected by safety system for Panel 3. Attempting with a more generic prompt.
+2024-09-28 18:58:01,501 ERROR Error for Panel 4, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 18:58:01,501 WARNING Content rejected by safety system for Panel 4. Attempting with a more generic prompt.
+2024-09-28 18:58:25,566 ERROR Error for Panel 5, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 18:58:25,567 WARNING Content rejected by safety system for Panel 5. Attempting with a more generic prompt.
+2024-09-28 18:59:30,303 ERROR Failed to generate comic panel for the event: B.C. Evening Weather Forecast. Skipping this event.
+2024-09-28 18:59:30,304 INFO Successfully generated daily comic for Lillooet, BC, CAN
+2024-09-28 20:43:11,360 INFO Database purged successfully
+2024-09-28 20:43:11,523 INFO Database populated from output folder
+2024-09-28 20:43:17,076 INFO Starting Grizz-AI web application
+2024-09-28 20:43:19,271 INFO Database purged successfully
+2024-09-28 20:43:19,446 INFO Database populated from output folder
+2024-09-28 20:43:24,992 INFO Starting Grizz-AI web application
+2024-09-28 20:43:35,407 INFO Viewing filtered comics: 41 comics found
+2024-09-28 20:43:35,424 INFO Database connection closed
+2024-09-28 20:44:37,962 ERROR Error for Panel 1, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 20:44:37,962 WARNING Content rejected by safety system for Panel 1. Skipping this story.
+2024-09-28 20:44:37,962 ERROR Failed to generate comic panel for the event: B.C. Evening Weather Forecast: Sept. 25. Skipping this event.
+2024-09-28 20:45:10,531 ERROR Error for Panel 1, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 20:45:10,532 WARNING Content rejected by safety system for Panel 1. Skipping this story.
+2024-09-28 20:45:10,532 ERROR Failed to generate comic panel for the event: Site C Dam Construction Creates Water Woes for B.C. Town. Skipping this event.
+2024-09-28 21:53:17,365 INFO Database purged successfully
+2024-09-28 21:53:17,365 INFO Database populated from output folder
+2024-09-28 21:53:22,650 INFO Starting Grizz-AI web application
+2024-09-28 21:53:24,758 INFO Database purged successfully
+2024-09-28 21:53:24,758 INFO Database populated from output folder
+2024-09-28 21:53:29,946 INFO Starting Grizz-AI web application
+2024-09-28 21:54:17,902 ERROR Unexpected error in generate_daily_comic: generate_dalle_images() missing 1 required positional argument: 'original_story'
+Traceback (most recent call last):
+  File "/home/samjd/Apps/claude-dev/grizz-ai/src/comic_generator.py", line 75, in generate_daily_comic
+    image_urls = generate_dalle_images(filter_content(event_analysis))
+TypeError: generate_dalle_images() missing 1 required positional argument: 'original_story'
+2024-09-28 21:54:17,903 ERROR Failed to generate daily comic for Lillooet, BC, CAN
+2024-09-28 21:57:53,805 INFO Database purged successfully
+2024-09-28 21:57:53,806 INFO Database populated from output folder
+2024-09-28 21:57:59,291 INFO Starting Grizz-AI web application
+2024-09-28 21:58:01,517 INFO Database purged successfully
+2024-09-28 21:58:01,517 INFO Database populated from output folder
+2024-09-28 21:58:07,004 INFO Starting Grizz-AI web application
+2024-09-28 21:58:46,912 ERROR Error for Panel 1, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 21:58:46,912 WARNING Content rejected by safety system for Panel 1. Trying with original story.
+2024-09-28 21:59:14,639 ERROR Error for Panel 2, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 21:59:14,639 WARNING Content rejected by safety system for Panel 2. Trying with original story.
+2024-09-28 21:59:42,038 ERROR Error for Panel 3, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 21:59:42,038 WARNING Content rejected by safety system for Panel 3. Trying with original story.
+2024-09-28 22:00:45,629 ERROR Error for Panel 1, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 22:00:45,629 WARNING Content rejected by safety system for Panel 1. Trying with original story.
+2024-09-28 22:01:15,561 ERROR Error for Panel 2, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 22:01:15,562 WARNING Content rejected by safety system for Panel 2. Trying with original story.
+2024-09-28 22:01:47,478 ERROR Error for Panel 3, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 22:01:47,478 WARNING Content rejected by safety system for Panel 3. Trying with original story.
+2024-09-28 22:03:01,924 ERROR Error for Panel 1, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 22:03:01,924 WARNING Content rejected by safety system for Panel 1. Trying with original story.
+2024-09-28 22:03:27,829 ERROR Error for Panel 2, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 22:03:27,830 WARNING Content rejected by safety system for Panel 2. Trying with original story.
+2024-09-28 22:03:54,351 ERROR Error for Panel 3, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 22:03:54,352 WARNING Content rejected by safety system for Panel 3. Trying with original story.
+2024-09-28 22:04:57,647 ERROR Error for Panel 1, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 22:04:57,647 WARNING Content rejected by safety system for Panel 1. Trying with original story.
+2024-09-28 22:05:26,716 ERROR Error for Panel 2, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 22:05:26,716 WARNING Content rejected by safety system for Panel 2. Trying with original story.
+2024-09-28 22:05:52,930 ERROR Error for Panel 3, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 22:05:52,931 WARNING Content rejected by safety system for Panel 3. Trying with original story.
+2024-09-28 22:06:34,629 INFO Successfully generated daily comic for Lillooet, BC, CAN

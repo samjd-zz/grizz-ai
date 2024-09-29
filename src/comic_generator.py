@@ -72,7 +72,7 @@ def generate_daily_comic(location):
 
                 # Generate comic panel image
                 print("Generating image...")
-                image_urls = generate_dalle_images(filter_content(event_analysis))
+                image_urls = generate_dalle_images(filter_content(event_analysis), event_story)
                 if not image_urls:
                     app_logger.error(f"Failed to generate comic panel for the event: {event_title}. Skipping this event.")
                     pbar.update(5)
@@ -190,7 +190,7 @@ def generate_custom_comic(title, story, location):
 
             # Generate comic panel images
             print(f"Generating images...")
-            image_urls = generate_dalle_images(filter_content(event_analysis))
+            image_urls = generate_dalle_images(filter_content(event_analysis), story)
             if not image_urls:
                 app_logger.error(f"Failed to generate comic panels for the custom event: {title}. Aborting comic generation.")
                 pbar.update(total_steps-1)
@@ -320,7 +320,7 @@ def generate_media_comic(media_type, path, location):
                         continue
                     pbar.update(1)
 
-                    image_urls = generate_dalle_images(event_analysis)
+                    image_urls = generate_dalle_images(event_analysis, video_summary)
                     if not image_urls:
                         app_logger.error("Failed to generate comic for the video")
                         pbar.update(total_steps-4)
@@ -396,7 +396,7 @@ def generate_media_comic(media_type, path, location):
                         continue
                     pbar.update(1)
 
-                    image_urls = generate_dalle_images(event_analysis)
+                    image_urls = generate_dalle_images(event_analysis, image_description)
                     if not image_urls:
                         app_logger.error("Failed to generate comic for the image")
                         pbar.update(total_steps-4)
