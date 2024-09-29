@@ -138,7 +138,7 @@ def generate_safe_prompt(original_prompt):
     )
     return safe_prompt, filtered_prompt
 
-def filter_content(text):
+def filter_content(text, strict=False):
     # List of potentially problematic words or phrases
     filtered_words = [
         "nude", "naked", "sex", "porn", "explicit", "violence", "gore",
@@ -149,6 +149,16 @@ def filter_content(text):
         "threat", "extremist", "radical", "jihad", "nazi", "holocaust",
         "suicide", "self-harm", "eating disorder", "anorexia", "bulimia"
     ]
+    
+    if strict:
+        # Add more words for stricter filtering
+        filtered_words.extend([
+            "crime", "criminal", "steal", "theft", "rob", "alcohol", "cigarette",
+            "tobacco", "fight", "conflict", "war", "protest", "riot", "arrest",
+            "police", "jail", "prison", "death", "die", "corpse", "body", "injury",
+            "accident", "disaster", "tragedy", "crisis", "emergency", "danger",
+            "hazard", "risk", "threat", "fear", "panic", "terror", "horror"
+        ])
     
     # Remove any occurrence of filtered words and surrounding context
     for word in filtered_words:
@@ -263,4 +273,3 @@ def summarize_generated_files(comic_dir):
             summary.append(f"Summary file: {filename}")
     
     return "\n".join(summary)
-

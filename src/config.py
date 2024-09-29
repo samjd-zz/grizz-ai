@@ -54,8 +54,9 @@ class Config:
         self.WEB_PORT = os.getenv('WEB_PORT', 5000)
         self.WEB_DEBUG = os.getenv('WEB_DEBUG', 'true').lower() == 'true'
 
+        # DALL-E rate limit parameters
+        self.DALLE_RATE_LIMIT = int(os.getenv('DALLE_RATE_LIMIT', 5))
+        self.DALLE_RATE_LIMIT_PERIOD = int(os.getenv('DALLE_RATE_LIMIT_PERIOD', 60))
 
-        
-        
 def load_config():
     return Config()

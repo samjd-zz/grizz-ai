@@ -4,6 +4,7 @@ warnings.filterwarnings("ignore", category=DeprecationWarning, message=".*BaseCh
 
 import os
 import re
+import requests
 from tqdm import tqdm
 from datetime import datetime 
 
@@ -71,19 +72,29 @@ def generate_daily_comic(location):
 
                 # Generate comic panel image
                 print("Generating image...")
-                image_data = generate_dalle_images(filter_content(event_analysis))
-                if not image_data:
+                image_urls = generate_dalle_images(filter_content(event_analysis))
+                if not image_urls:
                     app_logger.error(f"Failed to generate comic panel for the event: {event_title}. Skipping this event.")
                     pbar.update(5)
                     continue
                 pbar.update(1)
 
-                # Save the generated image
-                app_logger.debug("Saving image...")
-                image_filename = f"ggs_grizzly_news_{event_title.replace(' ', '_')}.png"
-                image_path = save_image(image_data, image_filename, location)
-                if not image_path:
-                    app_logger.error(f"Failed to save the generated image for {event_title}. Skipping this event.")
+                # Save the generated images
+                app_logger.debug("Saving images...")
+                image_paths = []
+                for i, image_url in enumerate(image_urls):
+                    if image_url:
+                        image_filename = f"ggs_grizzly_news_{event_title.replace(' ', '_')}_{i+1}.png"
+                        image_data = requests.get(image_url).content
+                        image_path = save_image(image_data, image_filename, location)
+                        if image_path:
+                            image_paths.append(image_path)
+                        else:
+                            app_logger.error(f"Failed to save the generated image {i+1} for {event_title}.")
+                    else:
+                        app_logger.error(f"Failed to generate image {i+1} for {event_title}.")
+                if not image_paths:
+                    app_logger.error(f"Failed to save any images for {event_title}. Skipping this event.")
                     pbar.update(4)
                     continue
                 pbar.update(1)
@@ -110,18 +121,19 @@ def generate_daily_comic(location):
                 save_summary(location, summary_filename, event_title, event_story, event_source, panel_summary)
 
                 app_logger.debug(f"Adding comic to database: {event_title}")
-                ComicDatabase.add_comic(event_title, location, event_story, event_analysis, event_source, image_path, audio_path, datetime.now().date())
+                ComicDatabase.add_comic(event_title, location, event_story, event_analysis, event_source, ",".join(image_paths), audio_path, datetime.now().date())
                 pbar.update(1)
 
-                comic_panels.append((image_path, panel_summary))
+                comic_panels.append((image_paths, panel_summary))
                 all_panel_summaries.append(panel_summary)
 
-                # Add image_path, comic_script, and audio_path to the event dictionary
-                event['image_path'] = image_path
+                # Add image_paths, comic_script, and audio_path to the event dictionary
+                event['image_paths'] = image_paths
                 event['comic_script'] = event_analysis
                 event['audio_path'] = audio_path
-                # Ensure the original story is preserved
+                # Ensure the original story and story source are preserved
                 event['story'] = event_story
+                event['story_source'] = event_source
 
             if not comic_panels:
                 app_logger.error("No comic panels were generated. Aborting comic generation.")
@@ -152,7 +164,7 @@ def generate_custom_comic(title, story, location):
         location (str): The location setting for the custom comic.
 
     Returns:
-        tuple: A tuple containing the image path, panel summary, comic script, and audio path of the generated comic.
+        tuple: A tuple containing a list of image paths, panel summary, comic script, and audio path of the generated comic.
         None: If an error occurs during comic generation.
     """
     try:
@@ -161,7 +173,7 @@ def generate_custom_comic(title, story, location):
         existing_comic = ComicDatabase.get_comic_by_story(story)
         if existing_comic:
             app_logger.debug(f"Comic already exists for story: {title}. Returning existing comic.")
-            return existing_comic['image_path'], existing_comic['comic_script'], existing_comic['comic_script'], existing_comic['audio_path']
+            return existing_comic['image_path'].split(','), existing_comic['comic_script'], existing_comic['comic_script'], existing_comic['audio_path']
 
         total_steps = 7  # Total number of steps in custom comic generation
 
@@ -176,25 +188,35 @@ def generate_custom_comic(title, story, location):
                 return None
             pbar.update(1)
 
-            # Generate comic panel image
-            print(f"Generating image...")
-            image_data = generate_dalle_images(filter_content(event_analysis))
-            if not image_data:
-                app_logger.error(f"Failed to generate comic panel for the custom event: {title}. Aborting comic generation.")
+            # Generate comic panel images
+            print(f"Generating images...")
+            image_urls = generate_dalle_images(filter_content(event_analysis))
+            if not image_urls:
+                app_logger.error(f"Failed to generate comic panels for the custom event: {title}. Aborting comic generation.")
                 pbar.update(total_steps-1)
                 return None
             pbar.update(1)
 
-            # Save the generated image
-            app_logger.debug("Saving image...")
-            # Use the title for the file name, replacing invalid characters and limiting length
-            safe_title = re.sub(r'[^\w\-_\. ]', '_', title)
-            safe_title = safe_title.replace(' ', '_')
-            safe_title = safe_title[:100]  # Limit to 100 characters
-            image_filename = f"{safe_title}.png"
-            image_path = save_image(image_data, image_filename, location)
-            if not image_path:
-                app_logger.error(f"Failed to save the generated image for {title}. Aborting comic generation.")
+            # Save the generated images
+            app_logger.debug("Saving images...")
+            image_paths = []
+            for i, image_url in enumerate(image_urls):
+                if image_url:
+                    # Use the title for the file name, replacing invalid characters and limiting length
+                    safe_title = re.sub(r'[^\w\-_\. ]', '_', title)
+                    safe_title = safe_title.replace(' ', '_')
+                    safe_title = safe_title[:100]  # Limit to 100 characters
+                    image_filename = f"{safe_title}_{i+1}.png"
+                    image_data = requests.get(image_url).content
+                    image_path = save_image(image_data, image_filename, location)
+                    if image_path:
+                        image_paths.append(image_path)
+                    else:
+                        app_logger.error(f"Failed to save the generated image {i+1} for {title}.")
+                else:
+                    app_logger.error(f"Failed to generate image {i+1} for {title}.")
+            if not image_paths:
+                app_logger.error(f"Failed to save any images for {title}. Aborting comic generation.")
                 pbar.update(total_steps-2)
                 return None
             pbar.update(1)
@@ -223,16 +245,16 @@ def generate_custom_comic(title, story, location):
             pbar.update(1)
 
             app_logger.debug(f"Adding custom comic to database: {title}")
-            ComicDatabase.add_comic(title, location, story, event_analysis, "", image_path, audio_path, datetime.now().date())
+            ComicDatabase.add_comic(title, location, story, event_analysis, "", ",".join(image_paths), audio_path, datetime.now().date())
             pbar.update(1)
 
         # Print summary for the user
         app_logger.debug(f"Custom comic generation completed!")
 
         app_logger.debug(f"Title: {title}")
-        app_logger.debug(f"Image saved at: {image_path}")
+        app_logger.debug(f"Images saved at: {', '.join(image_paths)}")
 
-        return image_path, panel_summary, event_analysis, audio_path
+        return image_paths, panel_summary, event_analysis, audio_path
 
     except Exception as e:
         app_logger.error(f"Unexpected error in generate_custom_comic: {e}", exc_info=True)
@@ -282,7 +304,7 @@ def generate_media_comic(media_type, path, location):
                     existing_comic = ComicDatabase.get_comic_by_story(video_summary)
                     if existing_comic:
                         app_logger.info(f"Comic already exists for video: {media_path}. Skipping this video.")
-                        comic_images.append(existing_comic['image_path'])
+                        comic_images.extend(existing_comic['image_path'].split(','))
                         summaries.append(existing_comic['comic_script'])
                         comic_scripts.append(existing_comic['comic_script'])
                         audio_paths.append(existing_comic['audio_path'])
@@ -298,17 +320,27 @@ def generate_media_comic(media_type, path, location):
                         continue
                     pbar.update(1)
 
-                    image_data = generate_dalle_images(event_analysis)
-                    if not image_data:
+                    image_urls = generate_dalle_images(event_analysis)
+                    if not image_urls:
                         app_logger.error("Failed to generate comic for the video")
                         pbar.update(total_steps-4)
                         continue
                     pbar.update(1)
 
-                    image_filename = f"video_comic_{os.path.basename(media_path)}.png"
-                    image_path = save_image(image_data, image_filename, location)
-                    if not image_path:
-                        app_logger.error("Failed to save the generated comic image")
+                    image_paths = []
+                    for i, image_url in enumerate(image_urls):
+                        if image_url:
+                            image_filename = f"video_comic_{os.path.basename(media_path)}_{i+1}.png"
+                            image_data = requests.get(image_url).content
+                            image_path = save_image(image_data, image_filename, location)
+                            if image_path:
+                                image_paths.append(image_path)
+                            else:
+                                app_logger.error(f"Failed to save the generated image {i+1} for video: {media_path}")
+                        else:
+                            app_logger.error(f"Failed to generate image {i+1} for video: {media_path}")
+                    if not image_paths:
+                        app_logger.error("Failed to save any images for the video")
                         pbar.update(total_steps-5)
                         continue
                     pbar.update(1)
@@ -323,13 +355,13 @@ def generate_media_comic(media_type, path, location):
                         audio_path = ""
                     pbar.update(1)
 
-                    comic_images.append(image_path)
+                    comic_images.extend(image_paths)
                     summaries.append(video_summary)
                     comic_scripts.append(event_analysis)
                     audio_paths.append(audio_path)
 
                     app_logger.debug(f"Adding video comic to database: {os.path.basename(media_path)}")
-                    ComicDatabase.add_comic(os.path.basename(media_path), location, video_summary, event_analysis, "", image_path, audio_path, datetime.now().date())
+                    ComicDatabase.add_comic(os.path.basename(media_path), location, video_summary, event_analysis, "", ",".join(image_paths), audio_path, datetime.now().date())
                     pbar.update(1)
 
                 elif media_type == 'image':
@@ -348,7 +380,7 @@ def generate_media_comic(media_type, path, location):
                     existing_comic = ComicDatabase.get_comic_by_story(image_description)
                     if existing_comic:
                         app_logger.info(f"Comic already exists for image: {media_path}. Skipping this image.")
-                        comic_images.append(existing_comic['image_path'])
+                        comic_images.extend(existing_comic['image_path'].split(','))
                         summaries.append(existing_comic['comic_script'])
                         comic_scripts.append(existing_comic['comic_script'])
                         audio_paths.append(existing_comic['audio_path'])
@@ -364,17 +396,27 @@ def generate_media_comic(media_type, path, location):
                         continue
                     pbar.update(1)
 
-                    image_data = generate_dalle_images(event_analysis)
-                    if not image_data:
+                    image_urls = generate_dalle_images(event_analysis)
+                    if not image_urls:
                         app_logger.error("Failed to generate comic for the image")
                         pbar.update(total_steps-4)
                         continue
                     pbar.update(1)
 
-                    image_filename = f"image_comic_{os.path.basename(media_path)}.png"
-                    image_path = save_image(image_data, image_filename, location)
-                    if not image_path:
-                        app_logger.error("Failed to save the generated comic image")
+                    image_paths = []
+                    for i, image_url in enumerate(image_urls):
+                        if image_url:
+                            image_filename = f"image_comic_{os.path.basename(media_path)}_{i+1}.png"
+                            image_data = requests.get(image_url).content
+                            image_path = save_image(image_data, image_filename, location)
+                            if image_path:
+                                image_paths.append(image_path)
+                            else:
+                                app_logger.error(f"Failed to save the generated image {i+1} for image: {media_path}")
+                        else:
+                            app_logger.error(f"Failed to generate image {i+1} for image: {media_path}")
+                    if not image_paths:
+                        app_logger.error("Failed to save any images for the image")
                         pbar.update(total_steps-5)
                         continue
                     pbar.update(1)
@@ -389,13 +431,13 @@ def generate_media_comic(media_type, path, location):
                         audio_path = ""
                     pbar.update(1)
 
-                    comic_images.append(image_path)
+                    comic_images.extend(image_paths)
                     summaries.append(image_description)
                     comic_scripts.append(event_analysis)
                     audio_paths.append(audio_path)
 
                     app_logger.debug(f"Adding image comic to database: {os.path.basename(media_path)}")
-                    ComicDatabase.add_comic(os.path.basename(media_path), location, image_description, event_analysis, "", image_path, audio_path, datetime.now().date())
+                    ComicDatabase.add_comic(os.path.basename(media_path), location, image_description, event_analysis, "", ",".join(image_paths), audio_path, datetime.now().date())
                     pbar.update(1)
 
         if not comic_images:

@@ -9,27 +9,30 @@ from langchain_openai import ChatOpenAI
 from langchain.schema import HumanMessage, SystemMessage
 
 from api_handlers import elevenlabs_client
-from utils import unload_ollama_model
+from utils import unload_ollama_model, filter_content
 from logger import app_logger
 from config import load_config
 
 config = load_config()
 
-MAX_SCRIPT_LENGTH = 1000  # Maximum length for DALL-E prompt
-
 YOGI_BEAR_VOICE_ID = None  # Global variable to store Yogi Bear voice ID
 
-def truncate_script(script, max_length=MAX_SCRIPT_LENGTH):
-    if len(script) <= max_length:
-        return script
-    return script[:max_length-3] + "..."
+def get_filtered_words():
+    # Get the list of filtered words from the filter_content function
+    return filter_content("", strict=True).split()
 
 def analyze_text_opai(text, location):
     try:
         app_logger.debug(f"Analyzing text with OpenAI using langchain...")
         chat = ChatOpenAI(model=config.OPENAI_TEXT_ANALYZE_MODEL, temperature=0.7)
         
+        filtered_words = get_filtered_words()
+        filtered_words_str = ", ".join(filtered_words)
+        
         system_prompt = f"""You are a visionary comic scriptwriter collaborating with an AI inspired by {config.COMIC_ARTIST_STYLE} that generates comic strip visuals. Your task is to write a highly detailed and imaginative comic strip script that clearly describes characters, scenes, actions, and dialogue. This script will guide an image generator AI like DALL-E to bring the comic to life. Please go into great detail when explaining the scene to the AI. The comic is set in {location}, so make sure to incorporate relevant local elements and characteristics in your script.
+
+IMPORTANT: Do not use any of the following words or phrases in your script: {filtered_words_str}. These words may trigger content filters, so please use alternative language or descriptions.
+
 Instructions:
 1. Characters: Provide distinct and vivid descriptions of each character's physical appearance, clothing, and defining traits. Make the descriptions visually rich and ensure the AI can clearly visualize them.
 2. Scenes: Describe each scene with specific visual details, including the setting, mood, and atmosphere. Mention any key objects or elements that should be in the background. Include local landmarks or characteristics of {location} when appropriate.
@@ -38,14 +41,10 @@ Instructions:
 5. Panel Descriptions: For each comic panel, explain how the scene should be framed, such as close-ups, zoomed-out shots, or specific angles.
 6. Style and Color: Suggest color palettes or art styles that match the tone of the comic and the atmosphere of {location}.
 7. Consistency: Ensure the story flows smoothly from panel to panel.
-Output Format: Provide your script in a sequential format that breaks down the story panel by panel, with character descriptions, scene descriptions, actions and poses, and dialogue placement.
+Output Format: Provide your script in a sequential format that breaks down the story panel by panel, with character descriptions, scene descriptions, actions and poses, and dialogue placement."""
 
-IMPORTANT: Keep your entire response under 1000 characters to ensure it can be used as a DALL-E prompt."""
-
-        
         response = chat.invoke(system_prompt + text)
         analysis = response.content.strip()
-        analysis = truncate_script(analysis)
         app_logger.debug(f"Text analyzed successfully with OpenAI using langchain")
         return analysis
     except Exception as e:
@@ -57,8 +56,14 @@ def analyze_text_ollama(text, location, model=config.OLLAMA_TEXT_ANALYZE_MODEL, 
     app_logger.debug(f"Analyzing text with Ollama using langchain...")
     
     try:
+        filtered_words = get_filtered_words()
+        filtered_words_str = ", ".join(filtered_words)
+        
         if system_prompt is None:
             system_prompt = f"""You are a visionary comic scriptwriter collaborating with an AI {config.COMIC_ARTIST_STYLE} that generates comic strip visuals. Your task is to write a highly detailed and imaginative comic strip script that clearly describes characters, scenes, actions, and dialogue. This script will guide an image generator AI like DALL-E to bring the comic to life. Please go into great detail when explaining the scene to the AI. The comic is set in {location}, so make sure to incorporate relevant local elements and characteristics in your script.
+
+IMPORTANT: Do not use any of the following words or phrases in your script: {filtered_words_str}. These words may trigger content filters, so please use alternative language or descriptions.
+
 Instructions:
 1. Characters: Provide distinct and vivid descriptions of each character's physical appearance, clothing, and defining traits. Make the descriptions visually rich and ensure the AI can clearly visualize them.
 2. Scenes: Describe each scene with specific visual details, including the setting, mood, and atmosphere. Mention any key objects or elements that should be in the background. Include local landmarks or characteristics of {location} when appropriate.
@@ -67,8 +72,7 @@ Instructions:
 5. Panel Descriptions: For each comic panel, explain how the scene should be framed, such as close-ups, zoomed-out shots, or specific angles.
 6. Style and Color: Suggest color palettes or art styles that match the tone of the comic and the atmosphere of {location}.
 7. Consistency: Ensure the story flows smoothly from panel to panel.
-Output Format: Provide your script in a sequential format that breaks down the story panel by panel, with character descriptions, scene descriptions, actions and poses, and dialogue placement.
-IMPORTANT: Keep your entire response under 1000 characters to ensure it can be used as a DALL-E prompt."""
+Output Format: Provide your script in a sequential format that breaks down the story panel by panel, with character descriptions, scene descriptions, actions and poses, and dialogue placement."""
 
         chat = ChatOllama(model=model)
         
@@ -80,8 +84,8 @@ IMPORTANT: Keep your entire response under 1000 characters to ensure it can be u
         response = chat(messages)
 
         result = response.content.strip()
-        result = truncate_script(result)
         app_logger.debug(f"Text analyzed successfully with Ollama using langchain.")
+        app_logger.debug(f"GENERATED RAW COMIC SCRIPT: {result}")
         return result
     except Exception as e:
         app_logger.error(f"Error analyzing text with Ollama using langchain: {e}.")

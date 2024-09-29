@@ -24585,3 +24585,252 @@ All Comics:
 2024-09-26 14:27:39,530 ERROR Exception args: ()
 2024-09-26 14:30:38,974 INFO Database purged successfully
 2024-09-26 14:30:38,997 INFO Database populated from output folder
+2024-09-26 15:18:06,105 INFO Database purged successfully
+2024-09-26 15:18:06,128 INFO Database populated from output folder
+2024-09-26 15:18:11,518 INFO Starting Grizz-AI web application
+2024-09-26 15:18:13,711 INFO Database purged successfully
+2024-09-26 15:18:13,735 INFO Database populated from output folder
+2024-09-26 15:18:19,107 INFO Starting Grizz-AI web application
+2024-09-26 15:21:43,763 INFO Successfully generated daily comic for Lillooet, BC, CAN
+2024-09-26 18:26:39,840 INFO Database purged successfully
+2024-09-26 18:26:39,870 INFO Database populated from output folder
+2024-09-26 18:26:46,046 INFO Starting Grizz-AI web application
+2024-09-26 18:26:48,278 INFO Database purged successfully
+2024-09-26 18:26:48,312 INFO Database populated from output folder
+2024-09-26 18:26:53,742 INFO Starting Grizz-AI web application
+2024-09-26 18:28:55,243 INFO Generating custom comic: Jake Stardust, out of jail once again to face the cruel world
+2024-09-26 18:29:52,205 INFO Successfully generated custom comic: Jake Stardust, out of jail once again to face the cruel world
+2024-09-26 18:29:52,208 INFO Database connection closed
+2024-09-26 20:27:52,477 INFO Database purged successfully
+2024-09-26 20:27:52,514 INFO Database populated from output folder
+2024-09-26 20:27:57,722 INFO Starting Grizz-AI web application
+2024-09-26 20:27:59,757 INFO Database purged successfully
+2024-09-26 20:27:59,794 INFO Database populated from output folder
+2024-09-26 20:28:05,053 INFO Starting Grizz-AI web application
+2024-09-26 20:29:03,226 INFO Generating custom comic: Jake Stardust, out looking for food
+2024-09-26 20:29:47,707 INFO Successfully generated custom comic: Jake Stardust, out looking for food
+2024-09-26 20:29:47,710 INFO Database connection closed
+2024-09-26 20:31:32,903 INFO Generating custom comic: Jake stardust: getting food
+2024-09-26 20:32:18,812 INFO Successfully generated custom comic: Jake stardust: getting food
+2024-09-26 20:32:18,812 INFO Database connection closed
+2024-09-26 20:38:20,226 INFO Database purged successfully
+2024-09-26 20:38:20,268 INFO Database populated from output folder
+2024-09-26 20:38:47,171 INFO Exiting the program. Goodbye!
+2024-09-26 20:38:47,172 INFO Database connection closed
+2024-09-26 20:38:50,902 INFO Database purged successfully
+2024-09-26 20:38:50,941 INFO Database populated from output folder
+2024-09-26 20:38:56,082 INFO Starting Grizz-AI web application
+2024-09-26 20:38:58,155 INFO Database purged successfully
+2024-09-26 20:38:58,196 INFO Database populated from output folder
+2024-09-26 20:39:03,393 INFO Starting Grizz-AI web application
+2024-09-26 20:43:02,249 INFO Successfully generated daily comic for Greenville SC, USA
+2024-09-26 22:09:22,605 INFO Database purged successfully
+2024-09-26 22:09:22,671 INFO Database populated from output folder
+2024-09-26 22:09:27,637 INFO Starting Grizz-AI web application
+2024-09-26 22:09:29,672 INFO Database purged successfully
+2024-09-26 22:09:29,740 INFO Database populated from output folder
+2024-09-26 22:09:34,704 INFO Starting Grizz-AI web application
+2024-09-26 22:10:02,954 INFO Viewing filtered comics: 16 comics found
+2024-09-26 22:10:02,972 INFO Database connection closed
+2024-09-26 22:10:42,716 ERROR Failed to generate comic panel for the event: Suspect Arrested Following Standoff in Greenville County. Skipping this event.
+2024-09-26 22:10:44,894 ERROR Failed to generate comic panel for the event: Man Found Shot to Death in Greenville County. Skipping this event.
+2024-09-26 22:12:07,163 ERROR Error saving image: a bytes-like object is required, not 'list'
+2024-09-26 22:12:07,163 ERROR Failed to save the generated image for Section of Swamp Rabbit Trail Temporarily Closed for Repairs. Skipping this event.
+2024-09-26 22:12:08,922 ERROR Failed to generate comic panel for the event: Sex Offender Arrest in Spartanburg County for Failure to Register. Skipping this event.
+2024-09-26 22:12:30,004 ERROR Failed to generate comic panel for the event: New Greenville Restaurant Hosting Open Interviews. Skipping this event.
+2024-09-26 22:12:30,004 ERROR No comic panels were generated. Aborting comic generation.
+2024-09-26 22:12:30,004 ERROR Failed to generate daily comic for Greenville SC, USA
+2024-09-26 22:19:05,211 INFO Database purged successfully
+2024-09-26 22:19:05,277 INFO Database populated from output folder
+2024-09-27 15:48:37,832 INFO Database purged successfully
+2024-09-27 15:48:37,906 INFO Database populated from output folder
+2024-09-27 15:48:43,063 INFO Starting Grizz-AI web application
+2024-09-27 15:48:45,080 INFO Database purged successfully
+2024-09-27 15:48:45,142 INFO Database populated from output folder
+2024-09-27 15:49:11,006 INFO Database purged successfully
+2024-09-27 15:49:11,006 INFO Database populated from output folder
+2024-09-27 15:49:25,885 INFO Database purged successfully
+2024-09-27 15:49:28,272 INFO Exiting the program. Goodbye!
+2024-09-27 15:49:28,272 INFO Database connection closed
+2024-09-27 15:49:33,852 INFO Database purged successfully
+2024-09-27 15:49:33,852 INFO Database populated from output folder
+2024-09-27 15:49:38,842 INFO Starting Grizz-AI web application
+2024-09-27 15:49:40,879 INFO Database purged successfully
+2024-09-27 15:49:40,879 INFO Database populated from output folder
+2024-09-27 15:49:45,916 INFO Starting Grizz-AI web application
+2024-09-27 15:49:57,875 INFO Viewing filtered comics: 0 comics found
+2024-09-27 15:49:57,884 INFO Database connection closed
+2024-09-27 15:50:25,136 ERROR Failed to generate comic panel for the event: B.C. Evening Weather Forecast: Sept. 25. Skipping this event.
+2024-09-27 15:52:51,323 ERROR Error generating image for Panel 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-27 15:53:19,277 ERROR Error generating image for Panel 4: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-27 15:53:19,278 ERROR Failed to generate image 1 for Global News Hour at 6 BC: Sept. 25.
+2024-09-27 15:53:21,504 ERROR Failed to generate image 4 for Global News Hour at 6 BC: Sept. 25.
+2024-09-27 15:53:27,364 INFO Successfully generated daily comic for Lillooet, BC, CAN
+2024-09-27 18:03:41,090 INFO Database purged successfully
+2024-09-27 18:03:41,090 INFO Database populated from output folder
+2024-09-27 18:03:59,489 INFO Exiting the program. Goodbye!
+2024-09-27 18:03:59,489 INFO Database connection closed
+2024-09-27 18:04:08,192 INFO Database purged successfully
+2024-09-27 18:04:08,192 INFO Database populated from output folder
+2024-09-27 18:04:13,486 INFO Starting Grizz-AI web application
+2024-09-27 18:04:15,672 INFO Database purged successfully
+2024-09-27 18:04:15,672 INFO Database populated from output folder
+2024-09-27 18:04:21,006 INFO Starting Grizz-AI web application
+2024-09-27 18:04:31,919 INFO Viewing filtered comics: 0 comics found
+2024-09-27 18:04:31,922 INFO Database connection closed
+2024-09-27 18:05:25,126 ERROR Failed to generate comic panel for the event: B.C. Evening Weather Forecast: Sept. 25. Skipping this event.
+2024-09-27 18:06:02,821 ERROR Error generating image for Panel 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-27 18:06:04,152 ERROR Error generating image for Panel 2: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-27 18:06:06,180 ERROR Error generating image for Panel 3: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-27 18:06:07,839 ERROR Error generating image for Panel 4: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-27 18:06:08,988 ERROR Error generating image for Panel 5: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-27 18:06:11,934 ERROR Error generating image for Panel 6: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-27 18:06:11,935 ERROR Failed to generate image 1 for Search for Missing Girl Near Burns Lake Ends Happily.
+2024-09-27 18:06:11,936 ERROR Failed to generate image 2 for Search for Missing Girl Near Burns Lake Ends Happily.
+2024-09-27 18:06:11,936 ERROR Failed to generate image 3 for Search for Missing Girl Near Burns Lake Ends Happily.
+2024-09-27 18:06:11,936 ERROR Failed to generate image 4 for Search for Missing Girl Near Burns Lake Ends Happily.
+2024-09-27 18:06:11,936 ERROR Failed to generate image 5 for Search for Missing Girl Near Burns Lake Ends Happily.
+2024-09-27 18:06:11,936 ERROR Failed to generate image 6 for Search for Missing Girl Near Burns Lake Ends Happily.
+2024-09-27 18:06:11,936 ERROR Failed to save any images for Search for Missing Girl Near Burns Lake Ends Happily. Skipping this event.
+2024-09-27 18:06:48,493 ERROR Error generating image for Panel 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-27 18:07:55,876 ERROR Error generating image for Panel 7: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-27 18:07:59,254 ERROR Error generating image for Panel 8: Error code: 429 - {'error': {'code': 'rate_limit_exceeded', 'message': 'Rate limit exceeded for images per minute in organization org-UCZHk4CP83AsCgBaJsR6QO0v. Limit: 5/1min. Current: 6/1min. Please visit https://platform.openai.com/docs/guides/rate-limits to learn how to increase your rate limit.', 'param': None, 'type': 'requests'}}
+2024-09-27 18:08:02,428 ERROR Error generating image for Panel 9: Error code: 429 - {'error': {'code': 'rate_limit_exceeded', 'message': 'Rate limit exceeded for images per minute in organization org-UCZHk4CP83AsCgBaJsR6QO0v. Limit: 5/1min. Current: 6/1min. Please visit https://platform.openai.com/docs/guides/rate-limits to learn how to increase your rate limit.', 'param': None, 'type': 'requests'}}
+2024-09-27 18:08:05,909 ERROR Error generating image for Panel 10: Error code: 429 - {'error': {'code': 'rate_limit_exceeded', 'message': 'Rate limit exceeded for images per minute in organization org-UCZHk4CP83AsCgBaJsR6QO0v. Limit: 5/1min. Current: 6/1min. Please visit https://platform.openai.com/docs/guides/rate-limits to learn how to increase your rate limit.', 'param': None, 'type': 'requests'}}
+2024-09-27 18:08:07,066 ERROR Error generating image for Panel 11: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-27 18:08:08,573 ERROR Error generating image for Panel 12: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-27 18:08:08,574 ERROR Failed to generate image 1 for Global News Hour at 6 BC: Sept. 24 and Sept. 25.
+2024-09-27 18:08:14,450 ERROR Failed to generate image 7 for Global News Hour at 6 BC: Sept. 24 and Sept. 25.
+2024-09-27 18:08:14,450 ERROR Failed to generate image 8 for Global News Hour at 6 BC: Sept. 24 and Sept. 25.
+2024-09-27 18:08:14,451 ERROR Failed to generate image 9 for Global News Hour at 6 BC: Sept. 24 and Sept. 25.
+2024-09-27 18:08:14,451 ERROR Failed to generate image 10 for Global News Hour at 6 BC: Sept. 24 and Sept. 25.
+2024-09-27 18:08:14,451 ERROR Failed to generate image 11 for Global News Hour at 6 BC: Sept. 24 and Sept. 25.
+2024-09-27 18:08:14,451 ERROR Failed to generate image 12 for Global News Hour at 6 BC: Sept. 24 and Sept. 25.
+2024-09-27 18:09:28,448 ERROR Error generating image for Panel 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-27 18:09:30,749 ERROR Error generating image for Panel 2: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-27 18:09:32,543 ERROR Error generating image for Panel 3: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-27 18:09:34,078 ERROR Error generating image for Panel 4: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-27 18:09:35,412 ERROR Error generating image for Panel 5: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-27 18:09:35,413 ERROR Failed to generate image 1 for Lillooet Chamber All-Candidates Meeting.
+2024-09-27 18:09:35,413 ERROR Failed to generate image 2 for Lillooet Chamber All-Candidates Meeting.
+2024-09-27 18:09:35,413 ERROR Failed to generate image 3 for Lillooet Chamber All-Candidates Meeting.
+2024-09-27 18:09:35,413 ERROR Failed to generate image 4 for Lillooet Chamber All-Candidates Meeting.
+2024-09-27 18:09:35,414 ERROR Failed to generate image 5 for Lillooet Chamber All-Candidates Meeting.
+2024-09-27 18:09:35,414 ERROR Failed to save any images for Lillooet Chamber All-Candidates Meeting. Skipping this event.
+2024-09-27 18:09:35,416 INFO Successfully generated daily comic for Lillooet, BC, CAN
+2024-09-28 08:20:09,388 INFO Database purged successfully
+2024-09-28 08:20:09,388 INFO Database populated from output folder
+2024-09-28 08:20:14,944 INFO Starting Grizz-AI web application
+2024-09-28 08:20:17,193 INFO Database purged successfully
+2024-09-28 08:20:17,193 INFO Database populated from output folder
+2024-09-28 08:20:22,724 INFO Starting Grizz-AI web application
+2024-09-28 08:20:41,569 INFO Viewing filtered comics: 0 comics found
+2024-09-28 08:20:41,584 INFO Database connection closed
+2024-09-28 08:21:39,084 ERROR Failed to generate comic panel for the event: B.C. Evening Weather Forecast: Sept. 25. Skipping this event.
+2024-09-28 08:22:10,374 ERROR Error generating image for Panel 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 08:22:12,364 ERROR Error generating image for Panel 2: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 08:22:14,411 ERROR Error generating image for Panel 3: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 08:22:17,303 ERROR Error generating image for Panel 4: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 08:22:17,304 ERROR Failed to generate image 1 for No Recent Wildfire Updates.
+2024-09-28 08:22:17,304 ERROR Failed to generate image 2 for No Recent Wildfire Updates.
+2024-09-28 08:22:17,304 ERROR Failed to generate image 3 for No Recent Wildfire Updates.
+2024-09-28 08:22:17,304 ERROR Failed to generate image 4 for No Recent Wildfire Updates.
+2024-09-28 08:22:17,304 ERROR Failed to save any images for No Recent Wildfire Updates. Skipping this event.
+2024-09-28 08:22:37,490 ERROR Error generating image for Panel 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 08:22:40,562 ERROR Error generating image for Panel 2: Error code: 429 - {'error': {'code': 'rate_limit_exceeded', 'message': 'Rate limit exceeded for images per minute in organization org-UCZHk4CP83AsCgBaJsR6QO0v. Limit: 5/1min. Current: 6/1min. Please visit https://platform.openai.com/docs/guides/rate-limits to learn how to increase your rate limit.', 'param': None, 'type': 'requests'}}
+2024-09-28 08:22:43,841 ERROR Error generating image for Panel 3: Error code: 429 - {'error': {'code': 'rate_limit_exceeded', 'message': 'Rate limit exceeded for images per minute in organization org-UCZHk4CP83AsCgBaJsR6QO0v. Limit: 5/1min. Current: 6/1min. Please visit https://platform.openai.com/docs/guides/rate-limits to learn how to increase your rate limit.', 'param': None, 'type': 'requests'}}
+2024-09-28 08:22:47,116 ERROR Error generating image for Panel 4: Error code: 429 - {'error': {'code': 'rate_limit_exceeded', 'message': 'Rate limit exceeded for images per minute in organization org-UCZHk4CP83AsCgBaJsR6QO0v. Limit: 5/1min. Current: 6/1min. Please visit https://platform.openai.com/docs/guides/rate-limits to learn how to increase your rate limit.', 'param': None, 'type': 'requests'}}
+2024-09-28 08:22:47,117 ERROR Failed to generate image 1 for Community Events in Lillooet.
+2024-09-28 08:22:47,117 ERROR Failed to generate image 2 for Community Events in Lillooet.
+2024-09-28 08:22:47,117 ERROR Failed to generate image 3 for Community Events in Lillooet.
+2024-09-28 08:22:47,117 ERROR Failed to generate image 4 for Community Events in Lillooet.
+2024-09-28 08:22:47,117 ERROR Failed to save any images for Community Events in Lillooet. Skipping this event.
+2024-09-28 08:23:21,234 ERROR Error generating image for Panel 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 08:23:43,438 ERROR Error generating image for Panel 3: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 08:23:45,069 ERROR Error generating image for Panel 4: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 08:23:46,944 ERROR Error generating image for Panel 5: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 08:23:46,945 ERROR Failed to generate image 1 for Route 99 Cruz-in (Past Event).
+2024-09-28 08:23:47,977 ERROR Failed to generate image 3 for Route 99 Cruz-in (Past Event).
+2024-09-28 08:23:47,978 ERROR Failed to generate image 4 for Route 99 Cruz-in (Past Event).
+2024-09-28 08:23:47,978 ERROR Failed to generate image 5 for Route 99 Cruz-in (Past Event).
+2024-09-28 08:24:30,321 INFO Successfully generated daily comic for Lillooet, BC, CAN
+2024-09-28 08:27:35,813 INFO Database purged successfully
+2024-09-28 08:27:35,813 INFO Database populated from output folder
+2024-09-28 08:27:40,981 INFO Starting Grizz-AI web application
+2024-09-28 08:27:43,033 INFO Database purged successfully
+2024-09-28 08:27:43,033 INFO Database populated from output folder
+2024-09-28 08:27:48,093 INFO Starting Grizz-AI web application
+2024-09-28 08:28:54,614 WARNING Content rejected by safety system for Panel 1. Attempting to further filter the prompt.
+2024-09-28 08:28:54,614 ERROR Error in generate_dalle_images: filter_content() got an unexpected keyword argument 'strict'
+2024-09-28 08:28:54,614 ERROR Failed to generate comic panel for the event: Roundtable on Retail Theft. Skipping this event.
+2024-09-28 08:29:26,902 WARNING Content rejected by safety system for Panel 1. Attempting to further filter the prompt.
+2024-09-28 08:29:26,902 ERROR Error in generate_dalle_images: filter_content() got an unexpected keyword argument 'strict'
+2024-09-28 08:29:26,902 ERROR Failed to generate comic panel for the event: All-Candidates Meeting for Fraser-Nicola Riding. Skipping this event.
+2024-09-28 08:30:06,116 WARNING Content rejected by safety system for Panel 1. Attempting to further filter the prompt.
+2024-09-28 08:30:06,116 ERROR Error in generate_dalle_images: filter_content() got an unexpected keyword argument 'strict'
+2024-09-28 08:30:06,116 ERROR Failed to generate comic panel for the event: Route 99 Cruz-in Event. Skipping this event.
+2024-09-28 08:30:06,117 ERROR No comic panels were generated. Aborting comic generation.
+2024-09-28 08:30:06,118 ERROR Failed to generate daily comic for Lillooet, BC, CAN
+2024-09-28 08:35:00,094 INFO Database purged successfully
+2024-09-28 08:35:00,094 INFO Database populated from output folder
+2024-09-28 08:35:05,542 INFO Starting Grizz-AI web application
+2024-09-28 08:35:24,239 INFO Database purged successfully
+2024-09-28 08:35:24,239 INFO Database populated from output folder
+2024-09-28 08:35:29,294 INFO Starting Grizz-AI web application
+2024-09-28 08:35:31,360 INFO Database purged successfully
+2024-09-28 08:35:31,360 INFO Database populated from output folder
+2024-09-28 08:35:36,421 INFO Starting Grizz-AI web application
+2024-09-28 08:36:39,953 WARNING Content rejected by safety system for Panel 1. Attempting to further filter the prompt.
+2024-09-28 08:36:41,602 WARNING Content rejected by safety system for Panel 1. Attempting to further filter the prompt.
+2024-09-28 08:36:43,137 WARNING Content rejected by safety system for Panel 1. Attempting to further filter the prompt.
+2024-09-28 08:36:43,140 ERROR Failed to generate image for Panel 1 after 3 attempts.
+2024-09-28 08:36:45,342 WARNING Content rejected by safety system for Panel 2. Attempting to further filter the prompt.
+2024-09-28 08:36:46,814 WARNING Content rejected by safety system for Panel 2. Attempting to further filter the prompt.
+2024-09-28 08:36:50,193 WARNING Rate limit exceeded for Panel 2. Retrying in 180 seconds. Attempt 3/3
+2024-09-28 12:39:27,462 INFO Database purged successfully
+2024-09-28 12:39:27,463 INFO Database populated from output folder
+2024-09-28 12:39:32,840 INFO Starting Grizz-AI web application
+2024-09-28 12:39:34,988 INFO Database purged successfully
+2024-09-28 12:39:34,988 INFO Database populated from output folder
+2024-09-28 12:39:40,232 INFO Starting Grizz-AI web application
+2024-09-28 12:40:43,196 WARNING Content rejected by safety system for Panel 1. Attempting to further filter the prompt.
+2024-09-28 12:40:44,900 WARNING Content rejected by safety system for Panel 1. Attempting to further filter the prompt.
+2024-09-28 12:40:46,915 WARNING Content rejected by safety system for Panel 1. Attempting to further filter the prompt.
+2024-09-28 12:40:46,918 ERROR Failed to generate image for Panel 1 after 3 attempts.
+2024-09-28 12:40:48,334 WARNING Content rejected by safety system for Panel 2. Attempting to further filter the prompt.
+2024-09-28 12:40:50,365 WARNING Content rejected by safety system for Panel 2. Attempting to further filter the prompt.
+2024-09-28 12:40:53,487 WARNING Rate limit exceeded for Panel 2. Retrying in 180 seconds. Attempt 3/3
+2024-09-28 12:43:53,565 ERROR Failed to generate image for Panel 2 after 3 attempts.
+2024-09-28 12:43:55,712 WARNING Content rejected by safety system for Panel 3. Attempting to further filter the prompt.
+2024-09-28 12:43:57,043 WARNING Content rejected by safety system for Panel 3. Attempting to further filter the prompt.
+2024-09-28 12:43:58,239 WARNING Content rejected by safety system for Panel 3. Attempting to further filter the prompt.
+2024-09-28 12:43:58,242 ERROR Failed to generate image for Panel 3 after 3 attempts.
+2024-09-28 12:44:00,628 WARNING Content rejected by safety system for Panel 4. Attempting to further filter the prompt.
+2024-09-28 12:44:01,960 WARNING Content rejected by safety system for Panel 4. Attempting to further filter the prompt.
+2024-09-28 12:44:05,133 WARNING Rate limit exceeded for Panel 4. Retrying in 180 seconds. Attempt 3/3
+2024-09-28 12:44:44,447 INFO Database purged successfully
+2024-09-28 12:44:44,447 INFO Database populated from output folder
+2024-09-28 12:44:49,687 INFO Starting Grizz-AI web application
+2024-09-28 12:44:51,729 INFO Database purged successfully
+2024-09-28 12:44:51,729 INFO Database populated from output folder
+2024-09-28 12:44:56,795 INFO Starting Grizz-AI web application
+2024-09-28 12:45:31,262 INFO Database purged successfully
+2024-09-28 12:45:31,263 INFO Database populated from output folder
+2024-09-28 12:45:36,547 INFO Starting Grizz-AI web application
+2024-09-28 12:46:38,720 ERROR Failed to generate comic panel for the event: Route 99 Cruz-in Event. Skipping this event.
+2024-09-28 12:47:17,737 WARNING Content rejected by safety system for Panel 1. Attempting to further filter the prompt.
+2024-09-28 12:47:19,377 WARNING Content rejected by safety system for Panel 1. Attempting to further filter the prompt.
+2024-09-28 12:47:21,730 WARNING Content rejected by safety system for Panel 1. Attempting to further filter the prompt.
+2024-09-28 12:47:21,733 ERROR Failed to generate image for Panel 1 after 3 attempts.
+2024-09-28 12:47:23,417 WARNING Content rejected by safety system for Panel 2. Attempting to further filter the prompt.
+2024-09-28 12:47:25,110 WARNING Content rejected by safety system for Panel 2. Attempting to further filter the prompt.
+2024-09-28 12:47:28,181 WARNING Rate limit exceeded for Panel 2. Retrying in 180 seconds. Attempt 3/3
+2024-09-28 17:10:55,860 INFO Database purged successfully
+2024-09-28 17:10:55,860 INFO Database populated from output folder
+2024-09-28 17:11:01,067 INFO Starting Grizz-AI web application
+2024-09-28 17:11:03,129 INFO Database purged successfully
+2024-09-28 17:11:03,129 INFO Database populated from output folder
+2024-09-28 17:11:08,254 INFO Starting Grizz-AI web application
+2024-09-28 17:12:45,782 ERROR Error for Panel 2, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-28 17:12:45,783 WARNING Content rejected by safety system for Panel 2. Attempting with a more generic prompt.
+2024-09-28 17:19:10,628 INFO Successfully generated daily comic for Lillooet, BC, CAN

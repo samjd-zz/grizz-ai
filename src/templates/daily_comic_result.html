@@ -4,17 +4,98 @@
     <div class="comic-container">
         <h3>{{ event.title }}</h3>
         <p><strong>Date:</strong> {{ event.created_at }}</p>
-        <img src="{{ event.image_path }}" alt="Comic for {{ event.title }}" class="comic-image">
+        
+        <div class="comic-panels">
+            {% for image_path in event.image_paths %}
+                <div class="comic-panel">
+                    <img src="{{ image_path }}" alt="Panel {{ loop.index }} for {{ event.title }}" class="comic-image">
+                    <p class="panel-number">Panel {{ loop.index }}</p>
+                    <p class="panel-text">{{ event.comic_script.split('Panel ' + loop.index|string + ':')[1].split('Panel')[0]|trim }}</p>
+                </div>
+            {% endfor %}
+        </div>
+        
         {% if event.audio_path %}
             <audio controls>
                 <source src="{{ event.audio_path }}" type="audio/mpeg">
                 Your browser does not support the audio element.
             </audio>
         {% endif %}
+        
         <h4>Original Story:</h4>
         <p>{{ event.story }}</p>
-        <h4>Comic Script:</h4>
-        <pre>{{ event.comic_script }}</pre>
+        {% if event.story_source %}
+            <p><strong>Source:</strong> <a href="{{ event.story_source }}" target="_blank">{{ event.story_source }}</a></p>
+        {% endif %}
+        
+        <h4>Full Comic Script:</h4>
+        <pre class="comic-script">{{ event.comic_script }}</pre>
     </div>
 {% endfor %}
+
 <a href="{{ url_for('daily_comic') }}" class="btn">Generate Another Comic</a>
+
+<style>
+    .comic-container {
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 30px;
+    }
+    .comic-panels {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+    .comic-panel {
+        flex: 0 1 calc(33.333% - 20px);
+        max-width: calc(33.333% - 20px);
+        text-align: center;
+    }
+    .comic-image {
+        max-width: 100%;
+        height: auto;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .panel-number {
+        margin-top: 5px;
+        font-weight: bold;
+    }
+    .panel-text {
+        margin-top: 10px;
+        text-align: left;
+        font-size: 14px;
+    }
+    .comic-script {
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 10px;
+        white-space: pre-wrap;
+        font-family: monospace;
+        font-size: 14px;
+        line-height: 1.4;
+        overflow-x: auto;
+    }
+    audio {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+    @media (max-width: 768px) {
+        .comic-panel {
+            flex: 0 1 calc(50% - 20px);
+            max-width: calc(50% - 20px);
+        }
+    }
+    @media (max-width: 480px) {
+        .comic-panel {
+            flex: 0 1 100%;
+            max-width: 100%;
+        }
+    }
+</style>

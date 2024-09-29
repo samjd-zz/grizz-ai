@@ -17,10 +17,11 @@ config = load_config()
 app.config['GENERATED_IMAGES_FOLDER'] = config.OUTPUT_DIR
 os.makedirs(app.config['GENERATED_IMAGES_FOLDER'], exist_ok=True)
 
-# @app.before_first_request
-# def before_first_request():
-#     # Create Yogi Bear voice when the application starts
-#     create_yogi_bear_voice()
+@app.before_first_request
+def before_first_request():
+    # Create Yogi Bear voice when the application starts
+    if config.GENERATE_AUDIO:
+        create_yogi_bear_voice()
 
 @app.after_request
 def add_csp_header(response):
@@ -76,9 +77,10 @@ def daily_comic():
         if generated_comics:
             # Update image paths to use the custom image route
             for event in generated_comics:
-                if 'image_path' in event:
-                    relative_path = os.path.relpath(event['image_path'], app.config['GENERATED_IMAGES_FOLDER'])
-                    event['image_path'] = url_for('serve_image', filename=relative_path, _external=True)
+                if 'image_paths' in event:
+                    event['image_paths'] = [url_for('serve_image', filename=os.path.relpath(path, app.config['GENERATED_IMAGES_FOLDER']), _external=True) for path in event['image_paths']]
+                elif 'image_path' in event:
+                    event['image_paths'] = [url_for('serve_image', filename=os.path.relpath(event['image_path'], app.config['GENERATED_IMAGES_FOLDER']), _external=True)]
                 if 'audio_path' in event and event['audio_path']:
                     relative_audio_path = os.path.relpath(event['audio_path'], os.path.join(app.config['GENERATED_IMAGES_FOLDER'], 'audio'))
                     event['audio_path'] = url_for('serve_audio', filename=relative_audio_path, _external=True)
@@ -89,6 +91,9 @@ def daily_comic():
                     event['comic_script'] = "No comic script available"
                 event['story'] = event['story'].replace('-', '').strip()
                 event['comic_script'] = format_comic_script(event['comic_script'])
+                # Ensure story_source is included
+                if 'story_source' not in event:
+                    event['story_source'] = "Source not available"
             app_logger.info(f"Successfully generated daily comic for {location}")
             return jsonify({'success': True, 'html': render_template('daily_comic_result.html', events=generated_comics, location=location)})
         else:
@@ -112,16 +117,19 @@ def custom_comic():
             db = get_db()
             db.add_comic(title, location, story, comic_script, "", relative_path, relative_audio_path, datetime.now().date())
             app_logger.info(f"Successfully generated custom comic: {title}")
-            return render_template('custom_comic_result.html', 
-                                   title=title,
-                                   original_story=story,
-                                   created_at=created_at,
-                                   image_path=url_for('serve_image', filename=relative_path),
-                                   audio_path=url_for('serve_audio', filename=relative_audio_path) if relative_audio_path else None,
-                                   comic_script=comic_script)
+            return jsonify({
+                'success': True,
+                'html': render_template('custom_comic_result.html', 
+                                        title=title,
+                                        original_story=story,
+                                        created_at=created_at,
+                                        image_path=url_for('serve_image', filename=relative_path),
+                                        audio_path=url_for('serve_audio', filename=relative_audio_path) if relative_audio_path else None,
+                                        comic_script=comic_script)
+            })
         else:
             app_logger.error(f"Failed to generate custom comic: {title}")
-            return "Failed to generate custom comic. Please try again."
+            return jsonify({'success': False, 'message': 'Failed to generate custom comic. Please try again.'})
     return render_template('custom_comic.html')
 
 @app.route('/media_comic', methods=['GET', 'POST'])

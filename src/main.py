@@ -136,7 +136,8 @@ def main():
     
     try:
         # Create Yogi Bear voice at startup
-        #create_yogi_bear_voice()
+        if config.GENERATE_AUDIO:
+            create_yogi_bear_voice()
         
         while True:
             choice = get_user_choice()

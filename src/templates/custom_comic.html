@@ -5,7 +5,7 @@
 {% block header %}Create Custom Comic{% endblock %}
 
 {% block content %}
-    <form method="POST">
+    <form id="custom-comic-form" method="POST">
         <div class="form-group">
             <label for="title">Title:</label>
             <input type="text" id="title" name="title" required>
@@ -20,8 +20,53 @@
         </div>
         <button type="submit" class="btn">Generate Comic</button>
     </form>
+    <div id="result-container"></div>
     <br>
     {% if request.path != url_for('index') %}
         <a href="{{ url_for('index') }}" class="back-arrow"><i class="fas fa-arrow-left"></i></a>
     {% endif %}
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var form = document.getElementById('custom-comic-form');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            var formData = new FormData(form);
+
+            showProgress('Generating custom comic...');
+            var inputs = form.querySelectorAll('input, textarea, button');
+            inputs.forEach(function(input) {
+                input.disabled = true;
+            });
+            document.getElementById('result-container').innerHTML = '';
+
+            fetch(form.action, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                hideProgress();
+                inputs.forEach(function(input) {
+                    input.disabled = false;
+                });
+                if (data.success) {
+                    document.getElementById('result-container').innerHTML = data.html;
+                } else {
+                    document.getElementById('result-container').innerHTML = '<p class="message message-error">' + data.message + '</p>';
+                }
+            })
+            .catch(error => {
+                hideProgress();
+                inputs.forEach(function(input) {
+                    input.disabled = false;
+                });
+                document.getElementById('result-container').innerHTML = '<p class="message message-error">An error occurred. Please try again.</p>';
+                console.error('Error:', error);
+            });
+        });
+    });
+</script>
 {% endblock %}

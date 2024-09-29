@@ -1,33 +1,24 @@
-{% extends "base.html" %}
-
-{% block title %}Custom Comic Result{% endblock %}
-
-{% block header %}Custom Comic Result{% endblock %}
-
-{% block content %}
-    <div class="comic-container">
-        <h2>{{ title }}</h2>
-        <p><strong>Created at:</strong> {{ created_at }}</p>
-        <img src="{{ image_path }}" alt="{{ title }}" class="comic-image">
-        <div class="comic-details">
-            <h3>Original Story:</h3>
-            <p>{{ original_story }}</p>
-            {% if audio_path %}
-                <h3>Audio Narration:</h3>
-                <audio controls>
-                    <source src="{{ audio_path }}" type="audio/mpeg">
-                    Your browser does not support the audio element.
-                </audio>
-            {% endif %}
-            <h3>Generated Comic Script:</h3>
-            <p>{{ comic_script }}</p>
-        </div>
+<div class="comic-container">
+    <h2>{{ title }}</h2>
+    <p><strong>Created at:</strong> {{ created_at }}</p>
+    <img src="{{ image_path }}" alt="{{ title }}" class="comic-image">
+    <div class="comic-details">
+        <h3>Original Story:</h3>
+        <p>{{ original_story }}</p>
+        {% if audio_path %}
+            <h3>Audio Narration:</h3>
+            <audio controls>
+                <source src="{{ audio_path }}" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        {% endif %}
+        <h3>Generated Comic Script:</h3>
+        <p>{{ comic_script }}</p>
     </div>
-    <a href="{{ url_for('custom_comic') }}" class="btn">Create Another Custom Comic</a>
-    <a href="{{ url_for('index') }}" class="btn">Back to Home</a>
-{% endblock %}
+</div>
+<a href="{{ url_for('custom_comic') }}" class="btn">Create Another Custom Comic</a>
+<a href="{{ url_for('index') }}" class="btn">Back to Home</a>
 
-{% block extra_styles %}
 <style>
     .comic-details {
         margin-top: 20px;
@@ -41,4 +32,3 @@
         margin-bottom: 15px;
     }
 </style>
-{% endblock %}
