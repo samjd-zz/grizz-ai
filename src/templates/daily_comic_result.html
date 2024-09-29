@@ -4,6 +4,12 @@
     <div class="comic-container">
         <h3>{{ event.title }}</h3>
         <p><strong>Date:</strong> {{ event.created_at }}</p>
+
+        <h4>Original Story:</h4>
+        <p>{{ event.story }}</p>
+        {% if event.story_source %}
+            <p><strong>Source:</strong> <a href="{{ event.story_source }}" target="_blank">{{ event.story_source }}</a></p>
+        {% endif %}
         
         <div class="comic-panels">
             {% for image_path in event.image_paths %}
@@ -22,14 +28,6 @@
             </audio>
         {% endif %}
         
-        <h4>Original Story:</h4>
-        <p>{{ event.story }}</p>
-        {% if event.story_source %}
-            <p><strong>Source:</strong> <a href="{{ event.story_source }}" target="_blank">{{ event.story_source }}</a></p>
-        {% endif %}
-        
-        <h4>Full Comic Script:</h4>
-        <pre class="comic-script">{{ event.comic_script }}</pre>
     </div>
 {% endfor %}
 
