@@ -157,6 +157,9 @@ def main():
                     print("-" * 50)
                     for i, event in enumerate(local_events, start=1):
                         print(f" * {event['title']}")
+                        print(f"   Panel Summaries:")
+                        for j, summary in enumerate(event['panel_summaries'], start=1):
+                            print(f"     Panel {j}: {summary}")
                     print("-" * 50)
                     
                     comic_dir = os.path.join(config.OUTPUT_DIR, f"{location.replace(' ', '_')}_comics", TODAY)
@@ -187,20 +190,22 @@ def main():
                     story = listen_to_user(config.LISTEN_VOICE_DURATION_LONG)
                 else:
                     title = input("Enter the title for your custom comic: ")
-                
-                story = input("Enter the story for your custom comic: ")
+                    story = input("Enter the story for your custom comic: ")
                 location = input("Enter the location for your custom comic (press Enter for default location): ") or config.LOCATION
                 print("\nGenerating custom comic. Please wait...")
                 result = generate_custom_comic(title, story, location)
                 if result:
-                    image_path, summary = result
+                    image_paths, panel_summaries, comic_script, comic_summary, audio_path = result
                     app_logger.debug("-" * 50)
                     app_logger.debug(f"Custom comic generated successfully!")
-                    app_logger.debug(f"Image saved at: {image_path}")
-                    app_logger.debug(f"Summary: {summary}")
+                    app_logger.debug(f"Images saved at: {', '.join(image_paths)}")
+                    app_logger.debug("Panel Summaries:")
+                    for i, summary in enumerate(panel_summaries, start=1):
+                        app_logger.debug(f"Panel {i}: {summary}")
+                    app_logger.debug(f"Comic Summary: {comic_summary}")
                     app_logger.debug("-" * 50)
                     
-                    comic_dir = os.path.dirname(image_path)
+                    comic_dir = os.path.dirname(image_paths[0])
                     file_summary = summarize_generated_files(comic_dir)
                     app_logger.debug("Summary of generated files:")
                     app_logger.debug(file_summary)
@@ -208,8 +213,9 @@ def main():
                     
                     # Option to post to social media
                     if input("Would you like to post this comic to social media? (y/n): ").lower() == 'y':
-                        post_to_twitter(image_path, summary, "https://example.com/custom-comic")  # Replace with your actual comic URL
-                        post_to_facebook(image_path, summary, "https://example.com/custom-comic")  # Replace with your actual comic URL
+                        for image_path in image_paths:
+                            post_to_twitter(image_path, comic_summary, "https://example.com/custom-comic")  # Replace with your actual comic URL
+                            post_to_facebook(image_path, comic_summary, "https://example.com/custom-comic")  # Replace with your actual comic URL
                         app_logger.info("Posted custom comic to social media")
             
             elif choice == '3':
@@ -254,11 +260,14 @@ def main():
                 result = generate_media_comic(media_type, path, location)
                 
                 if result:
-                    image_paths, summary = result
+                    image_paths, summary, comic_scripts, panel_summaries, audio_paths = result
                     print(f"Media comic generated successfully!")
                     for i, image_path in enumerate(image_paths, start=1):
                         app_logger.debug(f"Comic {i} saved at: {image_path}")
-                    app_logger.debug(f"Summary: {summary}")
+                        app_logger.debug("Panel Summaries:")
+                        for j, panel_summary in enumerate(panel_summaries[i-1], start=1):
+                            app_logger.debug(f"Panel {j}: {panel_summary}")
+                    app_logger.debug(f"Overall Summary: {summary}")
                     app_logger.debug("-" * 50)
                     
                     comic_dir = os.path.dirname(image_paths[0])
@@ -269,9 +278,10 @@ def main():
                     
                     # Option to post to social media
                     if input("Would you like to post this comic to social media? (y/n): ").lower() == 'y':
-                        for image_path in image_paths:
-                            post_to_twitter(image_path, summary, "https://example.com/media-comic")  # Replace with your actual comic URL
-                            post_to_facebook(image_path, summary, "https://example.com/media-comic")  # Replace with your actual comic URL
+                        for image_path, panel_summary in zip(image_paths, panel_summaries):
+                            post_summary = "\n".join(panel_summary)
+                            post_to_twitter(image_path, post_summary, "https://example.com/media-comic")  # Replace with your actual comic URL
+                            post_to_facebook(image_path, post_summary, "https://example.com/media-comic")  # Replace with your actual comic URL
                             app_logger.info(f"Posted media comic to social media: {os.path.basename(image_path)}")
             
             elif choice == '4':

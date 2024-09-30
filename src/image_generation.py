@@ -74,7 +74,7 @@ def generate_dalle_images(comic_script, original_story):
                     app_logger.debug(f"Attempt {retry_count + 1} for Panel {i}. Prompt: {prompt}")
 
                     # Generate the image
-                    image_url = dalle.run(prompt)
+                    image_url = dalle.run(prompt + " IMPORTANT: Avoid any content that may be considered inappropriate or offensive, ensuring the image aligns with content policies.")
                     image_urls.append(image_url)
                     
                     last_request_time = time.time()

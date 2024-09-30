@@ -74,7 +74,6 @@ def get_video_summary(video_path, pbar, location="a generic city"):
         # Combine frame descriptions into a single text
         combined_description = "\n".join(frame_descriptions)
 
-        #comic_script = analyze_text_opai(combined_description, location)
         comic_script = analyze_text_ollama(combined_description, location)
         pbar.update(1)
         if not comic_script:

@@ -28,10 +28,12 @@
 
     {% if comics %}
         <h2>Comics:</h2>
-        {% from 'comic_display.html' import display_comic %}
-        {% for comic in comics %}
-            {{ display_comic(comic) }}
-        {% endfor %}
+        <div class="comics-container">
+            {% from 'comic_display.html' import display_comic %}
+            {% for comic in comics %}
+                {{ display_comic(comic) }}
+            {% endfor %}
+        </div>
     {% else %}
         <p>No comics found.</p>
     {% endif %}
@@ -49,13 +51,46 @@
         flex-wrap: wrap;
         gap: 10px;
         margin-bottom: 20px;
+        background-color: #f0f0f0;
+        padding: 15px;
+        border-radius: 5px;
     }
     .filter-form .form-group {
         flex: 1;
         min-width: 200px;
     }
+    .filter-form label {
+        display: block;
+        margin-bottom: 5px;
+    }
+    .filter-form input,
+    .filter-form select {
+        width: 100%;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
     .filter-form button {
         align-self: flex-end;
+        padding: 5px 15px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+    .filter-form button:hover {
+        background-color: #0056b3;
+    }
+    .comics-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+    }
+    @media (max-width: 600px) {
+        .comics-container {
+            grid-template-columns: 1fr;
+        }
     }
 </style>
 {% endblock %}

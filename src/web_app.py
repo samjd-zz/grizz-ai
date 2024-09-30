@@ -94,6 +94,9 @@ def daily_comic():
                 # Ensure story_source is included
                 if 'story_source' not in event:
                     event['story_source'] = "Source not available"
+                # Ensure panel_summaries is included
+                if 'panel_summaries' not in event:
+                    event['panel_summaries'] = ["Panel summary not available"] * 3
             app_logger.info(f"Successfully generated daily comic for {location}")
             return jsonify({'success': True, 'html': render_template('daily_comic_result.html', events=generated_comics, location=location)})
         else:
@@ -110,12 +113,12 @@ def custom_comic():
         app_logger.info(f"Generating custom comic: {title}")
         result = generate_custom_comic(title, story, location)
         if result:
-            image_path, summary, comic_script, audio_path = result
-            relative_path = os.path.relpath(image_path, app.config['GENERATED_IMAGES_FOLDER'])
+            image_paths, panel_summaries, comic_script, comic_summary, audio_path = result
+            relative_paths = [os.path.relpath(path, app.config['GENERATED_IMAGES_FOLDER']) for path in image_paths]
             relative_audio_path = os.path.relpath(audio_path, os.path.join(app.config['GENERATED_IMAGES_FOLDER'], 'audio')) if audio_path else None
             created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             db = get_db()
-            db.add_comic(title, location, story, comic_script, "", relative_path, relative_audio_path, datetime.now().date())
+            db.add_comic(title, location, story, comic_script, comic_summary, ",".join(relative_paths), relative_audio_path, datetime.now().date())
             app_logger.info(f"Successfully generated custom comic: {title}")
             return jsonify({
                 'success': True,
@@ -123,7 +126,8 @@ def custom_comic():
                                         title=title,
                                         original_story=story,
                                         created_at=created_at,
-                                        image_path=url_for('serve_image', filename=relative_path),
+                                        image_paths=[url_for('serve_image', filename=path) for path in relative_paths],
+                                        panel_summaries=panel_summaries,
                                         audio_path=url_for('serve_audio', filename=relative_audio_path) if relative_audio_path else None,
                                         comic_script=comic_script)
             })
@@ -165,20 +169,21 @@ def media_comic():
         app_logger.info(f"Generating media comic from {media_type}")
         result = generate_media_comic(media_type, path, location)
         if result:
-            image_paths, summary, comic_scripts, audio_paths = result
+            image_paths, summary, comic_scripts, panel_summaries, audio_paths = result
             relative_paths = [os.path.relpath(path, app.config['GENERATED_IMAGES_FOLDER']) for path in image_paths]
             relative_audio_paths = [os.path.relpath(path, os.path.join(app.config['GENERATED_IMAGES_FOLDER'], 'audio')) if path else None for path in audio_paths]
             db = get_db()
             comics = []
-            for i, (relative_path, comic_script, relative_audio_path) in enumerate(zip(relative_paths, comic_scripts, relative_audio_paths)):
+            for i, (relative_path, comic_script, panel_summary, relative_audio_path) in enumerate(zip(relative_paths, comic_scripts, panel_summaries, relative_audio_paths)):
                 created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 title = f"Media Comic {i+1}"
-                db.add_comic(title, location, f"{media_type} comic", comic_script, "", relative_path, relative_audio_path, datetime.now().date())
+                db.add_comic(title, location, f"{media_type} comic", comic_script, summary, relative_path, relative_audio_path, datetime.now().date())
                 comics.append({
                     'title': title,
                     'original_story': f"{media_type} comic",
                     'created_at': created_at,
-                    'image_path': url_for('serve_image', filename=relative_path),
+                    'image_paths': [url_for('serve_image', filename=relative_path)],
+                    'panel_summaries': panel_summary,
                     'audio_path': url_for('serve_audio', filename=relative_audio_path) if relative_audio_path else None,
                     'comic_script': comic_script,
                     'story_source_url': ''
@@ -266,6 +271,16 @@ def view_all_comics():
                 comic['date'] = "Unknown Date"
         else:
             comic['date'] = "Unknown Date"
+        
+        # Parse panel summaries from comic_summary
+        if 'comic_summary' in comic and comic['comic_summary']:
+            panel_summaries = []
+            for line in comic['comic_summary'].split('\n'):
+                if line.startswith('Panel '):
+                    panel_summaries.append(line.split(': ', 1)[1])
+            comic['panel_summaries'] = panel_summaries if panel_summaries else ["Panel summary not available"] * 3
+        else:
+            comic['panel_summaries'] = ["Panel summary not available"] * 3
     
     locations = get_unique_locations()
     return render_template('view_all_comics.html', 

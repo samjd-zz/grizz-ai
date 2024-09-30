@@ -24974,3 +24974,114 @@ TypeError: generate_dalle_images() missing 1 required positional argument: 'orig
 2024-09-28 22:05:52,930 ERROR Error for Panel 3, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
 2024-09-28 22:05:52,931 WARNING Content rejected by safety system for Panel 3. Trying with original story.
 2024-09-28 22:06:34,629 INFO Successfully generated daily comic for Lillooet, BC, CAN
+2024-09-29 12:49:29,593 INFO Database purged successfully
+2024-09-29 12:49:29,635 INFO Database populated from output folder
+2024-09-29 12:49:34,851 INFO Starting Grizz-AI web application
+2024-09-29 12:49:36,888 INFO Database purged successfully
+2024-09-29 12:49:36,934 INFO Database populated from output folder
+2024-09-29 12:49:42,268 INFO Starting Grizz-AI web application
+2024-09-29 12:52:05,311 ERROR Error for Panel 1, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-29 12:52:05,312 WARNING Content rejected by safety system for Panel 1. Trying with original story.
+2024-09-29 12:52:35,478 ERROR Error for Panel 2, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-29 12:52:35,479 WARNING Content rejected by safety system for Panel 2. Trying with original story.
+2024-09-29 12:53:05,202 ERROR Error for Panel 3, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-29 12:53:05,203 WARNING Content rejected by safety system for Panel 3. Trying with original story.
+2024-09-29 12:53:43,454 WARNING Failed to parse panel summaries for Strong Winds and Heavy Rain Expected in B.C.. Using default summary.
+2024-09-29 12:54:50,851 INFO Successfully generated daily comic for Lillooet, BC, CAN
+2024-09-29 12:57:18,263 INFO Viewing filtered comics: 15 comics found
+2024-09-29 12:57:18,264 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet,_BC,_CAN_comics/2024_09_29/ggs_grizzly_news_Strong_Winds_and_Heavy_Rain_Expected_in_B.C._1.png,/home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet,_BC,_CAN_comics/2024_09_29/ggs_grizzly_news_Strong_Winds_and_Heavy_Rain_Expected_in_B.C._2.png,/home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet,_BC,_CAN_comics/2024_09_29/ggs_grizzly_news_Strong_Winds_and_Heavy_Rain_Expected_in_B.C._3.png
+2024-09-29 12:57:18,265 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet,_BC,_CAN_comics/2024_09_29/ggs_grizzly_news_Roundtable_on_Retail_Theft_1.png,/home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet,_BC,_CAN_comics/2024_09_29/ggs_grizzly_news_Roundtable_on_Retail_Theft_2.png,/home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet,_BC,_CAN_comics/2024_09_29/ggs_grizzly_news_Roundtable_on_Retail_Theft_3.png
+2024-09-29 12:57:18,265 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet,_BC,_CAN_comics/2024_09_29/ggs_grizzly_news_All-Candidates_Meeting_for_the_Fraser-Nicola_Riding_1.png,/home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet,_BC,_CAN_comics/2024_09_29/ggs_grizzly_news_All-Candidates_Meeting_for_the_Fraser-Nicola_Riding_2.png,/home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet,_BC,_CAN_comics/2024_09_29/ggs_grizzly_news_All-Candidates_Meeting_for_the_Fraser-Nicola_Riding_3.png
+2024-09-29 12:57:18,275 INFO Database connection closed
+2024-09-29 17:46:59,303 INFO Database purged successfully
+2024-09-29 17:46:59,383 INFO Database populated from output folder
+2024-09-29 19:11:06,958 INFO Database purged successfully
+2024-09-29 19:11:06,958 INFO Database populated from output folder
+2024-09-29 19:11:12,384 INFO Starting Grizz-AI web application
+2024-09-29 19:11:14,625 INFO Database purged successfully
+2024-09-29 19:11:14,625 INFO Database populated from output folder
+2024-09-29 19:11:19,887 INFO Starting Grizz-AI web application
+2024-09-29 19:11:48,602 INFO Viewing filtered comics: 0 comics found
+2024-09-29 19:11:48,605 INFO Database connection closed
+2024-09-29 19:12:32,372 INFO Database purged successfully
+2024-09-29 19:12:32,372 INFO Database populated from output folder
+2024-09-29 19:12:40,338 INFO Database purged successfully
+2024-09-29 19:12:50,633 INFO Exiting the program. Goodbye!
+2024-09-29 19:12:50,634 INFO Database connection closed
+2024-09-29 19:12:55,423 INFO Database purged successfully
+2024-09-29 19:12:55,424 INFO Database populated from output folder
+2024-09-29 19:13:00,467 INFO Starting Grizz-AI web application
+2024-09-29 19:13:02,531 INFO Database purged successfully
+2024-09-29 19:13:02,532 INFO Database populated from output folder
+2024-09-29 19:13:07,649 INFO Starting Grizz-AI web application
+2024-09-29 19:13:12,389 INFO Viewing filtered comics: 0 comics found
+2024-09-29 19:13:12,398 INFO Database connection closed
+2024-09-29 19:15:33,812 WARNING Failed to parse panel summaries for Fire Prevention Week Announcement. Using default summary.
+2024-09-29 19:15:35,733 ERROR Error for Panel 1, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-29 19:15:35,734 WARNING Content rejected by safety system for Panel 1. Trying with original story.
+2024-09-29 19:16:03,577 ERROR Error for Panel 2, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-29 19:16:03,577 WARNING Content rejected by safety system for Panel 2. Trying with original story.
+2024-09-29 19:16:29,290 ERROR Error for Panel 3, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-29 19:16:29,290 WARNING Content rejected by safety system for Panel 3. Trying with original story.
+2024-09-29 19:17:06,816 ERROR Failed to generate comic panel for the event: Unified Support Letter Regarding Lillooet Hospital Closures. Skipping this event.
+2024-09-29 19:17:30,670 WARNING Failed to parse panel summaries for Interior Health Assigned a Failing Grade in Lillooet. Using default summary.
+2024-09-29 19:17:32,057 ERROR Error for Panel 1, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-29 19:17:32,058 WARNING Content rejected by safety system for Panel 1. Trying with original story.
+2024-09-29 19:17:59,087 ERROR Error for Panel 2, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-29 19:17:59,088 WARNING Content rejected by safety system for Panel 2. Trying with original story.
+2024-09-29 19:18:29,579 ERROR Error for Panel 3, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-29 19:18:29,579 WARNING Content rejected by safety system for Panel 3. Trying with original story.
+2024-09-29 19:18:59,176 WARNING Failed to parse panel summaries for Temporary Service Interruption at Lillooet Hospital Emergency Department. Using default summary.
+2024-09-29 19:19:00,689 ERROR Error for Panel 1, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-29 19:19:00,689 WARNING Content rejected by safety system for Panel 1. Trying with original story.
+2024-09-29 19:19:24,168 ERROR Error for Panel 2, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-29 19:19:24,168 WARNING Content rejected by safety system for Panel 2. Trying with original story.
+2024-09-29 19:19:49,281 ERROR Error for Panel 3, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-29 19:19:49,281 WARNING Content rejected by safety system for Panel 3. Trying with original story.
+2024-09-29 19:20:27,403 ERROR Unexpected error in generate_daily_comic: list index out of range
+Traceback (most recent call last):
+  File "/home/samjd/Apps/claude-dev/grizz-ai/src/comic_generator.py", line 90, in generate_daily_comic
+    panel_summaries = parse_panel_summaries(comic_summary)
+  File "/home/samjd/Apps/claude-dev/grizz-ai/src/comic_generator.py", line 38, in parse_panel_summaries
+    panel_summaries.append(line.split(': ', 1)[1])
+IndexError: list index out of range
+2024-09-29 19:20:27,403 ERROR Failed to generate daily comic for Lillooet, BC, CAN
+2024-09-30 07:52:59,414 INFO Database purged successfully
+2024-09-30 07:52:59,466 INFO Database populated from output folder
+2024-09-30 07:53:04,932 INFO Starting Grizz-AI web application
+2024-09-30 07:53:07,084 INFO Database purged successfully
+2024-09-30 07:53:07,128 INFO Database populated from output folder
+2024-09-30 07:53:12,499 INFO Starting Grizz-AI web application
+2024-09-30 07:53:23,793 INFO Viewing filtered comics: 12 comics found
+2024-09-30 07:53:23,805 INFO Database connection closed
+2024-09-30 07:54:19,336 INFO Database purged successfully
+2024-09-30 07:54:19,336 INFO Database populated from output folder
+2024-09-30 07:54:29,216 INFO Database purged successfully
+2024-09-30 07:54:31,412 INFO Exiting the program. Goodbye!
+2024-09-30 07:54:31,413 INFO Database connection closed
+2024-09-30 07:54:36,864 INFO Database purged successfully
+2024-09-30 07:54:36,864 INFO Database populated from output folder
+2024-09-30 07:54:42,209 INFO Starting Grizz-AI web application
+2024-09-30 07:54:44,491 INFO Database purged successfully
+2024-09-30 07:54:44,492 INFO Database populated from output folder
+2024-09-30 07:54:49,646 INFO Starting Grizz-AI web application
+2024-09-30 08:01:06,449 INFO Viewing filtered comics: 0 comics found
+2024-09-30 08:01:06,454 INFO Database connection closed
+2024-09-30 08:02:01,465 ERROR Error for Panel 1, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-30 08:02:01,466 WARNING Content rejected by safety system for Panel 1. Trying with original story.
+2024-09-30 08:02:34,080 ERROR Error for Panel 2, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-30 08:02:34,080 WARNING Content rejected by safety system for Panel 2. Trying with original story.
+2024-09-30 08:03:05,570 ERROR Error for Panel 3, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-30 08:03:05,571 WARNING Content rejected by safety system for Panel 3. Trying with original story.
+2024-09-30 08:05:10,605 ERROR Error for Panel 3, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'This request has been blocked by our content filters.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-30 08:05:10,605 ERROR Unhandled error generating image for Panel 3: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'This request has been blocked by our content filters.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-30 08:05:12,954 ERROR Failed to generate image 3 for Stage 1 Water Conservation Measures.
+2024-09-30 08:08:02,849 INFO Successfully generated daily comic for Lillooet, BC, CAN
+2024-09-30 08:13:19,509 INFO Database purged successfully
+2024-09-30 08:13:19,550 INFO Database populated from output folder
+2024-09-30 08:13:24,934 INFO Starting Grizz-AI web application
+2024-09-30 08:13:27,092 INFO Database purged successfully
+2024-09-30 08:13:27,130 INFO Database populated from output folder
+2024-09-30 08:13:32,436 INFO Starting Grizz-AI web application
+2024-09-30 08:13:35,385 INFO Viewing filtered comics: 10 comics found
+2024-09-30 08:13:35,398 INFO Database connection closed

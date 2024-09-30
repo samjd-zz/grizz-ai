@@ -31,6 +31,7 @@ class ComicDatabase:
                 location TEXT NOT NULL,
                 original_story TEXT NOT NULL,
                 comic_script TEXT NOT NULL,
+                comic_summary TEXT,
                 story_source_url TEXT,
                 image_path TEXT NOT NULL,
                 audio_path TEXT,
@@ -41,16 +42,16 @@ class ComicDatabase:
         cls.get_connection().commit()
 
     @classmethod
-    def add_comic(cls, title, location, original_story, comic_script, story_source_url, image_path, audio_path=None, date=None):
+    def add_comic(cls, title, location, original_story, comic_script, comic_summary, story_source_url, image_path, audio_path=None, date=None):
         try:
             current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             if date is None:
                 date = datetime.now().date()
             cursor = cls.get_cursor()
             cursor.execute('''
-                INSERT INTO comics (title, location, original_story, comic_script, story_source_url, image_path, audio_path, created_at, date)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-            ''', (title, location, original_story, comic_script, story_source_url, image_path, audio_path, current_time, date))
+                INSERT INTO comics (title, location, original_story, comic_script, comic_summary, story_source_url, image_path, audio_path, created_at, date)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ''', (title, location, original_story, comic_script, comic_summary, story_source_url, image_path, audio_path, current_time, date))
             cls.get_connection().commit()
             app_logger.debug(f"Added comic to database: {title}")
         except Exception as e:
@@ -154,6 +155,19 @@ class ComicDatabase:
                 raise e
 
     @classmethod
+    def add_comic_summary_column(cls):
+        cursor = cls.get_cursor()
+        try:
+            cursor.execute('ALTER TABLE comics ADD COLUMN comic_summary TEXT')
+            cls.get_connection().commit()
+            app_logger.debug("Added comic_summary column to comics table")
+        except sqlite3.OperationalError as e:
+            if "duplicate column name" in str(e):
+                app_logger.debug("comic_summary column already exists in comics table")
+            else:
+                raise e
+
+    @classmethod
     def populate_from_output_folder(cls):
         output_dir = config.OUTPUT_DIR
         for location_folder in os.listdir(output_dir):
@@ -182,7 +196,7 @@ class ComicDatabase:
                                 if not os.path.exists(audio_path):
                                     audio_path = None
                                 
-                                cls.add_comic(title, location, original_story, "Comic script not available", "", image_path, audio_path, date)
+                                cls.add_comic(title, location, original_story, "Comic script not available", "Comic summary not available", "", image_path, audio_path, date)
         app_logger.info("Database populated from output folder")
 
     @classmethod
@@ -190,6 +204,7 @@ class ComicDatabase:
         cls.create_table()
         cls.add_audio_path_column()
         cls.add_date_column()
+        cls.add_comic_summary_column()
         cls.purge_database()
         cls.populate_from_output_folder()
 

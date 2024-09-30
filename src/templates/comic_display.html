@@ -16,12 +16,29 @@
         </p>
     </div>
     <div class="comic-content">
-        {% if comic.image_path %}
-            <img src="{{ comic.image_path }}" alt="{{ comic.title }}" class="comic-image">
-        {% else %}
-            <p class="image-placeholder">Image not available</p>
-        {% endif %}
+        <div class="comic-images">
+            {% if comic.image_path %}
+                {% if ',' in comic.image_path %}
+                    {% for image in comic.image_path.split(',') %}
+                        <img src="{{ image.strip() }}" alt="{{ comic.title }} - Panel {{ loop.index }}" class="comic-image">
+                    {% endfor %}
+                {% else %}
+                    <img src="{{ comic.image_path }}" alt="{{ comic.title }}" class="comic-image">
+                {% endif %}
+            {% else %}
+                <p class="image-placeholder">Image not available</p>
+            {% endif %}
+        </div>
         <div class="comic-details">
+            <h3>Panel Summaries:</h3>
+            <div class="panel-summaries">
+                {% for summary in comic.panel_summaries %}
+                    <div class="panel-summary">
+                        <h4>Panel {{ loop.index }}</h4>
+                        <p>{{ summary }}</p>
+                    </div>
+                {% endfor %}
+            </div>
             <h3>Event Story:</h3>
             <p>{{ comic.original_story | replace('\n', '<br>') | safe }}</p>
             {% if comic.audio_path %}
@@ -33,7 +50,10 @@
             {% endif %}
             {% if comic.comic_script %}
                 <h3>Generated Comic Script:</h3>
-                <p>{{ comic.comic_script | replace('\n', '<br>') | safe }}</p>
+                <details>
+                    <summary>Click to expand/collapse</summary>
+                    <p class="comic-script">{{ comic.comic_script | replace('\n', '<br>') | safe }}</p>
+                </details>
             {% endif %}
             {% if comic.story_source_url %}
                 <p><strong>Original Source:</strong> <a href="{{ comic.story_source_url }}" target="_blank">{{ comic.story_source_url }}</a></p>
@@ -50,6 +70,7 @@
         padding: 20px;
         margin-bottom: 30px;
         background-color: #f9f9f9;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
     .comic-title {
         color: #333;
@@ -69,6 +90,14 @@
         flex-wrap: wrap;
         gap: 20px;
     }
+    .comic-images {
+        flex: 1;
+        min-width: 300px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+    }
     .comic-image {
         max-width: 100%;
         height: auto;
@@ -84,6 +113,24 @@
         margin-top: 15px;
         margin-bottom: 10px;
     }
+    .panel-summaries {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+    .panel-summary {
+        flex: 1;
+        min-width: 200px;
+        background-color: #fff;
+        padding: 10px;
+        border-radius: 4px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .panel-summary h4 {
+        margin-top: 0;
+        color: #555;
+    }
     .image-placeholder {
         background-color: #eee;
         padding: 20px;
@@ -93,5 +140,27 @@
     audio {
         width: 100%;
         margin-bottom: 15px;
+    }
+    details {
+        margin-top: 10px;
+    }
+    summary {
+        cursor: pointer;
+        color: #007bff;
+    }
+    .comic-script {
+        background-color: #f0f0f0;
+        padding: 10px;
+        border-radius: 4px;
+        margin-top: 10px;
+        white-space: pre-wrap;
+    }
+    @media (max-width: 768px) {
+        .comic-content {
+            flex-direction: column;
+        }
+        .comic-images, .comic-details {
+            min-width: 100%;
+        }
     }
 </style>
