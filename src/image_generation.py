@@ -1,7 +1,14 @@
+import warnings
+warnings.filterwarnings("ignore", message="You set `add_prefix_space`. The tokenizer needs to be converted from the slow tokenizers")
+
 import requests
 import re
 import time
 from langchain_community.utilities.dalle_image_generator import DallEAPIWrapper 
+
+import matplotlib.pyplot as plt
+import torch
+from diffusers import FluxPipeline
 
 from logger import app_logger
 from config import load_config
@@ -29,7 +36,8 @@ def parse_comic_script(comic_script):
         parsed_panels.append(parsed_panel)
     return parsed_panels
 
-def generate_safe_prompt(panel, retry_count, original_story=None):
+def generate_safe_prompt(panel_tuple, retry_count, original_story=None):
+    index, panel = panel_tuple
     if retry_count == 0:
         prompt = f"{config.COMIC_ARTIST_STYLE}: {panel['frame']} of {panel['setting']}. "
         prompt += f"Characters: {panel['characters']}. "
@@ -44,6 +52,34 @@ def generate_safe_prompt(panel, retry_count, original_story=None):
     
     return filter_content(prompt, strict=(retry_count > 0))
 
+def generate_flux1_images(comic_script, original_story):
+    app_logger.debug(f"Generating images with FLUX.1-schnell...")
+
+    model_id = config.FLUX1_MODEL_LOCATION
+
+    pipe = FluxPipeline.from_pretrained(model_id, torch_dtype=torch.bfloat16)
+    pipe.enable_sequential_cpu_offload() # offload the model to CPU in a sequential manner. This is useful for large batch sizes
+
+    # Parse the comic script into panels
+    panels = parse_comic_script(comic_script)
+    
+    image_urls = []
+    for panel_tuple in enumerate(panels, 1):
+        # Generate a safe prompt
+        prompt = generate_safe_prompt(panel_tuple, 0, original_story)
+        image = pipe(
+            prompt,
+            guidance_scale=7.5,  # 0.0 is the for maximum creativity [1 to 20, with most models using a default of 7-7.5]
+            output_type="pil",
+            num_inference_steps=4, #use a larger number if you are using [dev]
+            max_sequence_length=256,
+            generator=torch.Generator("cpu")
+        ).images[0]
+        image_urls.append(image)
+        #image.save("flux-schnell.png")
+    return image_urls
+
+
 def generate_dalle_images(comic_script, original_story):
     try:
         app_logger.debug(f"Generating images with DALL-E using langchain...")
@@ -56,7 +92,7 @@ def generate_dalle_images(comic_script, original_story):
         
         image_urls = []
         last_request_time = 0
-        for i, panel in enumerate(panels, 1):
+        for panel_tuple in enumerate(panels, 1):
             retry_count = 0
             max_retries = 2  # We now only need 2 retries: original prompt and original story
             while retry_count < max_retries:
@@ -70,40 +106,40 @@ def generate_dalle_images(comic_script, original_story):
                         time.sleep(sleep_time)
 
                     # Generate a safe prompt
-                    prompt = generate_safe_prompt(panel, retry_count, original_story)
-                    app_logger.debug(f"Attempt {retry_count + 1} for Panel {i}. Prompt: {prompt}")
+                    prompt = generate_safe_prompt(panel_tuple, retry_count, original_story)
+                    app_logger.debug(f"Attempt {retry_count + 1} for Panel {panel_tuple[0]}. Prompt: {prompt}")
 
                     # Generate the image
                     image_url = dalle.run(prompt + " IMPORTANT: Avoid any content that may be considered inappropriate or offensive, ensuring the image aligns with content policies.")
                     image_urls.append(image_url)
                     
                     last_request_time = time.time()
-                    app_logger.debug(f'Successfully generated image URL for Panel {i} with DALL-E using langchain.')
+                    app_logger.debug(f'Successfully generated image URL for Panel {panel_tuple[0]} with DALL-E using langchain.')
                     break  # Success, exit the retry loop
                 except Exception as panel_error:
                     error_message = str(panel_error)
-                    app_logger.error(f"Error for Panel {i}, Attempt {retry_count + 1}: {error_message}")
+                    app_logger.error(f"Error for Panel {panel_tuple[0]}, Attempt {retry_count + 1}: {error_message}")
                     
                     if "rate_limit_exceeded" in error_message:
                         retry_count += 1
                         wait_time = 60 * retry_count  # Increase wait time with each retry
-                        app_logger.warning(f"Rate limit exceeded for Panel {i}. Retrying in {wait_time} seconds. Attempt {retry_count}/{max_retries}")
+                        app_logger.warning(f"Rate limit exceeded for Panel {panel_tuple[0]}. Retrying in {wait_time} seconds. Attempt {retry_count}/{max_retries}")
                         time.sleep(wait_time)
                     elif "safety system" in error_message:
                         if retry_count == 0:
-                            app_logger.warning(f"Content rejected by safety system for Panel {i}. Trying with original story.")
+                            app_logger.warning(f"Content rejected by safety system for Panel {panel_tuple[0]}. Trying with original story.")
                             retry_count += 1
                         else:
-                            app_logger.warning(f"Content rejected by safety system for Panel {i} using original story. Skipping this panel.")
+                            app_logger.warning(f"Content rejected by safety system for Panel {panel_tuple[0]} using original story. Skipping this panel.")
                             image_urls.append(None)
                             break
                     else:
-                        app_logger.error(f"Unhandled error generating image for Panel {i}: {panel_error}")
+                        app_logger.error(f"Unhandled error generating image for Panel {panel_tuple[0]}: {panel_error}")
                         image_urls.append(None)
                         break  # Exit the retry loop for unhandled errors
             
             if retry_count == max_retries:
-                app_logger.error(f"Failed to generate image for Panel {i} after {max_retries} attempts.")
+                app_logger.error(f"Failed to generate image for Panel {panel_tuple[0]} after {max_retries} attempts.")
                 image_urls.append(None)
         
         return image_urls

@@ -95,9 +95,36 @@ def get_local_events(location):
     app_logger.debug(f"Getting local events for {location}.")
     
     today_date = datetime.now().strftime("%B %d, %Y")
-    query = f"""Please provide a list of current news events happening in {location} during the last 7 days. 
-        The events must have occurred within the last 7 days only. 
-        Make sure the information is up-to-date and exclude events 7 days prior to {today_date}."""
+    location = location.lower()  # Convert location to lowercase for case-insensitive comparison
+
+    if "lillooet" in location.lower():
+        query = f"""Please provide a list of current news events happening in {location} during the last 7 days. 
+            The events must have occurred within the last 7 days only. 
+            Make sure the information is up-to-date and exclude events 7 days prior to {today_date}.
+            
+            IMPORTANT: Among others, you must also always check the following news sources for the latest updates:
+            https://globalnews.ca/tag/lillooet/
+            https://www.lillooet.ca/news-1
+            https://bc-cb.rcmp-grc.gc.ca/ViewPage.action?contentId=-1&detachmentDataId=43910&siteNodeId=2259
+            https://ground.news/interest/lillooet
+            https://www.cbc.ca/cmlink/rss-canada-britishcolumbia
+            
+            IMPORTANT: You must also check the following twitter accounts for the latest updates:
+            @LillooetNews
+            @lillooetbc
+            @InteriorHealth
+            @BCGovFireInfo
+            @DriveBC
+            @EmergencyInfoBC
+        """
+    else:
+        query = f"""Please provide a list of current news events happening in {location} during the last 7 days. 
+            The events must have occurred within the last 7 days only. 
+            Make sure the information is up-to-date and exclude events 7 days prior to {today_date}.
+
+            IMPORTANT: Be sure to check twitter, local news, and official sources for the most recent updates for the area.
+        """
+
     
     events = perplexity_search(query)
     if events:

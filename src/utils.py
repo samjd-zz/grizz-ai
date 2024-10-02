@@ -5,6 +5,7 @@ import traceback
 import warnings
 import requests
 import cv2
+import io
 
 from datetime import datetime
 from logger import app_logger
@@ -109,7 +110,7 @@ def save_image(image_data, filename, location):
     Saves the generated image locally.
     
     Args:
-        image_data (bytes): Image data returned by the image generation API.
+        image_data (bytes or PIL.Image.Image): Image data to be saved. Can be either bytes or a PIL Image object.
         filename (str): Name of the file to save the image as.
         location (str): Location for the comic (used for folder naming).
 
@@ -121,12 +122,21 @@ def save_image(image_data, filename, location):
         os.makedirs(comics_dir, exist_ok=True)
         image_path = os.path.join(comics_dir, filename)
 
-        with open(image_path, "wb") as f:
-            f.write(image_data)
+        if isinstance(image_data, Image.Image):
+            # If image_data is a PIL Image object, save it directly
+            image_data.save(image_path)
+        elif isinstance(image_data, bytes):
+            # If image_data is bytes, write it to file
+            with open(image_path, "wb") as f:
+                f.write(image_data)
+        else:
+            raise ValueError(f"Unsupported image_data type: {type(image_data)}")
+
         app_logger.debug(f"Image saved successfully: {image_path}")
         return image_path
     except Exception as e:
         app_logger.error(f"Error saving image: {e}")
+        app_logger.error(traceback.format_exc())
         return None
     
 def generate_safe_prompt(original_prompt):

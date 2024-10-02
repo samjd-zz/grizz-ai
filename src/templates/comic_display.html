@@ -17,14 +17,10 @@
     </div>
     <div class="comic-content">
         <div class="comic-images">
-            {% if comic.image_path %}
-                {% if ',' in comic.image_path %}
-                    {% for image in comic.image_path.split(',') %}
-                        <img src="{{ image.strip() }}" alt="{{ comic.title }} - Panel {{ loop.index }}" class="comic-image">
-                    {% endfor %}
-                {% else %}
-                    <img src="{{ comic.image_path }}" alt="{{ comic.title }}" class="comic-image">
-                {% endif %}
+            {% if comic.image_paths %}
+                {% for image in comic.image_paths %}
+                    <img src="{{ image }}" alt="{{ comic.title }} - Panel {{ loop.index }}" class="comic-image">
+                {% endfor %}
             {% else %}
                 <p class="image-placeholder">Image not available</p>
             {% endif %}
@@ -40,7 +36,7 @@
                 {% endfor %}
             </div>
             <h3>Event Story:</h3>
-            <p>{{ comic.original_story | replace('\n', '<br>') | safe }}</p>
+            <p>{{ comic.story | default(comic.original_story, true) | replace('\n', '<br>') | safe }}</p>
             {% if comic.audio_path %}
                 <h3>Audio Narration:</h3>
                 <audio controls>

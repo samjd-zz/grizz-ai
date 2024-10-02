@@ -40,7 +40,7 @@
 
     <br>
     {% if request.path != url_for('index') %}
-        <a href="{{ url_for('index') }}" class="back-arrow"><i class="fas fa-arrow-left"></i></a>
+        <a href="{{ url_for('index') }}" class="back-arrow"><i class="fas fa-arrow-left"></i> Back to Home</a>
     {% endif %}
 {% endblock %}
 
@@ -83,14 +83,18 @@
         background-color: #0056b3;
     }
     .comics-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        display: flex;
+        flex-direction: column;
         gap: 20px;
     }
-    @media (max-width: 600px) {
-        .comics-container {
-            grid-template-columns: 1fr;
-        }
+    .back-arrow {
+        display: inline-block;
+        margin-top: 20px;
+        text-decoration: none;
+        color: #007bff;
+    }
+    .back-arrow:hover {
+        text-decoration: underline;
     }
 </style>
 {% endblock %}

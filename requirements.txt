@@ -27,3 +27,11 @@ langchain-community==0.2.7
 duckduckgo_search==6.1.12
 ezsynth
 psycopg2-binary
+diffusers
+matplotlib
+accelerate
+sentencepiece
+huggingface-hub
+git+https://github.com/huggingface/diffusers.git
+protobuf
+geopy

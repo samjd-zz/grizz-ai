@@ -1,4 +1,5 @@
 import os
+from tkinter import SEL
 from dotenv import load_dotenv
 
 class Config:
@@ -14,6 +15,9 @@ class Config:
         self.GENERATE_AUDIO = os.getenv("GENERATE_AUDIO", "false").lower() == "true"
         self.COMIC_ARTIST_STYLE = os.getenv("COMIC_ARTIST_STYLE", "Herbert Block")
         self.TRAINING_FOLDER = os.getenv("TRAINING_FOLDER")
+        self.FLUX1_MODEL_LOCATION = os.getenv("FLUX1_MODEL_LOCATION")
+        self.DEFAULT_LAT=os.getenv('DEFAULT_LAT', 50.693802)
+        self.DEFAULT_LON=os.getenv('DEFAULT_LON', -121.936584)
 
         self.OPENAI_TEXT_ANALYZE_MODEL=os.getenv('OPENAI_TEXT_ANALYZE_MODEL', 'gpt-4o') #model="chatgpt-4o-latest"
         self.PERPLEXITY_SEARCH_MODEL=os.getenv('PERPLEXITY_SEARCH_MODEL', "llama-3.1-sonar-large-128k-online")

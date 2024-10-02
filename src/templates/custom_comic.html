@@ -21,37 +21,139 @@
         <button type="submit" class="btn">Generate Comic</button>
     </form>
     <div id="result-container"></div>
+
+    <!-- Progress overlay -->
+    <div id="progress-overlay" style="display: none;">
+        <div id="progress-container">
+            <div id="progress-bar">
+                <div id="progress"></div>
+            </div>
+            <div id="progress-text">Generating comic: 0%</div>
+        </div>
+    </div>
+
     <br>
     {% if request.path != url_for('index') %}
         <a href="{{ url_for('index') }}" class="back-arrow"><i class="fas fa-arrow-left"></i></a>
     {% endif %}
 {% endblock %}
 
+{% block extra_styles %}
+<style>
+    #progress-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+    #progress-container {
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        text-align: center;
+    }
+    #progress-bar {
+        width: 300px;
+        height: 20px;
+        background-color: #f0f0f0;
+        border-radius: 10px;
+        overflow: hidden;
+        margin-bottom: 10px;
+    }
+    #progress {
+        width: 0;
+        height: 100%;
+        background-color: #4CAF50;
+        transition: width 0.5s;
+    }
+</style>
+{% endblock %}
+
 {% block extra_scripts %}
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var form = document.getElementById('custom-comic-form');
+
+        function showProgress() {
+            document.getElementById('progress-overlay').style.display = 'flex';
+            disableInputs(true);
+        }
+
+        function hideProgress() {
+            document.getElementById('progress-overlay').style.display = 'none';
+            disableInputs(false);
+        }
+
+        function updateProgress(percent, text) {
+            document.getElementById('progress').style.width = percent + '%';
+            document.getElementById('progress-text').textContent = text;
+        }
+
+        function disableInputs(disabled) {
+            var inputs = document.querySelectorAll('input, textarea, button');
+            inputs.forEach(function(input) {
+                input.disabled = disabled;
+            });
+        }
+
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             var formData = new FormData(form);
 
-            showProgress('Generating custom comic...');
-            var inputs = form.querySelectorAll('input, textarea, button');
-            inputs.forEach(function(input) {
-                input.disabled = true;
-            });
+            showProgress();
+            updateProgress(0, 'Starting custom comic generation...');
             document.getElementById('result-container').innerHTML = '';
 
             fetch(form.action, {
                 method: 'POST',
                 body: formData
             })
+            .then(response => {
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+                let buffer = '';
+
+                return new ReadableStream({
+                    start(controller) {
+                        function push() {
+                            reader.read().then(({ done, value }) => {
+                                if (done) {
+                                    controller.close();
+                                    return;
+                                }
+
+                                buffer += decoder.decode(value, { stream: true });
+                                const lines = buffer.split('\n');
+                                buffer = lines.pop();
+
+                                for (const line of lines) {
+                                    if (line.startsWith('data:')) {
+                                        const data = JSON.parse(line.slice(5));
+                                        if (data.progress) {
+                                            updateProgress(data.progress, data.message);
+                                        }
+                                    }
+                                }
+
+                                controller.enqueue(value);
+                                push();
+                            });
+                        }
+
+                        push();
+                    }
+                });
+            })
+            .then(stream => new Response(stream))
             .then(response => response.json())
             .then(data => {
                 hideProgress();
-                inputs.forEach(function(input) {
-                    input.disabled = false;
-                });
                 if (data.success) {
                     document.getElementById('result-container').innerHTML = data.html;
                 } else {
@@ -60,9 +162,6 @@
             })
             .catch(error => {
                 hideProgress();
-                inputs.forEach(function(input) {
-                    input.disabled = false;
-                });
                 document.getElementById('result-container').innerHTML = '<p class="message message-error">An error occurred. Please try again.</p>';
                 console.error('Error:', error);
             });

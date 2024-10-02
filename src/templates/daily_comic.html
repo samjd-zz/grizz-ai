@@ -1,56 +1,223 @@
 {% extends "base.html" %}
 
-{% block title %}Generate Daily News Comics{% endblock %}
+{% block title %}Generate Daily Comic{% endblock %}
 
-{% block header %}Generate Daily News Comics{% endblock %}
+{% block header %}Generate Daily Comic{% endblock %}
 
 {% block content %}
+    <div id="map-config" data-default-lat="{{ config.DEFAULT_LAT }}" data-default-lon="{{ config.DEFAULT_LON }}" style="display: none;"></div>
     <form id="daily-comic-form" method="POST">
-        <div class="form-group">
-            <label for="location">Enter a location:</label>
-            <input type="text" id="location" name="location" required>
-            <button type="submit" class="btn">Generate Comic</button>
+        <div id="map-search">
+            <input type="text" id="search-input" placeholder="Search for a location">
+            <button type="button" id="search-button">Search</button>
         </div>
+        <div id="map" style="height: 400px;"></div>
+        <div id="location-display" style="display: none;">
+            <p>Location found: <span id="found-location"></span></p>
+        </div>
+        <input type="hidden" id="selected-location" name="location">
+        <button type="submit" id="generate-button" class="btn" style="display: none;">Generate Daily Comic</button>
     </form>
-    <div id="result-container"></div>
+
+    <div id="result"></div>
+
+    {% if request.path != url_for('index') %}
+        <a href="{{ url_for('index') }}" class="back-arrow"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    {% endif %}
+{% endblock %}
+
+{% block extra_styles %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+<style>
+    #map-search {
+        margin-bottom: 10px;
+    }
+    #search-input {
+        width: 70%;
+        padding: 5px;
+    }
+    #search-button {
+        padding: 5px 10px;
+    }
+    #map {
+        margin-bottom: 20px;
+    }
+    .btn {
+        display: block;
+        width: 200px;
+        margin: 20px auto;
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .btn:hover {
+        background-color: #0056b3;
+    }
+    .back-arrow {
+        display: inline-block;
+        margin-top: 20px;
+        text-decoration: none;
+        color: #007bff;
+    }
+    .back-arrow:hover {
+        text-decoration: underline;
+    }
+    #progress-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+    #progress-container {
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        text-align: center;
+    }
+    .spinner {
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #3498db;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+        margin: 20px auto;
+    }
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+</style>
 {% endblock %}
 
 {% block extra_scripts %}
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 <script>
+(function() {
+    console.log('Daily comic script loaded');
+
     document.addEventListener('DOMContentLoaded', function() {
-        var form = document.getElementById('daily-comic-form');
-        form.addEventListener('submit', function(e) {
+        var mapConfig = document.getElementById('map-config');
+        var defaultLat = parseFloat(mapConfig.dataset.defaultLat) || 50.693802;
+        var defaultLon = parseFloat(mapConfig.dataset.defaultLon) || -121.936584;
+
+        console.log('Using coordinates:', defaultLat, defaultLon);
+
+        var map = L.map('map').setView([defaultLat, defaultLon], 13);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        var marker;
+
+        function setMarker(latlng) {
+            if (marker) {
+                map.removeLayer(marker);
+            }
+            marker = L.marker(latlng).addTo(map);
+        }
+
+        document.getElementById('search-button').addEventListener('click', function() {
+            var searchQuery = document.getElementById('search-input').value;
+            fetch('https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(searchQuery))
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length > 0) {
+                        var latlng = L.latLng(parseFloat(data[0].lat), parseFloat(data[0].lon));
+                        map.setView(latlng, 13);
+                        setMarker(latlng);
+
+                        // Parse and display the found location
+                        var foundLocation = data[0].display_name;
+                        
+                        document.getElementById('found-location').textContent = foundLocation;
+                        document.getElementById('location-display').style.display = 'block';
+                        
+                        // Set hidden input value
+                        document.getElementById('selected-location').value = foundLocation;
+
+                        // Show generate button
+                        document.getElementById('generate-button').style.display = 'block';
+                    } else {
+                        alert('Location not found');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while searching for the location');
+                });
+        });
+
+        document.getElementById('daily-comic-form').onsubmit = function(e) {
             e.preventDefault();
-            var formData = new FormData(form);
+            var formData = new FormData(this);
 
-            showProgress('Generating daily comics...');
-            document.querySelector('input').disabled = true;
-            document.querySelector('button').disabled = true;
-            document.getElementById('result-container').innerHTML = '';
+            // Show progress overlay
+            var progressOverlay = document.createElement('div');
+            progressOverlay.id = 'progress-overlay';
+            progressOverlay.innerHTML = `
+                <div id="progress-container">
+                    <div class="spinner"></div>
+                    <p>Please wait while generating the comic...</p>
+                </div>
+            `;
+            document.body.appendChild(progressOverlay);
 
-            fetch(form.action, {
+            // Disable inputs
+            var inputs = document.querySelectorAll('input, button, select');
+            inputs.forEach(function(input) {
+                input.disabled = true;
+            });
+
+            fetch('/daily_comic', {
                 method: 'POST',
                 body: formData
             })
             .then(response => response.json())
             .then(data => {
-                hideProgress();
-                document.querySelector('input').disabled = false;
-                document.querySelector('button').disabled = false;
+                // Remove progress overlay
+                var overlay = document.getElementById('progress-overlay');
+                if (overlay) {
+                    overlay.remove();
+                }
+
+                // Enable inputs
+                inputs.forEach(function(input) {
+                    input.disabled = false;
+                });
+
                 if (data.success) {
-                    document.getElementById('result-container').innerHTML = data.html;
+                    document.getElementById('result').innerHTML = data.html;
                 } else {
-                    document.getElementById('result-container').innerHTML = '<p class="message message-error">' + data.message + '</p>';
+                    document.getElementById('result').innerHTML = '<p class="error">' + (data.message || 'An error occurred. Please try again.') + '</p>';
                 }
             })
-            .catch(error => {
-                hideProgress();
-                document.querySelector('input').disabled = false;
-                document.querySelector('button').disabled = false;
-                document.getElementById('result-container').innerHTML = '<p class="message message-error">An error occurred. Please try again.</p>';
+            .catch((error) => {
                 console.error('Error:', error);
+                // Remove progress overlay
+                var overlay = document.getElementById('progress-overlay');
+                if (overlay) {
+                    overlay.remove();
+                }
+
+                // Enable inputs
+                inputs.forEach(function(input) {
+                    input.disabled = false;
+                });
+
+                document.getElementById('result').innerHTML = '<p class="error">An error occurred. Please try again.</p>';
             });
-        });
+        };
     });
+})();
 </script>
 {% endblock %}

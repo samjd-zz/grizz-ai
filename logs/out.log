@@ -25085,3 +25085,655 @@ IndexError: list index out of range
 2024-09-30 08:13:32,436 INFO Starting Grizz-AI web application
 2024-09-30 08:13:35,385 INFO Viewing filtered comics: 10 comics found
 2024-09-30 08:13:35,398 INFO Database connection closed
+2024-09-30 08:41:55,810 INFO Database purged successfully
+2024-09-30 08:41:55,851 INFO Database populated from output folder
+2024-09-30 08:42:01,335 INFO Starting Grizz-AI web application
+2024-09-30 08:42:03,523 INFO Database purged successfully
+2024-09-30 08:42:03,558 INFO Database populated from output folder
+2024-09-30 08:42:08,941 INFO Starting Grizz-AI web application
+2024-09-30 08:42:15,300 INFO Viewing filtered comics: 10 comics found
+2024-09-30 08:42:15,315 INFO Database connection closed
+2024-09-30 08:42:18,666 INFO Viewing filtered comics: 10 comics found
+2024-09-30 08:42:18,672 INFO Database connection closed
+2024-09-30 08:42:42,974 INFO Database purged successfully
+2024-09-30 08:42:42,974 INFO Database populated from output folder
+2024-09-30 08:42:52,053 INFO Database purged successfully
+2024-09-30 08:42:53,603 INFO Exiting the program. Goodbye!
+2024-09-30 08:42:53,604 INFO Database connection closed
+2024-09-30 08:42:58,867 INFO Database purged successfully
+2024-09-30 08:42:58,867 INFO Database populated from output folder
+2024-09-30 08:43:04,251 INFO Starting Grizz-AI web application
+2024-09-30 08:43:06,429 INFO Database purged successfully
+2024-09-30 08:43:06,429 INFO Database populated from output folder
+2024-09-30 08:43:11,739 INFO Starting Grizz-AI web application
+2024-09-30 08:43:21,103 INFO Viewing filtered comics: 0 comics found
+2024-09-30 08:43:21,110 INFO Database connection closed
+2024-09-30 08:45:34,624 ERROR Error for Panel 1, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-30 08:45:34,625 WARNING Content rejected by safety system for Panel 1. Trying with original story.
+2024-09-30 08:46:13,121 ERROR Error for Panel 1, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-30 08:46:13,122 WARNING Content rejected by safety system for Panel 1. Trying with original story.
+2024-09-30 08:46:43,840 ERROR Error for Panel 2, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-30 08:46:43,840 WARNING Content rejected by safety system for Panel 2. Trying with original story.
+2024-09-30 08:47:16,915 ERROR Error for Panel 3, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-30 08:47:16,915 WARNING Content rejected by safety system for Panel 3. Trying with original story.
+2024-09-30 08:47:34,995 INFO Successfully generated daily comic for Lillooet, BC, CAN
+2024-09-30 08:59:18,353 ERROR Error for Panel 1, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-30 08:59:18,353 WARNING Content rejected by safety system for Panel 1. Trying with original story.
+2024-09-30 08:59:44,714 ERROR Error for Panel 2, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-30 08:59:44,715 WARNING Content rejected by safety system for Panel 2. Trying with original story.
+2024-09-30 09:00:13,449 ERROR Error for Panel 3, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-30 09:00:13,449 WARNING Content rejected by safety system for Panel 3. Trying with original story.
+2024-09-30 09:00:53,459 ERROR Error for Panel 1, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-30 09:00:53,459 WARNING Content rejected by safety system for Panel 1. Trying with original story.
+2024-09-30 09:01:20,508 ERROR Error for Panel 2, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-30 09:01:20,509 WARNING Content rejected by safety system for Panel 2. Trying with original story.
+2024-09-30 09:01:41,398 INFO Successfully generated daily comic for Lillooet, BC, CAN
+2024-09-30 09:02:37,026 INFO Viewing filtered comics: 6 comics found
+2024-09-30 09:02:37,026 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet,_BC,_CAN_comics/2024_09_30/ggs_grizzly_news_Indigenous_Art_Show_at_The_Hub_1.png,/home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet,_BC,_CAN_comics/2024_09_30/ggs_grizzly_news_Indigenous_Art_Show_at_The_Hub_2.png
+2024-09-30 09:02:37,027 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet,_BC,_CAN_comics/2024_09_30/ggs_grizzly_news_All-Candidates_Meeting_for_the_Fraser-Nicola_Riding_1.png,/home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet,_BC,_CAN_comics/2024_09_30/ggs_grizzly_news_All-Candidates_Meeting_for_the_Fraser-Nicola_Riding_2.png,/home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet,_BC,_CAN_comics/2024_09_30/ggs_grizzly_news_All-Candidates_Meeting_for_the_Fraser-Nicola_Riding_3.png
+2024-09-30 09:02:37,028 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet,_BC,_CAN_comics/2024_09_30/ggs_grizzly_news_Retail_Theft_Roundtable_1.png,/home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet,_BC,_CAN_comics/2024_09_30/ggs_grizzly_news_Retail_Theft_Roundtable_2.png,/home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet,_BC,_CAN_comics/2024_09_30/ggs_grizzly_news_Retail_Theft_Roundtable_3.png
+2024-09-30 09:02:37,028 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet,_BC,_CAN_comics/2024_09_30/ggs_grizzly_news_Notification_of_Filming_-_Sight_Unseen_S2_Productions_BC_Inc._1.png,/home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet,_BC,_CAN_comics/2024_09_30/ggs_grizzly_news_Notification_of_Filming_-_Sight_Unseen_S2_Productions_BC_Inc._2.png,/home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet,_BC,_CAN_comics/2024_09_30/ggs_grizzly_news_Notification_of_Filming_-_Sight_Unseen_S2_Productions_BC_Inc._3.png
+2024-09-30 09:02:37,028 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet,_BC,_CAN_comics/2024_09_30/ggs_grizzly_news_Retail_Theft_Roundtable_1.png,/home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet,_BC,_CAN_comics/2024_09_30/ggs_grizzly_news_Retail_Theft_Roundtable_2.png,/home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet,_BC,_CAN_comics/2024_09_30/ggs_grizzly_news_Retail_Theft_Roundtable_3.png
+2024-09-30 09:02:37,038 INFO Database connection closed
+2024-09-30 09:11:17,219 INFO Database purged successfully
+2024-09-30 09:11:17,261 INFO Database populated from output folder
+2024-09-30 09:11:22,496 INFO Starting Grizz-AI web application
+2024-09-30 09:11:24,605 INFO Database purged successfully
+2024-09-30 09:11:24,647 INFO Database populated from output folder
+2024-09-30 09:11:29,777 INFO Starting Grizz-AI web application
+2024-09-30 09:11:41,443 INFO Database purged successfully
+2024-09-30 09:11:41,443 INFO Database populated from output folder
+2024-09-30 09:11:49,281 INFO Database purged successfully
+2024-09-30 09:11:50,849 INFO Exiting the program. Goodbye!
+2024-09-30 09:11:50,850 INFO Database connection closed
+2024-09-30 09:11:55,354 INFO Database purged successfully
+2024-09-30 09:11:55,354 INFO Database populated from output folder
+2024-09-30 09:12:00,637 INFO Starting Grizz-AI web application
+2024-09-30 09:12:02,647 INFO Database purged successfully
+2024-09-30 09:12:02,647 INFO Database populated from output folder
+2024-09-30 09:12:07,979 INFO Starting Grizz-AI web application
+2024-09-30 09:14:02,026 ERROR Error for Panel 1, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-30 09:14:02,026 WARNING Content rejected by safety system for Panel 1. Trying with original story.
+2024-09-30 09:14:36,393 ERROR Error for Panel 1, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-30 09:14:36,393 WARNING Content rejected by safety system for Panel 1. Trying with original story.
+2024-09-30 09:15:06,035 ERROR Error for Panel 1, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-30 09:15:06,035 WARNING Content rejected by safety system for Panel 1. Trying with original story.
+2024-09-30 09:15:37,373 ERROR Error for Panel 2, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-30 09:15:37,373 WARNING Content rejected by safety system for Panel 2. Trying with original story.
+2024-09-30 09:16:15,224 ERROR Error for Panel 3, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-30 09:16:15,225 WARNING Content rejected by safety system for Panel 3. Trying with original story.
+2024-09-30 09:17:02,671 INFO Successfully generated daily comic for Lillooet, BC, CAN
+2024-09-30 09:18:30,453 ERROR Error for Panel 1, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-30 09:18:30,453 WARNING Content rejected by safety system for Panel 1. Trying with original story.
+2024-09-30 09:19:08,081 ERROR Error for Panel 1, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-30 09:19:08,085 WARNING Content rejected by safety system for Panel 1. Trying with original story.
+2024-09-30 09:20:54,987 INFO Successfully generated daily comic for Lillooet, BC, CAN
+2024-09-30 09:21:25,163 INFO Viewing filtered comics: 7 comics found
+2024-09-30 09:21:25,163 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet
+2024-09-30 09:21:25,163 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/../_BC
+2024-09-30 09:21:25,163 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/../_CAN_comics/2024_09_30/ggs_grizzly_news_Notification_of_Filming_-_Sight_Unseen_S2_Productions_1.png
+2024-09-30 09:21:25,164 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet
+2024-09-30 09:21:25,164 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/../_BC
+2024-09-30 09:21:25,164 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/../_CAN_comics/2024_09_30/ggs_grizzly_news_Notification_of_Filming_-_Sight_Unseen_S2_Productions_2.png
+2024-09-30 09:21:25,164 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet
+2024-09-30 09:21:25,164 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/../_BC
+2024-09-30 09:21:25,164 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/../_CAN_comics/2024_09_30/ggs_grizzly_news_Notification_of_Filming_-_Sight_Unseen_S2_Productions_3.png
+2024-09-30 09:21:25,166 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet
+2024-09-30 09:21:25,166 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/../_BC
+2024-09-30 09:21:25,166 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/../_CAN_comics/2024_09_30/ggs_grizzly_news_Stage_1_Water_Conservation_Measures_1.png
+2024-09-30 09:21:25,167 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet
+2024-09-30 09:21:25,167 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/../_BC
+2024-09-30 09:21:25,167 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/../_CAN_comics/2024_09_30/ggs_grizzly_news_Fire_Prevention_Week_Announcement_1.png
+2024-09-30 09:21:25,167 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet
+2024-09-30 09:21:25,167 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/../_BC
+2024-09-30 09:21:25,167 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/../_CAN_comics/2024_09_30/ggs_grizzly_news_Stage_1_Water_Conservation_Measures_1.png
+2024-09-30 09:21:25,168 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet
+2024-09-30 09:21:25,168 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/../_BC
+2024-09-30 09:21:25,168 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/../_CAN_comics/2024_09_30/ggs_grizzly_news_Unified_Support_Letter_Regarding_Ongoing_Lillooet_Hospital_Closures_1.png
+2024-09-30 09:21:25,168 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet
+2024-09-30 09:21:25,168 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/../_BC
+2024-09-30 09:21:25,168 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/../_CAN_comics/2024_09_30/ggs_grizzly_news_Unified_Support_Letter_Regarding_Ongoing_Lillooet_Hospital_Closures_2.png
+2024-09-30 09:21:25,168 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet
+2024-09-30 09:21:25,168 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/../_BC
+2024-09-30 09:21:25,168 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/../_CAN_comics/2024_09_30/ggs_grizzly_news_Unified_Support_Letter_Regarding_Ongoing_Lillooet_Hospital_Closures_3.png
+2024-09-30 09:21:25,169 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet
+2024-09-30 09:21:25,169 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/../_BC
+2024-09-30 09:21:25,169 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/../_CAN_comics/2024_09_30/ggs_grizzly_news_Fire_Prevention_Week_Announcement_1.png
+2024-09-30 09:21:25,169 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet
+2024-09-30 09:21:25,169 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/../_BC
+2024-09-30 09:21:25,169 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/../_CAN_comics/2024_09_30/ggs_grizzly_news_Committee_of_the_Whole_Meeting_1.png
+2024-09-30 09:21:25,183 INFO Database connection closed
+2024-09-30 09:28:07,770 INFO Database purged successfully
+2024-09-30 09:28:07,770 INFO Database populated from output folder
+2024-09-30 09:28:19,578 INFO Database purged successfully
+2024-09-30 09:28:20,658 INFO Exiting the program. Goodbye!
+2024-09-30 09:28:20,658 INFO Database connection closed
+2024-09-30 09:28:25,149 INFO Database purged successfully
+2024-09-30 09:28:25,150 INFO Database populated from output folder
+2024-09-30 09:28:30,193 INFO Starting Grizz-AI web application
+2024-09-30 09:28:32,293 INFO Database purged successfully
+2024-09-30 09:28:32,293 INFO Database populated from output folder
+2024-09-30 09:28:37,575 INFO Starting Grizz-AI web application
+2024-09-30 09:29:05,375 INFO Viewing filtered comics: 0 comics found
+2024-09-30 09:29:05,383 INFO Database connection closed
+2024-09-30 09:30:25,794 ERROR Error for Panel 1, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-30 09:30:25,794 WARNING Content rejected by safety system for Panel 1. Trying with original story.
+2024-09-30 09:30:43,776 INFO Successfully generated daily comic for Lillooet, BC, CAN
+2024-09-30 09:30:56,756 INFO Viewing filtered comics: 2 comics found
+2024-09-30 09:36:28,447 INFO Database purged successfully
+2024-09-30 09:36:28,447 INFO Database populated from output folder
+2024-09-30 09:36:37,165 INFO Database purged successfully
+2024-09-30 09:36:38,304 INFO Exiting the program. Goodbye!
+2024-09-30 09:36:38,305 INFO Database connection closed
+2024-09-30 09:36:42,277 INFO Database purged successfully
+2024-09-30 09:36:42,277 INFO Database populated from output folder
+2024-09-30 09:36:47,701 INFO Starting Grizz-AI web application
+2024-09-30 09:36:49,901 INFO Database purged successfully
+2024-09-30 09:36:49,901 INFO Database populated from output folder
+2024-09-30 09:36:55,305 INFO Starting Grizz-AI web application
+2024-09-30 09:37:10,109 INFO Viewing filtered comics: 0 comics found
+2024-09-30 09:37:10,129 INFO Database connection closed
+2024-09-30 09:40:24,223 ERROR Error for Panel 1, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-30 09:40:24,224 WARNING Content rejected by safety system for Panel 1. Trying with original story.
+2024-09-30 09:41:04,319 ERROR Error for Panel 1, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-30 09:41:04,319 WARNING Content rejected by safety system for Panel 1. Trying with original story.
+2024-09-30 09:41:34,233 ERROR Error for Panel 2, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-30 09:41:34,233 WARNING Content rejected by safety system for Panel 2. Trying with original story.
+2024-09-30 09:42:17,809 INFO Successfully generated daily comic for Lillooet, BC, Canada
+2024-09-30 09:43:05,061 INFO Viewing filtered comics: 3 comics found
+2024-09-30 09:43:05,062 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet
+2024-09-30 09:43:05,062 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/../_BC
+2024-09-30 09:43:05,063 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/../_Canada_comics/2024_09_30/ggs_grizzly_news_All-Candidates_Meeting_for_Fraser-Nicola_Riding_1.png
+2024-09-30 09:43:05,063 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet
+2024-09-30 09:43:05,064 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/../_BC
+2024-09-30 09:43:05,065 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/../_Canada_comics/2024_09_30/ggs_grizzly_news_All-Candidates_Meeting_for_Fraser-Nicola_Riding_2.png
+2024-09-30 09:43:05,065 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet
+2024-09-30 09:43:05,066 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/../_BC
+2024-09-30 09:43:05,067 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/../_Canada_comics/2024_09_30/ggs_grizzly_news_All-Candidates_Meeting_for_Fraser-Nicola_Riding_3.png
+2024-09-30 09:43:05,071 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet
+2024-09-30 09:43:05,072 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/../_BC
+2024-09-30 09:43:05,073 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/../_Canada_comics/2024_09_30/ggs_grizzly_news_Retail_Theft_Roundtable_in_Lillooet_1.png
+2024-09-30 09:43:05,074 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet
+2024-09-30 09:43:05,074 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/../_BC
+2024-09-30 09:43:05,075 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/../_Canada_comics/2024_09_30/ggs_grizzly_news_National_Day_for_Truth_and_Reconciliation_Events_in_Lillooet_1.png
+2024-09-30 09:43:05,076 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet
+2024-09-30 09:43:05,077 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/../_BC
+2024-09-30 09:43:05,077 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/../_Canada_comics/2024_09_30/ggs_grizzly_news_National_Day_for_Truth_and_Reconciliation_Events_in_Lillooet_2.png
+2024-09-30 09:43:05,077 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet
+2024-09-30 09:43:05,077 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/../_BC
+2024-09-30 09:43:05,077 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/../_Canada_comics/2024_09_30/ggs_grizzly_news_National_Day_for_Truth_and_Reconciliation_Events_in_Lillooet_3.png
+2024-09-30 09:43:05,088 INFO Database connection closed
+2024-09-30 11:14:38,254 INFO Database purged successfully
+2024-09-30 11:14:38,279 INFO Database populated from output folder
+2024-09-30 11:14:45,893 INFO Database purged successfully
+2024-09-30 11:14:47,056 INFO Exiting the program. Goodbye!
+2024-09-30 11:14:47,057 INFO Database connection closed
+2024-09-30 11:14:50,548 INFO Database purged successfully
+2024-09-30 11:14:50,548 INFO Database populated from output folder
+2024-09-30 11:14:55,600 INFO Starting Grizz-AI web application
+2024-09-30 11:14:57,665 INFO Database purged successfully
+2024-09-30 11:14:57,665 INFO Database populated from output folder
+2024-09-30 11:15:02,772 INFO Starting Grizz-AI web application
+2024-09-30 11:15:07,950 INFO Viewing filtered comics: 0 comics found
+2024-09-30 11:15:07,958 INFO Database connection closed
+2024-09-30 11:17:34,431 ERROR Error for Panel 2, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-30 11:17:34,432 WARNING Content rejected by safety system for Panel 2. Trying with original story.
+2024-09-30 11:18:04,243 ERROR Error for Panel 3, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-30 11:18:04,243 WARNING Content rejected by safety system for Panel 3. Trying with original story.
+2024-09-30 11:18:50,447 ERROR Error for Panel 1, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-30 11:18:50,448 WARNING Content rejected by safety system for Panel 1. Trying with original story.
+2024-09-30 11:19:23,981 ERROR Error for Panel 2, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-30 11:19:23,982 WARNING Content rejected by safety system for Panel 2. Trying with original story.
+2024-09-30 11:20:00,846 ERROR Error for Panel 3, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-30 11:20:00,846 WARNING Content rejected by safety system for Panel 3. Trying with original story.
+2024-09-30 11:20:23,492 INFO Successfully generated daily comic for Lillooet, BC, Canada
+2024-09-30 11:22:18,237 INFO Viewing filtered comics: 3 comics found
+2024-09-30 11:22:18,237 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet
+2024-09-30 11:22:18,237 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_BC
+2024-09-30 11:22:18,238 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_Canada_comics/2024_09_30/ggs_grizzly_news_All-Candidates_Meeting_for_Fraser-Nicola_Riding_1.png
+2024-09-30 11:22:18,238 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet
+2024-09-30 11:22:18,238 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_BC
+2024-09-30 11:22:18,238 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_Canada_comics/2024_09_30/ggs_grizzly_news_All-Candidates_Meeting_for_Fraser-Nicola_Riding_2.png
+2024-09-30 11:22:18,238 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet
+2024-09-30 11:22:18,238 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_BC
+2024-09-30 11:22:18,239 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_Canada_comics/2024_09_30/ggs_grizzly_news_All-Candidates_Meeting_for_Fraser-Nicola_Riding_3.png
+2024-09-30 11:22:18,242 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet
+2024-09-30 11:22:18,242 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_BC
+2024-09-30 11:22:18,242 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_Canada_comics/2024_09_30/ggs_grizzly_news_Retail_Theft_Roundtable_1.png
+2024-09-30 11:22:18,242 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet
+2024-09-30 11:22:18,242 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_BC
+2024-09-30 11:22:18,242 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_Canada_comics/2024_09_30/ggs_grizzly_news_Retail_Theft_Roundtable_2.png
+2024-09-30 11:22:18,243 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet
+2024-09-30 11:22:18,243 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_BC
+2024-09-30 11:22:18,243 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_Canada_comics/2024_09_30/ggs_grizzly_news_Retail_Theft_Roundtable_3.png
+2024-09-30 11:22:18,243 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet
+2024-09-30 11:22:18,243 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_BC
+2024-09-30 11:22:18,243 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_Canada_comics/2024_09_30/ggs_grizzly_news_National_Day_for_Truth_and_Reconciliation_Events_in_Lillooet_1.png
+2024-09-30 11:22:18,260 INFO Database connection closed
+2024-09-30 11:33:35,349 INFO Database purged successfully
+2024-09-30 11:33:35,375 INFO Database populated from output folder
+2024-09-30 11:33:40,796 INFO Starting Grizz-AI web application
+2024-09-30 11:34:53,617 ERROR Error for Panel 1, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-30 11:34:53,617 WARNING Content rejected by safety system for Panel 1. Trying with original story.
+2024-09-30 11:35:48,811 ERROR Error for Panel 3, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-30 11:35:48,811 WARNING Content rejected by safety system for Panel 3. Trying with original story.
+2024-09-30 11:36:27,519 ERROR Error for Panel 1, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-30 11:36:27,519 WARNING Content rejected by safety system for Panel 1. Trying with original story.
+2024-09-30 11:37:08,912 ERROR Error for Panel 1, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-30 11:37:08,912 WARNING Content rejected by safety system for Panel 1. Trying with original story.
+2024-09-30 11:37:50,348 ERROR Error for Panel 1, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-30 11:37:50,348 WARNING Content rejected by safety system for Panel 1. Trying with original story.
+2024-09-30 11:38:29,548 ERROR Error for Panel 1, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-30 11:38:29,548 WARNING Content rejected by safety system for Panel 1. Trying with original story.
+2024-09-30 11:39:47,893 INFO Successfully generated daily comic for Lillooet, BC, Canada
+2024-09-30 11:41:11,881 INFO Database purged successfully
+2024-09-30 11:41:11,950 INFO Database populated from output folder
+2024-09-30 11:41:17,282 INFO Starting Grizz-AI web application
+2024-09-30 11:42:11,597 ERROR Error for Panel 1, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-30 11:42:11,598 WARNING Content rejected by safety system for Panel 1. Trying with original story.
+2024-09-30 11:42:41,100 ERROR Failed to generate comic panel for the event: Retail Theft Roundtable. Skipping this event.
+2024-09-30 11:43:12,217 ERROR Error for Panel 1, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-30 11:43:12,217 WARNING Content rejected by safety system for Panel 1. Trying with original story.
+2024-09-30 11:44:45,294 ERROR Error for Panel 2, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-30 11:44:45,294 WARNING Content rejected by safety system for Panel 2. Trying with original story.
+2024-09-30 11:45:14,377 ERROR Error for Panel 3, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-30 11:45:14,378 WARNING Content rejected by safety system for Panel 3. Trying with original story.
+2024-09-30 11:45:38,170 INFO Successfully generated daily comic for Lillooet, BC, Canada
+2024-09-30 11:46:07,758 INFO Viewing filtered comics: 18 comics found
+2024-09-30 11:46:07,758 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet
+2024-09-30 11:46:07,758 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_BC
+2024-09-30 11:46:07,758 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_Canada_comics/2024_09_30/ggs_grizzly_news_All-Candidates_Meeting_for_Fraser-Nicola_Riding_1.png
+2024-09-30 11:46:07,758 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet
+2024-09-30 11:46:07,758 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_BC
+2024-09-30 11:46:07,758 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_Canada_comics/2024_09_30/ggs_grizzly_news_All-Candidates_Meeting_for_Fraser-Nicola_Riding_2.png
+2024-09-30 11:46:07,758 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet
+2024-09-30 11:46:07,758 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_BC
+2024-09-30 11:46:07,758 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_Canada_comics/2024_09_30/ggs_grizzly_news_All-Candidates_Meeting_for_Fraser-Nicola_Riding_3.png
+2024-09-30 11:46:07,759 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet
+2024-09-30 11:46:07,759 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_BC
+2024-09-30 11:46:07,759 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_Canada_comics/2024_09_30/ggs_grizzly_news_National_Day_for_Truth_and_Reconciliation_Events_in_Lillooet_1.png
+2024-09-30 11:46:07,759 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet
+2024-09-30 11:46:07,759 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_BC
+2024-09-30 11:46:07,760 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_Canada_comics/2024_09_30/ggs_grizzly_news_Stage_1_Water_Conservation_Measures_1.png
+2024-09-30 11:46:07,760 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet
+2024-09-30 11:46:07,760 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_BC
+2024-09-30 11:46:07,760 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_Canada_comics/2024_09_30/ggs_grizzly_news_Retail_Theft_Roundtable_1.png
+2024-09-30 11:46:07,760 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet
+2024-09-30 11:46:07,760 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_BC
+2024-09-30 11:46:07,760 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_Canada_comics/2024_09_30/ggs_grizzly_news_Committee_of_the_Whole_Meeting_3.png
+2024-09-30 11:46:07,760 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet
+2024-09-30 11:46:07,760 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_BC
+2024-09-30 11:46:07,760 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_Canada_comics/2024_09_30/ggs_grizzly_news_Unified_Support_Letter_Regarding_Ongoing_Lillooet_Hospital_Closures_1.png
+2024-09-30 11:46:07,760 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet
+2024-09-30 11:46:07,760 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_BC
+2024-09-30 11:46:07,760 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_Canada_comics/2024_09_30/ggs_grizzly_news_National_Day_for_Truth_and_Reconciliation_Events_in_Lillooet_1.png
+2024-09-30 11:46:07,760 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet
+2024-09-30 11:46:07,761 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_BC
+2024-09-30 11:46:07,761 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_Canada_comics/2024_09_30/ggs_grizzly_news_Retail_Theft_Roundtable_3.png
+2024-09-30 11:46:07,761 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet
+2024-09-30 11:46:07,761 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_BC
+2024-09-30 11:46:07,761 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_Canada_comics/2024_09_30/ggs_grizzly_news_All-Candidates_Meeting_for_Fraser-Nicola_Riding_3.png
+2024-09-30 11:46:07,761 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet
+2024-09-30 11:46:07,761 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_BC
+2024-09-30 11:46:07,761 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_Canada_comics/2024_09_30/ggs_grizzly_news_Notification_of_Filming_-_Sight_Unseen_S2_Productions_BC_Inc._3.png
+2024-09-30 11:46:07,762 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet
+2024-09-30 11:46:07,762 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_BC
+2024-09-30 11:46:07,762 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_Canada_comics/2024_09_30/ggs_grizzly_news_Temporary_Service_Interruption_at_Lillooet_Hospital_Emergency_Department_1.png
+2024-09-30 11:46:07,780 INFO Database connection closed
+2024-09-30 12:17:17,001 INFO Database purged successfully
+2024-09-30 12:17:17,066 INFO Database populated from output folder
+2024-09-30 12:17:22,501 INFO Starting Grizz-AI web application
+2024-09-30 12:17:24,645 INFO Database purged successfully
+2024-09-30 12:17:24,715 INFO Database populated from output folder
+2024-09-30 12:17:30,033 INFO Starting Grizz-AI web application
+2024-09-30 12:19:41,315 ERROR Failed to generate comic panel for the event: Temporary Service Interruption at Lillooet Hospital Emergency Department. Skipping this event.
+2024-09-30 12:19:59,770 ERROR Error for Panel 1, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-30 12:19:59,770 WARNING Content rejected by safety system for Panel 1. Trying with original story.
+2024-09-30 12:20:31,090 ERROR Error for Panel 2, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-30 12:20:31,091 WARNING Content rejected by safety system for Panel 2. Trying with original story.
+2024-09-30 12:21:00,689 ERROR Error for Panel 3, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-09-30 12:21:00,690 WARNING Content rejected by safety system for Panel 3. Trying with original story.
+2024-09-30 12:21:19,341 INFO Successfully generated daily comic for lillooet
+2024-09-30 18:53:47,672 INFO Database purged successfully
+2024-09-30 18:53:47,760 INFO Database populated from output folder
+2024-09-30 18:55:38,851 INFO Database purged successfully
+2024-09-30 18:55:38,937 INFO Database populated from output folder
+2024-09-30 18:55:43,944 INFO Starting Grizz-AI web application
+2024-09-30 18:55:46,405 INFO Database purged successfully
+2024-09-30 18:55:46,495 INFO Database populated from output folder
+2024-09-30 18:55:51,463 INFO Starting Grizz-AI web application
+2024-09-30 19:53:36,219 INFO Database purged successfully
+2024-09-30 19:53:36,304 INFO Database populated from output folder
+2024-09-30 19:53:44,302 INFO Starting Grizz-AI web application
+2024-09-30 19:53:47,135 INFO Database purged successfully
+2024-09-30 19:53:47,226 INFO Database populated from output folder
+2024-09-30 19:53:53,027 INFO Starting Grizz-AI web application
+2024-09-30 20:16:46,713 INFO Database purged successfully
+2024-09-30 20:16:46,804 INFO Database populated from output folder
+2024-09-30 20:16:54,891 INFO Starting Grizz-AI web application
+2024-09-30 20:16:57,476 INFO Database purged successfully
+2024-09-30 20:16:57,567 INFO Database populated from output folder
+2024-09-30 20:17:02,906 INFO Starting Grizz-AI web application
+2024-10-01 07:58:20,273 INFO Database purged successfully
+2024-10-01 07:58:20,362 INFO Database populated from output folder
+2024-10-01 07:58:28,327 INFO Starting Grizz-AI web application
+2024-10-01 07:58:30,917 INFO Database purged successfully
+2024-10-01 07:58:31,000 INFO Database populated from output folder
+2024-10-01 07:58:36,084 INFO Starting Grizz-AI web application
+2024-10-01 09:48:36,725 INFO Database purged successfully
+2024-10-01 09:48:36,809 INFO Database populated from output folder
+2024-10-01 09:48:42,040 INFO Starting Grizz-AI web application
+2024-10-01 09:48:44,621 INFO Database purged successfully
+2024-10-01 09:48:44,709 INFO Database populated from output folder
+2024-10-01 09:48:49,758 INFO Starting Grizz-AI web application
+2024-10-01 15:20:52,070 INFO Database purged successfully
+2024-10-01 15:20:52,157 INFO Database populated from output folder
+2024-10-01 15:20:57,530 INFO Starting Grizz-AI web application
+2024-10-01 15:21:00,061 INFO Database purged successfully
+2024-10-01 15:21:00,151 INFO Database populated from output folder
+2024-10-01 15:21:05,439 INFO Starting Grizz-AI web application
+2024-10-01 17:11:12,281 INFO Database purged successfully
+2024-10-01 17:11:12,377 INFO Database populated from output folder
+2024-10-01 17:11:17,668 INFO Starting Grizz-AI web application
+2024-10-01 17:11:20,214 INFO Database purged successfully
+2024-10-01 17:11:20,310 INFO Database populated from output folder
+2024-10-01 17:11:25,555 INFO Starting Grizz-AI web application
+2024-10-01 20:13:50,324 INFO Database purged successfully
+2024-10-01 20:13:50,406 INFO Database populated from output folder
+2024-10-01 20:13:55,677 INFO Starting Grizz-AI web application
+2024-10-01 20:13:58,359 INFO Database purged successfully
+2024-10-01 20:13:58,448 INFO Database populated from output folder
+2024-10-01 20:14:03,687 INFO Starting Grizz-AI web application
+2024-10-01 20:23:27,825 INFO Database purged successfully
+2024-10-01 20:23:27,910 INFO Database populated from output folder
+2024-10-01 20:23:32,971 INFO Starting Grizz-AI web application
+2024-10-01 20:23:35,540 INFO Database purged successfully
+2024-10-01 20:23:35,627 INFO Database populated from output folder
+2024-10-01 20:23:40,704 INFO Starting Grizz-AI web application
+2024-10-01 20:31:08,011 INFO Database purged successfully
+2024-10-01 20:31:08,102 INFO Database populated from output folder
+2024-10-01 20:31:13,141 INFO Starting Grizz-AI web application
+2024-10-01 20:31:15,753 INFO Database purged successfully
+2024-10-01 20:31:15,845 INFO Database populated from output folder
+2024-10-01 20:31:20,940 INFO Starting Grizz-AI web application
+2024-10-01 20:31:36,179 ERROR Error querying Perplexity API: Error code: 400 - {'error': {'message': "Invalid model 'sonar-medium-online'. Permitted models can be found in the documentation at https://docs.perplexity.ai/docs/model-cards.", 'type': 'invalid_model', 'code': 400}}
+2024-10-01 20:31:36,180 WARNING Failed to retrieve local events for .
+2024-10-01 20:31:36,180 INFO No events found for 
+2024-10-01 20:33:30,712 INFO Database purged successfully
+2024-10-01 20:33:30,800 INFO Database populated from output folder
+2024-10-01 20:33:35,917 INFO Starting Grizz-AI web application
+2024-10-01 20:33:38,456 INFO Database purged successfully
+2024-10-01 20:33:38,549 INFO Database populated from output folder
+2024-10-01 20:33:43,802 INFO Starting Grizz-AI web application
+2024-10-01 20:34:48,325 INFO Database purged successfully
+2024-10-01 20:34:48,408 INFO Database populated from output folder
+2024-10-01 20:34:53,520 INFO Starting Grizz-AI web application
+2024-10-01 20:34:56,188 INFO Database purged successfully
+2024-10-01 20:34:56,276 INFO Database populated from output folder
+2024-10-01 20:35:01,666 INFO Starting Grizz-AI web application
+2024-10-01 20:35:34,889 ERROR Error querying Perplexity API: Error code: 400 - {'error': {'message': "Invalid model 'pplx-7b-online'. Permitted models can be found in the documentation at https://docs.perplexity.ai/docs/model-cards.", 'type': 'invalid_model', 'code': 400}}
+2024-10-01 20:35:34,889 WARNING Failed to retrieve local events for .
+2024-10-01 20:35:34,889 INFO No events found for 
+2024-10-01 20:36:12,656 INFO Database purged successfully
+2024-10-01 20:36:12,744 INFO Database populated from output folder
+2024-10-01 20:36:18,009 INFO Starting Grizz-AI web application
+2024-10-01 20:36:20,509 INFO Database purged successfully
+2024-10-01 20:36:20,593 INFO Database populated from output folder
+2024-10-01 20:36:25,631 INFO Starting Grizz-AI web application
+2024-10-01 20:37:18,797 ERROR Failed to generate comic panel for the event: Israel–Hezbollah Conflict and Israeli Invasion of Lebanon. Skipping this event.
+2024-10-01 20:37:23,427 ERROR Failed to generate comic panel for the event: Syrian Military Intercepts Drones Over Damascus. Skipping this event.
+2024-10-01 20:37:31,939 ERROR Unexpected error in generate_daily_comic: tuple indices must be integers or slices, not str
+Traceback (most recent call last):
+  File "/home/samjd/Apps/claude-dev/grizz-ai/src/comic_generator.py", line 113, in generate_daily_comic
+    image_urls = generate_flux1_images(filter_content(event_analysis), event_story)
+  File "/home/samjd/Apps/claude-dev/grizz-ai/src/image_generation.py", line 68, in generate_flux1_images
+    prompt = generate_safe_prompt(panel, 0, original_story)
+  File "/home/samjd/Apps/claude-dev/grizz-ai/src/image_generation.py", line 41, in generate_safe_prompt
+    prompt = f"{config.COMIC_ARTIST_STYLE}: {panel['frame']} of {panel['setting']}. "
+TypeError: tuple indices must be integers or slices, not str
+2024-10-01 20:37:31,953 ERROR Failed to generate daily comic for 
+2024-10-01 20:37:35,122 ERROR Failed to generate comic panel for the event: Israel–Hezbollah Conflict Escalates. Skipping this event.
+2024-10-01 20:37:43,635 ERROR Unexpected error in generate_daily_comic: tuple indices must be integers or slices, not str
+Traceback (most recent call last):
+  File "/home/samjd/Apps/claude-dev/grizz-ai/src/comic_generator.py", line 113, in generate_daily_comic
+    image_urls = generate_flux1_images(filter_content(event_analysis), event_story)
+  File "/home/samjd/Apps/claude-dev/grizz-ai/src/image_generation.py", line 68, in generate_flux1_images
+    prompt = generate_safe_prompt(panel, 0, original_story)
+  File "/home/samjd/Apps/claude-dev/grizz-ai/src/image_generation.py", line 41, in generate_safe_prompt
+    prompt = f"{config.COMIC_ARTIST_STYLE}: {panel['frame']} of {panel['setting']}. "
+TypeError: tuple indices must be integers or slices, not str
+2024-10-01 20:37:43,645 ERROR Failed to generate daily comic for 
+2024-10-01 20:38:53,613 INFO Viewing filtered comics: 22 comics found
+2024-10-01 20:38:53,613 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet
+2024-10-01 20:38:53,614 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_BC
+2024-10-01 20:38:53,614 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_Canada_comics/2024_09_30/ggs_grizzly_news_Stage_1_Water_Conservation_Measures_1.png
+2024-10-01 20:38:53,614 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet
+2024-10-01 20:38:53,614 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_BC
+2024-10-01 20:38:53,614 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_Canada_comics/2024_09_30/ggs_grizzly_news_Retail_Theft_Roundtable_1.png
+2024-10-01 20:38:53,614 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet
+2024-10-01 20:38:53,614 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_BC
+2024-10-01 20:38:53,614 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_Canada_comics/2024_09_30/ggs_grizzly_news_Committee_of_the_Whole_Meeting_3.png
+2024-10-01 20:38:53,614 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet
+2024-10-01 20:38:53,614 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_BC
+2024-10-01 20:38:53,615 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_Canada_comics/2024_09_30/ggs_grizzly_news_Unified_Support_Letter_Regarding_Ongoing_Lillooet_Hospital_Closures_1.png
+2024-10-01 20:38:53,615 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet
+2024-10-01 20:38:53,615 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_BC
+2024-10-01 20:38:53,615 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_Canada_comics/2024_09_30/ggs_grizzly_news_National_Day_for_Truth_and_Reconciliation_Events_in_Lillooet_1.png
+2024-10-01 20:38:53,615 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet
+2024-10-01 20:38:53,615 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_BC
+2024-10-01 20:38:53,615 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_Canada_comics/2024_09_30/ggs_grizzly_news_Retail_Theft_Roundtable_3.png
+2024-10-01 20:38:53,615 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet
+2024-10-01 20:38:53,615 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_BC
+2024-10-01 20:38:53,615 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_Canada_comics/2024_09_30/ggs_grizzly_news_All-Candidates_Meeting_for_Fraser-Nicola_Riding_3.png
+2024-10-01 20:38:53,615 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet
+2024-10-01 20:38:53,615 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_BC
+2024-10-01 20:38:53,615 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_Canada_comics/2024_09_30/ggs_grizzly_news_Notification_of_Filming_-_Sight_Unseen_S2_Productions_BC_Inc._3.png
+2024-10-01 20:38:53,615 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/Lillooet
+2024-10-01 20:38:53,615 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_BC
+2024-10-01 20:38:53,615 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_Canada_comics/2024_09_30/ggs_grizzly_news_Temporary_Service_Interruption_at_Lillooet_Hospital_Emergency_Department_1.png
+2024-10-01 20:38:53,616 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/lillooet_comics/2024_09_30/ggs_grizzly_news_September_24
+2024-10-01 20:38:53,616 WARNING Image file not found: /home/samjd/Apps/claude-dev/grizz-ai/output/_2024_Committee_of_the_Whole_Meeting_3.png
+2024-10-01 20:38:53,641 INFO Database connection closed
+2024-10-01 20:44:30,923 INFO Database purged successfully
+2024-10-01 20:44:31,012 INFO Database populated from output folder
+2024-10-01 20:44:36,086 INFO Starting Grizz-AI web application
+2024-10-01 20:44:38,678 INFO Database purged successfully
+2024-10-01 20:44:38,762 INFO Database populated from output folder
+2024-10-01 20:44:43,919 INFO Starting Grizz-AI web application
+2024-10-01 20:45:35,410 ERROR Failed to generate comic panel for the event: 2024 Israeli Invasion of Lebanon. Skipping this event.
+2024-10-01 20:52:13,119 INFO Database purged successfully
+2024-10-01 20:52:13,216 INFO Database populated from output folder
+2024-10-01 20:52:21,095 INFO Starting Grizz-AI web application
+2024-10-01 20:52:23,803 INFO Database purged successfully
+2024-10-01 20:52:23,886 INFO Database populated from output folder
+2024-10-01 20:52:29,035 INFO Starting Grizz-AI web application
+2024-10-01 20:53:15,818 ERROR Error querying Perplexity API: Unable to extract events from the response
+2024-10-01 20:53:15,818 WARNING Failed to retrieve local events for lillooet, british columbia, canada.
+2024-10-01 20:53:15,818 WARNING No new local events in the past 7 days for Lillooet, British Columbia, Canada. Aborting comic generation.
+2024-10-01 20:53:15,818 ERROR Failed to generate daily comic for Lillooet, British Columbia, Canada
+2024-10-01 20:54:15,961 INFO Database purged successfully
+2024-10-01 20:54:15,961 INFO Database populated from output folder
+2024-10-01 20:54:23,563 INFO Database purged successfully
+2024-10-01 20:54:25,172 INFO Exiting the program. Goodbye!
+2024-10-01 20:54:25,172 INFO Database connection closed
+2024-10-01 20:54:29,392 INFO Database purged successfully
+2024-10-01 20:54:29,392 INFO Database populated from output folder
+2024-10-01 20:54:34,502 INFO Starting Grizz-AI web application
+2024-10-01 20:54:36,942 INFO Database purged successfully
+2024-10-01 20:54:36,942 INFO Database populated from output folder
+2024-10-01 20:54:41,925 INFO Starting Grizz-AI web application
+2024-10-01 20:55:16,289 ERROR Error querying Perplexity API: Unable to extract events from the response
+2024-10-01 20:55:16,289 WARNING Failed to retrieve local events for lillooet, british columbia, canada.
+2024-10-01 20:55:16,289 WARNING No new local events in the past 7 days for Lillooet, British Columbia, Canada. Aborting comic generation.
+2024-10-01 20:55:16,289 ERROR Failed to generate daily comic for Lillooet, British Columbia, Canada
+2024-10-01 20:57:58,312 ERROR Failed to generate comic panel for the event: BC Wildfire Updates. Skipping this event.
+2024-10-01 21:01:24,109 ERROR Unexpected error in generate_daily_comic: Invalid URL '<PIL.Image.Image image mode=RGB size=1024x1024 at 0x7F91CF558BB0>': No schema supplied. Perhaps you meant http://<PIL.Image.Image image mode=RGB size=1024x1024 at 0x7F91CF558BB0>?
+Traceback (most recent call last):
+  File "/home/samjd/Apps/claude-dev/grizz-ai/src/comic_generator.py", line 129, in generate_daily_comic
+    image_data = requests.get(image_url).content
+  File "/home/samjd/.venvs/grizz-ai/lib/python3.10/site-packages/requests/api.py", line 75, in get
+    return request('get', url, params=params, **kwargs)
+  File "/home/samjd/.venvs/grizz-ai/lib/python3.10/site-packages/requests/api.py", line 61, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/home/samjd/.venvs/grizz-ai/lib/python3.10/site-packages/requests/sessions.py", line 528, in request
+    prep = self.prepare_request(req)
+  File "/home/samjd/.venvs/grizz-ai/lib/python3.10/site-packages/requests/sessions.py", line 456, in prepare_request
+    p.prepare(
+  File "/home/samjd/.venvs/grizz-ai/lib/python3.10/site-packages/requests/models.py", line 316, in prepare
+    self.prepare_url(url, params)
+  File "/home/samjd/.venvs/grizz-ai/lib/python3.10/site-packages/requests/models.py", line 390, in prepare_url
+    raise MissingSchema(error)
+requests.exceptions.MissingSchema: Invalid URL '<PIL.Image.Image image mode=RGB size=1024x1024 at 0x7F91CF558BB0>': No schema supplied. Perhaps you meant http://<PIL.Image.Image image mode=RGB size=1024x1024 at 0x7F91CF558BB0>?
+2024-10-01 21:01:24,112 ERROR Failed to generate daily comic for 
+2024-10-01 21:20:23,726 INFO Database purged successfully
+2024-10-01 21:20:23,726 INFO Database populated from output folder
+2024-10-01 21:20:35,107 INFO Database purged successfully
+2024-10-01 21:20:36,591 INFO Exiting the program. Goodbye!
+2024-10-01 21:20:36,592 INFO Database connection closed
+2024-10-01 21:23:49,870 INFO Database purged successfully
+2024-10-01 21:23:49,871 INFO Database populated from output folder
+2024-10-01 21:23:54,920 INFO Starting Grizz-AI web application
+2024-10-01 21:23:57,471 INFO Database purged successfully
+2024-10-01 21:23:57,472 INFO Database populated from output folder
+2024-10-01 21:24:02,757 INFO Starting Grizz-AI web application
+2024-10-01 21:29:26,211 ERROR Error saving image: a bytes-like object is required, not 'Image'
+2024-10-01 21:29:26,213 ERROR Failed to save the generated image 1 for No Significant Wildfire Updates in British Columbia.
+2024-10-01 21:29:26,213 ERROR Failed to save any images for No Significant Wildfire Updates in British Columbia. Skipping this event.
+2024-10-01 21:29:36,532 ERROR Failed to generate comic panel for the event: Israel–Hezbollah Conflict Escalates. Skipping this event.
+2024-10-01 21:33:51,363 ERROR Error saving image: a bytes-like object is required, not 'Image'
+2024-10-01 21:33:51,364 ERROR Failed to save the generated image 1 for 2024 United States Port Strike.
+2024-10-01 21:33:51,364 ERROR Failed to save any images for 2024 United States Port Strike. Skipping this event.
+2024-10-01 21:34:00,908 ERROR Failed to generate comic panel for the event: Rwanda Marburg Virus Outbreak. Skipping this event.
+2024-10-01 21:36:39,186 INFO Database purged successfully
+2024-10-01 21:36:39,195 INFO Database populated from output folder
+2024-10-01 21:36:47,508 INFO Starting Grizz-AI web application
+2024-10-01 21:36:50,302 INFO Database purged successfully
+2024-10-01 21:36:50,310 INFO Database populated from output folder
+2024-10-01 21:36:55,908 INFO Starting Grizz-AI web application
+2024-10-01 21:37:23,998 ERROR Error querying Perplexity API: Unable to extract events from the response
+2024-10-01 21:37:23,999 WARNING Failed to retrieve local events for lillooet, british columbia, canada.
+2024-10-01 21:37:23,999 INFO No events found for Lillooet, British Columbia, Canada
+2024-10-01 21:43:26,376 ERROR Failed to generate comic panel for the event: Iranian Strikes Against Israel. Skipping this event.
+2024-10-01 21:47:47,599 ERROR Failed to generate comic panel for the event: Lam Luk Ka Bus Crash. Skipping this event.
+2024-10-01 21:47:52,885 ERROR Failed to generate comic panel for the event: Rwanda Marburg Virus Outbreak. Skipping this event.
+2024-10-01 21:47:57,910 ERROR Failed to generate comic panel for the event: Mass Stabbing in Shanghai. Skipping this event.
+2024-10-01 22:00:21,056 INFO Database purged successfully
+2024-10-01 22:00:21,068 INFO Database populated from output folder
+2024-10-01 22:00:28,960 INFO Starting Grizz-AI web application
+2024-10-01 22:00:31,519 INFO Database purged successfully
+2024-10-01 22:00:31,531 INFO Database populated from output folder
+2024-10-01 22:00:36,778 INFO Starting Grizz-AI web application
+2024-10-01 22:03:51,577 INFO Database purged successfully
+2024-10-01 22:03:51,590 INFO Database populated from output folder
+2024-10-01 22:03:56,918 INFO Starting Grizz-AI web application
+2024-10-01 22:03:59,628 INFO Database purged successfully
+2024-10-01 22:03:59,641 INFO Database populated from output folder
+2024-10-01 22:04:04,946 INFO Starting Grizz-AI web application
+2024-10-01 22:04:40,818 ERROR Error querying Perplexity API: Unable to extract valid JSON from the response
+2024-10-01 22:04:40,818 WARNING Failed to retrieve local events for .
+2024-10-01 22:04:40,818 INFO No events found for 
+2024-10-01 22:11:34,707 INFO Database purged successfully
+2024-10-01 22:11:34,719 INFO Database populated from output folder
+2024-10-01 22:11:39,964 INFO Starting Grizz-AI web application
+2024-10-01 22:11:42,619 INFO Database purged successfully
+2024-10-01 22:11:42,631 INFO Database populated from output folder
+2024-10-01 22:11:47,966 INFO Starting Grizz-AI web application
+2024-10-01 22:34:03,651 INFO Successfully generated daily comic for Lillooet, Squamish-Lillooet Regional District, British Columbia, Canada
+2024-10-01 22:46:06,094 INFO Database purged successfully
+2024-10-01 22:46:06,127 INFO Database populated from output folder
+2024-10-01 22:46:14,148 INFO Starting Grizz-AI web application
+2024-10-01 22:46:16,904 INFO Database purged successfully
+2024-10-01 22:46:16,938 INFO Database populated from output folder
+2024-10-01 22:46:22,273 INFO Starting Grizz-AI web application
+2024-10-01 22:46:56,363 ERROR Error querying Perplexity API: Unable to extract events from the response
+2024-10-01 22:46:56,363 WARNING Failed to retrieve local events for lillooet, squamish-lillooet regional district, british columbia, canada.
+2024-10-01 22:46:56,363 INFO No events found for Lillooet, Squamish-Lillooet Regional District, British Columbia, Canada
+2024-10-01 22:47:32,764 INFO Database purged successfully
+2024-10-01 22:47:32,795 INFO Database populated from output folder
+2024-10-01 22:48:09,302 INFO Database purged successfully
+2024-10-01 22:48:10,931 INFO Exiting the program. Goodbye!
+2024-10-01 22:48:10,932 INFO Database connection closed
+2024-10-01 22:48:20,018 INFO Database purged successfully
+2024-10-01 22:48:20,018 INFO Database populated from output folder
+2024-10-01 22:48:25,237 INFO Starting Grizz-AI web application
+2024-10-01 22:48:27,769 INFO Database purged successfully
+2024-10-01 22:48:27,769 INFO Database populated from output folder
+2024-10-01 22:48:33,048 INFO Starting Grizz-AI web application
+2024-10-01 22:49:05,168 INFO Successfully generated daily comic for Lillooet, Squamish-Lillooet Regional District, British Columbia, Canada
+2024-10-01 22:52:11,975 INFO Database purged successfully
+2024-10-01 22:52:11,975 INFO Database populated from output folder
+2024-10-01 22:52:17,307 INFO Starting Grizz-AI web application
+2024-10-01 22:52:20,064 INFO Database purged successfully
+2024-10-01 22:52:20,064 INFO Database populated from output folder
+2024-10-01 22:52:25,432 INFO Starting Grizz-AI web application
+2024-10-01 22:52:46,517 INFO Successfully generated daily comic for Lillooet, Squamish-Lillooet Regional District, British Columbia, Canada
+2024-10-01 22:57:07,588 INFO Database purged successfully
+2024-10-01 22:57:07,588 INFO Database populated from output folder
+2024-10-01 22:57:12,815 INFO Starting Grizz-AI web application
+2024-10-01 22:57:15,356 INFO Database purged successfully
+2024-10-01 22:57:15,356 INFO Database populated from output folder
+2024-10-01 22:57:20,529 INFO Starting Grizz-AI web application
+2024-10-01 22:57:45,023 ERROR Error querying Perplexity API: Unable to extract events from the response
+2024-10-01 22:57:45,023 WARNING Failed to retrieve local events for lillooet, squamish-lillooet regional district, british columbia, canada.
+2024-10-01 22:57:45,024 INFO No events found for Lillooet, Squamish-Lillooet Regional District, British Columbia, Canada
+2024-10-01 23:00:13,777 INFO Database purged successfully
+2024-10-01 23:00:13,777 INFO Database populated from output folder
+2024-10-01 23:00:19,012 INFO Starting Grizz-AI web application
+2024-10-01 23:00:21,587 INFO Database purged successfully
+2024-10-01 23:00:21,587 INFO Database populated from output folder
+2024-10-01 23:00:26,692 INFO Starting Grizz-AI web application
+2024-10-02 07:46:45,524 INFO Database purged successfully
+2024-10-02 07:46:45,524 INFO Database populated from output folder
+2024-10-02 07:46:50,903 INFO Starting Grizz-AI web application
+2024-10-02 07:46:53,647 INFO Database purged successfully
+2024-10-02 07:46:53,647 INFO Database populated from output folder
+2024-10-02 07:46:59,009 INFO Starting Grizz-AI web application
+2024-10-02 07:50:54,801 INFO Database purged successfully
+2024-10-02 07:50:54,802 INFO Database populated from output folder
+2024-10-02 07:51:00,156 INFO Starting Grizz-AI web application
+2024-10-02 07:51:02,919 INFO Database purged successfully
+2024-10-02 07:51:02,919 INFO Database populated from output folder
+2024-10-02 07:51:08,391 INFO Starting Grizz-AI web application
+2024-10-02 07:51:42,033 ERROR Error querying Perplexity API: Unable to extract events from the response
+2024-10-02 07:51:42,034 WARNING Failed to retrieve local events for lillooet, squamish-lillooet regional district, british columbia, canada.
+2024-10-02 07:51:42,034 INFO No events found for Lillooet, Squamish-Lillooet Regional District, British Columbia, Canada
+2024-10-02 07:52:11,041 ERROR Error querying Perplexity API: Unable to extract events from the response
+2024-10-02 07:52:11,041 WARNING Failed to retrieve local events for lillooet, squamish-lillooet regional district, british columbia, canada.
+2024-10-02 07:52:11,042 INFO No events found for Lillooet, Squamish-Lillooet Regional District, British Columbia, Canada
+2024-10-02 08:18:33,816 INFO Database purged successfully
+2024-10-02 08:18:33,817 INFO Database populated from output folder
+2024-10-02 08:18:39,018 INFO Starting Grizz-AI web application
+2024-10-02 08:18:41,712 INFO Database purged successfully
+2024-10-02 08:18:41,712 INFO Database populated from output folder
+2024-10-02 08:18:47,088 INFO Starting Grizz-AI web application
+2024-10-02 08:19:13,887 INFO Successfully generated daily comic for Lillooet, Squamish-Lillooet Regional District, British Columbia, Canada
+2024-10-02 08:26:03,033 INFO Database purged successfully
+2024-10-02 08:26:03,034 INFO Database populated from output folder
+2024-10-02 08:26:08,366 INFO Starting Grizz-AI web application
+2024-10-02 08:26:11,024 INFO Database purged successfully
+2024-10-02 08:26:11,024 INFO Database populated from output folder
+2024-10-02 08:26:16,182 INFO Starting Grizz-AI web application
+2024-10-02 08:27:23,326 ERROR Failed to generate comic panel for the event: BC Provincial Election on October 19, 2024. Skipping this event.
+2024-10-02 08:27:23,326 ERROR No comic panels were generated. Aborting comic generation.
+2024-10-02 08:27:23,326 ERROR Failed to generate daily comic for Lillooet, Squamish-Lillooet Regional District, British Columbia, Canada
+2024-10-02 08:39:42,343 INFO Database purged successfully
+2024-10-02 08:39:42,343 INFO Database populated from output folder
+2024-10-02 08:39:47,685 INFO Starting Grizz-AI web application
+2024-10-02 08:39:50,294 INFO Database purged successfully
+2024-10-02 08:39:50,294 INFO Database populated from output folder
+2024-10-02 08:39:55,391 INFO Starting Grizz-AI web application
+2024-10-02 08:40:29,429 INFO Starting daily comic generation for location: Lillooet, Squamish-Lillooet Regional District, British Columbia, Canada
+2024-10-02 08:40:29,429 INFO Fetching local events for Lillooet, Squamish-Lillooet Regional District, British Columbia, Canada
+2024-10-02 08:40:44,053 INFO Found 1 events for Lillooet, Squamish-Lillooet Regional District, British Columbia, Canada
+2024-10-02 08:40:44,053 INFO Processing event 1/1: Notice of Regular Meeting Electoral Area Directors Committee
+2024-10-02 08:40:44,053 INFO Generating comic script for event: Notice of Regular Meeting Electoral Area Directors Committee
+2024-10-02 08:41:00,176 INFO Parsing panel summaries for event: Notice of Regular Meeting Electoral Area Directors Committee
+2024-10-02 08:41:00,176 INFO Generating images for event: Notice of Regular Meeting Electoral Area Directors Committee
+2024-10-02 08:45:05,292 INFO Generated 1 images for event: Notice of Regular Meeting Electoral Area Directors Committee
+2024-10-02 08:45:05,293 INFO Saving images for event: Notice of Regular Meeting Electoral Area Directors Committee
+2024-10-02 08:45:05,560 INFO Saved image 1 for event: Notice of Regular Meeting Electoral Area Directors Committee
+2024-10-02 08:45:05,560 INFO Adding comic to database: Notice of Regular Meeting Electoral Area Directors Committee
+2024-10-02 08:45:05,569 INFO Completed processing for event: Notice of Regular Meeting Electoral Area Directors Committee
+2024-10-02 08:45:05,569 INFO Creating final summary
+2024-10-02 08:45:05,569 INFO Daily comic generation completed for Lillooet, Squamish-Lillooet Regional District, British Columbia, Canada!
+2024-10-02 08:45:05,570 INFO Successfully generated daily comic for Lillooet, Squamish-Lillooet Regional District, British Columbia, Canada
