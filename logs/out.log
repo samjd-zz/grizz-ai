@@ -25737,3 +25737,203 @@ requests.exceptions.MissingSchema: Invalid URL '<PIL.Image.Image image mode=RGB 
 2024-10-02 08:45:05,569 INFO Creating final summary
 2024-10-02 08:45:05,569 INFO Daily comic generation completed for Lillooet, Squamish-Lillooet Regional District, British Columbia, Canada!
 2024-10-02 08:45:05,570 INFO Successfully generated daily comic for Lillooet, Squamish-Lillooet Regional District, British Columbia, Canada
+2024-10-08 16:21:38,209 INFO Database purged successfully
+2024-10-08 16:21:38,214 INFO Database populated from output folder
+2024-10-08 16:21:46,668 INFO Starting Grizz-AI web application
+2024-10-08 16:21:49,948 INFO Database purged successfully
+2024-10-08 16:21:49,953 INFO Database populated from output folder
+2024-10-08 16:21:55,510 INFO Starting Grizz-AI web application
+2024-10-08 16:25:50,486 INFO Starting daily comic generation for location: Lillooet, Squamish-Lillooet Regional District, British Columbia, Canada
+2024-10-08 16:25:50,486 INFO Fetching local events for Lillooet, Squamish-Lillooet Regional District, British Columbia, Canada
+2024-10-08 16:25:59,787 INFO Found 3 events for Lillooet, Squamish-Lillooet Regional District, British Columbia, Canada
+2024-10-08 16:25:59,787 INFO Processing event 1/3: Notice of Regular Meeting Electoral Area Directors Committee
+2024-10-08 16:25:59,787 INFO Generating comic script for event: Notice of Regular Meeting Electoral Area Directors Committee
+2024-10-08 16:26:16,699 INFO Parsing panel summaries for event: Notice of Regular Meeting Electoral Area Directors Committee
+2024-10-08 16:26:16,699 INFO Generating images for event: Notice of Regular Meeting Electoral Area Directors Committee
+2024-10-08 16:26:18,914 ERROR Error for Panel 1, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-10-08 16:26:18,914 WARNING Content rejected by safety system for Panel 1. Trying with original story.
+2024-10-08 16:26:35,934 INFO Generated 1 images for event: Notice of Regular Meeting Electoral Area Directors Committee
+2024-10-08 16:26:35,934 INFO Saving images for event: Notice of Regular Meeting Electoral Area Directors Committee
+2024-10-08 16:26:37,244 INFO Saved image 1 for event: Notice of Regular Meeting Electoral Area Directors Committee
+2024-10-08 16:26:37,244 INFO Adding comic to database: Notice of Regular Meeting Electoral Area Directors Committee
+2024-10-08 16:26:37,249 INFO Completed processing for event: Notice of Regular Meeting Electoral Area Directors Committee
+2024-10-08 16:26:37,249 INFO Processing event 2/3: Notice of Meeting Pemberton Valley Utilities and Services Committee
+2024-10-08 16:26:37,249 INFO Generating comic script for event: Notice of Meeting Pemberton Valley Utilities and Services Committee
+2024-10-08 16:26:53,617 INFO Parsing panel summaries for event: Notice of Meeting Pemberton Valley Utilities and Services Committee
+2024-10-08 16:26:53,617 INFO Generating images for event: Notice of Meeting Pemberton Valley Utilities and Services Committee
+2024-10-08 16:26:57,003 ERROR Error for Panel 1, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-10-08 16:26:57,004 WARNING Content rejected by safety system for Panel 1. Trying with original story.
+2024-10-08 16:27:11,742 INFO Generated 1 images for event: Notice of Meeting Pemberton Valley Utilities and Services Committee
+2024-10-08 16:27:11,742 INFO Saving images for event: Notice of Meeting Pemberton Valley Utilities and Services Committee
+2024-10-08 16:27:12,813 INFO Saved image 1 for event: Notice of Meeting Pemberton Valley Utilities and Services Committee
+2024-10-08 16:27:12,813 INFO Adding comic to database: Notice of Meeting Pemberton Valley Utilities and Services Committee
+2024-10-08 16:27:12,819 INFO Completed processing for event: Notice of Meeting Pemberton Valley Utilities and Services Committee
+2024-10-08 16:27:12,819 INFO Processing event 3/3: Pemberton and District Initiative Fund (PDIF) Now Accepting Applications
+2024-10-08 16:27:12,819 INFO Generating comic script for event: Pemberton and District Initiative Fund (PDIF) Now Accepting Applications
+2024-10-08 16:27:31,171 INFO Parsing panel summaries for event: Pemberton and District Initiative Fund (PDIF) Now Accepting Applications
+2024-10-08 16:27:31,171 INFO Generating images for event: Pemberton and District Initiative Fund (PDIF) Now Accepting Applications
+2024-10-08 16:27:52,184 INFO Generated 1 images for event: Pemberton and District Initiative Fund (PDIF) Now Accepting Applications
+2024-10-08 16:27:52,184 INFO Saving images for event: Pemberton and District Initiative Fund (PDIF) Now Accepting Applications
+2024-10-08 16:27:53,234 INFO Saved image 1 for event: Pemberton and District Initiative Fund (PDIF) Now Accepting Applications
+2024-10-08 16:27:53,235 INFO Adding comic to database: Pemberton and District Initiative Fund (PDIF) Now Accepting Applications
+2024-10-08 16:27:53,242 INFO Completed processing for event: Pemberton and District Initiative Fund (PDIF) Now Accepting Applications
+2024-10-08 16:27:53,243 INFO Creating final summary
+2024-10-08 16:27:53,243 INFO Daily comic generation completed for Lillooet, Squamish-Lillooet Regional District, British Columbia, Canada!
+2024-10-08 16:27:53,244 INFO Successfully generated daily comic for Lillooet, Squamish-Lillooet Regional District, British Columbia, Canada
+2024-10-08 16:32:36,640 ERROR Error querying Perplexity API: Unable to extract events from the response
+2024-10-08 16:32:36,640 WARNING Failed to retrieve local events for lillooet, squamish-lillooet regional district, british columbia, canada.
+2024-10-08 16:32:36,640 INFO No events found for Lillooet, Squamish-Lillooet Regional District, British Columbia, Canada
+2024-10-08 16:35:31,334 INFO Starting daily comic generation for location: Lillooet, Squamish-Lillooet Regional District, British Columbia, Canada
+2024-10-08 16:35:31,334 INFO Fetching local events for Lillooet, Squamish-Lillooet Regional District, British Columbia, Canada
+2024-10-08 16:35:42,538 INFO Found 6 events for Lillooet, Squamish-Lillooet Regional District, British Columbia, Canada
+2024-10-08 16:35:42,538 INFO Processing event 1/6: Pemberton and District Initiative Fund (PDIF) Now Accepting Applications
+2024-10-08 16:35:42,538 INFO Generating comic script for event: Pemberton and District Initiative Fund (PDIF) Now Accepting Applications
+2024-10-08 16:36:01,716 INFO Parsing panel summaries for event: Pemberton and District Initiative Fund (PDIF) Now Accepting Applications
+2024-10-08 16:36:01,716 INFO Generating images for event: Pemberton and District Initiative Fund (PDIF) Now Accepting Applications
+2024-10-08 16:36:03,488 ERROR Error for Panel 1, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-10-08 16:36:03,488 WARNING Content rejected by safety system for Panel 1. Trying with original story.
+2024-10-08 16:36:20,090 INFO Generated 1 images for event: Pemberton and District Initiative Fund (PDIF) Now Accepting Applications
+2024-10-08 16:36:20,090 INFO Saving images for event: Pemberton and District Initiative Fund (PDIF) Now Accepting Applications
+2024-10-08 16:36:21,192 INFO Saved image 1 for event: Pemberton and District Initiative Fund (PDIF) Now Accepting Applications
+2024-10-08 16:36:21,192 INFO Adding comic to database: Pemberton and District Initiative Fund (PDIF) Now Accepting Applications
+2024-10-08 16:36:21,201 INFO Completed processing for event: Pemberton and District Initiative Fund (PDIF) Now Accepting Applications
+2024-10-08 16:36:21,201 INFO Processing event 2/6: Notice of Regular Meeting Electoral Area Directors Committee
+2024-10-08 16:36:21,201 INFO Generating comic script for event: Notice of Regular Meeting Electoral Area Directors Committee
+2024-10-08 16:36:38,436 INFO Parsing panel summaries for event: Notice of Regular Meeting Electoral Area Directors Committee
+2024-10-08 16:36:38,436 INFO Generating images for event: Notice of Regular Meeting Electoral Area Directors Committee
+2024-10-08 16:36:51,042 INFO Generated 1 images for event: Notice of Regular Meeting Electoral Area Directors Committee
+2024-10-08 16:36:51,042 INFO Saving images for event: Notice of Regular Meeting Electoral Area Directors Committee
+2024-10-08 16:36:51,969 INFO Saved image 1 for event: Notice of Regular Meeting Electoral Area Directors Committee
+2024-10-08 16:36:51,970 INFO Adding comic to database: Notice of Regular Meeting Electoral Area Directors Committee
+2024-10-08 16:36:51,979 INFO Completed processing for event: Notice of Regular Meeting Electoral Area Directors Committee
+2024-10-08 16:36:51,980 INFO Processing event 3/6: Notice of Meeting Pemberton Valley Utilities and Services Committee
+2024-10-08 16:36:51,980 INFO Generating comic script for event: Notice of Meeting Pemberton Valley Utilities and Services Committee
+2024-10-08 16:37:10,578 INFO Parsing panel summaries for event: Notice of Meeting Pemberton Valley Utilities and Services Committee
+2024-10-08 16:37:10,578 INFO Generating images for event: Notice of Meeting Pemberton Valley Utilities and Services Committee
+2024-10-08 16:37:38,984 ERROR Error for Panel 2, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-10-08 16:37:38,984 WARNING Content rejected by safety system for Panel 2. Trying with original story.
+2024-10-08 16:38:17,588 INFO Generated 3 images for event: Notice of Meeting Pemberton Valley Utilities and Services Committee
+2024-10-08 16:38:17,589 INFO Saving images for event: Notice of Meeting Pemberton Valley Utilities and Services Committee
+2024-10-08 16:38:18,704 INFO Saved image 1 for event: Notice of Meeting Pemberton Valley Utilities and Services Committee
+2024-10-08 16:38:19,857 INFO Saved image 2 for event: Notice of Meeting Pemberton Valley Utilities and Services Committee
+2024-10-08 16:38:21,025 INFO Saved image 3 for event: Notice of Meeting Pemberton Valley Utilities and Services Committee
+2024-10-08 16:38:21,025 INFO Adding comic to database: Notice of Meeting Pemberton Valley Utilities and Services Committee
+2024-10-08 16:38:21,032 INFO Completed processing for event: Notice of Meeting Pemberton Valley Utilities and Services Committee
+2024-10-08 16:38:21,032 INFO Processing event 4/6: Special Committee of the Whole Meeting
+2024-10-08 16:38:21,032 INFO Generating comic script for event: Special Committee of the Whole Meeting
+2024-10-08 16:38:36,890 INFO Parsing panel summaries for event: Special Committee of the Whole Meeting
+2024-10-08 16:38:36,890 INFO Generating images for event: Special Committee of the Whole Meeting
+2024-10-08 16:38:38,381 ERROR Error for Panel 1, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-10-08 16:38:38,381 WARNING Content rejected by safety system for Panel 1. Trying with original story.
+2024-10-08 16:39:05,101 ERROR Error for Panel 2, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-10-08 16:39:05,102 WARNING Content rejected by safety system for Panel 2. Trying with original story.
+2024-10-08 16:39:35,617 ERROR Error for Panel 3, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-10-08 16:39:35,617 WARNING Content rejected by safety system for Panel 3. Trying with original story.
+2024-10-08 16:39:49,646 INFO Generated 3 images for event: Special Committee of the Whole Meeting
+2024-10-08 16:39:49,646 INFO Saving images for event: Special Committee of the Whole Meeting
+2024-10-08 16:39:50,736 INFO Saved image 1 for event: Special Committee of the Whole Meeting
+2024-10-08 16:39:51,956 INFO Saved image 2 for event: Special Committee of the Whole Meeting
+2024-10-08 16:39:53,172 INFO Saved image 3 for event: Special Committee of the Whole Meeting
+2024-10-08 16:39:53,172 INFO Adding comic to database: Special Committee of the Whole Meeting
+2024-10-08 16:39:53,179 INFO Completed processing for event: Special Committee of the Whole Meeting
+2024-10-08 16:39:53,179 INFO Processing event 5/6: Provincial Election
+2024-10-08 16:39:53,179 INFO Generating comic script for event: Provincial Election
+2024-10-08 16:40:08,999 INFO Parsing panel summaries for event: Provincial Election
+2024-10-08 16:40:08,999 INFO Generating images for event: Provincial Election
+2024-10-08 16:40:10,946 ERROR Error for Panel 1, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-10-08 16:40:10,946 WARNING Content rejected by safety system for Panel 1. Trying with original story.
+2024-10-08 16:40:35,810 ERROR Error for Panel 2, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-10-08 16:40:35,810 WARNING Content rejected by safety system for Panel 2. Trying with original story.
+2024-10-08 16:41:03,573 ERROR Error for Panel 3, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-10-08 16:41:03,573 WARNING Content rejected by safety system for Panel 3. Trying with original story.
+2024-10-08 16:41:19,042 INFO Generated 3 images for event: Provincial Election
+2024-10-08 16:41:19,042 INFO Saving images for event: Provincial Election
+2024-10-08 16:41:20,260 INFO Saved image 1 for event: Provincial Election
+2024-10-08 16:41:21,480 INFO Saved image 2 for event: Provincial Election
+2024-10-08 16:41:22,485 INFO Saved image 3 for event: Provincial Election
+2024-10-08 16:41:22,485 INFO Adding comic to database: Provincial Election
+2024-10-08 16:41:22,492 INFO Completed processing for event: Provincial Election
+2024-10-08 16:41:22,492 INFO Processing event 6/6: Lowering of Flags to Half-Mast
+2024-10-08 16:41:22,492 INFO Generating comic script for event: Lowering of Flags to Half-Mast
+2024-10-08 16:41:37,458 INFO Parsing panel summaries for event: Lowering of Flags to Half-Mast
+2024-10-08 16:41:37,458 INFO Generating images for event: Lowering of Flags to Half-Mast
+2024-10-08 16:41:39,317 ERROR Error for Panel 1, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-10-08 16:41:39,317 WARNING Content rejected by safety system for Panel 1. Trying with original story.
+2024-10-08 16:42:10,139 ERROR Error for Panel 2, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-10-08 16:42:10,140 WARNING Content rejected by safety system for Panel 2. Trying with original story.
+2024-10-08 16:42:37,276 ERROR Error for Panel 3, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-10-08 16:42:37,276 WARNING Content rejected by safety system for Panel 3. Trying with original story.
+2024-10-08 16:42:51,203 INFO Generated 3 images for event: Lowering of Flags to Half-Mast
+2024-10-08 16:42:51,203 INFO Saving images for event: Lowering of Flags to Half-Mast
+2024-10-08 16:42:52,208 INFO Saved image 1 for event: Lowering of Flags to Half-Mast
+2024-10-08 16:42:53,307 INFO Saved image 2 for event: Lowering of Flags to Half-Mast
+2024-10-08 16:42:54,317 INFO Saved image 3 for event: Lowering of Flags to Half-Mast
+2024-10-08 16:42:54,318 INFO Adding comic to database: Lowering of Flags to Half-Mast
+2024-10-08 16:42:54,327 INFO Completed processing for event: Lowering of Flags to Half-Mast
+2024-10-08 16:42:54,327 INFO Creating final summary
+2024-10-08 16:42:54,328 INFO Daily comic generation completed for Lillooet, Squamish-Lillooet Regional District, British Columbia, Canada!
+2024-10-08 16:42:54,330 INFO Successfully generated daily comic for Lillooet, Squamish-Lillooet Regional District, British Columbia, Canada
+2024-10-08 16:51:29,949 INFO Starting daily comic generation for location: Lillooet, Squamish-Lillooet Regional District, British Columbia, Canada
+2024-10-08 16:51:29,949 INFO Fetching local events for Lillooet, Squamish-Lillooet Regional District, British Columbia, Canada
+2024-10-08 16:51:40,933 INFO Found 5 events for Lillooet, Squamish-Lillooet Regional District, British Columbia, Canada
+2024-10-08 16:51:40,933 INFO Processing event 1/5: Special Committee of the Whole Meeting
+2024-10-08 16:51:40,938 INFO Generating comic script for event: Special Committee of the Whole Meeting
+2024-10-08 16:52:06,601 INFO Parsing panel summaries for event: Special Committee of the Whole Meeting
+2024-10-08 16:52:06,604 INFO Generating images for event: Special Committee of the Whole Meeting
+2024-10-08 16:52:19,276 INFO Generated 1 images for event: Special Committee of the Whole Meeting
+2024-10-08 16:52:19,276 INFO Saving images for event: Special Committee of the Whole Meeting
+2024-10-08 16:52:20,449 INFO Saved image 1 for event: Special Committee of the Whole Meeting
+2024-10-08 16:52:20,450 INFO Adding comic to database: Special Committee of the Whole Meeting
+2024-10-08 16:52:20,456 INFO Completed processing for event: Special Committee of the Whole Meeting
+2024-10-08 16:52:20,457 INFO Processing event 2/5: Provincial Election
+2024-10-08 16:52:20,457 INFO Generating comic script for event: Provincial Election
+2024-10-08 16:52:41,703 INFO Parsing panel summaries for event: Provincial Election
+2024-10-08 16:52:41,703 INFO Generating images for event: Provincial Election
+2024-10-08 16:52:43,542 ERROR Error for Panel 1, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-10-08 16:52:43,542 WARNING Content rejected by safety system for Panel 1. Trying with original story.
+2024-10-08 16:52:58,268 INFO Generated 1 images for event: Provincial Election
+2024-10-08 16:52:58,268 INFO Saving images for event: Provincial Election
+2024-10-08 16:52:59,376 INFO Saved image 1 for event: Provincial Election
+2024-10-08 16:52:59,377 INFO Adding comic to database: Provincial Election
+2024-10-08 16:52:59,389 INFO Completed processing for event: Provincial Election
+2024-10-08 16:52:59,389 INFO Processing event 3/5: Lowering of Flags to Half-Mast
+2024-10-08 16:52:59,389 INFO Generating comic script for event: Lowering of Flags to Half-Mast
+2024-10-08 16:53:12,628 INFO Parsing panel summaries for event: Lowering of Flags to Half-Mast
+2024-10-08 16:53:12,628 INFO Generating images for event: Lowering of Flags to Half-Mast
+2024-10-08 16:53:40,640 ERROR Error for Panel 2, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-10-08 16:53:40,640 WARNING Content rejected by safety system for Panel 2. Trying with original story.
+2024-10-08 16:54:19,590 INFO Generated 3 images for event: Lowering of Flags to Half-Mast
+2024-10-08 16:54:19,590 INFO Saving images for event: Lowering of Flags to Half-Mast
+2024-10-08 16:54:20,662 INFO Saved image 1 for event: Lowering of Flags to Half-Mast
+2024-10-08 16:54:21,727 INFO Saved image 2 for event: Lowering of Flags to Half-Mast
+2024-10-08 16:54:22,766 INFO Saved image 3 for event: Lowering of Flags to Half-Mast
+2024-10-08 16:54:22,766 INFO Adding comic to database: Lowering of Flags to Half-Mast
+2024-10-08 16:54:22,776 INFO Completed processing for event: Lowering of Flags to Half-Mast
+2024-10-08 16:54:22,776 INFO Processing event 4/5: Emergency Planning for Agriculture
+2024-10-08 16:54:22,776 INFO Generating comic script for event: Emergency Planning for Agriculture
+2024-10-08 16:54:43,680 INFO Parsing panel summaries for event: Emergency Planning for Agriculture
+2024-10-08 16:54:43,680 INFO Generating images for event: Emergency Planning for Agriculture
+2024-10-08 16:54:48,876 ERROR Error for Panel 1, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-10-08 16:54:48,877 WARNING Content rejected by safety system for Panel 1. Trying with original story.
+2024-10-08 16:55:02,052 INFO Generated 1 images for event: Emergency Planning for Agriculture
+2024-10-08 16:55:02,052 INFO Saving images for event: Emergency Planning for Agriculture
+2024-10-08 16:55:03,324 INFO Saved image 1 for event: Emergency Planning for Agriculture
+2024-10-08 16:55:03,325 INFO Adding comic to database: Emergency Planning for Agriculture
+2024-10-08 16:55:03,334 INFO Completed processing for event: Emergency Planning for Agriculture
+2024-10-08 16:55:03,334 INFO Processing event 5/5: Public Hearings and Meetings
+2024-10-08 16:55:03,335 INFO Generating comic script for event: Public Hearings and Meetings
+2024-10-08 16:55:20,375 INFO Parsing panel summaries for event: Public Hearings and Meetings
+2024-10-08 16:55:20,375 INFO Generating images for event: Public Hearings and Meetings
+2024-10-08 16:55:24,866 ERROR Error for Panel 1, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-10-08 16:55:24,866 WARNING Content rejected by safety system for Panel 1. Trying with original story.
+2024-10-08 16:55:52,688 ERROR Error for Panel 2, Attempt 1: Error code: 400 - {'error': {'code': 'content_policy_violation', 'message': 'Your request was rejected as a result of our safety system. Your prompt may contain text that is not allowed by our safety system.', 'param': None, 'type': 'invalid_request_error'}}
+2024-10-08 16:55:52,688 WARNING Content rejected by safety system for Panel 2. Trying with original story.
+2024-10-08 16:56:08,757 INFO Generated 2 images for event: Public Hearings and Meetings
+2024-10-08 16:56:08,757 INFO Saving images for event: Public Hearings and Meetings
+2024-10-08 16:56:09,907 INFO Saved image 1 for event: Public Hearings and Meetings
+2024-10-08 16:56:11,140 INFO Saved image 2 for event: Public Hearings and Meetings
+2024-10-08 16:56:11,141 INFO Adding comic to database: Public Hearings and Meetings
+2024-10-08 16:56:11,150 INFO Completed processing for event: Public Hearings and Meetings
+2024-10-08 16:56:11,150 INFO Creating final summary
+2024-10-08 16:56:11,151 INFO Daily comic generation completed for Lillooet, Squamish-Lillooet Regional District, British Columbia, Canada!
+2024-10-08 16:56:11,152 INFO Successfully generated daily comic for Lillooet, Squamish-Lillooet Regional District, British Columbia, Canada

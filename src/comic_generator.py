@@ -1,4 +1,6 @@
 import warnings
+
+from sympy import im
 # Suppress the specific LangChain deprecation warning
 warnings.filterwarnings("ignore", category=DeprecationWarning, message=".*BaseChatModel.__call__.*")
 
@@ -118,7 +120,8 @@ def generate_daily_comic(location, progress_callback=None):
 
             # Generate comic panel image
             app_logger.info(f"Generating images for event: {event_title}")
-            image_results = generate_flux1_images(filter_content(event_analysis), event_story)
+            #image_results = generate_flux1_images(filter_content(event_analysis), event_story)
+            image_results = generate_dalle_images(filter_content(event_analysis), event_story)
             if not image_results:
                 app_logger.error(f"Failed to generate comic panel for the event: {event_title}. Skipping this event.")
                 continue
@@ -255,7 +258,8 @@ def generate_custom_comic(title, story, location, progress_callback=None):
         if progress_callback:
             progress_callback(40, "Generating images")
         app_logger.debug(f"Generating images for custom comic: {title}")
-        image_results = generate_flux1_images(filter_content(event_analysis), story)
+        #image_results = generate_flux1_images(filter_content(event_analysis), story)
+        image_results = generate_dalle_images(filter_content(event_analysis), story)
         if not image_results:
             app_logger.error(f"Failed to generate comic panels for the custom event: {title}. Aborting comic generation.")
             if progress_callback:
@@ -399,7 +403,8 @@ def generate_media_comic(media_type, path, location, progress_callback=None):
                 panel_summaries = parse_panel_summaries(comic_summary)
 
                 app_logger.debug(f"Generating images for video: {os.path.basename(media_path)}")
-                image_results = generate_flux1_images(filter_content(event_analysis), video_summary)
+                i#mage_results = generate_flux1_images(filter_content(event_analysis), video_summary)
+                image_results = generate_dalle_images(filter_content(event_analysis), video_summary)
                 if not image_results:
                     app_logger.error("Failed to generate comic for the video")
                     continue
@@ -477,7 +482,8 @@ def generate_media_comic(media_type, path, location, progress_callback=None):
                 panel_summaries = parse_panel_summaries(comic_summary)
 
                 app_logger.debug(f"Generating images for image: {os.path.basename(media_path)}")
-                image_results = generate_flux1_images(filter_content(event_analysis), image_description)
+                #image_results = generate_flux1_images(filter_content(event_analysis), image_description)
+                image_results = generate_dalle_images(filter_content(event_analysis), image_description)
                 if not image_results:
                     app_logger.error("Failed to generate comic for the image")
                     continue
