@@ -208,12 +208,12 @@
     <nav class="nav-bar">
         <ul>
             <li><a href="{{ url_for('index') }}">Home</a></li>
-            <li><a href="{{ url_for('daily_comic') }}">Daily Comic</a></li>
-            <li><a href="{{ url_for('custom_comic') }}">Custom Comic</a></li>
-            <li><a href="{{ url_for('media_comic') }}">Media Comic</a></li>
-            <li><a href="{{ url_for('search') }}">Search</a></li>
-            <li><a href="{{ url_for('view_all_comics') }}">View All Comics</a></li>
             {% if 'user' in session %}
+                <li><a href="{{ url_for('daily_comic') }}">Daily Comic</a></li>
+                <li><a href="{{ url_for('custom_comic') }}">Custom Comic</a></li>
+                <li><a href="{{ url_for('media_comic') }}">Media Comic</a></li>
+                <li><a href="{{ url_for('search') }}">Search</a></li>
+                <li><a href="{{ url_for('view_all_comics') }}">View All Comics</a></li>
                 <li><a href="{{ url_for('logout') }}">Logout ({{ session['user']['username'] }})</a></li>
             {% else %}
                 <li><a href="{{ url_for('login') }}">Login</a></li>

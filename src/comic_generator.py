@@ -117,7 +117,7 @@ def generate_images(event_analysis, event_story):
     app_logger.error("All image generation attempts failed")
     return None
 
-def generate_daily_comic(location, progress_callback=None):
+def generate_daily_comic(location, user_id, progress_callback=None):
     app_logger.info(f"Starting daily comic generation for location: {location}")
     try:
         if progress_callback:
@@ -192,7 +192,7 @@ def generate_daily_comic(location, progress_callback=None):
             save_summary(location, summary_filename, event_title, event_story, event_source, comic_summary)
 
             app_logger.info(f"Adding comic to database: {event_title}")
-            ComicDatabase.add_comic(event_title, location, event_story, event_analysis, comic_summary, event_source, ",".join(image_paths), audio_path, datetime.now().date())
+            ComicDatabase.add_comic(user_id, event_title, location, event_story, event_analysis, comic_summary, event_source, ",".join(image_paths), audio_path, datetime.now().date())
 
             comic_panels.append((image_paths, panel_summaries))
             all_panel_summaries.extend(panel_summaries)
@@ -231,7 +231,7 @@ def generate_daily_comic(location, progress_callback=None):
         return None
 
 
-def generate_custom_comic(title, story, location, progress_callback=None):
+def generate_custom_comic(title, story, location, user_id, progress_callback=None):
     """
     Generates a custom comic based on user-provided title, story, and location.
 
@@ -239,6 +239,7 @@ def generate_custom_comic(title, story, location, progress_callback=None):
         title (str): The title of the custom comic.
         story (str): The story for the custom comic.
         location (str): The location setting for the custom comic.
+        user_id (int): The ID of the user generating the comic.
         progress_callback (function): A callback function to report progress.
 
     Returns:
@@ -250,7 +251,7 @@ def generate_custom_comic(title, story, location, progress_callback=None):
             progress_callback(0, "Checking for existing comics")
         
         # Check if a similar comic already exists
-        existing_comics = ComicDatabase.get_all_comics()
+        existing_comics = ComicDatabase.get_all_comics(user_id)
         similar_comic = next((comic for comic in existing_comics if is_similar_story(story, comic['original_story'])), None)
         if similar_comic:
             app_logger.debug(f"Similar comic already exists for story: {title}. Returning existing comic.")
@@ -338,7 +339,7 @@ def generate_custom_comic(title, story, location, progress_callback=None):
         save_summary(location, summary_filename, title, story, "", comic_summary)
 
         app_logger.debug(f"Adding custom comic to database: {title}")
-        ComicDatabase.add_comic(title, location, story, event_analysis, comic_summary, "", ",".join(image_paths), audio_path, datetime.now().date())
+        ComicDatabase.add_comic(user_id, title, location, story, event_analysis, comic_summary, "", ",".join(image_paths), audio_path, datetime.now().date())
 
         # Print summary for the user
         app_logger.debug(f"Custom comic generation completed for {title} in {location}!")
@@ -357,7 +358,7 @@ def generate_custom_comic(title, story, location, progress_callback=None):
             progress_callback(100, f"Error occurred: {str(e)}")
         return None
 
-def generate_media_comic(media_type, path, location, progress_callback=None):
+def generate_media_comic(media_type, path, location, user_id, progress_callback=None):
     """
     Generates a comic based on a video or image file.
 
@@ -365,6 +366,7 @@ def generate_media_comic(media_type, path, location, progress_callback=None):
         media_type (str): The type of media ('video' or 'image').
         path (str): The path to the media file or directory.
         location (str): The location for saving the comic.
+        user_id (int): The ID of the user generating the comic.
         progress_callback (function): A callback function to report progress.
 
     Returns:
@@ -405,7 +407,7 @@ def generate_media_comic(media_type, path, location, progress_callback=None):
                     continue
 
                 # Check if a similar comic already exists
-                existing_comics = ComicDatabase.get_all_comics()
+                existing_comics = ComicDatabase.get_all_comics(user_id)
                 similar_comic = next((comic for comic in existing_comics if is_similar_story(video_summary, comic['original_story'])), None)
                 if similar_comic:
                     app_logger.info(f"Similar comic already exists for video: {media_path}. Skipping this video.")
@@ -471,7 +473,7 @@ def generate_media_comic(media_type, path, location, progress_callback=None):
                 audio_paths.append(audio_path)
 
                 app_logger.debug(f"Adding video comic to database: {os.path.basename(media_path)}")
-                ComicDatabase.add_comic(os.path.basename(media_path), location, video_summary, event_analysis, comic_summary, "", ",".join(image_paths), audio_path, datetime.now().date())
+                ComicDatabase.add_comic(user_id, os.path.basename(media_path), location, video_summary, event_analysis, comic_summary, "", ",".join(image_paths), audio_path, datetime.now().date())
 
             elif media_type == 'image':
                 # Process image
@@ -484,7 +486,7 @@ def generate_media_comic(media_type, path, location, progress_callback=None):
                 image_description = " ".join(image_analysis)
 
                 # Check if a similar comic already exists
-                existing_comics = ComicDatabase.get_all_comics()
+                existing_comics = ComicDatabase.get_all_comics(user_id)
                 similar_comic = next((comic for comic in existing_comics if is_similar_story(image_description, comic['original_story'])), None)
                 if similar_comic:
                     app_logger.info(f"Similar comic already exists for image: {media_path}. Skipping this image.")
@@ -550,7 +552,7 @@ def generate_media_comic(media_type, path, location, progress_callback=None):
                 audio_paths.append(audio_path)
 
                 app_logger.debug(f"Adding image comic to database: {os.path.basename(media_path)}")
-                ComicDatabase.add_comic(os.path.basename(media_path), location, image_description, event_analysis, comic_summary, "", ",".join(image_paths), audio_path, datetime.now().date())
+                ComicDatabase.add_comic(user_id, os.path.basename(media_path), location, image_description, event_analysis, comic_summary, "", ",".join(image_paths), audio_path, datetime.now().date())
 
         if not comic_images:
             app_logger.error("No comic images were generated. Aborting media comic generation.")

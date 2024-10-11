@@ -63,7 +63,7 @@ def login():
             app_logger.debug(f"Password check result: {is_valid}")
             if is_valid:
                 app_logger.debug(f"Login successful for user: {user}")
-                session['user'] = {'username': user['username'], 'role': user['role']}
+                session['user'] = {'id': user['id'], 'username': user['username'], 'role': user['role']}
                 app_logger.debug(f"Session after login: {session}")
                 flash('Logged in successfully.')
                 next_page = request.args.get('next')
@@ -155,7 +155,7 @@ def daily_comic():
     if request.method == 'POST':
         location = request.form['location']
         task_id = str(uuid.uuid4())
-        comic_tasks[task_id] = {'status': 'started', 'location': location}
+        comic_tasks[task_id] = {'status': 'started', 'location': location, 'user_id': session['user']['id']}
         return jsonify({'task_id': task_id})
     return render_template('daily_comic.html', config=config)
 
@@ -169,6 +169,7 @@ def daily_comic_progress():
     def generate():
         task = comic_tasks[task_id]
         location = task['location']
+        user_id = task['user_id']
 
         yield "data: " + json.dumps({"progress": 5, "message": "Initializing daily comic generation...", "stage": "Preparation"}) + "\n\n"
         time.sleep(1)
@@ -196,7 +197,7 @@ def daily_comic_progress():
         time.sleep(1)
         
         app_logger.debug(f"Generating daily comic for location: {location}")
-        generated_comics = generate_daily_comic(location)
+        generated_comics = generate_daily_comic(location, user_id)
         
         if generated_comics:
             total_events = len(generated_comics)
@@ -254,7 +255,7 @@ def custom_comic():
         story = request.form['story']
         location = request.form['location']
         task_id = str(uuid.uuid4())
-        comic_tasks[task_id] = {'status': 'started', 'title': title, 'story': story, 'location': location}
+        comic_tasks[task_id] = {'status': 'started', 'title': title, 'story': story, 'location': location, 'user_id': session['user']['id']}
         return jsonify({'task_id': task_id})
     return render_template('custom_comic.html')
 
@@ -270,6 +271,7 @@ def custom_comic_progress():
         title = task['title']
         story = task['story']
         location = task['location']
+        user_id = task['user_id']
 
         yield "data: " + json.dumps({"progress": 5, "message": "Initializing custom comic generation...", "stage": "Preparation"}) + "\n\n"
         time.sleep(1)
@@ -297,7 +299,7 @@ def custom_comic_progress():
         time.sleep(1)
         
         app_logger.info(f"Generating custom comic: {title}")
-        result = generate_custom_comic(title, story, location)
+        result = generate_custom_comic(title, story, location, user_id)
         
         if result:
             image_paths, panel_summaries, comic_script, comic_summary, audio_path = result
@@ -317,7 +319,7 @@ def custom_comic_progress():
             yield "data: " + json.dumps({"progress": 90, "message": "Saving comic to database...", "stage": "Database Update"}) + "\n\n"
             time.sleep(1)
 
-            db.add_comic(title, location, story, comic_script, comic_summary, ",".join(relative_paths), relative_audio_path, datetime.now().date())
+            db.add_comic(user_id, title, location, story, comic_script, comic_summary, ",".join(relative_paths), relative_audio_path, datetime.now().date())
             
             yield "data: " + json.dumps({"progress": 95, "message": "Finalizing custom comic...", "stage": "Finalization"}) + "\n\n"
             time.sleep(1)
@@ -374,7 +376,7 @@ def media_comic():
                 app_logger.error("File upload failed")
                 return jsonify({'success': False, 'message': 'File upload failed. Please try again.'})
         
-        comic_tasks[task_id] = {'status': 'started', 'media_type': media_type, 'path': path, 'location': location}
+        comic_tasks[task_id] = {'status': 'started', 'media_type': media_type, 'path': path, 'location': location, 'user_id': session['user']['id']}
         return jsonify({'task_id': task_id})
     
     return render_template('media_comic.html')
@@ -391,6 +393,7 @@ def media_comic_progress():
         media_type = task['media_type']
         path = task['path']
         location = task['location']
+        user_id = task['user_id']
 
         yield "data: " + json.dumps({"progress": 5, "message": "Initializing media comic generation...", "stage": "Preparation"}) + "\n\n"
         time.sleep(1)
@@ -411,7 +414,7 @@ def media_comic_progress():
         time.sleep(1)
         
         app_logger.info(f"Generating media comic from {media_type}")
-        result = generate_media_comic(media_type, path, location)
+        result = generate_media_comic(media_type, path, location, user_id)
         
         if result:
             image_paths, summary, comic_scripts, panel_summaries, audio_paths = result
@@ -435,7 +438,7 @@ def media_comic_progress():
                 created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 title = f"Media Comic {i+1}"
                 image_paths_str = ",".join(relative_paths)
-                db.add_comic(title, location, f"{media_type} comic", comic_script, summary, image_paths_str, relative_audio_path, datetime.now().date())
+                db.add_comic(user_id, title, location, f"{media_type} comic", comic_script, summary, image_paths_str, relative_audio_path, datetime.now().date())
                 comics.append({
                     'title': title,
                     'original_story': f"{media_type} comic",
@@ -459,8 +462,6 @@ def media_comic_progress():
         del comic_tasks[task_id]
 
     return Response(stream_with_context(generate()), mimetype='text/event-stream')
-
-    return render_template('media_comic.html')
 
 @app.route('/search', methods=['GET', 'POST'])
 @login_required
@@ -494,7 +495,9 @@ def view_all_comics():
     
     app_logger.debug(f"Filtering comics - Start Date: {start_date}, End Date: {end_date}, Location: {location}")
     
-    comics = db.get_filtered_comics(start_date, end_date, location)
+    user_id = session['user']['id']
+    is_admin = session['user']['role'] == 'admin'
+    comics = db.get_filtered_comics(user_id, is_admin, start_date, end_date, location)
     app_logger.info(f"Viewing filtered comics: {len(comics)} comics found")
     
     unique_comics = []

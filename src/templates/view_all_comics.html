@@ -29,9 +29,24 @@
     {% if comics %}
         <h2>Comics:</h2>
         <div class="comics-container">
-            {% from 'comic_display.html' import display_comic %}
             {% for comic in comics %}
-                {{ display_comic(comic) }}
+                <div class="comic-item">
+                    <h3>{{ comic.title }}</h3>
+                    <p>Date: {{ comic.date }}</p>
+                    <p>Location: {{ comic.location }}</p>
+                    <div class="comic-panels">
+                        {% for image_path in comic.image_paths %}
+                            <img src="{{ image_path }}" alt="Comic panel {{ loop.index }}" class="comic-panel">
+                        {% endfor %}
+                    </div>
+                    <p>{{ comic.story }}</p>
+                    {% if comic.audio_path %}
+                        <audio controls>
+                            <source src="{{ comic.audio_path }}" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                    {% endif %}
+                </div>
             {% endfor %}
         </div>
     {% else %}
@@ -87,6 +102,24 @@
         flex-direction: column;
         gap: 20px;
     }
+    .comic-item {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 20px;
+        background-color: #f9f9f9;
+    }
+    .comic-panels {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+    .comic-panel {
+        max-width: 32%;
+        height: auto;
+        object-fit: cover;
+        border-radius: 5px;
+    }
     .back-arrow {
         display: inline-block;
         margin-top: 20px;
@@ -95,6 +128,14 @@
     }
     .back-arrow:hover {
         text-decoration: underline;
+    }
+    @media (max-width: 768px) {
+        .comic-panels {
+            flex-direction: column;
+        }
+        .comic-panel {
+            max-width: 100%;
+        }
     }
 </style>
 {% endblock %}

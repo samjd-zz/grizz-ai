@@ -46,6 +46,7 @@ class ComicDatabase:
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS comics (
                 id INTEGER PRIMARY KEY,
+                user_id INTEGER,
                 title TEXT NOT NULL,
                 location TEXT NOT NULL,
                 original_story TEXT NOT NULL,
@@ -55,7 +56,8 @@ class ComicDatabase:
                 image_path TEXT NOT NULL,
                 audio_path TEXT,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                date DATE NOT NULL
+                date DATE NOT NULL,
+                FOREIGN KEY (user_id) REFERENCES users(id)
             )
         ''')
         cursor.execute('''
@@ -70,18 +72,18 @@ class ComicDatabase:
         cls.get_connection().commit()
 
     @classmethod
-    def add_comic(cls, title, location, original_story, comic_script, comic_summary, story_source_url, image_path, audio_path=None, date=None):
+    def add_comic(cls, user_id, title, location, original_story, comic_script, comic_summary, story_source_url, image_path, audio_path=None, date=None):
         try:
             current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             if date is None:
                 date = datetime.now().date()
             cursor = cls.get_cursor()
             cursor.execute('''
-                INSERT INTO comics (title, location, original_story, comic_script, comic_summary, story_source_url, image_path, audio_path, created_at, date)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            ''', (title, location, original_story, comic_script, comic_summary, story_source_url, image_path, audio_path, current_time, date))
+                INSERT INTO comics (user_id, title, location, original_story, comic_script, comic_summary, story_source_url, image_path, audio_path, created_at, date)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ''', (user_id, title, location, original_story, comic_script, comic_summary, story_source_url, image_path, audio_path, current_time, date))
             cls.get_connection().commit()
-            app_logger.debug(f"Added comic to database: {title}")
+            app_logger.debug(f"Added comic to database: {title} for user_id: {user_id}")
         except Exception as e:
             app_logger.error(f"Error adding comic to database: {e}")
 
@@ -108,31 +110,55 @@ class ComicDatabase:
             return None
 
     @classmethod
-    def get_all_comics(cls):
+    def get_all_comics(cls, user_id=None, is_admin=False):
         try:
             cursor = cls.get_cursor()
-            cursor.execute('SELECT * FROM comics ORDER BY date DESC, created_at DESC')
+            if is_admin:
+                cursor.execute('''
+                    SELECT c.*, u.username 
+                    FROM comics c 
+                    LEFT JOIN users u ON c.user_id = u.id 
+                    ORDER BY c.date DESC, c.created_at DESC
+                ''')
+            elif user_id:
+                cursor.execute('''
+                    SELECT c.*, u.username 
+                    FROM comics c 
+                    LEFT JOIN users u ON c.user_id = u.id 
+                    WHERE c.user_id = ? 
+                    ORDER BY c.date DESC, c.created_at DESC
+                ''', (user_id,))
+            else:
+                return []
             return [dict(row) for row in cursor.fetchall()]
         except Exception as e:
             app_logger.error(f"Error getting all comics from database: {e}")
             return []
 
     @classmethod
-    def get_filtered_comics(cls, start_date=None, end_date=None, location=None):
+    def get_filtered_comics(cls, user_id=None, is_admin=False, start_date=None, end_date=None, location=None):
         try:
             cursor = cls.get_cursor()
-            query = 'SELECT * FROM comics WHERE 1=1'
+            query = '''
+                SELECT c.*, u.username 
+                FROM comics c 
+                LEFT JOIN users u ON c.user_id = u.id 
+                WHERE 1=1
+            '''
             params = []
+            if not is_admin and user_id:
+                query += ' AND c.user_id = ?'
+                params.append(user_id)
             if start_date:
-                query += ' AND date >= ?'
+                query += ' AND c.date >= ?'
                 params.append(start_date)
             if end_date:
-                query += ' AND date <= ?'
+                query += ' AND c.date <= ?'
                 params.append(end_date)
             if location:
-                query += ' AND location = ?'
+                query += ' AND c.location = ?'
                 params.append(location)
-            query += ' ORDER BY date DESC, created_at DESC'
+            query += ' ORDER BY c.date DESC, c.created_at DESC'
             app_logger.debug(f"Executing query: {query} with params: {params}")
             cursor.execute(query, params)
             return [dict(row) for row in cursor.fetchall()]
@@ -168,99 +194,22 @@ class ComicDatabase:
             app_logger.error(f"Error purging database: {e}")
 
     @classmethod
-    def add_audio_path_column(cls):
+    def add_user_id_column(cls):
         cursor = cls.get_cursor()
         try:
-            cursor.execute('ALTER TABLE comics ADD COLUMN audio_path TEXT')
+            cursor.execute('ALTER TABLE comics ADD COLUMN user_id INTEGER REFERENCES users(id)')
             cls.get_connection().commit()
-            app_logger.debug("Added audio_path column to comics table")
+            app_logger.debug("Added user_id column to comics table")
         except sqlite3.OperationalError as e:
             if "duplicate column name" in str(e):
-                app_logger.debug("audio_path column already exists in comics table")
+                app_logger.debug("user_id column already exists in comics table")
             else:
                 raise e
-
-    @classmethod
-    def add_date_column(cls):
-        cursor = cls.get_cursor()
-        try:
-            cursor.execute('ALTER TABLE comics ADD COLUMN date DATE')
-            cls.get_connection().commit()
-            app_logger.debug("Added date column to comics table")
-        except sqlite3.OperationalError as e:
-            if "duplicate column name" in str(e):
-                app_logger.debug("date column already exists in comics table")
-            else:
-                raise e
-
-    @classmethod
-    def add_comic_summary_column(cls):
-        cursor = cls.get_cursor()
-        try:
-            cursor.execute('ALTER TABLE comics ADD COLUMN comic_summary TEXT')
-            cls.get_connection().commit()
-            app_logger.debug("Added comic_summary column to comics table")
-        except sqlite3.OperationalError as e:
-            if "duplicate column name" in str(e):
-                app_logger.debug("comic_summary column already exists in comics table")
-            else:
-                raise e
-
-    @classmethod
-    def populate_from_output_folder(cls):
-        output_dir = config.OUTPUT_DIR
-        for location_folder in os.listdir(output_dir):
-            location_path = os.path.join(output_dir, location_folder)
-            if os.path.isdir(location_path):
-                location = location_folder.replace('_', ' ')
-                for date_folder in os.listdir(location_path):
-                    date_path = os.path.join(location_path, date_folder)
-                    if os.path.isdir(date_path):
-                        date = datetime.strptime(date_folder, "%Y_%m_%d").date()
-                        for file in os.listdir(date_path):
-                            if file.endswith('.png'):
-                                image_path = os.path.join(date_path, file)
-                                title = file.replace('ggs_grizzly_news_', '').replace('.png', '').replace('_', ' ')
-                                summary_file = file.replace('.png', '_summary.txt')
-                                summary_path = os.path.join(date_path, summary_file)
-                                if os.path.exists(summary_path):
-                                    with open(summary_path, 'r') as f:
-                                        original_story = f.read()
-                                else:
-                                    original_story = "Summary not available"
-                                
-                                # Check for audio file
-                                audio_file = file.replace('.png', '.mp3')
-                                audio_path = os.path.join(date_path, audio_file)
-                                if not os.path.exists(audio_path):
-                                    audio_path = None
-                                
-                                cls.add_comic(title, location, original_story, "Comic script not available", "Comic summary not available", "", image_path, audio_path, date)
-        app_logger.info("Database populated from output folder")
-
-
-    @classmethod
-    def add_email_column(cls):
-        cursor = cls.get_cursor()
-        try:
-            # Check if the email column exists
-            cursor.execute("PRAGMA table_info(users)")
-            columns = [column[1] for column in cursor.fetchall()]
-            if 'email' not in columns:
-                app_logger.debug("Adding email column to users table")
-                cursor.execute('ALTER TABLE users ADD COLUMN email TEXT')
-                cls.get_connection().commit()
-            else:
-                app_logger.debug("Email column already exists in users table")
-        except Exception as e:
-            app_logger.error(f"Error adding email column: {e}")
 
     @classmethod
     def initialize_database(cls):
         cls.create_table()
-        cls.add_audio_path_column()
-        cls.add_date_column()
-        cls.add_comic_summary_column()
+        cls.add_user_id_column()
         cls.add_email_column()
         cls.populate_from_output_folder()
 
@@ -305,22 +254,6 @@ class ComicDatabase:
         return False
 
     @classmethod
-    def add_user(cls, username, email, password, role):
-        try:
-            cursor = cls.get_cursor()
-            password_hash = generate_password_hash(password)
-            app_logger.debug(f"Adding user to database: username={username}, email={email}, role={role}")
-            app_logger.debug(f"Generated password hash: {password_hash}")
-            cursor.execute('''
-                INSERT INTO users (username, email, password_hash, role)
-                VALUES (?, ?, ?, ?)
-            ''', (username, email, password_hash, role))
-            cls.get_connection().commit()
-            app_logger.debug(f"Added user to database: {username}")
-        except Exception as e:
-            app_logger.error(f"Error adding user to database: {e}")
-
-    @classmethod
     def get_user_by_email(cls, email):
         try:
             cursor = cls.get_cursor()
@@ -342,6 +275,52 @@ class ComicDatabase:
         except Exception as e:
             app_logger.error(f"Error getting all users from database: {e}")
             return []
+
+    @classmethod
+    def add_email_column(cls):
+        cursor = cls.get_cursor()
+        try:
+            cursor.execute("PRAGMA table_info(users)")
+            columns = [column[1] for column in cursor.fetchall()]
+            if 'email' not in columns:
+                app_logger.debug("Adding email column to users table")
+                cursor.execute('ALTER TABLE users ADD COLUMN email TEXT')
+                cls.get_connection().commit()
+            else:
+                app_logger.debug("Email column already exists in users table")
+        except Exception as e:
+            app_logger.error(f"Error adding email column: {e}")
+
+    @classmethod
+    def populate_from_output_folder(cls):
+        output_dir = config.OUTPUT_DIR
+        for location_folder in os.listdir(output_dir):
+            location_path = os.path.join(output_dir, location_folder)
+            if os.path.isdir(location_path):
+                location = location_folder.replace('_', ' ')
+                for date_folder in os.listdir(location_path):
+                    date_path = os.path.join(location_path, date_folder)
+                    if os.path.isdir(date_path):
+                        date = datetime.strptime(date_folder, "%Y_%m_%d").date()
+                        for file in os.listdir(date_path):
+                            if file.endswith('.png'):
+                                image_path = os.path.join(date_path, file)
+                                title = file.replace('ggs_grizzly_news_', '').replace('.png', '').replace('_', ' ')
+                                summary_file = file.replace('.png', '_summary.txt')
+                                summary_path = os.path.join(date_path, summary_file)
+                                if os.path.exists(summary_path):
+                                    with open(summary_path, 'r') as f:
+                                        original_story = f.read()
+                                else:
+                                    original_story = "Summary not available"
+                                
+                                audio_file = file.replace('.png', '.mp3')
+                                audio_path = os.path.join(date_path, audio_file)
+                                if not os.path.exists(audio_path):
+                                    audio_path = None
+                                
+                                cls.add_comic(None, title, location, original_story, "Comic script not available", "Comic summary not available", "", image_path, audio_path, date)
+        app_logger.info("Database populated from output folder")
 
 # Initialize the database
 app_logger.info("Initializing database")
