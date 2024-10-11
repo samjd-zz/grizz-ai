@@ -6,15 +6,19 @@ import warnings
 import requests
 import cv2
 import io
-
+from PIL import Image
+from io import BytesIO
 from datetime import datetime
 from logger import app_logger
 from transformers import pipeline
 from config import load_config
-
-from PIL import Image
+from datetime import datetime
 
 config = load_config()
+
+def sanitize_filename(filename):
+    # Remove or replace characters that are not allowed in file names
+    return re.sub(r'[<>:"/\\|?*]', '_', filename)
 
 TODAY = datetime.now().strftime("%Y_%m_%d")
 
@@ -105,38 +109,38 @@ def save_summary(location, filename, title, story="", source="", panel_summary="
     except Exception as e:
         app_logger.error(f"Error saving summary: {e}")
 
-def save_image(image_data, filename, location):
-    """
-    Saves the generated image locally.
-    
-    Args:
-        image_data (bytes or PIL.Image.Image): Image data to be saved. Can be either bytes or a PIL Image object.
-        filename (str): Name of the file to save the image as.
-        location (str): Location for the comic (used for folder naming).
 
-    Returns:
-        str: Path to the saved image file, or None if an error occurred.
-    """
+def save_image(image_data, filename, location):
     try:
-        comics_dir = os.path.join(config.OUTPUT_DIR, f"{location.replace(' ', '_')}_comics", TODAY)
-        os.makedirs(comics_dir, exist_ok=True)
-        image_path = os.path.join(comics_dir, filename)
+        # Sanitize the filename
+        sanitized_filename = sanitize_filename(filename)
+        
+        # Create the directory structure if it doesn't exist
+        date_str = datetime.now().strftime("%Y_%m_%d")
+        location_folder = sanitize_filename(location.replace(' ', '_').replace(',', ''))
+        output_dir = os.path.join(config.OUTPUT_DIR, f"{location_folder}_comics", date_str)
+        os.makedirs(output_dir, exist_ok=True)
+
+        image_path = os.path.join(output_dir, sanitized_filename)
 
         if isinstance(image_data, Image.Image):
-            # If image_data is a PIL Image object, save it directly
             image_data.save(image_path)
+        elif isinstance(image_data, str):  # Assume it's a URL
+            response = requests.get(image_data)
+            response.raise_for_status()
+            img = Image.open(BytesIO(response.content))
+            img.save(image_path)
         elif isinstance(image_data, bytes):
-            # If image_data is bytes, write it to file
             with open(image_path, "wb") as f:
                 f.write(image_data)
         else:
-            raise ValueError(f"Unsupported image_data type: {type(image_data)}")
+            raise ValueError("Unsupported image_data type")
 
         app_logger.debug(f"Image saved successfully: {image_path}")
         return image_path
     except Exception as e:
-        app_logger.error(f"Error saving image: {e}")
-        app_logger.error(traceback.format_exc())
+        app_logger.error(f"Error saving image: {str(e)}")
+        app_logger.error(f"Traceback: ", exc_info=True)
         return None
     
 def generate_safe_prompt(original_prompt):

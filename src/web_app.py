@@ -1,7 +1,8 @@
 import os
 import re
 from datetime import datetime
-from flask import Flask, render_template, request, url_for, send_from_directory, g, jsonify, Response, stream_with_context
+from flask import Flask, render_template, request, url_for, send_from_directory, g, jsonify, Response, stream_with_context, redirect, session, flash
+from functools import wraps
 from main import generate_daily_comic, generate_custom_comic, generate_media_comic, capture_live_video
 from psy_researcher import perform_duckduckgo_search
 from config import load_config
@@ -11,15 +12,92 @@ from event_fetcher import get_local_events
 from text_analysis import create_yogi_bear_voice
 from geopy.geocoders import Nominatim
 import json
+import time
+import uuid
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
 config = load_config()
+
+# Set the secret key for Flask sessions
+app.config['SECRET_KEY'] = config.SECRET_KEY
+app_logger.debug(f"Secret key set: {config.SECRET_KEY[:5]}...")  # Log first 5 characters of secret key
 
 # Configure image serving for generated images
 app.config['GENERATED_IMAGES_FOLDER'] = config.OUTPUT_DIR
 os.makedirs(app.config['GENERATED_IMAGES_FOLDER'], exist_ok=True)
 
 geolocator = Nominatim(user_agent="grizz-ai")
+
+# Store ongoing comic generation tasks
+comic_tasks = {}
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(app.static_folder, 'favicon.ico', mimetype='image/vnd.microsoft.icon')
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        app_logger.debug(f"Checking login requirement for {request.path}")
+        if 'user' not in session:
+            app_logger.debug("User not in session, redirecting to login")
+            return redirect(url_for('login', next=request.url))
+        app_logger.debug(f"User {session['user']['username']} is logged in")
+        return f(*args, **kwargs)
+    return decorated_function
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    app_logger.debug(f"Login route accessed with method: {request.method}")
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        app_logger.debug(f"Login attempt for username: {username}")
+        app_logger.debug(f"Admin password from config: {config.ADMIN_PASSWORD}")
+        db = get_db()
+        user = db.get_user_by_username(username)
+        app_logger.debug(f"User retrieved from database: {user}")
+        if user:
+            app_logger.debug(f"Stored password hash: {user['password_hash']}")
+            is_valid = db.check_password(username, password)
+            app_logger.debug(f"Password check result: {is_valid}")
+            if is_valid:
+                app_logger.debug(f"Login successful for user: {user}")
+                session['user'] = {'username': user['username'], 'role': user['role']}
+                app_logger.debug(f"Session after login: {session}")
+                flash('Logged in successfully.')
+                next_page = request.args.get('next')
+                return redirect(next_page or url_for('index'))
+            else:
+                app_logger.warning(f"Invalid password for username: {username}")
+                flash('Invalid username or password')
+        else:
+            app_logger.warning(f"User not found: {username}")
+            flash('Invalid username or password')
+    return render_template('login.html')
+
+@app.route('/logout')
+def logout():
+    session.pop('user', None)
+    flash('Logged out successfully.')
+    return redirect(url_for('index'))
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        username = request.form['username']
+        email = request.form['email']
+        password = request.form['password']
+        db = get_db()
+        if db.get_user_by_username(username):
+            flash('Username already exists')
+        elif db.get_user_by_email(email):
+            flash('Email already registered')
+        else:
+            db.add_user(username, email, password, 'user')
+            flash('Registration successful. Please log in.')
+            return redirect(url_for('login'))
+    return render_template('register.html')
 
 @app.before_first_request
 def before_first_request():
@@ -67,25 +145,52 @@ def serve_audio(filename):
     return send_from_directory(os.path.join(app.config['GENERATED_IMAGES_FOLDER'], 'audio'), filename)
 
 @app.route('/')
+@login_required
 def index():
     return render_template('index.html')
 
 @app.route('/daily_comic', methods=['GET', 'POST'])
+@login_required
 def daily_comic():
     if request.method == 'POST':
         location = request.form['location']
+        task_id = str(uuid.uuid4())
+        comic_tasks[task_id] = {'status': 'started', 'location': location}
+        return jsonify({'task_id': task_id})
+    return render_template('daily_comic.html', config=config)
+
+@app.route('/daily_comic_progress')
+@login_required
+def daily_comic_progress():
+    task_id = request.args.get('task_id')
+    if task_id not in comic_tasks:
+        return jsonify({'error': 'Invalid task ID'}), 400
+
+    def generate():
+        task = comic_tasks[task_id]
+        location = task['location']
+
+        yield "data: " + json.dumps({"progress": 10, "message": "Checking for local events..."}) + "\n\n"
+        time.sleep(1)
         
         app_logger.debug(f"Checking for local events in: {location}")
         local_events = get_local_events(location)
         if not local_events or (len(local_events) == 1 and local_events[0]['title'] == "No Current News Events Reported"):
             app_logger.info(f"No events found for {location}")
-            return jsonify({'success': False, 'message': 'No events found for today. Please try again later.'})
+            yield "data: " + json.dumps({"progress": 100, "message": "No events found for today. Please try again later."}) + "\n\n"
+            return
 
-        app_logger.debug(f"Generating daily comic for location: {location}")
+        yield "data: " + json.dumps({"progress": 30, "message": "Generating daily comic..."}) + "\n\n"
+        time.sleep(1)
         
+        app_logger.debug(f"Generating daily comic for location: {location}")
         generated_comics = generate_daily_comic(location)
+        
         if generated_comics:
-            # Update image paths to use the custom image route
+            yield "data: " + json.dumps({"progress": 60, "message": "Processing generated comics..."}) + "\n\n"
+            time.sleep(1)
+            
+            # Update image paths and process comics
             for event in generated_comics:
                 if 'image_paths' in event:
                     event['image_paths'] = [url_for('serve_image', filename=os.path.relpath(path, app.config['GENERATED_IMAGES_FOLDER']), _external=True) for path in event['image_paths']]
@@ -101,56 +206,105 @@ def daily_comic():
                     event['comic_script'] = "No comic script available"
                 event['story'] = event['story'].replace('-', '').strip()
                 event['comic_script'] = format_comic_script(event['comic_script'])
-                # Ensure story_source is included
                 if 'story_source' not in event:
                     event['story_source'] = "Source not available"
-                # Ensure panel_summaries is included
                 if 'panel_summaries' not in event:
                     event['panel_summaries'] = ["Panel summary not available"] * 3
+
+            yield "data: " + json.dumps({"progress": 90, "message": "Finalizing daily comic..."}) + "\n\n"
+            time.sleep(1)
+            
             app_logger.info(f"Successfully generated daily comic for {location}")
-            return jsonify({'success': True, 'html': render_template('daily_comic_result.html', events=generated_comics, location=location)})
+            yield "data: " + json.dumps({"success": True, "html": render_template('daily_comic_result.html', events=generated_comics, location=location)}) + "\n\n"
         else:
             app_logger.error(f"Failed to generate daily comic for {location}")
-            return jsonify({'success': False, 'message': 'Failed to generate daily comic. Please try again later.'})
+            yield "data: " + json.dumps({"success": False, "message": 'Failed to generate daily comic. Please try again later.'}) + "\n\n"
 
-    return render_template('daily_comic.html', config=config)
+        del comic_tasks[task_id]
+
+    return Response(stream_with_context(generate()), mimetype='text/event-stream')
 
 @app.route('/custom_comic', methods=['GET', 'POST'])
+@login_required
 def custom_comic():
     if request.method == 'POST':
         title = request.form['title']
         story = request.form['story']
         location = request.form['location']
+        task_id = str(uuid.uuid4())
+        comic_tasks[task_id] = {'status': 'started', 'title': title, 'story': story, 'location': location}
+        return jsonify({'task_id': task_id})
+    return render_template('custom_comic.html')
+
+@app.route('/custom_comic_progress')
+@login_required
+def custom_comic_progress():
+    task_id = request.args.get('task_id')
+    if task_id not in comic_tasks:
+        return jsonify({'error': 'Invalid task ID'}), 400
+
+    def generate():
+        task = comic_tasks[task_id]
+        title = task['title']
+        story = task['story']
+        location = task['location']
+
+        yield "data: " + json.dumps({"progress": 10, "message": "Checking for existing comics..."}) + "\n\n"
+        time.sleep(1)
         
-        # Check if a comic with this title or story already exists
         db = get_db()
         existing_comic = db.get_comic_by_title_or_story(title, story)
         if existing_comic:
             app_logger.info(f"Comic already exists for title: {title} or story: {story}")
-            return jsonify({'success': False, 'message': 'A comic with this title or story already exists.'})
+            yield "data: " + json.dumps({"success": False, "message": 'A comic with this title or story already exists.'}) + "\n\n"
+            return
+
+        yield "data: " + json.dumps({"progress": 30, "message": "Generating custom comic..."}) + "\n\n"
+        time.sleep(1)
         
         app_logger.info(f"Generating custom comic: {title}")
-        
         result = generate_custom_comic(title, story, location)
+        
         if result:
+            yield "data: " + json.dumps({"progress": 60, "message": "Processing generated comic..."}) + "\n\n"
+            time.sleep(1)
+            
             image_paths, panel_summaries, comic_script, comic_summary, audio_path = result
             relative_paths = [os.path.relpath(path, app.config['GENERATED_IMAGES_FOLDER']) for path in image_paths]
             relative_audio_path = os.path.relpath(audio_path, os.path.join(app.config['GENERATED_IMAGES_FOLDER'], 'audio')) if audio_path else None
             created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             db.add_comic(title, location, story, comic_script, comic_summary, ",".join(relative_paths), relative_audio_path, datetime.now().date())
+            
+            yield "data: " + json.dumps({"progress": 90, "message": "Finalizing custom comic..."}) + "\n\n"
+            time.sleep(1)
+            
             app_logger.info(f"Successfully generated custom comic: {title}")
-            return jsonify({'success': True, 'html': render_template('custom_comic_result.html', title=title, original_story=story, created_at=created_at, image_paths=[url_for('serve_image', filename=path) for path in relative_paths], panel_summaries=panel_summaries, audio_path=url_for('serve_audio', filename=relative_audio_path) if relative_audio_path else None, comic_script=comic_script)})
+            yield "data: " + json.dumps({
+                "success": True,
+                "html": render_template('custom_comic_result.html',
+                                        title=title,
+                                        original_story=story,
+                                        created_at=created_at,
+                                        image_paths=[url_for('serve_image', filename=path) for path in relative_paths],
+                                        panel_summaries=panel_summaries,
+                                        audio_path=url_for('serve_audio', filename=relative_audio_path) if relative_audio_path else None,
+                                        comic_script=comic_script)
+            }) + "\n\n"
         else:
             app_logger.error(f"Failed to generate custom comic: {title}")
-            return jsonify({'success': False, 'message': 'Failed to generate custom comic. Please try again.'})
+            yield "data: " + json.dumps({"success": False, "message": 'Failed to generate custom comic. Please try again.'}) + "\n\n"
 
-    return render_template('custom_comic.html')
+        del comic_tasks[task_id]
+
+    return Response(stream_with_context(generate()), mimetype='text/event-stream')
 
 @app.route('/media_comic', methods=['GET', 'POST'])
+@login_required
 def media_comic():
     if request.method == 'POST':
         media_type = request.form['media_type']
         location = request.form['location']
+        task_id = str(uuid.uuid4())
         
         if media_type == 'live':
             app_logger.info("Capturing live video")
@@ -176,10 +330,37 @@ def media_comic():
                 app_logger.error("File upload failed")
                 return jsonify({'success': False, 'message': 'File upload failed. Please try again.'})
         
-        app_logger.info(f"Generating media comic from {media_type}")
+        comic_tasks[task_id] = {'status': 'started', 'media_type': media_type, 'path': path, 'location': location}
+        return jsonify({'task_id': task_id})
+    
+    return render_template('media_comic.html')
+
+@app.route('/media_comic_progress')
+@login_required
+def media_comic_progress():
+    task_id = request.args.get('task_id')
+    if task_id not in comic_tasks:
+        return jsonify({'error': 'Invalid task ID'}), 400
+
+    def generate():
+        task = comic_tasks[task_id]
+        media_type = task['media_type']
+        path = task['path']
+        location = task['location']
+
+        yield "data: " + json.dumps({"progress": 10, "message": "Processing media input..."}) + "\n\n"
+        time.sleep(1)
+
+        yield "data: " + json.dumps({"progress": 30, "message": "Generating media comic..."}) + "\n\n"
+        time.sleep(1)
         
+        app_logger.info(f"Generating media comic from {media_type}")
         result = generate_media_comic(media_type, path, location)
+        
         if result:
+            yield "data: " + json.dumps({"progress": 60, "message": "Processing generated comic..."}) + "\n\n"
+            time.sleep(1)
+            
             image_paths, summary, comic_scripts, panel_summaries, audio_paths = result
             relative_paths = [os.path.relpath(path, app.config['GENERATED_IMAGES_FOLDER']) for path in image_paths]
             relative_audio_paths = [os.path.relpath(path, os.path.join(app.config['GENERATED_IMAGES_FOLDER'], 'audio')) if path else None for path in audio_paths]
@@ -188,26 +369,36 @@ def media_comic():
             for i, (relative_path, comic_script, panel_summary, relative_audio_path) in enumerate(zip(relative_paths, comic_scripts, panel_summaries, relative_audio_paths)):
                 created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 title = f"Media Comic {i+1}"
-                db.add_comic(title, location, f"{media_type} comic", comic_script, summary, relative_path, relative_audio_path, datetime.now().date())
+                image_paths_str = ",".join(relative_paths)
+                db.add_comic(title, location, f"{media_type} comic", comic_script, summary, image_paths_str, relative_audio_path, datetime.now().date())
                 comics.append({
                     'title': title,
                     'original_story': f"{media_type} comic",
                     'created_at': created_at,
-                    'image_paths': [url_for('serve_image', filename=relative_path)],
+                    'image_paths': [url_for('serve_image', filename=path) for path in relative_paths],
                     'panel_summaries': panel_summary,
                     'audio_path': url_for('serve_audio', filename=relative_audio_path) if relative_audio_path else None,
                     'comic_script': comic_script,
                     'story_source_url': ''
                 })
+
+            yield "data: " + json.dumps({"progress": 90, "message": "Finalizing media comic..."}) + "\n\n"
+            time.sleep(1)
+            
             app_logger.info(f"Successfully generated media comic from {media_type}")
-            return jsonify({'success': True, 'html': render_template('media_comic_result.html', comics=comics)})
+            yield "data: " + json.dumps({"success": True, "html": render_template('media_comic_result.html', comics=comics)}) + "\n\n"
         else:
             app_logger.error(f"Failed to generate media comic from {media_type}")
-            return jsonify({'success': False, 'message': 'Failed to generate media comic. Please try again.'})
+            yield "data: " + json.dumps({"success": False, "message": 'Failed to generate media comic. Please try again.'}) + "\n\n"
+
+        del comic_tasks[task_id]
+
+    return Response(stream_with_context(generate()), mimetype='text/event-stream')
 
     return render_template('media_comic.html')
 
 @app.route('/search', methods=['GET', 'POST'])
+@login_required
 def search():
     if request.method == 'POST':
         query = request.form['query']
@@ -223,6 +414,7 @@ def get_unique_locations():
     return db.get_unique_locations()
 
 @app.route('/view_all_comics')
+@login_required
 def view_all_comics():
     db = get_db()
     start_date = request.args.get('start_date')

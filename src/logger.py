@@ -6,7 +6,7 @@ from config import load_config
 
 config = load_config()
 
-def setup_logger(name, log_file, level=logging.INFO):
+def setup_logger(name, log_file, level=logging.DEBUG):
     """Function to set up a logger with file and console handlers"""
     formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
     

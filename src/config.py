@@ -1,11 +1,14 @@
 import os
-from tkinter import SEL
 from dotenv import load_dotenv
+
 
 class Config:
     def __init__(self):
         dotenv_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), '.env')
         load_dotenv(dotenv_path)
+
+        self.ADMIN_PASSWORD = os.getenv('ADMIN_PASSWORD')
+        self.SECRET_KEY = os.getenv('SECRET_KEY')
 
         self.LOCATION = os.getenv("LOCATION", "New York")
         self.SOURCE_DIR = os.getenv("SOURCE_DIR")

@@ -1,6 +1,7 @@
 import warnings
-
 from sympy import im
+import difflib
+
 # Suppress the specific LangChain deprecation warning
 warnings.filterwarnings("ignore", category=DeprecationWarning, message=".*BaseChatModel.__call__.*")
 
@@ -25,6 +26,21 @@ config = load_config()
 
 TODAY = datetime.now().strftime("%Y_%m_%d")
 
+def is_similar_story(story1, story2, threshold=0.9):
+    """
+    Check if two stories are similar based on a similarity ratio.
+    
+    Args:
+        story1 (str): The first story.
+        story2 (str): The second story.
+        threshold (float): The similarity threshold (default: 0.9).
+    
+    Returns:
+        bool: True if the stories are similar, False otherwise.
+    """
+    similarity_ratio = difflib.SequenceMatcher(None, story1, story2).ratio()
+    return similarity_ratio >= threshold
+
 def parse_panel_summaries(comic_summary):
     """
     Parse the comic summary to extract individual panel summaries.
@@ -40,18 +56,14 @@ def parse_panel_summaries(comic_summary):
     if summary_start != -1:
         # New format with explicit Summary section
         summary_text = comic_summary[summary_start:]
-        for line in summary_text.split('\n'):
-            if line.startswith('Panel '):
-                parts = line.split(': ', 1)
-                if len(parts) > 1:
-                    panel_summaries.append(parts[1])
+        panels = re.findall(r'Panel \d+:(.*?)(?=Panel \d+:|$)', summary_text, re.DOTALL)
+        for panel in panels:
+            panel_summaries.append(panel.strip())
     else:
         # Original format
-        for line in comic_summary.split('\n'):
-            if line.startswith('Panel '):
-                parts = line.split(': ', 1)
-                if len(parts) > 1:
-                    panel_summaries.append(parts[1])
+        panels = re.findall(r'Panel \d+:(.*?)(?=Panel \d+:|$)', comic_summary, re.DOTALL)
+        for panel in panels:
+            panel_summaries.append(panel.strip())
     
     # If we didn't find any summaries or found less than 3, add default ones
     while len(panel_summaries) < 3:
@@ -59,25 +71,58 @@ def parse_panel_summaries(comic_summary):
     
     return panel_summaries[:3]  # Ensure we only return 3 summaries
 
+def generate_images(event_analysis, event_story):
+    """
+    Generate images using DALL-E first, then try FLUX.1 if DALL-E fails due to safety system,
+    and finally fall back to DALL-E with the original story if both fail.
+    """
+    app_logger.debug("Starting image generation process")
+    
+    # First attempt: DALL-E with generated script
+    try:
+        app_logger.debug("Attempting DALL-E with generated script")
+        image_results = generate_dalle_images(filter_content(event_analysis), event_story)
+        if image_results:
+            app_logger.debug(f"Successfully generated {len(image_results)} images with DALL-E using generated script")
+            return image_results
+        else:
+            app_logger.debug("DALL-E did not return any images")
+    except Exception as e:
+        app_logger.warning(f"DALL-E image generation failed with generated script: {str(e)}")
+    
+    # Second attempt: FLUX.1 with generated script
+    try:
+        app_logger.debug("Attempting FLUX.1 with generated script")
+        image_results = generate_flux1_images(filter_content(event_analysis), event_story)
+        if image_results:
+            app_logger.debug(f"Successfully generated {len(image_results)} images with FLUX.1 using generated script")
+            return image_results
+        else:
+            app_logger.debug("FLUX.1 did not return any images")
+    except Exception as e:
+        app_logger.warning(f"FLUX.1 image generation failed: {str(e)}")
+    
+    # Third attempt: DALL-E with original story
+    try:
+        app_logger.debug("Attempting DALL-E with original story")
+        image_results = generate_dalle_images(filter_content(event_story), event_story)
+        if image_results:
+            app_logger.debug(f"Successfully generated {len(image_results)} images with DALL-E using original story")
+            return image_results
+        else:
+            app_logger.debug("DALL-E did not return any images with original story")
+    except Exception as e:
+        app_logger.error(f"DALL-E image generation failed with original story: {str(e)}")
+    
+    app_logger.error("All image generation attempts failed")
+    return None
+
 def generate_daily_comic(location, progress_callback=None):
-    """
-    Generates a daily comic based on local events for a given location.
-
-    Args:
-        location (str): The location to generate the comic for.
-        progress_callback (function): A callback function to report progress.
-
-    Returns:
-        list: A list of local events that were used to generate the comic.
-        None: If no events were found or an error occurred during comic generation.
-    """
     app_logger.info(f"Starting daily comic generation for location: {location}")
     try:
         if progress_callback:
             progress_callback(0, f"Fetching local events for {location}")
 
-        # Step 1: Get local events based on user's location
-        app_logger.info(f"Fetching local events for {location}")
         local_events = get_local_events(location)
         if not local_events:
             app_logger.warning(f"No new local events in the past 7 days for {location}. Aborting comic generation.")
@@ -89,7 +134,6 @@ def generate_daily_comic(location, progress_callback=None):
         if progress_callback:
             progress_callback(10, f"Found {len(local_events)} events for {location}")
 
-        # Step 2: Generate a comic panel for each event
         comic_panels = []
         all_panel_summaries = []
         for i, event in enumerate(local_events):
@@ -101,49 +145,31 @@ def generate_daily_comic(location, progress_callback=None):
             if progress_callback:
                 progress_callback(10 + (i * 80 // len(local_events)), f"Processing event: {event_title}")
             
-            # Check if a comic with this story already exists
             existing_comic = ComicDatabase.get_comic_by_story(event_story)
             if existing_comic:
                 app_logger.info(f"Comic already exists for story: {event_title}. Skipping this event.")
                 continue
             
-            # Generate comic script for the event
-            app_logger.info(f"Generating comic script for event: {event_title}")
             event_analysis, comic_summary = analyze_text_ollama(f"Generate a comic script for this event: {event_title}. {event_story}", location)
             if not event_analysis:
                 app_logger.error(f"Failed to analyze event: {event_title}. Skipping this event.")
                 continue
 
-            # Parse panel summaries
-            app_logger.info(f"Parsing panel summaries for event: {event_title}")
             panel_summaries = parse_panel_summaries(comic_summary)
 
-            # Generate comic panel image
             app_logger.info(f"Generating images for event: {event_title}")
-            #image_results = generate_flux1_images(filter_content(event_analysis), event_story)
-            image_results = generate_dalle_images(filter_content(event_analysis), event_story)
+            image_results = generate_images(event_analysis, event_story)
             if not image_results:
                 app_logger.error(f"Failed to generate comic panel for the event: {event_title}. Skipping this event.")
                 continue
             app_logger.info(f"Generated {len(image_results)} images for event: {event_title}")
 
-            # Save the generated images
             app_logger.info(f"Saving images for event: {event_title}")
             image_paths = []
             for j, image_result in enumerate(image_results):
                 if image_result:
                     image_filename = f"ggs_grizzly_news_{event_title.replace(' ', '_')}_{j+1}.png"
-                    if isinstance(image_result, Image.Image):
-                        # If it's a PIL Image object, save it directly
-                        image_path = save_image(image_result, image_filename, location)
-                    elif isinstance(image_result, str):
-                        # If it's a URL, download and save
-                        image_data = requests.get(image_result).content
-                        image_path = save_image(image_data, image_filename, location)
-                    else:
-                        app_logger.error(f"Unexpected image result type for {event_title}")
-                        continue
-                    
+                    image_path = save_image(image_result, image_filename, location)
                     if image_path:
                         image_paths.append(image_path)
                         app_logger.info(f"Saved image {j+1} for event: {event_title}")
@@ -155,7 +181,6 @@ def generate_daily_comic(location, progress_callback=None):
                 app_logger.error(f"Failed to save any images for {event_title}. Skipping this event.")
                 continue
 
-            # Generate audio narration
             audio_path = ""
             if config.GENERATE_AUDIO:
                 app_logger.info(f"Generating audio narration for event: {event_title}")
@@ -172,13 +197,11 @@ def generate_daily_comic(location, progress_callback=None):
             comic_panels.append((image_paths, panel_summaries))
             all_panel_summaries.extend(panel_summaries)
 
-            # Add image_paths, comic_script, comic_summary, and audio_path to the event dictionary
             event['image_paths'] = image_paths
             event['comic_script'] = event_analysis
             event['comic_summary'] = comic_summary
             event['panel_summaries'] = panel_summaries
             event['audio_path'] = audio_path
-            # Ensure the original story and story source are preserved
             event['story'] = event_story
             event['story_source'] = event_source
 
@@ -190,12 +213,10 @@ def generate_daily_comic(location, progress_callback=None):
                 progress_callback(100, "Failed to generate any comic panels")
             return None
 
-        # Step 3: Combine all panel summaries into one final summary
         app_logger.info("Creating final summary")
         final_summary = f"Today's Events in {location}:\n" + "\n".join(all_panel_summaries)
         save_summary(location, "final_summary.txt", final_summary)
 
-        # Print summary for the user
         app_logger.info(f"Daily comic generation completed for {location}!")
         
         if progress_callback:
@@ -208,6 +229,7 @@ def generate_daily_comic(location, progress_callback=None):
         if progress_callback:
             progress_callback(100, f"Error occurred: {str(e)}")
         return None
+
 
 def generate_custom_comic(title, story, location, progress_callback=None):
     """
@@ -227,14 +249,15 @@ def generate_custom_comic(title, story, location, progress_callback=None):
         if progress_callback:
             progress_callback(0, "Checking for existing comics")
         
-        # Check if a comic with this story already exists
-        existing_comic = ComicDatabase.get_comic_by_story(story)
-        if existing_comic:
-            app_logger.debug(f"Comic already exists for story: {title}. Returning existing comic.")
-            panel_summaries = parse_panel_summaries(existing_comic['comic_summary'])
+        # Check if a similar comic already exists
+        existing_comics = ComicDatabase.get_all_comics()
+        similar_comic = next((comic for comic in existing_comics if is_similar_story(story, comic['original_story'])), None)
+        if similar_comic:
+            app_logger.debug(f"Similar comic already exists for story: {title}. Returning existing comic.")
+            panel_summaries = parse_panel_summaries(similar_comic['comic_summary'])
             if progress_callback:
                 progress_callback(100, "Existing comic found")
-            return existing_comic['image_path'].split(','), panel_summaries, existing_comic['comic_script'], existing_comic['comic_summary'], existing_comic['audio_path']
+            return similar_comic['image_path'].split(','), panel_summaries, similar_comic['comic_script'], similar_comic['comic_summary'], similar_comic['audio_path']
 
         if progress_callback:
             progress_callback(10, f"Generating custom comic: {title}")
@@ -258,8 +281,7 @@ def generate_custom_comic(title, story, location, progress_callback=None):
         if progress_callback:
             progress_callback(40, "Generating images")
         app_logger.debug(f"Generating images for custom comic: {title}")
-        #image_results = generate_flux1_images(filter_content(event_analysis), story)
-        image_results = generate_dalle_images(filter_content(event_analysis), story)
+        image_results = generate_images(event_analysis, story)
         if not image_results:
             app_logger.error(f"Failed to generate comic panels for the custom event: {title}. Aborting comic generation.")
             if progress_callback:
@@ -382,15 +404,16 @@ def generate_media_comic(media_type, path, location, progress_callback=None):
                     app_logger.error(f"Failed to generate summary for video: {media_path}")
                     continue
 
-                # Check if a comic with this summary already exists
-                existing_comic = ComicDatabase.get_comic_by_story(video_summary)
-                if existing_comic:
-                    app_logger.info(f"Comic already exists for video: {media_path}. Skipping this video.")
-                    comic_images.extend(existing_comic['image_path'].split(','))
-                    summaries.append(existing_comic['comic_script'])
-                    comic_scripts.append(existing_comic['comic_script'])
-                    all_panel_summaries.extend(parse_panel_summaries(existing_comic['comic_summary']))
-                    audio_paths.append(existing_comic['audio_path'])
+                # Check if a similar comic already exists
+                existing_comics = ComicDatabase.get_all_comics()
+                similar_comic = next((comic for comic in existing_comics if is_similar_story(video_summary, comic['original_story'])), None)
+                if similar_comic:
+                    app_logger.info(f"Similar comic already exists for video: {media_path}. Skipping this video.")
+                    comic_images.extend(similar_comic['image_path'].split(','))
+                    summaries.append(similar_comic['comic_script'])
+                    comic_scripts.append(similar_comic['comic_script'])
+                    all_panel_summaries.extend(parse_panel_summaries(similar_comic['comic_summary']))
+                    audio_paths.append(similar_comic['audio_path'])
                     continue
 
                 # Generate a single comic for the entire video summary
@@ -403,8 +426,7 @@ def generate_media_comic(media_type, path, location, progress_callback=None):
                 panel_summaries = parse_panel_summaries(comic_summary)
 
                 app_logger.debug(f"Generating images for video: {os.path.basename(media_path)}")
-                i#mage_results = generate_flux1_images(filter_content(event_analysis), video_summary)
-                image_results = generate_dalle_images(filter_content(event_analysis), video_summary)
+                image_results = generate_images(event_analysis, video_summary)
                 if not image_results:
                     app_logger.error("Failed to generate comic for the video")
                     continue
@@ -461,15 +483,16 @@ def generate_media_comic(media_type, path, location, progress_callback=None):
                 # Join the frame descriptions into a single string
                 image_description = " ".join(image_analysis)
 
-                # Check if a comic with this description already exists
-                existing_comic = ComicDatabase.get_comic_by_story(image_description)
-                if existing_comic:
-                    app_logger.info(f"Comic already exists for image: {media_path}. Skipping this image.")
-                    comic_images.extend(existing_comic['image_path'].split(','))
-                    summaries.append(existing_comic['comic_script'])
-                    comic_scripts.append(existing_comic['comic_script'])
-                    all_panel_summaries.extend(parse_panel_summaries(existing_comic['comic_summary']))
-                    audio_paths.append(existing_comic['audio_path'])
+                # Check if a similar comic already exists
+                existing_comics = ComicDatabase.get_all_comics()
+                similar_comic = next((comic for comic in existing_comics if is_similar_story(image_description, comic['original_story'])), None)
+                if similar_comic:
+                    app_logger.info(f"Similar comic already exists for image: {media_path}. Skipping this image.")
+                    comic_images.extend(similar_comic['image_path'].split(','))
+                    summaries.append(similar_comic['comic_script'])
+                    comic_scripts.append(similar_comic['comic_script'])
+                    all_panel_summaries.extend(parse_panel_summaries(similar_comic['comic_summary']))
+                    audio_paths.append(similar_comic['audio_path'])
                     continue
 
                 # Generate a single comic for the entire image description
@@ -482,8 +505,7 @@ def generate_media_comic(media_type, path, location, progress_callback=None):
                 panel_summaries = parse_panel_summaries(comic_summary)
 
                 app_logger.debug(f"Generating images for image: {os.path.basename(media_path)}")
-                #image_results = generate_flux1_images(filter_content(event_analysis), image_description)
-                image_results = generate_dalle_images(filter_content(event_analysis), image_description)
+                image_results = generate_images(event_analysis, image_description)
                 if not image_results:
                     app_logger.error("Failed to generate comic for the image")
                     continue

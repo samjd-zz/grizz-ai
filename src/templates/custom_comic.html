@@ -5,72 +5,44 @@
 {% block header %}Create Custom Comic{% endblock %}
 
 {% block content %}
-    <form id="custom-comic-form" method="POST">
-        <div class="form-group">
-            <label for="title">Title:</label>
-            <input type="text" id="title" name="title" required>
-        </div>
-        <div class="form-group">
-            <label for="story">Story:</label>
-            <textarea id="story" name="story" rows="5" required></textarea>
-        </div>
-        <div class="form-group">
-            <label for="location">Location:</label>
-            <input type="text" id="location" name="location" required>
-        </div>
-        <button type="submit" class="btn">Generate Comic</button>
-    </form>
-    <div id="result-container"></div>
-
-    <!-- Progress overlay -->
-    <div id="progress-overlay" style="display: none;">
-        <div id="progress-container">
-            <div id="progress-bar">
-                <div id="progress"></div>
+    <div id="comic-generation-form">
+        <form id="custom-comic-form" method="POST">
+            <div class="form-group">
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title" required>
             </div>
-            <div id="progress-text">Generating comic: 0%</div>
-        </div>
+            <div class="form-group">
+                <label for="story">Story:</label>
+                <textarea id="story" name="story" rows="5" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="location">Location:</label>
+                <input type="text" id="location" name="location" required>
+            </div>
+            <button type="submit" class="btn">Generate Comic</button>
+        </form>
     </div>
+    <div id="result"></div>
 
-    <br>
     {% if request.path != url_for('index') %}
-        <a href="{{ url_for('index') }}" class="back-arrow"><i class="fas fa-arrow-left"></i></a>
+        <a href="{{ url_for('index') }}" class="back-arrow"><i class="fas fa-arrow-left"></i> Back to Home</a>
     {% endif %}
 {% endblock %}
 
 {% block extra_styles %}
 <style>
-    #progress-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 1000;
+    .back-arrow {
+        display: inline-block;
+        margin-top: 20px;
+        text-decoration: none;
+        color: #007bff;
     }
-    #progress-container {
-        background-color: white;
-        padding: 20px;
-        border-radius: 5px;
-        text-align: center;
+    .back-arrow:hover {
+        text-decoration: underline;
     }
-    #progress-bar {
-        width: 300px;
-        height: 20px;
-        background-color: #f0f0f0;
-        border-radius: 10px;
-        overflow: hidden;
-        margin-bottom: 10px;
-    }
-    #progress {
-        width: 0;
-        height: 100%;
-        background-color: #4CAF50;
-        transition: width 0.5s;
+    .error {
+        color: #dc3545;
+        font-weight: bold;
     }
 </style>
 {% endblock %}
@@ -80,90 +52,56 @@
     document.addEventListener('DOMContentLoaded', function() {
         var form = document.getElementById('custom-comic-form');
 
-        function showProgress() {
-            document.getElementById('progress-overlay').style.display = 'flex';
-            disableInputs(true);
-        }
-
-        function hideProgress() {
-            document.getElementById('progress-overlay').style.display = 'none';
-            disableInputs(false);
-        }
-
-        function updateProgress(percent, text) {
-            document.getElementById('progress').style.width = percent + '%';
-            document.getElementById('progress-text').textContent = text;
-        }
-
-        function disableInputs(disabled) {
-            var inputs = document.querySelectorAll('input, textarea, button');
-            inputs.forEach(function(input) {
-                input.disabled = disabled;
-            });
-        }
-
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             var formData = new FormData(form);
 
-            showProgress();
-            updateProgress(0, 'Starting custom comic generation...');
-            document.getElementById('result-container').innerHTML = '';
+            showProgress('Starting custom comic generation...');
 
-            fetch(form.action, {
+            fetch('/custom_comic', {
                 method: 'POST',
                 body: formData
             })
             .then(response => {
-                const reader = response.body.getReader();
-                const decoder = new TextDecoder();
-                let buffer = '';
-
-                return new ReadableStream({
-                    start(controller) {
-                        function push() {
-                            reader.read().then(({ done, value }) => {
-                                if (done) {
-                                    controller.close();
-                                    return;
-                                }
-
-                                buffer += decoder.decode(value, { stream: true });
-                                const lines = buffer.split('\n');
-                                buffer = lines.pop();
-
-                                for (const line of lines) {
-                                    if (line.startsWith('data:')) {
-                                        const data = JSON.parse(line.slice(5));
-                                        if (data.progress) {
-                                            updateProgress(data.progress, data.message);
-                                        }
-                                    }
-                                }
-
-                                controller.enqueue(value);
-                                push();
-                            });
-                        }
-
-                        push();
-                    }
-                });
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
             })
-            .then(stream => new Response(stream))
-            .then(response => response.json())
             .then(data => {
-                hideProgress();
-                if (data.success) {
-                    document.getElementById('result-container').innerHTML = data.html;
+                if (data.task_id) {
+                    var eventSource = new EventSource('/custom_comic_progress?task_id=' + data.task_id);
+
+                    eventSource.onmessage = function(event) {
+                        var data = JSON.parse(event.data);
+                        if (data.progress !== undefined) {
+                            updateProgress(data.progress, data.message);
+                        }
+                        if (data.success !== undefined) {
+                            eventSource.close();
+                            hideProgress();
+                            if (data.success) {
+                                document.getElementById('comic-generation-form').style.display = 'none';
+                                document.getElementById('result').innerHTML = data.html;
+                            } else {
+                                document.getElementById('result').innerHTML = '<p class="error">' + (data.message || 'An error occurred. Please try again.') + '</p>';
+                            }
+                        }
+                    };
+
+                    eventSource.onerror = function() {
+                        eventSource.close();
+                        hideProgress();
+                        document.getElementById('result').innerHTML = '<p class="error">An error occurred while receiving updates. Please try again.</p>';
+                    };
                 } else {
-                    document.getElementById('result-container').innerHTML = '<p class="message message-error">' + data.message + '</p>';
+                    throw new Error('No task ID received from server.');
                 }
             })
             .catch(error => {
-                hideProgress();
-                document.getElementById('result-container').innerHTML = '<p class="message message-error">An error occurred. Please try again.</p>';
                 console.error('Error:', error);
+                hideProgress();
+                document.getElementById('result').innerHTML = '<p class="error">An error occurred: ' + error.message + '. Please try again.</p>';
             });
         });
     });

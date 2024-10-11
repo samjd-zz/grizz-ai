@@ -5,19 +5,21 @@
 {% block header %}Generate Daily Comic{% endblock %}
 
 {% block content %}
-    <div id="map-config" data-default-lat="{{ config.DEFAULT_LAT }}" data-default-lon="{{ config.DEFAULT_LON }}" style="display: none;"></div>
-    <form id="daily-comic-form" method="POST">
-        <div id="map-search">
-            <input type="text" id="search-input" placeholder="Search for a location">
-            <button type="button" id="search-button">Search</button>
-        </div>
-        <div id="map" style="height: 400px;"></div>
-        <div id="location-display" style="display: none;">
-            <p>Location found: <span id="found-location"></span></p>
-        </div>
-        <input type="hidden" id="selected-location" name="location">
-        <button type="submit" id="generate-button" class="btn" style="display: none;">Generate Daily Comic</button>
-    </form>
+    <div id="comic-generation-form">
+        <div id="map-config" data-default-lat="{{ config.DEFAULT_LAT }}" data-default-lon="{{ config.DEFAULT_LON }}" style="display: none;"></div>
+        <form id="daily-comic-form" method="POST">
+            <div id="map-search">
+                <input type="text" id="search-input" placeholder="Search for a location">
+                <button type="button" id="search-button">Search</button>
+            </div>
+            <div id="map" style="height: 400px;"></div>
+            <div id="location-display" style="display: none;">
+                <p>Location found: <span id="found-location"></span></p>
+            </div>
+            <input type="hidden" id="selected-location" name="location">
+            <button type="submit" id="generate-button" class="btn" style="display: none;">Generate Daily Comic</button>
+        </form>
+    </div>
 
     <div id="result"></div>
 
@@ -42,20 +44,6 @@
     #map {
         margin-bottom: 20px;
     }
-    .btn {
-        display: block;
-        width: 200px;
-        margin: 20px auto;
-        padding: 10px;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-    .btn:hover {
-        background-color: #0056b3;
-    }
     .back-arrow {
         display: inline-block;
         margin-top: 20px;
@@ -65,36 +53,9 @@
     .back-arrow:hover {
         text-decoration: underline;
     }
-    #progress-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 1000;
-    }
-    #progress-container {
-        background-color: white;
-        padding: 20px;
-        border-radius: 5px;
-        text-align: center;
-    }
-    .spinner {
-        border: 4px solid #f3f3f3;
-        border-top: 4px solid #3498db;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        animation: spin 1s linear infinite;
-        margin: 20px auto;
-    }
-    @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
+    .error {
+        color: #dc3545;
+        font-weight: bold;
     }
 </style>
 {% endblock %}
@@ -161,60 +122,54 @@
             e.preventDefault();
             var formData = new FormData(this);
 
-            // Show progress overlay
-            var progressOverlay = document.createElement('div');
-            progressOverlay.id = 'progress-overlay';
-            progressOverlay.innerHTML = `
-                <div id="progress-container">
-                    <div class="spinner"></div>
-                    <p>Please wait while generating the comic...</p>
-                </div>
-            `;
-            document.body.appendChild(progressOverlay);
+            showProgress('Starting daily comic generation...');
 
-            // Disable inputs
-            var inputs = document.querySelectorAll('input, button, select');
-            inputs.forEach(function(input) {
-                input.disabled = true;
-            });
-
+            // Send POST request to start comic generation
             fetch('/daily_comic', {
                 method: 'POST',
                 body: formData
             })
-            .then(response => response.json())
-            .then(data => {
-                // Remove progress overlay
-                var overlay = document.getElementById('progress-overlay');
-                if (overlay) {
-                    overlay.remove();
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
                 }
+                return response.json();
+            })
+            .then(data => {
+                if (data.task_id) {
+                    // Use EventSource for server-sent events
+                    var eventSource = new EventSource('/daily_comic_progress?task_id=' + data.task_id);
 
-                // Enable inputs
-                inputs.forEach(function(input) {
-                    input.disabled = false;
-                });
+                    eventSource.onmessage = function(event) {
+                        var data = JSON.parse(event.data);
+                        if (data.progress !== undefined) {
+                            updateProgress(data.progress, data.message);
+                        }
+                        if (data.success !== undefined) {
+                            eventSource.close();
+                            hideProgress();
+                            if (data.success) {
+                                document.getElementById('comic-generation-form').style.display = 'none';
+                                document.getElementById('result').innerHTML = data.html;
+                            } else {
+                                document.getElementById('result').innerHTML = '<p class="error">' + (data.message || 'An error occurred. Please try again.') + '</p>';
+                            }
+                        }
+                    };
 
-                if (data.success) {
-                    document.getElementById('result').innerHTML = data.html;
+                    eventSource.onerror = function() {
+                        eventSource.close();
+                        hideProgress();
+                        document.getElementById('result').innerHTML = '<p class="error">An error occurred while receiving updates. Please try again.</p>';
+                    };
                 } else {
-                    document.getElementById('result').innerHTML = '<p class="error">' + (data.message || 'An error occurred. Please try again.') + '</p>';
+                    throw new Error('No task ID received from server.');
                 }
             })
-            .catch((error) => {
+            .catch(error => {
                 console.error('Error:', error);
-                // Remove progress overlay
-                var overlay = document.getElementById('progress-overlay');
-                if (overlay) {
-                    overlay.remove();
-                }
-
-                // Enable inputs
-                inputs.forEach(function(input) {
-                    input.disabled = false;
-                });
-
-                document.getElementById('result').innerHTML = '<p class="error">An error occurred. Please try again.</p>';
+                hideProgress();
+                document.getElementById('result').innerHTML = '<p class="error">An error occurred: ' + error.message + '. Please try again.</p>';
             });
         };
     });

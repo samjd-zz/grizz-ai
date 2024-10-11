@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Grizz-AI Comics{% endblock %}</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -116,13 +117,13 @@
         }
         #progress-bar {
             width: 0;
-            height: 5px;
-            background-color: #3498db;
+            height: 4px;
+            background-color: #1a73e8;
             position: fixed;
             top: 0;
             left: 0;
-            transition: width 0.3s;
-            z-index: 1000;
+            transition: width 0.3s ease;
+            z-index: 1001;
         }
         #progress-message {
             position: fixed;
@@ -133,8 +134,9 @@
             color: white;
             padding: 20px;
             border-radius: 4px;
-            z-index: 1001;
+            z-index: 1002;
             text-align: center;
+            display: none; /* Hide by default */
         }
         #overlay {
             position: fixed;
@@ -143,7 +145,7 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.5);
-            z-index: 999;
+            z-index: 1000;
             display: none;
         }
         pre {
@@ -166,17 +168,17 @@
         function showProgress(message) {
             document.getElementById('overlay').style.display = 'block';
             document.getElementById('progress-bar').style.display = 'block';
-            document.getElementById('progress-message').textContent = message;
-            document.getElementById('progress-message').style.display = 'block';
-            let width = 0;
-            const interval = setInterval(function() {
-                if (width >= 90) {
-                    clearInterval(interval);
-                } else {
-                    width += 10;
-                    document.getElementById('progress-bar').style.width = width + '%';
-                }
-            }, 500);
+            var progressMessage = document.getElementById('progress-message');
+            progressMessage.textContent = message;
+            progressMessage.style.display = 'block';
+            disableInputs(true);
+        }
+
+        function updateProgress(percent, message) {
+            document.getElementById('progress-bar').style.width = percent + '%';
+            var progressMessage = document.getElementById('progress-message');
+            progressMessage.textContent = message;
+            progressMessage.style.display = 'block';
         }
 
         function hideProgress() {
@@ -186,15 +188,23 @@
                 document.getElementById('progress-bar').style.display = 'none';
                 document.getElementById('progress-bar').style.width = '0';
                 document.getElementById('progress-message').style.display = 'none';
+                disableInputs(false);
             }, 300);
+        }
+
+        function disableInputs(disabled) {
+            var inputs = document.querySelectorAll('input, button, select, textarea');
+            inputs.forEach(function(input) {
+                input.disabled = disabled;
+            });
         }
     </script>
     {% block extra_scripts %}{% endblock %}
 </head>
 <body>
     <div id="overlay"></div>
-    <div id="progress-bar" style="display: none;"></div>
-    <div id="progress-message" style="display: none;"></div>
+    <div id="progress-bar"></div>
+    <div id="progress-message"></div>
     <nav class="nav-bar">
         <ul>
             <li><a href="{{ url_for('index') }}">Home</a></li>
@@ -203,12 +213,15 @@
             <li><a href="{{ url_for('media_comic') }}">Media Comic</a></li>
             <li><a href="{{ url_for('search') }}">Search</a></li>
             <li><a href="{{ url_for('view_all_comics') }}">View All Comics</a></li>
+            {% if 'user' in session %}
+                <li><a href="{{ url_for('logout') }}">Logout ({{ session['user']['username'] }})</a></li>
+            {% else %}
+                <li><a href="{{ url_for('login') }}">Login</a></li>
+                <li><a href="{{ url_for('register') }}">Register</a></li>
+            {% endif %}
         </ul>
     </nav>
     <div class="container">
-        {% if request.path != url_for('index') %}
-            <a href="{{ url_for('index') }}" class="back-arrow"><i class="fas fa-arrow-left"></i></a>
-        {% endif %}
         <h1>{% block header %}Grizz-AI Comics{% endblock %}</h1>
         {% block content %}{% endblock %}
     </div>

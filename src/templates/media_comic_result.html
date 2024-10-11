@@ -1,53 +1,44 @@
-{% extends "base.html" %}
-
-{% block title %}Media Comic Result{% endblock %}
-
-{% block header %}Media Comic Result{% endblock %}
-
-{% block content %}
-    {% if comics %}
-        {% for comic in comics %}
-            <div class="comic-container">
-                <h2>{{ comic.title }}</h2>
-                <p><strong>Created at:</strong> {{ comic.created_at }}</p>
-                
-                <div class="comic-panels">
-                    {% for image_path in comic.image_paths.split(',') %}
-                        <div class="comic-panel">
-                            <img src="{{ image_path }}" alt="Panel {{ loop.index }} for {{ comic.title }}" class="comic-image">
-                            <p class="panel-number">Panel {{ loop.index }}</p>
-                            {% if comic.panel_summaries and comic.panel_summaries|length >= loop.index %}
-                                <p class="panel-text">{{ comic.panel_summaries[loop.index0] }}</p>
-                            {% else %}
-                                <p class="panel-text">Panel summary not available.</p>
-                            {% endif %}
-                        </div>
-                    {% endfor %}
-                </div>
-
-                <div class="comic-details">
-                    <h3>Original Story:</h3>
-                    <p>{{ comic.original_story }}</p>
-                    {% if comic.audio_path %}
-                        <h3>Audio Narration:</h3>
-                        <audio controls>
-                            <source src="{{ comic.audio_path }}" type="audio/mpeg">
-                            Your browser does not support the audio element.
-                        </audio>
-                    {% endif %}
-                    <h3>Generated Comic Script:</h3>
-                    <p class="comic-script">{{ comic.comic_script }}</p>
-                </div>
+{% if comics %}
+    {% for comic in comics %}
+        <div class="comic-container">
+            <h2>{{ comic.title }}</h2>
+            <p><strong>Created at:</strong> {{ comic.created_at }}</p>
+            
+            <div class="comic-panels">
+                {% for image_path in comic.image_paths %}
+                    <div class="comic-panel">
+                        <img src="{{ image_path }}" alt="Panel {{ loop.index }} for {{ comic.title }}" class="comic-image">
+                        <p class="panel-number">Panel {{ loop.index }}</p>
+                        {% if comic.panel_summaries and comic.panel_summaries|length >= loop.index %}
+                            <p class="panel-text">{{ comic.panel_summaries[loop.index0] }}</p>
+                        {% else %}
+                            <p class="panel-text">Panel summary not available.</p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
             </div>
-        {% endfor %}
-    {% else %}
-        <p>No comics were generated. Please try again.</p>
-    {% endif %}
-    <a href="{{ url_for('media_comic') }}" class="btn">Generate Another Media Comic</a>
-    <a href="{{ url_for('index') }}" class="btn">Back to Home</a>
-{% endblock %}
 
-{% block extra_styles %}
+            <div class="comic-details">
+                <h3>Original Story:</h3>
+                <p>{{ comic.original_story }}</p>
+                {% if comic.audio_path %}
+                    <h3>Audio Narration:</h3>
+                    <audio controls>
+                        <source src="{{ comic.audio_path }}" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                {% endif %}
+                <h3>Generated Comic Script:</h3>
+                <p class="comic-script">{{ comic.comic_script }}</p>
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>No comics were generated. Please try again.</p>
+{% endif %}
+<a href="{{ url_for('media_comic') }}" class="btn">Generate Another Media Comic</a>
+<a href="{{ url_for('index') }}" class="btn">Back to Home</a>
+
 <style>
     .comic-container {
         background-color: #f9f9f9;
@@ -119,4 +110,3 @@
         }
     }
 </style>
-{% endblock %}
