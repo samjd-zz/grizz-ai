@@ -170,37 +170,55 @@ def daily_comic_progress():
         task = comic_tasks[task_id]
         location = task['location']
 
-        yield "data: " + json.dumps({"progress": 10, "message": "Checking for local events..."}) + "\n\n"
+        yield "data: " + json.dumps({"progress": 5, "message": "Initializing daily comic generation...", "stage": "Preparation"}) + "\n\n"
+        time.sleep(1)
+
+        yield "data: " + json.dumps({"progress": 10, "message": "Checking for local events...", "stage": "Event Fetching"}) + "\n\n"
         time.sleep(1)
         
         app_logger.debug(f"Checking for local events in: {location}")
         local_events = get_local_events(location)
         if not local_events or (len(local_events) == 1 and local_events[0]['title'] == "No Current News Events Reported"):
             app_logger.info(f"No events found for {location}")
-            yield "data: " + json.dumps({"progress": 100, "message": "No events found for today. Please try again later."}) + "\n\n"
+            yield "data: " + json.dumps({"progress": 100, "message": "No events found for today. Please try again later.", "stage": "Completed"}) + "\n\n"
             return
 
-        yield "data: " + json.dumps({"progress": 30, "message": "Generating daily comic..."}) + "\n\n"
+        yield "data: " + json.dumps({"progress": 20, "message": "Local events found. Analyzing...", "stage": "Event Analysis"}) + "\n\n"
+        time.sleep(1)
+
+        yield "data: " + json.dumps({"progress": 30, "message": "Generating comic ideas...", "stage": "Text Generation"}) + "\n\n"
+        time.sleep(1)
+        
+        yield "data: " + json.dumps({"progress": 40, "message": "Creating comic script...", "stage": "Text Generation"}) + "\n\n"
+        time.sleep(1)
+
+        yield "data: " + json.dumps({"progress": 50, "message": "Generating daily comic...", "stage": "Comic Generation"}) + "\n\n"
         time.sleep(1)
         
         app_logger.debug(f"Generating daily comic for location: {location}")
         generated_comics = generate_daily_comic(location)
         
         if generated_comics:
-            yield "data: " + json.dumps({"progress": 60, "message": "Processing generated comics..."}) + "\n\n"
-            time.sleep(1)
-            
-            # Update image paths and process comics
-            for event in generated_comics:
+            total_events = len(generated_comics)
+            for event_index, event in enumerate(generated_comics):
+                yield "data: " + json.dumps({"progress": 50 + (event_index * 40 // total_events), "message": f"Generating event {event_index + 1} of {total_events}...", "stage": "Comic Generation"}) + "\n\n"
+                time.sleep(1)
+
                 if 'image_paths' in event:
-                    event['image_paths'] = [url_for('serve_image', filename=os.path.relpath(path, app.config['GENERATED_IMAGES_FOLDER']), _external=True) for path in event['image_paths']]
-                elif 'image_path' in event:
-                    event['image_paths'] = [url_for('serve_image', filename=os.path.relpath(event['image_path'], app.config['GENERATED_IMAGES_FOLDER']), _external=True)]
+                    for panel_index, path in enumerate(event['image_paths']):
+                        yield "data: " + json.dumps({"progress": 50 + (event_index * 40 // total_events) + (panel_index * 10 // len(event['image_paths'])), "message": f"Generating panel {panel_index + 1} for event {event_index + 1}...", "stage": "Image Generation"}) + "\n\n"
+                        time.sleep(0.5)
+
+                event['image_paths'] = [url_for('serve_image', filename=os.path.relpath(path, app.config['GENERATED_IMAGES_FOLDER']), _external=True) for path in event['image_paths']]
+                
                 if 'audio_path' in event and event['audio_path']:
+                    yield "data: " + json.dumps({"progress": 50 + (event_index * 40 // total_events) + 30, "message": f"Generating audio for event {event_index + 1}...", "stage": "Audio Generation"}) + "\n\n"
+                    time.sleep(1)
                     relative_audio_path = os.path.relpath(event['audio_path'], os.path.join(app.config['GENERATED_IMAGES_FOLDER'], 'audio'))
                     event['audio_path'] = url_for('serve_audio', filename=relative_audio_path, _external=True)
                 else:
                     event['audio_path'] = None
+
                 event['created_at'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 if 'comic_script' not in event:
                     event['comic_script'] = "No comic script available"
@@ -211,7 +229,11 @@ def daily_comic_progress():
                 if 'panel_summaries' not in event:
                     event['panel_summaries'] = ["Panel summary not available"] * 3
 
-            yield "data: " + json.dumps({"progress": 90, "message": "Finalizing daily comic..."}) + "\n\n"
+                # Add a yield progress event for completed event processing
+                yield "data: " + json.dumps({"progress": 50 + ((event_index + 1) * 40 // total_events), "message": f"Completed processing event {event_index + 1} of {total_events}", "stage": "Event Processing"}) + "\n\n"
+                time.sleep(1)
+
+            yield "data: " + json.dumps({"progress": 90, "message": "Finalizing daily comic...", "stage": "Finalization"}) + "\n\n"
             time.sleep(1)
             
             app_logger.info(f"Successfully generated daily comic for {location}")
@@ -249,7 +271,10 @@ def custom_comic_progress():
         story = task['story']
         location = task['location']
 
-        yield "data: " + json.dumps({"progress": 10, "message": "Checking for existing comics..."}) + "\n\n"
+        yield "data: " + json.dumps({"progress": 5, "message": "Initializing custom comic generation...", "stage": "Preparation"}) + "\n\n"
+        time.sleep(1)
+
+        yield "data: " + json.dumps({"progress": 10, "message": "Checking for existing comics...", "stage": "Database Check"}) + "\n\n"
         time.sleep(1)
         
         db = get_db()
@@ -259,23 +284,42 @@ def custom_comic_progress():
             yield "data: " + json.dumps({"success": False, "message": 'A comic with this title or story already exists.'}) + "\n\n"
             return
 
-        yield "data: " + json.dumps({"progress": 30, "message": "Generating custom comic..."}) + "\n\n"
+        yield "data: " + json.dumps({"progress": 20, "message": "Analyzing story...", "stage": "Text Analysis"}) + "\n\n"
+        time.sleep(1)
+
+        yield "data: " + json.dumps({"progress": 30, "message": "Generating comic ideas...", "stage": "Text Generation"}) + "\n\n"
+        time.sleep(1)
+
+        yield "data: " + json.dumps({"progress": 40, "message": "Creating comic script...", "stage": "Text Generation"}) + "\n\n"
+        time.sleep(1)
+
+        yield "data: " + json.dumps({"progress": 50, "message": "Generating custom comic...", "stage": "Comic Generation"}) + "\n\n"
         time.sleep(1)
         
         app_logger.info(f"Generating custom comic: {title}")
         result = generate_custom_comic(title, story, location)
         
         if result:
-            yield "data: " + json.dumps({"progress": 60, "message": "Processing generated comic..."}) + "\n\n"
-            time.sleep(1)
-            
             image_paths, panel_summaries, comic_script, comic_summary, audio_path = result
+            
+            for panel_index, path in enumerate(image_paths):
+                yield "data: " + json.dumps({"progress": 50 + (panel_index * 10), "message": f"Generating panel {panel_index + 1}...", "stage": "Image Generation"}) + "\n\n"
+                time.sleep(0.5)
+
             relative_paths = [os.path.relpath(path, app.config['GENERATED_IMAGES_FOLDER']) for path in image_paths]
+            
+            yield "data: " + json.dumps({"progress": 80, "message": "Generating audio narration...", "stage": "Audio Generation"}) + "\n\n"
+            time.sleep(1)
+
             relative_audio_path = os.path.relpath(audio_path, os.path.join(app.config['GENERATED_IMAGES_FOLDER'], 'audio')) if audio_path else None
             created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+            yield "data: " + json.dumps({"progress": 90, "message": "Saving comic to database...", "stage": "Database Update"}) + "\n\n"
+            time.sleep(1)
+
             db.add_comic(title, location, story, comic_script, comic_summary, ",".join(relative_paths), relative_audio_path, datetime.now().date())
             
-            yield "data: " + json.dumps({"progress": 90, "message": "Finalizing custom comic..."}) + "\n\n"
+            yield "data: " + json.dumps({"progress": 95, "message": "Finalizing custom comic...", "stage": "Finalization"}) + "\n\n"
             time.sleep(1)
             
             app_logger.info(f"Successfully generated custom comic: {title}")
@@ -348,24 +392,45 @@ def media_comic_progress():
         path = task['path']
         location = task['location']
 
-        yield "data: " + json.dumps({"progress": 10, "message": "Processing media input..."}) + "\n\n"
+        yield "data: " + json.dumps({"progress": 5, "message": "Initializing media comic generation...", "stage": "Preparation"}) + "\n\n"
         time.sleep(1)
 
-        yield "data: " + json.dumps({"progress": 30, "message": "Generating media comic..."}) + "\n\n"
+        yield "data: " + json.dumps({"progress": 10, "message": "Processing media input...", "stage": "Media Analysis"}) + "\n\n"
+        time.sleep(1)
+
+        yield "data: " + json.dumps({"progress": 20, "message": "Analyzing media content...", "stage": "Content Analysis"}) + "\n\n"
+        time.sleep(1)
+
+        yield "data: " + json.dumps({"progress": 30, "message": "Generating comic ideas...", "stage": "Text Generation"}) + "\n\n"
+        time.sleep(1)
+
+        yield "data: " + json.dumps({"progress": 40, "message": "Creating comic script...", "stage": "Text Generation"}) + "\n\n"
+        time.sleep(1)
+
+        yield "data: " + json.dumps({"progress": 50, "message": "Generating media comic...", "stage": "Comic Generation"}) + "\n\n"
         time.sleep(1)
         
         app_logger.info(f"Generating media comic from {media_type}")
         result = generate_media_comic(media_type, path, location)
         
         if result:
-            yield "data: " + json.dumps({"progress": 60, "message": "Processing generated comic..."}) + "\n\n"
-            time.sleep(1)
-            
             image_paths, summary, comic_scripts, panel_summaries, audio_paths = result
+            
+            for panel_index, path in enumerate(image_paths):
+                yield "data: " + json.dumps({"progress": 50 + (panel_index * 10), "message": f"Generating panel {panel_index + 1}...", "stage": "Image Generation"}) + "\n\n"
+                time.sleep(0.5)
+
             relative_paths = [os.path.relpath(path, app.config['GENERATED_IMAGES_FOLDER']) for path in image_paths]
             relative_audio_paths = [os.path.relpath(path, os.path.join(app.config['GENERATED_IMAGES_FOLDER'], 'audio')) if path else None for path in audio_paths]
             db = get_db()
             comics = []
+
+            yield "data: " + json.dumps({"progress": 80, "message": "Generating audio narration...", "stage": "Audio Generation"}) + "\n\n"
+            time.sleep(1)
+
+            yield "data: " + json.dumps({"progress": 90, "message": "Saving comics to database...", "stage": "Database Update"}) + "\n\n"
+            time.sleep(1)
+
             for i, (relative_path, comic_script, panel_summary, relative_audio_path) in enumerate(zip(relative_paths, comic_scripts, panel_summaries, relative_audio_paths)):
                 created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 title = f"Media Comic {i+1}"
@@ -382,7 +447,7 @@ def media_comic_progress():
                     'story_source_url': ''
                 })
 
-            yield "data: " + json.dumps({"progress": 90, "message": "Finalizing media comic..."}) + "\n\n"
+            yield "data: " + json.dumps({"progress": 95, "message": "Finalizing media comic...", "stage": "Finalization"}) + "\n\n"
             time.sleep(1)
             
             app_logger.info(f"Successfully generated media comic from {media_type}")
