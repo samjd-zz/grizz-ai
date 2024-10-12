@@ -68,16 +68,15 @@ IMPORTANT: Avoid any content that may be considered inappropriate or offensive, 
         # Ensure model gets unloaded after the conversation is complete or in case of errors
         unload_ollama_model(config.OLLAMA_TEXT_ANALYZE_MODEL)
         app_logger.debug("Unloaded the Ollama model.")
-
-def analyze_text_ollama(text, location, model=config.OLLAMA_TEXT_ANALYZE_MODEL, system_prompt=None):
-    app_logger.debug(f"Analyzing text with Ollama using langchain...")
+def analyze_text_ollama(text, location, comic_artist_style, model=config.OLLAMA_TEXT_ANALYZE_MODEL, system_prompt=None):
+    app_logger.debug(f"Analyzing text with Ollama using:{config.OLLAMA_TEXT_ANALYZE_MODEL}  ...")
     
     try:
         filtered_words = get_filtered_words()
         filtered_words_str = ", ".join(filtered_words)
         
         if system_prompt is None:
-            system_prompt = f"""You are a visionary comic scriptwriter collaborating with an AI {config.COMIC_ARTIST_STYLE} that generates comic strip visuals. Your task is to write a highly detailed and imaginative comic strip script that clearly describes characters, scenes, actions, and dialogue. This script will guide an image generator AI like DALL-E to bring the comic to life. Please go into great detail when explaining the scene to the AI. The comic is set in {location}, so make sure to incorporate relevant local elements and characteristics in your script.
+            system_prompt = f"""You are a visionary comic scriptwriter collaborating with an AI {comic_artist_style} that generates comic strip visuals. Your task is to write a highly detailed and imaginative comic strip script that clearly describes characters, scenes, actions, and dialogue. This script will guide an image generator AI like DALL-E to bring the comic to life. Please go into great detail when explaining the scene to the AI. The comic is set in {location}, so make sure to incorporate relevant local elements and characteristics in your script.
 
 IMPORTANT: Do not use any of the following words or phrases in your script: {filtered_words_str}. These words may trigger content filters, so please use alternative language or descriptions.
 IMPORTANT: Please make sure the comic panel descriptions are no longer than a few sentences.  

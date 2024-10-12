@@ -8,16 +8,28 @@
     <div id="comic-generation-form">
         <div id="map-config" data-default-lat="{{ config.DEFAULT_LAT }}" data-default-lon="{{ config.DEFAULT_LON }}" style="display: none;"></div>
         <form id="daily-comic-form" method="POST">
-            <div id="map-search">
-                <input type="text" id="search-input" placeholder="Search for a location">
-                <button type="button" id="search-button">Search</button>
-            </div>
-            <div id="map" style="height: 400px;"></div>
-            <div id="location-display" style="display: none;">
-                <p>Location found: <span id="found-location"></span></p>
+            <div class="top-container">
+                <div class="left-column">
+                    <div id="map-search">
+                        <input type="text" id="search-input" placeholder="Search for a location">
+                        <button type="button" id="search-button">Search</button>
+                    </div>
+                    <div id="additional-inputs" style="display: none;">
+                        <div id="artist-style-input">
+                            <label for="comic-artist-style">Comic Artist Style:</label>
+                            <input type="text" id="comic-artist-style" name="comic_artist_style" placeholder="e.g., Herbert Block" required>
+                        </div>
+                        <button type="submit" id="generate-button" class="btn">Generate Daily Comic</button>
+                    </div>
+                </div>
+                <div class="right-column">
+                    <div id="map"></div>
+                    <div id="location-display" style="display: none;">
+                        <p>Location found: <span id="found-location"></span></p>
+                    </div>
+                </div>
             </div>
             <input type="hidden" id="selected-location" name="location">
-            <button type="submit" id="generate-button" class="btn" style="display: none;">Generate Daily Comic</button>
         </form>
     </div>
 
@@ -31,6 +43,14 @@
 {% block extra_styles %}
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
 <style>
+    .top-container {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+    .left-column, .right-column {
+        width: 48%;
+    }
     #map-search {
         margin-bottom: 10px;
     }
@@ -42,7 +62,19 @@
         padding: 5px 10px;
     }
     #map {
-        margin-bottom: 20px;
+        height: 300px;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    #additional-inputs {
+        margin-top: 20px;
+    }
+    #artist-style-input {
+        margin-bottom: 10px;
+    }
+    #comic-artist-style {
+        width: 100%;
+        padding: 5px;
     }
     .back-arrow {
         display: inline-block;
@@ -106,8 +138,8 @@
                         // Set hidden input value
                         document.getElementById('selected-location').value = foundLocation;
 
-                        // Show generate button
-                        document.getElementById('generate-button').style.display = 'block';
+                        // Show additional inputs
+                        document.getElementById('additional-inputs').style.display = 'block';
                     } else {
                         alert('Location not found');
                     }

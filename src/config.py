@@ -16,7 +16,6 @@ class Config:
         self.DB_PATH = os.getenv("DB_PATH")
         self.LOG_PATH = os.getenv("LOG_PATH")
         self.GENERATE_AUDIO = os.getenv("GENERATE_AUDIO", "false").lower() == "true"
-        self.COMIC_ARTIST_STYLE = os.getenv("COMIC_ARTIST_STYLE", "Herbert Block")
         self.TRAINING_FOLDER = os.getenv("TRAINING_FOLDER")
         self.FLUX1_MODEL_LOCATION = os.getenv("FLUX1_MODEL_LOCATION")
         self.DEFAULT_LAT=os.getenv('DEFAULT_LAT', 50.693802)

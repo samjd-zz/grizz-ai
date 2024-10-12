@@ -71,7 +71,7 @@ def parse_panel_summaries(comic_summary):
     
     return panel_summaries[:3]  # Ensure we only return 3 summaries
 
-def generate_images(event_analysis, event_story):
+def generate_images(event_analysis, event_story, comic_artist_style):
     """
     Generate images using DALL-E first, then try FLUX.1 if DALL-E fails due to safety system,
     and finally fall back to DALL-E with the original story if both fail.
@@ -80,8 +80,8 @@ def generate_images(event_analysis, event_story):
     
     # First attempt: DALL-E with generated script
     try:
-        app_logger.debug("Attempting DALL-E with generated script")
-        image_results = generate_dalle_images(filter_content(event_analysis), event_story)
+        app_logger.debug(f"Attempting DALL-E with generated script and style: {comic_artist_style}")
+        image_results = generate_dalle_images(filter_content(event_analysis), event_story, comic_artist_style)
         if image_results:
             app_logger.debug(f"Successfully generated {len(image_results)} images with DALL-E using generated script")
             return image_results
@@ -92,8 +92,8 @@ def generate_images(event_analysis, event_story):
     
     # Second attempt: FLUX.1 with generated script
     try:
-        app_logger.debug("Attempting FLUX.1 with generated script")
-        image_results = generate_flux1_images(filter_content(event_analysis), event_story)
+        app_logger.debug(f"Attempting FLUX.1 with generated script and style: {comic_artist_style}")
+        image_results = generate_flux1_images(filter_content(event_analysis), event_story, comic_artist_style)
         if image_results:
             app_logger.debug(f"Successfully generated {len(image_results)} images with FLUX.1 using generated script")
             return image_results
@@ -104,8 +104,8 @@ def generate_images(event_analysis, event_story):
     
     # Third attempt: DALL-E with original story
     try:
-        app_logger.debug("Attempting DALL-E with original story")
-        image_results = generate_dalle_images(filter_content(event_story), event_story)
+        app_logger.debug(f"Attempting DALL-E with original story and style: {comic_artist_style}")
+        image_results = generate_dalle_images(filter_content(event_story), event_story, comic_artist_style)
         if image_results:
             app_logger.debug(f"Successfully generated {len(image_results)} images with DALL-E using original story")
             return image_results
@@ -117,8 +117,8 @@ def generate_images(event_analysis, event_story):
     app_logger.error("All image generation attempts failed")
     return None
 
-def generate_daily_comic(location, user_id, progress_callback=None):
-    app_logger.info(f"Starting daily comic generation for location: {location}")
+def generate_daily_comic(location, user_id, comic_artist_style, progress_callback=None):
+    app_logger.info(f"Starting daily comic generation for location: {location}, style: {comic_artist_style}")
     try:
         if progress_callback:
             progress_callback(0, f"Fetching local events for {location}")
@@ -150,7 +150,7 @@ def generate_daily_comic(location, user_id, progress_callback=None):
                 app_logger.info(f"Comic already exists for story: {event_title}. Skipping this event.")
                 continue
             
-            event_analysis, comic_summary = analyze_text_ollama(f"Generate a comic script for this event: {event_title}. {event_story}", location)
+            event_analysis, comic_summary = analyze_text_ollama(f"Generate a comic script for this event: {event_title}. {event_story}", location, comic_artist_style)
             if not event_analysis:
                 app_logger.error(f"Failed to analyze event: {event_title}. Skipping this event.")
                 continue
@@ -158,7 +158,7 @@ def generate_daily_comic(location, user_id, progress_callback=None):
             panel_summaries = parse_panel_summaries(comic_summary)
 
             app_logger.info(f"Generating images for event: {event_title}")
-            image_results = generate_images(event_analysis, event_story)
+            image_results = generate_images(event_analysis, event_story, comic_artist_style)
             if not image_results:
                 app_logger.error(f"Failed to generate comic panel for the event: {event_title}. Skipping this event.")
                 continue
@@ -229,9 +229,7 @@ def generate_daily_comic(location, user_id, progress_callback=None):
         if progress_callback:
             progress_callback(100, f"Error occurred: {str(e)}")
         return None
-
-
-def generate_custom_comic(title, story, location, user_id, progress_callback=None):
+def generate_custom_comic(title, story, location, user_id, comic_artist_style, progress_callback=None):
     """
     Generates a custom comic based on user-provided title, story, and location.
 
@@ -240,6 +238,7 @@ def generate_custom_comic(title, story, location, user_id, progress_callback=Non
         story (str): The story for the custom comic.
         location (str): The location setting for the custom comic.
         user_id (int): The ID of the user generating the comic.
+        comic_artist_style (str): The style of the comic artist to emulate.
         progress_callback (function): A callback function to report progress.
 
     Returns:
@@ -268,7 +267,7 @@ def generate_custom_comic(title, story, location, user_id, progress_callback=Non
         # Generate comic script for the custom story
         if progress_callback:
             progress_callback(20, "Analyzing custom comic story")
-        event_analysis, comic_summary = analyze_text_ollama(f"Generate a comic script for this event: {title}. {story}", location)
+        event_analysis, comic_summary = analyze_text_ollama(f"Generate a comic script for this event: {title}. {story}", location, comic_artist_style)
         if not event_analysis:
             app_logger.error(f"Failed to analyze custom event: {title}. Aborting comic generation.")
             if progress_callback:
@@ -282,7 +281,7 @@ def generate_custom_comic(title, story, location, user_id, progress_callback=Non
         if progress_callback:
             progress_callback(40, "Generating images")
         app_logger.debug(f"Generating images for custom comic: {title}")
-        image_results = generate_images(event_analysis, story)
+        image_results = generate_images(event_analysis, story, comic_artist_style)
         if not image_results:
             app_logger.error(f"Failed to generate comic panels for the custom event: {title}. Aborting comic generation.")
             if progress_callback:
@@ -358,7 +357,7 @@ def generate_custom_comic(title, story, location, user_id, progress_callback=Non
             progress_callback(100, f"Error occurred: {str(e)}")
         return None
 
-def generate_media_comic(media_type, path, location, user_id, progress_callback=None):
+def generate_media_comic(media_type, path, location, user_id, comic_artist_style, progress_callback=None):
     """
     Generates a comic based on a video or image file.
 
@@ -367,6 +366,7 @@ def generate_media_comic(media_type, path, location, user_id, progress_callback=
         path (str): The path to the media file or directory.
         location (str): The location for saving the comic.
         user_id (int): The ID of the user generating the comic.
+        comic_artist_style (str): The style of the comic artist to emulate.
         progress_callback (function): A callback function to report progress.
 
     Returns:
@@ -419,7 +419,7 @@ def generate_media_comic(media_type, path, location, user_id, progress_callback=
                     continue
 
                 # Generate a single comic for the entire video summary
-                event_analysis, comic_summary = analyze_text_ollama(f"Generate a comic script for this event: {video_summary}", location)
+                event_analysis, comic_summary = analyze_text_ollama(f"Generate a comic script for this event: {video_summary}", location, comic_artist_style)
                 if not event_analysis:
                     app_logger.error(f"Failed to analyze video. Aborting comic generation.")
                     continue
@@ -428,7 +428,7 @@ def generate_media_comic(media_type, path, location, user_id, progress_callback=
                 panel_summaries = parse_panel_summaries(comic_summary)
 
                 app_logger.debug(f"Generating images for video: {os.path.basename(media_path)}")
-                image_results = generate_images(event_analysis, video_summary)
+                image_results = generate_images(event_analysis, video_summary, comic_artist_style)
                 if not image_results:
                     app_logger.error("Failed to generate comic for the video")
                     continue
@@ -498,7 +498,7 @@ def generate_media_comic(media_type, path, location, user_id, progress_callback=
                     continue
 
                 # Generate a single comic for the entire image description
-                event_analysis, comic_summary = analyze_text_ollama(f"Generate a comic script for this event: {image_description}", location)
+                event_analysis, comic_summary = analyze_text_ollama(f"Generate a comic script for this event: {image_description}", location, comic_artist_style)
                 if not event_analysis:
                     app_logger.error(f"Failed to analyze image. Aborting comic generation.")
                     continue
@@ -507,7 +507,7 @@ def generate_media_comic(media_type, path, location, user_id, progress_callback=
                 panel_summaries = parse_panel_summaries(comic_summary)
 
                 app_logger.debug(f"Generating images for image: {os.path.basename(media_path)}")
-                image_results = generate_images(event_analysis, image_description)
+                image_results = generate_images(event_analysis, image_description, comic_artist_style)
                 if not image_results:
                     app_logger.error("Failed to generate comic for the image")
                     continue

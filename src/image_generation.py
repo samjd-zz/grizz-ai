@@ -36,23 +36,24 @@ def parse_comic_script(comic_script):
         parsed_panels.append(parsed_panel)
     return parsed_panels
 
-def generate_safe_prompt(panel_tuple, retry_count, original_story=None):
+def generate_safe_prompt(panel_tuple, retry_count, original_story=None, comic_artist_style=None):
     index, panel = panel_tuple
+    style = comic_artist_style or config.COMIC_ARTIST_STYLE
     if retry_count == 0:
-        prompt = f"{config.COMIC_ARTIST_STYLE}: {panel['frame']} of {panel['setting']}. "
+        prompt = f"{style}: {panel['frame']} of {panel['setting']}. "
         prompt += f"Characters: {panel['characters']}. "
         prompt += f"Action: {panel['action']}. "
         if panel['dialogue']:
             prompt += f"Include speech bubble with: '{panel['dialogue']}'"
     elif retry_count == 1 and original_story:
-        prompt = f"{config.COMIC_ARTIST_STYLE}: Create an image based on this story: {original_story}"
+        prompt = f"{style}: Create an image based on this story: {original_story}"
     else:
-        prompt = f"{config.COMIC_ARTIST_STYLE}: A generic scene related to the story. "
+        prompt = f"{style}: A generic scene related to the story. "
         prompt += "Show abstract or symbolic representations of characters and actions. "
     
     return filter_content(prompt, strict=(retry_count > 0))
 
-def generate_flux1_images(comic_script, original_story):
+def generate_flux1_images(comic_script, original_story, comic_artist_style=None):
     app_logger.debug(f"Generating images with FLUX.1-schnell...")
 
     model_id = config.FLUX1_MODEL_LOCATION
@@ -66,7 +67,7 @@ def generate_flux1_images(comic_script, original_story):
     image_urls = []
     for panel_tuple in enumerate(panels, 1):
         # Generate a safe prompt
-        prompt = generate_safe_prompt(panel_tuple, 0, original_story)
+        prompt = generate_safe_prompt(panel_tuple, 0, original_story, comic_artist_style)
         image = pipe(
             prompt,
             guidance_scale=7.5,  # 0.0 is the for maximum creativity [1 to 20, with most models using a default of 7-7.5]
@@ -79,8 +80,7 @@ def generate_flux1_images(comic_script, original_story):
         #image.save("flux-schnell.png")
     return image_urls
 
-
-def generate_dalle_images(comic_script, original_story):
+def generate_dalle_images(comic_script, original_story, comic_artist_style=None):
     try:
         app_logger.debug(f"Generating images with DALL-E using langchain...")
         
@@ -106,7 +106,7 @@ def generate_dalle_images(comic_script, original_story):
                         time.sleep(sleep_time)
 
                     # Generate a safe prompt
-                    prompt = generate_safe_prompt(panel_tuple, retry_count, original_story)
+                    prompt = generate_safe_prompt(panel_tuple, retry_count, original_story, comic_artist_style)
                     app_logger.debug(f"Attempt {retry_count + 1} for Panel {panel_tuple[0]}. Prompt: {prompt}")
 
                     # Generate the image

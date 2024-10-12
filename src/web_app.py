@@ -154,8 +154,14 @@ def index():
 def daily_comic():
     if request.method == 'POST':
         location = request.form['location']
+        comic_artist_style = request.form['comic_artist_style']
         task_id = str(uuid.uuid4())
-        comic_tasks[task_id] = {'status': 'started', 'location': location, 'user_id': session['user']['id']}
+        comic_tasks[task_id] = {
+            'status': 'started',
+            'location': location,
+            'comic_artist_style': comic_artist_style,
+            'user_id': session['user']['id']
+        }
         return jsonify({'task_id': task_id})
     return render_template('daily_comic.html', config=config)
 
@@ -169,6 +175,7 @@ def daily_comic_progress():
     def generate():
         task = comic_tasks[task_id]
         location = task['location']
+        comic_artist_style = task['comic_artist_style']
         user_id = task['user_id']
 
         yield "data: " + json.dumps({"progress": 5, "message": "Initializing daily comic generation...", "stage": "Preparation"}) + "\n\n"
@@ -196,8 +203,8 @@ def daily_comic_progress():
         yield "data: " + json.dumps({"progress": 50, "message": "Generating daily comic...", "stage": "Comic Generation"}) + "\n\n"
         time.sleep(1)
         
-        app_logger.debug(f"Generating daily comic for location: {location}")
-        generated_comics = generate_daily_comic(location, user_id)
+        app_logger.debug(f"Generating daily comic for location: {location}, style: {comic_artist_style}")
+        generated_comics = generate_daily_comic(location, user_id, comic_artist_style)
         
         if generated_comics:
             total_events = len(generated_comics)
@@ -238,7 +245,7 @@ def daily_comic_progress():
             time.sleep(1)
             
             app_logger.info(f"Successfully generated daily comic for {location}")
-            yield "data: " + json.dumps({"success": True, "html": render_template('daily_comic_result.html', events=generated_comics, location=location)}) + "\n\n"
+            yield "data: " + json.dumps({"success": True, "html": render_template('daily_comic_result.html', events=generated_comics, location=location, comic_artist_style=comic_artist_style)}) + "\n\n"
         else:
             app_logger.error(f"Failed to generate daily comic for {location}")
             yield "data: " + json.dumps({"success": False, "message": 'Failed to generate daily comic. Please try again later.'}) + "\n\n"
@@ -254,8 +261,16 @@ def custom_comic():
         title = request.form['title']
         story = request.form['story']
         location = request.form['location']
+        comic_artist_style = request.form['comic_artist_style']
         task_id = str(uuid.uuid4())
-        comic_tasks[task_id] = {'status': 'started', 'title': title, 'story': story, 'location': location, 'user_id': session['user']['id']}
+        comic_tasks[task_id] = {
+            'status': 'started',
+            'title': title,
+            'story': story,
+            'location': location,
+            'comic_artist_style': comic_artist_style,
+            'user_id': session['user']['id']
+        }
         return jsonify({'task_id': task_id})
     return render_template('custom_comic.html')
 
@@ -271,6 +286,7 @@ def custom_comic_progress():
         title = task['title']
         story = task['story']
         location = task['location']
+        comic_artist_style = task['comic_artist_style']
         user_id = task['user_id']
 
         yield "data: " + json.dumps({"progress": 5, "message": "Initializing custom comic generation...", "stage": "Preparation"}) + "\n\n"
@@ -299,7 +315,7 @@ def custom_comic_progress():
         time.sleep(1)
         
         app_logger.info(f"Generating custom comic: {title}")
-        result = generate_custom_comic(title, story, location, user_id)
+        result = generate_custom_comic(title, story, location, user_id, comic_artist_style)
         
         if result:
             image_paths, panel_summaries, comic_script, comic_summary, audio_path = result
@@ -342,6 +358,7 @@ def custom_comic_progress():
 
         del comic_tasks[task_id]
 
+
     return Response(stream_with_context(generate()), mimetype='text/event-stream')
 
 @app.route('/media_comic', methods=['GET', 'POST'])
@@ -350,6 +367,7 @@ def media_comic():
     if request.method == 'POST':
         media_type = request.form['media_type']
         location = request.form['location']
+        comic_artist_style = request.form['comic_artist_style']
         task_id = str(uuid.uuid4())
         
         if media_type == 'live':
@@ -376,7 +394,14 @@ def media_comic():
                 app_logger.error("File upload failed")
                 return jsonify({'success': False, 'message': 'File upload failed. Please try again.'})
         
-        comic_tasks[task_id] = {'status': 'started', 'media_type': media_type, 'path': path, 'location': location, 'user_id': session['user']['id']}
+        comic_tasks[task_id] = {
+            'status': 'started',
+            'media_type': media_type,
+            'path': path,
+            'location': location,
+            'comic_artist_style': comic_artist_style,
+            'user_id': session['user']['id']
+        }
         return jsonify({'task_id': task_id})
     
     return render_template('media_comic.html')
@@ -393,6 +418,7 @@ def media_comic_progress():
         media_type = task['media_type']
         path = task['path']
         location = task['location']
+        comic_artist_style = task['comic_artist_style']
         user_id = task['user_id']
 
         yield "data: " + json.dumps({"progress": 5, "message": "Initializing media comic generation...", "stage": "Preparation"}) + "\n\n"
@@ -414,7 +440,7 @@ def media_comic_progress():
         time.sleep(1)
         
         app_logger.info(f"Generating media comic from {media_type}")
-        result = generate_media_comic(media_type, path, location, user_id)
+        result = generate_media_comic(media_type, path, location, user_id, comic_artist_style)
         
         if result:
             image_paths, summary, comic_scripts, panel_summaries, audio_paths = result
@@ -531,11 +557,9 @@ def view_all_comics():
                         comic['image_paths'].append(url_for('serve_image', filename=relative_path))
                     else:
                         app_logger.warning(f"Image file not found: {path}")
-                if not comic['image_paths']:
-                    comic['image_paths'] = None
             else:
                 app_logger.warning(f"Comic missing image path: {comic.get('title', 'Unknown')}")
-                comic['image_paths'] = None
+                comic['image_paths'] = []
             
             if 'audio_path' in comic and comic['audio_path']:
                 audio_path = comic['audio_path']
