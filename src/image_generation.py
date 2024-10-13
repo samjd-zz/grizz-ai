@@ -36,11 +36,10 @@ def parse_comic_script(comic_script):
         parsed_panels.append(parsed_panel)
     return parsed_panels
 
-def generate_safe_prompt(panel_tuple, retry_count, original_story=None, comic_artist_style=None):
-    index, panel = panel_tuple
-    style = comic_artist_style or config.COMIC_ARTIST_STYLE
+def generate_safe_prompt(panel, retry_count, original_story=None, comic_artist_style=None):
+    style = comic_artist_style if comic_artist_style else ""
     if retry_count == 0:
-        prompt = f"{style}: {panel['frame']} of {panel['setting']}. "
+        prompt = f"In the style and inspired by {style}: {panel['frame']} of {panel['setting']}. "
         prompt += f"Characters: {panel['characters']}. "
         prompt += f"Action: {panel['action']}. "
         if panel['dialogue']:
@@ -65,9 +64,9 @@ def generate_flux1_images(comic_script, original_story, comic_artist_style=None)
     panels = parse_comic_script(comic_script)
     
     image_urls = []
-    for panel_tuple in enumerate(panels, 1):
+    for panel in panels:
         # Generate a safe prompt
-        prompt = generate_safe_prompt(panel_tuple, 0, original_story, comic_artist_style)
+        prompt = generate_safe_prompt(panel, 0, original_story, comic_artist_style)
         image = pipe(
             prompt,
             guidance_scale=7.5,  # 0.0 is the for maximum creativity [1 to 20, with most models using a default of 7-7.5]
@@ -82,7 +81,7 @@ def generate_flux1_images(comic_script, original_story, comic_artist_style=None)
 
 def generate_dalle_images(comic_script, original_story, comic_artist_style=None):
     try:
-        app_logger.debug(f"Generating images with DALL-E using langchain...")
+        app_logger.debug(f"Generating images with DALL-E...")
         
         # Create a DallEAPIWrapper instance
         dalle = DallEAPIWrapper(api_key=config.OPENAI_API_KEY, model='dall-e-3')
@@ -92,7 +91,7 @@ def generate_dalle_images(comic_script, original_story, comic_artist_style=None)
         
         image_urls = []
         last_request_time = 0
-        for panel_tuple in enumerate(panels, 1):
+        for index, panel in enumerate(panels, 1):
             retry_count = 0
             max_retries = 2  # We now only need 2 retries: original prompt and original story
             while retry_count < max_retries:
@@ -106,40 +105,40 @@ def generate_dalle_images(comic_script, original_story, comic_artist_style=None)
                         time.sleep(sleep_time)
 
                     # Generate a safe prompt
-                    prompt = generate_safe_prompt(panel_tuple, retry_count, original_story, comic_artist_style)
-                    app_logger.debug(f"Attempt {retry_count + 1} for Panel {panel_tuple[0]}. Prompt: {prompt}")
+                    prompt = generate_safe_prompt(panel, retry_count, original_story, comic_artist_style)
+                    app_logger.debug(f"Attempt {retry_count + 1} for Panel {index}. Prompt: {prompt}")
 
                     # Generate the image
                     image_url = dalle.run(prompt + " IMPORTANT: Avoid any content that may be considered inappropriate or offensive, ensuring the image aligns with content policies.")
                     image_urls.append(image_url)
                     
                     last_request_time = time.time()
-                    app_logger.debug(f'Successfully generated image URL for Panel {panel_tuple[0]} with DALL-E using langchain.')
+                    app_logger.debug(f'Successfully generated image URL for Panel {index} with DALL-E.')
                     break  # Success, exit the retry loop
                 except Exception as panel_error:
                     error_message = str(panel_error)
-                    app_logger.error(f"Error for Panel {panel_tuple[0]}, Attempt {retry_count + 1}: {error_message}")
+                    app_logger.error(f"Error for Panel {index}, Attempt {retry_count + 1}: {error_message}")
                     
                     if "rate_limit_exceeded" in error_message:
                         retry_count += 1
                         wait_time = 60 * retry_count  # Increase wait time with each retry
-                        app_logger.warning(f"Rate limit exceeded for Panel {panel_tuple[0]}. Retrying in {wait_time} seconds. Attempt {retry_count}/{max_retries}")
+                        app_logger.warning(f"Rate limit exceeded for Panel {index}. Retrying in {wait_time} seconds. Attempt {retry_count}/{max_retries}")
                         time.sleep(wait_time)
                     elif "safety system" in error_message:
                         if retry_count == 0:
-                            app_logger.warning(f"Content rejected by safety system for Panel {panel_tuple[0]}. Trying with original story.")
+                            app_logger.warning(f"Content rejected by safety system for Panel {index}. Trying with original story.")
                             retry_count += 1
                         else:
-                            app_logger.warning(f"Content rejected by safety system for Panel {panel_tuple[0]} using original story. Skipping this panel.")
+                            app_logger.warning(f"Content rejected by safety system for Panel {index} using original story. Skipping this panel.")
                             image_urls.append(None)
                             break
                     else:
-                        app_logger.error(f"Unhandled error generating image for Panel {panel_tuple[0]}: {panel_error}")
+                        app_logger.error(f"Unhandled error generating image for Panel {index}: {panel_error}")
                         image_urls.append(None)
                         break  # Exit the retry loop for unhandled errors
             
             if retry_count == max_retries:
-                app_logger.error(f"Failed to generate image for Panel {panel_tuple[0]} after {max_retries} attempts.")
+                app_logger.error(f"Failed to generate image for Panel {index} after {max_retries} attempts.")
                 image_urls.append(None)
         
         return image_urls

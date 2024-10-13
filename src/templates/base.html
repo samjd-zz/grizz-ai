@@ -3,35 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Grizz-AI Comics{% endblock %}</title>
+    <title>{% block title %}Grizzly Grill Smokes - BBQ Comics{% endblock %}</title>
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
             line-height: 1.6;
-            color: #333;
+            color: #331a00;
             margin: 0;
             padding: 0;
-            background-color: #f0f0f0;
+            background-color: #fff2e6;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-image: url("{{ url_for('static', filename='images/grizz-mountain-valley.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .main-content {
+            flex: 1 0 auto;
         }
         .container {
             width: 100%;
             max-width: 1024px;  
             margin: 0 auto;
             padding: 20px;
-            background-color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.9);
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            flex: 1;
             box-sizing: border-box;
         }
         h1, h2, h3 {
-            color: #2c3e50;
+            color: #8b4513;
         }
         .nav-bar {
-            background-color: #2c3e50;
+            background-color: #8b4513;
             padding: 10px 0;
             margin-bottom: 20px;
         }
@@ -46,27 +63,27 @@
             margin: 0 10px;
         }
         .nav-bar a {
-            color: white;
+            color: #fff2e6;
             text-decoration: none;
             padding: 5px 10px;
             border-radius: 3px;
             transition: background-color 0.3s;
         }
         .nav-bar a:hover {
-            background-color: #34495e;
+            background-color: #a0522d;
         }
         .btn {
             display: inline-block;
             padding: 10px 15px;
-            background-color: #3498db;
+            background-color: #d2691e;
             color: white;
             text-decoration: none;
             border-radius: 4px;
             transition: all 0.3s;
-            border: 2px solid #2980b9;
+            border: 2px solid #8b4513;
         }
         .btn:hover {
-            background-color: #2980b9;
+            background-color: #8b4513;
             box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
         .form-group {
@@ -82,7 +99,7 @@
         .form-group select {
             width: 100%;
             padding: 8px;
-            border: 1px solid #ddd;
+            border: 1px solid #d2691e;
             border-radius: 4px;
             box-sizing: border-box;
         }
@@ -104,39 +121,16 @@
         }
         .comic-container {
             margin-bottom: 40px;
-            border: 1px solid #ddd;
+            border: 1px solid #d2691e;
             border-radius: 8px;
             padding: 20px;
-            background-color: #f9f9f9;
+            background-color: #fff2e6;
         }
         .comic-image {
             max-width: 100%;
             height: auto;
             border-radius: 4px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        #progress-bar {
-            width: 0;
-            height: 4px;
-            background-color: #1a73e8;
-            position: fixed;
-            top: 0;
-            left: 0;
-            transition: width 0.3s ease;
-            z-index: 1001;
-        }
-        #progress-message {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(52, 152, 219, 0.9);
-            color: white;
-            padding: 20px;
-            border-radius: 4px;
-            z-index: 1002;
-            text-align: center;
-            display: none; /* Hide by default */
         }
         #overlay {
             position: fixed;
@@ -145,31 +139,64 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
+            z-index: 998;
             display: none;
         }
-        pre {
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            max-width: 100%;
-            overflow-x: auto;
+        #progress-bar {
+            width: 0;
+            height: 4px;
+            background-color: #d2691e;
+            position: fixed;
+            top: 0;
+            left: 0;
+            transition: width 0.3s ease;
+            z-index: 1000;
+        }
+        #progress-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(210, 105, 30, 0.9);
+            color: white;
+            padding: 20px;
+            border-radius: 4px;
+            z-index: 1001;
+            text-align: center;
+            display: none;
+            border: 1px solid #8b4513;
+        }
+        .spinner {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .disabled {
+            pointer-events: none;
+            opacity: 0.5;
         }
         footer {
-            background-color: #2c3e50;
-            color: white;
+            background-color: #8b4513;
+            color: #fff2e6;
             text-align: center;
-            padding: 10px 0;
-            margin-top: auto;
+            flex-shrink: 0;
         }
     </style>
     {% block extra_styles %}{% endblock %}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         function showProgress(message) {
-            document.getElementById('overlay').style.display = 'block';
             document.getElementById('progress-bar').style.display = 'block';
             var progressMessage = document.getElementById('progress-message');
-            progressMessage.textContent = message;
+            progressMessage.innerHTML = '<div class="spinner"></div>' + message;
             progressMessage.style.display = 'block';
             disableInputs(true);
         }
@@ -177,14 +204,13 @@
         function updateProgress(percent, message) {
             document.getElementById('progress-bar').style.width = percent + '%';
             var progressMessage = document.getElementById('progress-message');
-            progressMessage.textContent = message;
+            progressMessage.innerHTML = '<div class="spinner"></div>' + message;
             progressMessage.style.display = 'block';
         }
 
         function hideProgress() {
             document.getElementById('progress-bar').style.width = '100%';
             setTimeout(function() {
-                document.getElementById('overlay').style.display = 'none';
                 document.getElementById('progress-bar').style.display = 'none';
                 document.getElementById('progress-bar').style.width = '0';
                 document.getElementById('progress-message').style.display = 'none';
@@ -197,17 +223,59 @@
             inputs.forEach(function(input) {
                 input.disabled = disabled;
             });
+
+            // Disable map if it exists
+            if (typeof window.map !== 'undefined' && window.map !== null) {
+                if (disabled) {
+                    window.map.dragging.disable();
+                    window.map.touchZoom.disable();
+                    window.map.doubleClickZoom.disable();
+                    window.map.scrollWheelZoom.disable();
+                    window.map.boxZoom.disable();
+                    window.map.keyboard.disable();
+                    if (window.map.tap) window.map.tap.disable();
+                    document.getElementById('map').style.pointerEvents = 'none';
+                } else {
+                    window.map.dragging.enable();
+                    window.map.touchZoom.enable();
+                    window.map.doubleClickZoom.enable();
+                    window.map.scrollWheelZoom.enable();
+                    window.map.boxZoom.enable();
+                    window.map.keyboard.enable();
+                    if (window.map.tap) window.map.tap.enable();
+                    document.getElementById('map').style.pointerEvents = 'auto';
+                }
+            }
+
+            // Disable Leaflet zoom controls
+            var leafletControls = document.querySelector('.leaflet-control-zoom');
+            if (leafletControls) {
+                leafletControls.style.pointerEvents = disabled ? 'none' : 'auto';
+                leafletControls.style.opacity = disabled ? '0.5' : '1';
+            }
+
+            // Disable generate button
+            var generateButton = document.getElementById('generate-button');
+            if (generateButton) {
+                generateButton.disabled = disabled;
+            }
         }
+
+        // Preload background image
+        window.addEventListener('load', function() {
+            var img = new Image();
+            img.src = "{{ url_for('static', filename='images/grizz-mountain-valley.jpg') }}";
+        });
     </script>
     {% block extra_scripts %}{% endblock %}
 </head>
 <body>
-    <div id="overlay"></div>
     <div id="progress-bar"></div>
     <div id="progress-message"></div>
     <nav class="nav-bar">
         <ul>
             <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('food_menu') }}">Food Menu</a></li>
             {% if 'user' in session %}
                 <li><a href="{{ url_for('daily_comic') }}">Daily Comic</a></li>
                 <li><a href="{{ url_for('custom_comic') }}">Custom Comic</a></li>
@@ -221,12 +289,14 @@
             {% endif %}
         </ul>
     </nav>
-    <div class="container">
-        <h1>{% block header %}Grizz-AI Comics{% endblock %}</h1>
-        {% block content %}{% endblock %}
+    <div class="main-content">
+        <div class="container">
+            <h1>{% block header %}Grizzly Grill Smokes - BBQ Comics{% endblock %}</h1>
+            {% block content %}{% endblock %}
+        </div>
     </div>
     <footer>
-        <p>&copy; 2024 Grizz-AI Comics. All rights reserved.</p>
+        <p>&copy; 2024 Grizzly Grill Smokes - BBQ Comics. All rights reserved.</p>
     </footer>
 </body>
 </html>

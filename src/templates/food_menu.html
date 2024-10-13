@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Grizzly Grill Smokes - Food Menu{% endblock %}
+
+{% block content %}
+<h2>Grizzly Grill Smokes Menu</h2>
+<div class="menu-container">
+    {% for item in menu_items %}
+    <div class="menu-item">
+        <img src="{{ url_for('static', filename=item.image) }}" alt="{{ item.name }}" class="menu-image">
+        <h3>{{ item.name }}</h3>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
+{% block extra_styles %}
+<style>
+    .menu-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+    .menu-item {
+        width: 200px;
+        margin: 20px;
+        text-align: center;
+    }
+    .menu-image {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    h3 {
+        margin-top: 10px;
+    }
+</style>
+{% endblock %}

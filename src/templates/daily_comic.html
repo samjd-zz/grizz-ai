@@ -15,9 +15,13 @@
                         <button type="button" id="search-button">Search</button>
                     </div>
                     <div id="additional-inputs" style="display: none;">
-                        <div id="artist-style-input">
+                        <div id="artist-style-checkbox">
+                            <input type="checkbox" id="use-artist-style" name="use_artist_style">
+                            <label for="use-artist-style">Specify Comic Artist Style</label>
+                        </div>
+                        <div id="artist-style-input" style="display: none;">
                             <label for="comic-artist-style">Comic Artist Style:</label>
-                            <input type="text" id="comic-artist-style" name="comic_artist_style" placeholder="e.g., Herbert Block" required>
+                            <input type="text" id="comic-artist-style" name="comic_artist_style" placeholder="e.g., Herbert Block">
                         </div>
                         <button type="submit" id="generate-button" class="btn">Generate Daily Comic</button>
                     </div>
@@ -65,12 +69,13 @@
         height: 300px;
         width: 100%;
         margin-bottom: 10px;
+        border: 1px solid #8b4513;
     }
     #additional-inputs {
         margin-top: 20px;
     }
     #artist-style-input {
-        margin-bottom: 10px;
+        margin-top: 10px;
     }
     #comic-artist-style {
         width: 100%;
@@ -95,116 +100,115 @@
 {% block extra_scripts %}
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 <script>
-(function() {
+document.addEventListener('DOMContentLoaded', function() {
     console.log('Daily comic script loaded');
 
-    document.addEventListener('DOMContentLoaded', function() {
-        var mapConfig = document.getElementById('map-config');
-        var defaultLat = parseFloat(mapConfig.dataset.defaultLat) || 50.693802;
-        var defaultLon = parseFloat(mapConfig.dataset.defaultLon) || -121.936584;
+    var mapConfig = document.getElementById('map-config');
+    var defaultLat = parseFloat(mapConfig.dataset.defaultLat) || 50.693802;
+    var defaultLon = parseFloat(mapConfig.dataset.defaultLon) || -121.936584;
 
-        console.log('Using coordinates:', defaultLat, defaultLon);
+    console.log('Using coordinates:', defaultLat, defaultLon);
 
-        var map = L.map('map').setView([defaultLat, defaultLon], 13);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
+    var map = L.map('map').setView([defaultLat, defaultLon], 13);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
 
-        var marker;
+    window.map = map;  // Make map globally accessible
 
-        function setMarker(latlng) {
-            if (marker) {
-                map.removeLayer(marker);
-            }
-            marker = L.marker(latlng).addTo(map);
+    var marker;
+
+    function setMarker(latlng) {
+        if (marker) {
+            map.removeLayer(marker);
         }
+        marker = L.marker(latlng).addTo(map);
+    }
 
-        document.getElementById('search-button').addEventListener('click', function() {
-            var searchQuery = document.getElementById('search-input').value;
-            fetch('https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(searchQuery))
-                .then(response => response.json())
-                .then(data => {
-                    if (data.length > 0) {
-                        var latlng = L.latLng(parseFloat(data[0].lat), parseFloat(data[0].lon));
-                        map.setView(latlng, 13);
-                        setMarker(latlng);
-
-                        // Parse and display the found location
-                        var foundLocation = data[0].display_name;
-                        
-                        document.getElementById('found-location').textContent = foundLocation;
-                        document.getElementById('location-display').style.display = 'block';
-                        
-                        // Set hidden input value
-                        document.getElementById('selected-location').value = foundLocation;
-
-                        // Show additional inputs
-                        document.getElementById('additional-inputs').style.display = 'block';
-                    } else {
-                        alert('Location not found');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('An error occurred while searching for the location');
-                });
-        });
-
-        document.getElementById('daily-comic-form').onsubmit = function(e) {
-            e.preventDefault();
-            var formData = new FormData(this);
-
-            showProgress('Starting daily comic generation...');
-
-            // Send POST request to start comic generation
-            fetch('/daily_comic', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
+    document.getElementById('search-button').addEventListener('click', function() {
+        var searchQuery = document.getElementById('search-input').value;
+        fetch('https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(searchQuery))
+            .then(response => response.json())
             .then(data => {
-                if (data.task_id) {
-                    // Use EventSource for server-sent events
-                    var eventSource = new EventSource('/daily_comic_progress?task_id=' + data.task_id);
+                if (data.length > 0) {
+                    var latlng = L.latLng(parseFloat(data[0].lat), parseFloat(data[0].lon));
+                    map.setView(latlng, 13);
+                    setMarker(latlng);
 
-                    eventSource.onmessage = function(event) {
-                        var data = JSON.parse(event.data);
-                        if (data.progress !== undefined) {
-                            updateProgress(data.progress, data.message);
-                        }
-                        if (data.success !== undefined) {
-                            eventSource.close();
-                            hideProgress();
-                            if (data.success) {
-                                document.getElementById('comic-generation-form').style.display = 'none';
-                                document.getElementById('result').innerHTML = data.html;
-                            } else {
-                                document.getElementById('result').innerHTML = '<p class="error">' + (data.message || 'An error occurred. Please try again.') + '</p>';
-                            }
-                        }
-                    };
-
-                    eventSource.onerror = function() {
-                        eventSource.close();
-                        hideProgress();
-                        document.getElementById('result').innerHTML = '<p class="error">An error occurred while receiving updates. Please try again.</p>';
-                    };
+                    var foundLocation = data[0].display_name;
+                    
+                    document.getElementById('found-location').textContent = foundLocation;
+                    document.getElementById('location-display').style.display = 'block';
+                    
+                    document.getElementById('selected-location').value = foundLocation;
+                    document.getElementById('additional-inputs').style.display = 'block';
                 } else {
-                    throw new Error('No task ID received from server.');
+                    alert('Location not found');
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                hideProgress();
-                document.getElementById('result').innerHTML = '<p class="error">An error occurred: ' + error.message + '. Please try again.</p>';
+                alert('An error occurred while searching for the location');
             });
-        };
     });
-})();
+
+    document.getElementById('use-artist-style').addEventListener('change', function() {
+        document.getElementById('artist-style-input').style.display = this.checked ? 'block' : 'none';
+        document.getElementById('comic-artist-style').required = this.checked;
+    });
+
+    document.getElementById('daily-comic-form').onsubmit = function(e) {
+        e.preventDefault();
+        var formData = new FormData(this);
+
+        showProgress('Starting daily comic generation...');
+
+        fetch('/daily_comic', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.task_id) {
+                var eventSource = new EventSource('/daily_comic_progress?task_id=' + data.task_id);
+
+                eventSource.onmessage = function(event) {
+                    var data = JSON.parse(event.data);
+                    if (data.progress !== undefined) {
+                        updateProgress(data.progress, data.message);
+                    }
+                    if (data.success !== undefined) {
+                        eventSource.close();
+                        hideProgress();
+                        if (data.success) {
+                            document.getElementById('comic-generation-form').style.display = 'none';
+                            document.getElementById('result').innerHTML = data.html;
+                        } else {
+                            document.getElementById('result').innerHTML = '<p class="error">' + (data.message || 'An error occurred. Please try again.') + '</p>';
+                        }
+                    }
+                };
+
+                eventSource.onerror = function() {
+                    eventSource.close();
+                    hideProgress();
+                    document.getElementById('result').innerHTML = '<p class="error">An error occurred while receiving updates. Please try again.</p>';
+                };
+            } else {
+                throw new Error('No task ID received from server.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            hideProgress();
+            document.getElementById('result').innerHTML = '<p class="error">An error occurred: ' + error.message + '. Please try again.</p>';
+        });
+    };
+});
 </script>
 {% endblock %}

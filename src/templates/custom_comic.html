@@ -19,6 +19,14 @@
                 <label for="location">Location:</label>
                 <input type="text" id="location" name="location" required>
             </div>
+            <div class="form-group">
+                <input type="checkbox" id="use-artist-style" name="use_artist_style">
+                <label for="use-artist-style">Specify Comic Artist Style</label>
+            </div>
+            <div class="form-group" id="artist-style-input" style="display: none;">
+                <label for="comic-artist-style">Comic Artist Style:</label>
+                <input type="text" id="comic-artist-style" name="comic_artist_style" placeholder="e.g., Herbert Block">
+            </div>
             <button type="submit" class="btn">Generate Comic</button>
         </form>
     </div>
@@ -51,6 +59,13 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var form = document.getElementById('custom-comic-form');
+        var useArtistStyleCheckbox = document.getElementById('use-artist-style');
+        var artistStyleInput = document.getElementById('artist-style-input');
+
+        useArtistStyleCheckbox.addEventListener('change', function() {
+            artistStyleInput.style.display = this.checked ? 'block' : 'none';
+            document.getElementById('comic-artist-style').required = this.checked;
+        });
 
         form.addEventListener('submit', function(e) {
             e.preventDefault();

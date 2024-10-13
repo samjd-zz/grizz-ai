@@ -22,7 +22,7 @@ def get_filtered_words():
     return filter_content("", strict=True).split()
 
 def summarize_comic_text(text, model=config.OLLAMA_TEXT_ANALYZE_MODEL, system_prompt=None):
-    app_logger.debug(f"Summarize comic text with Ollama using langchain...")
+    app_logger.debug(f"Summarize comic text with Ollama using {config.OLLAMA_TEXT_ANALYZE_MODEL}...")
     
     try:
         if system_prompt is None:
@@ -59,10 +59,10 @@ IMPORTANT: Avoid any content that may be considered inappropriate or offensive, 
         response = chat(messages)
 
         result = response.content.strip()
-        app_logger.debug(f"Text summarized successfully with Ollama using langchain.")
+        app_logger.debug(f"Text summarized successfully with Ollama using {config.OLLAMA_TEXT_ANALYZE_MODEL}.")
         return result
     except Exception as e:
-        app_logger.error(f"Error summarizing text with Ollama using langchain: {e}.")
+        app_logger.error(f"Error summarizing text with Ollama using {config.OLLAMA_TEXT_ANALYZE_MODEL}: {e}.")
         return None
     finally:
         # Ensure model gets unloaded after the conversation is complete or in case of errors
@@ -74,9 +74,12 @@ def analyze_text_ollama(text, location, comic_artist_style, model=config.OLLAMA_
     try:
         filtered_words = get_filtered_words()
         filtered_words_str = ", ".join(filtered_words)
-        
         if system_prompt is None:
-            system_prompt = f"""You are a visionary comic scriptwriter collaborating with an AI {comic_artist_style} that generates comic strip visuals. Your task is to write a highly detailed and imaginative comic strip script that clearly describes characters, scenes, actions, and dialogue. This script will guide an image generator AI like DALL-E to bring the comic to life. Please go into great detail when explaining the scene to the AI. The comic is set in {location}, so make sure to incorporate relevant local elements and characteristics in your script.
+            system_prompt = f"""You are a visionary comic scriptwriter collaborating with an AI {comic_artist_style} 
+            that generates comic strip visuals. Your task is to write a highly detailed and imaginative comic strip script 
+            that clearly describes characters, scenes, actions, and dialogue. This script will guide an image generator AI like DALL-E to 
+            bring the comic to life. Please go into great detail when explaining the scene to the AI. The comic is set in {location}, so 
+            make sure to incorporate relevant local elements and characteristics in your script.
 
 IMPORTANT: Do not use any of the following words or phrases in your script: {filtered_words_str}. These words may trigger content filters, so please use alternative language or descriptions.
 IMPORTANT: Please make sure the comic panel descriptions are no longer than a few sentences.  
@@ -117,7 +120,7 @@ IMPORTANT: Always provide exactly three panels and three summary points, regardl
         response = chat(messages)
 
         comic_script = response.content.strip()
-        app_logger.debug(f"Text analyzed successfully with Ollama using langchain.")
+        app_logger.debug(f"Text analyzed successfully with Ollama using {config.OLLAMA_TEXT_ANALYZE_MODEL}.")
         
         # Extract summary from the comic script
         summary_start = comic_script.find("Summary:")
@@ -132,7 +135,7 @@ IMPORTANT: Always provide exactly three panels and three summary points, regardl
         
         return comic_script, summary
     except Exception as e:
-        app_logger.error(f"Error analyzing text with Ollama using langchain: {e}.")
+        app_logger.error(f"Error analyzing text with Ollama using {config.OLLAMA_TEXT_ANALYZE_MODEL}: {e}.")
         return None, None
     finally:
         # Ensure model gets unloaded after the conversation is complete or in case of errors
