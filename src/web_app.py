@@ -4,7 +4,6 @@ from datetime import datetime
 from flask import Flask, render_template, request, url_for, send_from_directory, g, jsonify, Response, stream_with_context, redirect, session, flash
 from functools import wraps
 from main import generate_daily_comic, generate_custom_comic, generate_media_comic, capture_live_video
-from psy_researcher import perform_duckduckgo_search
 from config import load_config
 from database import ComicDatabase
 from logger import app_logger
@@ -25,6 +24,9 @@ app_logger.debug(f"Secret key set: {config.SECRET_KEY[:5]}...")  # Log first 5 c
 # Configure image serving for generated images
 app.config['GENERATED_IMAGES_FOLDER'] = config.OUTPUT_DIR
 os.makedirs(app.config['GENERATED_IMAGES_FOLDER'], exist_ok=True)
+
+# Configure audio serving for albums (using relative path)
+app.config['ALBUMS_FOLDER'] = 'audio/albums'
 
 geolocator = Nominatim(user_agent="grizz-ai")
 
@@ -105,12 +107,46 @@ def before_first_request():
 @app.after_request
 def add_csp_header(response):
     csp = ("default-src 'self'; "
-           "script-src 'self' 'unsafe-inline' https://code.jquery.com https://unpkg.com; "
-           "style-src 'self' 'unsafe-inline' https://unpkg.com; "
+           "script-src 'self' 'unsafe-inline' https://code.jquery.com https://unpkg.com https://stackpath.bootstrapcdn.com https://cdn.jsdelivr.net; "
+           "style-src 'self' 'unsafe-inline' https://unpkg.com https://stackpath.bootstrapcdn.com; "
            "img-src 'self' https://*.tile.openstreetmap.org https://unpkg.com data:; "
+           "font-src 'self' https://stackpath.bootstrapcdn.com; "
            "connect-src 'self' https://nominatim.openstreetmap.org;")
     response.headers['Content-Security-Policy'] = csp
     return response
+
+def get_album_info():
+    albums_dir = os.path.join(app.root_path, '..', app.config['ALBUMS_FOLDER'])
+    app_logger.debug(f"Albums directory: {albums_dir}")
+    music = {}
+    for genre in os.listdir(albums_dir):
+        genre_path = os.path.join(albums_dir, genre)
+        app_logger.debug(f"Checking genre: {genre}, path: {genre_path}")
+        if os.path.isdir(genre_path):
+            normalized_genre = genre.lower()
+            if normalized_genre == 'raggae':
+                normalized_genre = 'reggae'
+            music[normalized_genre] = []
+            for album in os.listdir(genre_path):
+                if album.endswith('.mp4'):
+                    album_info = {
+                        'title': ' '.join(album.split('.')[0].split('_')).title(),
+                        'filename': album,
+                        'url': url_for('serve_audio', filename=f'{genre}/{album}')
+                    }
+                    music[normalized_genre].append(album_info)
+                    app_logger.debug(f"Added album for {normalized_genre}: {album_info}")
+    app_logger.debug(f"Final music data: {music}")
+    return music
+
+@app.route('/music')
+def music():
+    music_data = get_album_info()
+    app_logger.info(f"Music data for template: {music_data}")
+    app_logger.debug(f"Genres found: {list(music_data.keys())}")
+    for genre, albums in music_data.items():
+        app_logger.debug(f"Genre: {genre}, Number of albums: {len(albums)}")
+    return render_template('music.html', music=music_data)
 
 def get_db():
     if 'db' not in g:
@@ -139,7 +175,7 @@ def serve_image(filename):
 
 @app.route('/audio/<path:filename>')
 def serve_audio(filename):
-    return send_from_directory(os.path.join(app.config['GENERATED_IMAGES_FOLDER'], 'audio'), filename)
+    return send_from_directory(os.path.join(app.root_path, '..', app.config['ALBUMS_FOLDER']), filename)
 
 @app.route('/')
 @login_required
@@ -495,18 +531,6 @@ def media_comic_progress():
         del comic_tasks[task_id]
 
     return Response(stream_with_context(generate()), mimetype='text/event-stream')
-
-@app.route('/search', methods=['GET', 'POST'])
-@login_required
-def search():
-    if request.method == 'POST':
-        query = request.form['query']
-        num_queries = int(request.form['num_queries'])
-        num_results = int(request.form['num_results'])
-        app_logger.info(f"Performing DuckDuckGo search: {query}")
-        results = perform_duckduckgo_search(query, num_queries, num_results)
-        return render_template('search_results.html', results=results)
-    return render_template('search.html')
 
 def get_unique_locations():
     db = get_db()

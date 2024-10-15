@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}Grizzly Grill Smokes - Our Music{% endblock %}
+
+{% block header %}Grizzly Grill Smokes - Our Music{% endblock %}
+
+{% block extra_styles %}
+<style>
+    .genre-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+    }
+    .genre-column {
+        display: flex;
+        flex-direction: column;
+    }
+    .genre-column h2 {
+        margin-bottom: 15px;
+    }
+    .album-card {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+    .album-card h5 {
+        margin-bottom: 10px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<hr/>
+<div class="genre-grid">
+    {% set genre_order = ['rock', 'reggae', 'latino'] %}
+    {% for genre in genre_order %}
+        <div class="genre-column">
+            <h2>{{ genre|capitalize }}</h2>
+            {% if genre in music and music[genre] %}
+                {% for album in music[genre] %}
+                    <div class="album-card">
+                        <h5>{{ album.title }}</h5>
+                        <button class="btn btn-primary btn-sm play-album" data-url="{{ album.url }}">Play</button>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No albums available for this genre.</p>
+            {% endif %}
+        </div>
+    {% endfor %}
+    <div class="mt-3">
+        <video id="music-player" controls style="width: 200px; height: 300px;">
+            <source src="" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+</div>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const player = document.getElementById('music-player');
+    const playButtons = document.querySelectorAll('.play-album');
+
+    playButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const albumUrl = this.getAttribute('data-url');
+            player.src = albumUrl;
+            player.play();
+        });
+    });
+});
+</script>
+{% endblock %}

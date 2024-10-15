@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Grizzly Grill Smokes - BBQ Comics{% endblock %}</title>
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <style>
@@ -35,14 +36,12 @@
         .main-content {
             flex: 1 0 auto;
         }
-        .container {
-            width: 100%;
-            max-width: 1024px;  
+        .custom-container {
+            max-width: 1024px;
             margin: 0 auto;
-            padding: 20px;
             background-color: rgba(255, 255, 255, 0.9);
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            box-sizing: border-box;
+            padding: 20px;
         }
         h1, h2, h3 {
             color: #8b4513;
@@ -71,6 +70,30 @@
         }
         .nav-bar a:hover {
             background-color: #a0522d;
+        }
+        .nav-bar .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .nav-bar .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #8b4513;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+        .nav-bar .dropdown-content a {
+            color: #fff2e6;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        .nav-bar .dropdown-content a:hover {
+            background-color: #a0522d;
+        }
+        .nav-bar .dropdown:hover .dropdown-content {
+            display: block;
         }
         .btn {
             display: inline-block;
@@ -183,6 +206,8 @@
     </style>
     {% block extra_styles %}{% endblock %}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="{{ url_for('static', filename='js/progress_bar.js') }}"></script>
     <script>
         function disableInputs(disabled) {
@@ -191,7 +216,6 @@
                 input.disabled = disabled;
             });
 
-            // Disable map if it exists
             if (typeof window.map !== 'undefined' && window.map !== null) {
                 if (disabled) {
                     window.map.dragging.disable();
@@ -214,21 +238,18 @@
                 }
             }
 
-            // Disable Leaflet zoom controls
             var leafletControls = document.querySelector('.leaflet-control-zoom');
             if (leafletControls) {
                 leafletControls.style.pointerEvents = disabled ? 'none' : 'auto';
                 leafletControls.style.opacity = disabled ? '0.5' : '1';
             }
 
-            // Disable generate button
             var generateButton = document.getElementById('generate-button');
             if (generateButton) {
                 generateButton.disabled = disabled;
             }
         }
 
-        // Preload background image
         window.addEventListener('load', function() {
             var img = new Image();
             img.src = "{{ url_for('static', filename='images/grizz-mountain-valley.jpg') }}";
@@ -247,12 +268,17 @@
         <ul>
             <li><a href="{{ url_for('index') }}">Home</a></li>
             <li><a href="{{ url_for('food_menu') }}">Food Menu</a></li>
+            <li><a href="{{ url_for('music') }}">Music</a></li>
             {% if 'user' in session %}
-                <li><a href="{{ url_for('daily_comic') }}">Daily Comic</a></li>
-                <li><a href="{{ url_for('custom_comic') }}">Custom Comic</a></li>
-                <li><a href="{{ url_for('media_comic') }}">Media Comic</a></li>
-                <li><a href="{{ url_for('search') }}">Search</a></li>
-                <li><a href="{{ url_for('view_all_comics') }}">View All Comics</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">Comics</a>
+                    <div class="dropdown-content">
+                        <a href="{{ url_for('daily_comic') }}">Daily Comic</a>
+                        <a href="{{ url_for('custom_comic') }}">Custom Comic</a>
+                        <a href="{{ url_for('media_comic') }}">Media Comic</a>
+                        <a href="{{ url_for('view_all_comics') }}">View All Comics</a>
+                    </div>
+                </li>
                 <li><a href="{{ url_for('logout') }}">Logout ({{ session['user']['username'] }})</a></li>
             {% else %}
                 <li><a href="{{ url_for('login') }}">Login</a></li>
@@ -261,7 +287,7 @@
         </ul>
     </nav>
     <div class="main-content">
-        <div class="container">
+        <div class="custom-container">
             <h1>{% block header %}Grizzly Grill Smokes - BBQ Comics{% endblock %}</h1>
             {% block content %}{% endblock %}
         </div>
