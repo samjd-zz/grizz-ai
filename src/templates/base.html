@@ -132,45 +132,36 @@
             border-radius: 4px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-        #overlay {
+        #progress-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 998;
-            display: none;
+            z-index: 1000;
+            background-color: #8b4513;
         }
         #progress-bar {
-            width: 0;
+            width: 100%;
             height: 4px;
+            background-color: #f0f0f0;
+        }
+        #progress {
+            width: 0;
+            height: 100%;
             background-color: #d2691e;
-            position: fixed;
-            top: 0;
-            left: 0;
             transition: width 0.3s ease;
-            z-index: 1000;
         }
         #progress-message {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(210, 105, 30, 0.9);
             color: white;
-            padding: 20px;
-            border-radius: 4px;
-            z-index: 1001;
+            padding: 10px;
             text-align: center;
-            display: none;
-            border: 1px solid #8b4513;
+            font-weight: bold;
         }
         .spinner {
             display: inline-block;
             width: 10px;
             height: 10px;
-            border: 3px solid rgba(255,255,255,.3);
+            border: 2px solid rgba(255,255,255,.3);
             border-radius: 50%;
             border-top-color: #fff;
             animation: spin 1s ease-in-out infinite;
@@ -192,32 +183,8 @@
     </style>
     {% block extra_styles %}{% endblock %}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ url_for('static', filename='js/progress_bar.js') }}"></script>
     <script>
-        function showProgress(message) {
-            document.getElementById('progress-bar').style.display = 'block';
-            var progressMessage = document.getElementById('progress-message');
-            progressMessage.innerHTML = '<div class="spinner"></div>' + message;
-            progressMessage.style.display = 'block';
-            disableInputs(true);
-        }
-
-        function updateProgress(percent, message) {
-            document.getElementById('progress-bar').style.width = percent + '%';
-            var progressMessage = document.getElementById('progress-message');
-            progressMessage.innerHTML = '<div class="spinner"></div>' + message;
-            progressMessage.style.display = 'block';
-        }
-
-        function hideProgress() {
-            document.getElementById('progress-bar').style.width = '100%';
-            setTimeout(function() {
-                document.getElementById('progress-bar').style.display = 'none';
-                document.getElementById('progress-bar').style.width = '0';
-                document.getElementById('progress-message').style.display = 'none';
-                disableInputs(false);
-            }, 300);
-        }
-
         function disableInputs(disabled) {
             var inputs = document.querySelectorAll('input, button, select, textarea');
             inputs.forEach(function(input) {
@@ -270,8 +237,12 @@
     {% block extra_scripts %}{% endblock %}
 </head>
 <body>
-    <div id="progress-bar"></div>
-    <div id="progress-message"></div>
+    <div id="progress-container" style="display: none;">
+        <div id="progress-bar">
+            <div id="progress"></div>
+        </div>
+        <div id="progress-message"><span class="spinner"></span><span id="progress-text"></span></div>
+    </div>
     <nav class="nav-bar">
         <ul>
             <li><a href="{{ url_for('index') }}">Home</a></li>

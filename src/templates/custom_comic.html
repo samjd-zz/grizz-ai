@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
-{% block title %}Create Custom Comic{% endblock %}
+{% block title %}Generate Custom Comic{% endblock %}
 
-{% block header %}Create Custom Comic{% endblock %}
+{% block header %}Generate Custom Comic{% endblock %}
 
 {% block content %}
     <div id="comic-generation-form">
@@ -20,16 +20,13 @@
                 <input type="text" id="location" name="location" required>
             </div>
             <div class="form-group">
-                <input type="checkbox" id="use-artist-style" name="use_artist_style">
-                <label for="use-artist-style">Specify Comic Artist Style</label>
-            </div>
-            <div class="form-group" id="artist-style-input" style="display: none;">
-                <label for="comic-artist-style">Comic Artist Style:</label>
+                <label for="comic-artist-style">Comic Artist Style (optional):</label>
                 <input type="text" id="comic-artist-style" name="comic_artist_style" placeholder="e.g., Herbert Block">
             </div>
-            <button type="submit" class="btn">Generate Comic</button>
+            <button type="submit" id="generate-button" class="btn">Generate Custom Comic</button>
         </form>
     </div>
+
     <div id="result"></div>
 
     {% if request.path != url_for('index') %}
@@ -37,88 +34,11 @@
     {% endif %}
 {% endblock %}
 
-{% block extra_styles %}
-<style>
-    .back-arrow {
-        display: inline-block;
-        margin-top: 20px;
-        text-decoration: none;
-        color: #007bff;
-    }
-    .back-arrow:hover {
-        text-decoration: underline;
-    }
-    .error {
-        color: #dc3545;
-        font-weight: bold;
-    }
-</style>
-{% endblock %}
-
 {% block extra_scripts %}
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var form = document.getElementById('custom-comic-form');
-        var useArtistStyleCheckbox = document.getElementById('use-artist-style');
-        var artistStyleInput = document.getElementById('artist-style-input');
-
-        useArtistStyleCheckbox.addEventListener('change', function() {
-            artistStyleInput.style.display = this.checked ? 'block' : 'none';
-            document.getElementById('comic-artist-style').required = this.checked;
-        });
-
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            var formData = new FormData(form);
-
-            showProgress('Starting custom comic generation...');
-
-            fetch('/custom_comic', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.task_id) {
-                    var eventSource = new EventSource('/custom_comic_progress?task_id=' + data.task_id);
-
-                    eventSource.onmessage = function(event) {
-                        var data = JSON.parse(event.data);
-                        if (data.progress !== undefined) {
-                            updateProgress(data.progress, data.message);
-                        }
-                        if (data.success !== undefined) {
-                            eventSource.close();
-                            hideProgress();
-                            if (data.success) {
-                                document.getElementById('comic-generation-form').style.display = 'none';
-                                document.getElementById('result').innerHTML = data.html;
-                            } else {
-                                document.getElementById('result').innerHTML = '<p class="error">' + (data.message || 'An error occurred. Please try again.') + '</p>';
-                            }
-                        }
-                    };
-
-                    eventSource.onerror = function() {
-                        eventSource.close();
-                        hideProgress();
-                        document.getElementById('result').innerHTML = '<p class="error">An error occurred while receiving updates. Please try again.</p>';
-                    };
-                } else {
-                    throw new Error('No task ID received from server.');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                hideProgress();
-                document.getElementById('result').innerHTML = '<p class="error">An error occurred: ' + error.message + '. Please try again.</p>';
-            });
-        });
-    });
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize the progress bar
+    initializeProgressBar('custom-comic-form', '/custom_comic_progress');
+});
 </script>
 {% endblock %}

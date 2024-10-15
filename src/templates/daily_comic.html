@@ -157,58 +157,8 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('comic-artist-style').required = this.checked;
     });
 
-    document.getElementById('daily-comic-form').onsubmit = function(e) {
-        e.preventDefault();
-        var formData = new FormData(this);
-
-        showProgress('Starting daily comic generation...');
-
-        fetch('/daily_comic', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (data.task_id) {
-                var eventSource = new EventSource('/daily_comic_progress?task_id=' + data.task_id);
-
-                eventSource.onmessage = function(event) {
-                    var data = JSON.parse(event.data);
-                    if (data.progress !== undefined) {
-                        updateProgress(data.progress, data.message);
-                    }
-                    if (data.success !== undefined) {
-                        eventSource.close();
-                        hideProgress();
-                        if (data.success) {
-                            document.getElementById('comic-generation-form').style.display = 'none';
-                            document.getElementById('result').innerHTML = data.html;
-                        } else {
-                            document.getElementById('result').innerHTML = '<p class="error">' + (data.message || 'An error occurred. Please try again.') + '</p>';
-                        }
-                    }
-                };
-
-                eventSource.onerror = function() {
-                    eventSource.close();
-                    hideProgress();
-                    document.getElementById('result').innerHTML = '<p class="error">An error occurred while receiving updates. Please try again.</p>';
-                };
-            } else {
-                throw new Error('No task ID received from server.');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            hideProgress();
-            document.getElementById('result').innerHTML = '<p class="error">An error occurred: ' + error.message + '. Please try again.</p>';
-        });
-    };
+    // Initialize the progress bar
+    initializeProgressBar('daily-comic-form', '/daily_comic_progress');
 });
 </script>
 {% endblock %}
