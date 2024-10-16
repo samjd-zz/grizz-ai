@@ -1,24 +1,7 @@
 {% extends "base.html" %}
-
+{% block title %}Loyalty Points{% endblock %}
 {% block content %}
-<h1>Your Loyalty Points</h1>
-<p>You currently have {{ loyalty_points }} loyalty points.</p>
-<h2>How to Earn Points</h2>
-<ul>
-    <li>Earn 1 point for each unique day you buy food or merchandise</li>
-    <li>Earn 1 point for each unique week you log into Grizz-AI</li>
-</ul>
-<h2>How to Use Points</h2>
-<ul>
-    <li>Generate Daily News Comic: 2 points</li>
-    <li>Generate Custom Comic: 2 points</li>
-    <li>Generate Media Comic: 2 points</li>
-    <li>Add Voice Narration: 1 point</li>
-    <li>Add Custom Voice Narration: 1 point</li>
-    <li>Add Extra Comic Story: 1 point</li>
-    <li>Add Extra Image: 1 point</li>
-    <li>Add Theme Song: 1 point</li>
-    <li>Add Custom Song: 1 point</li>
-    <li>Boost Lyrics: 1 point</li>
-</ul>
+<h2>Your Loyalty Points</h2>
+<p>Your current balance: <strong>{{ loyalty_points }}</strong> points</p>
+<p>Check out our <a href="{{ url_for('ai_services_pricing') }}">AI Services Pricing</a> to see what you can do with your points!</p>
 {% endblock %}

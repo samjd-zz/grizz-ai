@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}AI Services Pricing{% endblock %}
+{% block content %}
+<h2>AI Services Pricing</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Service</th>
+            <th>Price (Loyalty Points)</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for service, price in prices.items() %}
+        <tr>
+            <td>{{ service }}</td>
+            <td>{{ price }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

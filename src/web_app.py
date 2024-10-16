@@ -86,6 +86,23 @@ def login():
             flash('Invalid username or password')
     return render_template('login.html')
 
+@app.route('/ai_services_pricing')
+def ai_services_pricing():
+    db = get_db()
+    prices = {
+        'Daily News Comic': db.get_loyalty_point_cost('daily_news_comic'),
+        'Custom Comic': db.get_loyalty_point_cost('custom_comic'),
+        'Media Comic': db.get_loyalty_point_cost('media_comic'),
+        'Voice Narration': db.get_loyalty_point_cost('voice_narration'),
+        'Custom Voice Narration': db.get_loyalty_point_cost('custom_voice_narration'),
+        'Extra Comic Story': db.get_loyalty_point_cost('extra_comic_story'),
+        'Extra Image': db.get_loyalty_point_cost('extra_image'),
+        'Theme Song': db.get_loyalty_point_cost('theme_song'),
+        'Custom Song': db.get_loyalty_point_cost('custom_song'),
+        'Boost Lyrics': db.get_loyalty_point_cost('boost_lyrics')
+    }
+    return render_template('ai_services_pricing.html', prices=prices)
+
 def award_daily_purchase_points(user_id):
     db = get_db()
     user = db.get_user_by_id(user_id)
