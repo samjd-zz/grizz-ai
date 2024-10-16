@@ -1,7 +1,8 @@
 {% extends "base.html" %}
-{% block title %}Loyalty Points{% endblock %}
+{% block title %}Grizzly Grill Smokes - Loyalty Points{% endblock %}
+{% block header %}Grizzly Grill Smokes - Loyalty Points{% endblock %}
 {% block content %}
-<h2>Your Loyalty Points</h2>
+<hr/>
 <p>Your current balance: <strong>{{ loyalty_points }}</strong> points</p>
 <p>Check out our <a href="{{ url_for('ai_services_pricing') }}">AI Services Pricing</a> to see what you can do with your points!</p>
 {% endblock %}
