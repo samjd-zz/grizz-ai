@@ -267,13 +267,13 @@
     <nav class="nav-bar">
         <ul>
             <li><a href="{{ url_for('index') }}">Home</a></li>
-            <li><a href="{{ url_for('food_menu') }}">Food Menu</a></li>
+            <li><a href="{{ url_for('food_menu') }}">Food</a></li>
             <li><a href="{{ url_for('music') }}">Music</a></li>
             {% if 'user' in session %}
                 <li class="dropdown">
                     <a href="#" class="dropbtn">Comics</a>
                     <div class="dropdown-content">
-                        <a href="{{ url_for('daily_comic') }}">Daily Comic</a>
+                        <a href="{{ url_for('daily_comic') }}">News Comic</a>
                         <a href="{{ url_for('custom_comic') }}">Custom Comic</a>
                         <a href="{{ url_for('media_comic') }}">Media Comic</a>
                         <a href="{{ url_for('view_all_comics') }}">View All Comics</a>
