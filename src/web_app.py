@@ -203,8 +203,6 @@ def get_album_info():
         app_logger.debug(f"Checking genre: {genre}, path: {genre_path}")
         if os.path.isdir(genre_path):
             normalized_genre = genre.lower()
-            if normalized_genre == 'raggae':
-                normalized_genre = 'reggae'
             music[normalized_genre] = []
             for album in os.listdir(genre_path):
                 if album.endswith('.mp4'):
