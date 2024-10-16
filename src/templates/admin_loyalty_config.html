@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Loyalty Point Configuration</h1>
+<form method="POST">
+    {% for action, cost in point_costs.items() %}
+    <div class="form-group">
+        <label for="cost_{{ action }}">{{ action|replace('_', ' ')|title }}</label>
+        <input type="number" class="form-control" id="cost_{{ action }}" name="cost_{{ action }}" value="{{ cost }}" min="0">
+    </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary">Update Costs</button>
+</form>
+{% endblock %}

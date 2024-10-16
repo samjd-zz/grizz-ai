@@ -9,6 +9,7 @@ class Config:
 
         self.ADMIN_PASSWORD = os.getenv('ADMIN_PASSWORD')
         self.SECRET_KEY = os.getenv('SECRET_KEY')
+        self.SUNO_COOKIE = os.getenv('SUNO_COOKIE')
 
         self.LOCATION = os.getenv("LOCATION", "New York")
         self.SOURCE_DIR = os.getenv("SOURCE_DIR")

@@ -12,6 +12,17 @@ class ComicDatabase:
     _local = threading.local()
 
     @classmethod
+    def get_user_by_id(cls, user_id):
+        try:
+            cursor = cls.get_cursor()
+            cursor.execute('SELECT * FROM users WHERE id = ?', (user_id,))
+            result = cursor.fetchone()
+            return dict(result) if result else None
+        except Exception as e:
+            app_logger.error(f"Error getting user by ID from database: {e}")
+            return None
+
+    @classmethod
     def update_user_password(cls, username, new_password):
         try:
             cursor = cls.get_cursor()
@@ -66,7 +77,20 @@ class ComicDatabase:
                 username TEXT UNIQUE NOT NULL,
                 email TEXT UNIQUE,
                 password_hash TEXT NOT NULL,
-                role TEXT NOT NULL
+                role TEXT NOT NULL,
+                loyalty_points INTEGER DEFAULT 0,
+                last_login_date DATE,
+                last_purchase_date DATE,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        ''')
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS loyalty_point_costs (
+                id INTEGER PRIMARY KEY,
+                action_name TEXT UNIQUE NOT NULL,
+                point_cost INTEGER NOT NULL,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         ''')
         cls.get_connection().commit()
@@ -212,16 +236,18 @@ class ComicDatabase:
         cls.add_user_id_column()
         cls.add_email_column()
         cls.populate_from_output_folder()
+        cls.initialize_loyalty_point_costs()
 
     @classmethod
     def add_user(cls, username, email, password, role):
         try:
             cursor = cls.get_cursor()
             password_hash = generate_password_hash(password)
+            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             cursor.execute('''
-                INSERT INTO users (username, email, password_hash, role)
-                VALUES (?, ?, ?, ?)
-            ''', (username, email, password_hash, role))
+                INSERT INTO users (username, email, password_hash, role, loyalty_points, created_at)
+                VALUES (?, ?, ?, ?, ?, ?)
+            ''', (username, email, password_hash, role, 10, current_time))
             cls.get_connection().commit()
             app_logger.debug(f"Added user to database: {username}, password_hash: {password_hash}")
         except Exception as e:
@@ -322,6 +348,92 @@ class ComicDatabase:
                                 cls.add_comic(None, title, location, original_story, "Comic script not available", "Comic summary not available", "", image_path, audio_path, date)
         app_logger.info("Database populated from output folder")
 
+    @classmethod
+    def update_user_loyalty_points(cls, user_id, points):
+        try:
+            cursor = cls.get_cursor()
+            cursor.execute('''
+                UPDATE users
+                SET loyalty_points = loyalty_points + ?
+                WHERE id = ?
+            ''', (points, user_id))
+            cls.get_connection().commit()
+            app_logger.debug(f"Updated loyalty points for user_id {user_id}: {points} points")
+        except Exception as e:
+            app_logger.error(f"Error updating user loyalty points: {e}")
+
+    @classmethod
+    def update_user_last_login(cls, user_id):
+        try:
+            cursor = cls.get_cursor()
+            current_date = datetime.now().date()
+            cursor.execute('''
+                UPDATE users
+                SET last_login_date = ?
+                WHERE id = ?
+            ''', (current_date, user_id))
+            cls.get_connection().commit()
+            app_logger.debug(f"Updated last login date for user_id {user_id}: {current_date}")
+        except Exception as e:
+            app_logger.error(f"Error updating user last login date: {e}")
+
+    @classmethod
+    def update_user_last_purchase(cls, user_id):
+        try:
+            cursor = cls.get_cursor()
+            current_date = datetime.now().date()
+            cursor.execute('''
+                UPDATE users
+                SET last_purchase_date = ?
+                WHERE id = ?
+            ''', (current_date, user_id))
+            cls.get_connection().commit()
+            app_logger.debug(f"Updated last purchase date for user_id {user_id}: {current_date}")
+        except Exception as e:
+            app_logger.error(f"Error updating user last purchase date: {e}")
+
+    @classmethod
+    def get_loyalty_point_cost(cls, action_name):
+        try:
+            cursor = cls.get_cursor()
+            cursor.execute('SELECT point_cost FROM loyalty_point_costs WHERE action_name = ?', (action_name,))
+            result = cursor.fetchone()
+            return result['point_cost'] if result else None
+        except Exception as e:
+            app_logger.error(f"Error getting loyalty point cost: {e}")
+            return None
+
+    @classmethod
+    def update_loyalty_point_cost(cls, action_name, point_cost):
+        try:
+            cursor = cls.get_cursor()
+            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            cursor.execute('''
+                INSERT OR REPLACE INTO loyalty_point_costs (action_name, point_cost, updated_at)
+                VALUES (?, ?, ?)
+            ''', (action_name, point_cost, current_time))
+            cls.get_connection().commit()
+            app_logger.debug(f"Updated loyalty point cost for {action_name}: {point_cost}")
+        except Exception as e:
+            app_logger.error(f"Error updating loyalty point cost: {e}")
+
+    @classmethod
+    def initialize_loyalty_point_costs(cls):
+        default_costs = {
+            'custom_comic': 2,
+            'voice_narration': 1,
+            'custom_voice_narration': 1,
+            'extra_comic_story': 1,
+            'extra_image': 1,
+            'theme_song': 1,
+            'custom_song': 1,
+            'boost_lyrics': 1,
+            'daily_news_comic': 2,
+            'media_comic': 2
+        }
+        for action, cost in default_costs.items():
+            cls.update_loyalty_point_cost(action, cost)
+
 # Initialize the database
 app_logger.info("Initializing database")
 ComicDatabase.initialize_database()
@@ -340,3 +452,5 @@ else:
 # Debug: Check all users in the database
 all_users = ComicDatabase.get_all_users()
 app_logger.debug(f"All users in database: {all_users}")
+
+# Remove the code that distributes 10 loyalty points to all existing users

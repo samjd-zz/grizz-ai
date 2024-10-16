@@ -1,6 +1,6 @@
 import os
 import re
-from datetime import datetime
+from datetime import datetime, timedelta
 from flask import Flask, render_template, request, url_for, send_from_directory, g, jsonify, Response, stream_with_context, redirect, session, flash
 from functools import wraps
 from main import generate_daily_comic, generate_custom_comic, generate_media_comic, capture_live_video
@@ -48,6 +48,15 @@ def login_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
+def admin_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user' not in session or session['user']['role'] != 'admin':
+            flash('You do not have permission to access this page.', 'error')
+            return redirect(url_for('index'))
+        return f(*args, **kwargs)
+    return decorated_function
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     app_logger.debug(f"Login route accessed with method: {request.method}")
@@ -65,8 +74,10 @@ def login():
                 app_logger.debug(f"Login successful for user: {user}")
                 session['user'] = {'id': user['id'], 'username': user['username'], 'role': user['role']}
                 app_logger.debug(f"Session after login: {session}")
+                db.update_user_last_login(user['id'])
+                award_weekly_login_points(user['id'])
                 flash('Logged in successfully.')
-                return redirect(url_for('daily_comic'))
+                return redirect(url_for('index'))
             else:
                 app_logger.warning(f"Invalid password for username: {username}")
                 flash('Invalid username or password')
@@ -74,6 +85,17 @@ def login():
             app_logger.warning(f"User not found: {username}")
             flash('Invalid username or password')
     return render_template('login.html')
+
+def award_daily_purchase_points(user_id):
+    db = get_db()
+    user = db.get_user_by_id(user_id)
+    last_purchase = user['last_purchase_date']
+    today = datetime.now().date()
+    
+    if last_purchase is None or last_purchase < today:
+        db.update_user_loyalty_points(user_id, 1)
+        db.update_user_last_purchase(user_id)
+        app_logger.info(f"Awarded 1 loyalty point to user {user_id} for daily purchase")
 
 @app.route('/logout')
 def logout():
@@ -97,6 +119,46 @@ def register():
             flash('Registration successful. Please log in.')
             return redirect(url_for('login'))
     return render_template('register.html')
+
+def check_and_deduct_points(user_id, action):
+    db = get_db()
+    user = db.get_user_by_id(user_id)
+    point_cost = db.get_loyalty_point_cost(action)
+    
+    if user['loyalty_points'] >= point_cost:
+        db.update_user_loyalty_points(user_id, -point_cost)
+        return True
+    return False
+
+@app.route('/loyalty_points')
+@login_required
+def loyalty_points():
+    db = get_db()
+    user_id = session['user']['id']
+    user = db.get_user_by_id(user_id)
+    return render_template('loyalty_points.html', loyalty_points=user['loyalty_points'])
+
+def award_weekly_login_points(user_id):
+    db = get_db()
+    user = db.get_user_by_id(user_id)
+    if user:
+        last_login = user.get('last_login_date')
+        today = datetime.now().date()
+        
+        if last_login is None or (isinstance(last_login, datetime) and (today - last_login.date()).days >= 7):
+            db.update_user_loyalty_points(user_id, 1)
+            app_logger.info(f"Awarded 1 loyalty point to user {user_id} for weekly login")
+
+def award_daily_purchase_points(user_id):
+    db = get_db()
+    user = db.get_user_by_id(user_id)
+    last_purchase = user['last_purchase_date']
+    today = datetime.now().date()
+    
+    if last_purchase is None or last_purchase < today:
+        db.update_user_loyalty_points(user_id, 1)
+        db.update_user_last_purchase(user_id)
+        app_logger.info(f"Awarded 1 loyalty point to user {user_id} for daily purchase")
 
 @app.before_first_request
 def before_first_request():
@@ -189,19 +251,37 @@ def food_menu():
     menu_items = [{'name': ' '.join(img.split('_')[:-1]).title(), 'image': f'images/ggs-food-menu/{img}'} for img in menu_images]
     return render_template('food_menu.html', menu_items=menu_items)
 
+@app.route('/purchase', methods=['POST'])
+@login_required
+def purchase():
+    user_id = session['user']['id']
+    # Implement your purchase logic here
+    # ...
+    
+    # After successful purchase, award loyalty points
+    award_daily_purchase_points(user_id)
+    flash('Purchase successful! You\'ve earned a loyalty point for today\'s purchase.', 'success')
+    return redirect(url_for('food_menu'))
+
 @app.route('/daily_comic', methods=['GET', 'POST'])
 @login_required
 def daily_comic():
     app_logger.debug("Accessing daily_comic route")
     if request.method == 'POST':
         location = request.form['location']
-        comic_artist_style = request.form.get('comic_artist_style', '')  # Make it optional
+        comic_artist_style = request.form.get('comic_artist_style', '')
+        user_id = session['user']['id']
+        
+        if not check_and_deduct_points(user_id, 'daily_news_comic'):
+            flash('Insufficient loyalty points to generate a daily comic.', 'error')
+            return redirect(url_for('daily_comic'))
+        
         task_id = str(uuid.uuid4())
         comic_tasks[task_id] = {
             'status': 'started',
             'location': location,
             'comic_artist_style': comic_artist_style,
-            'user_id': session['user']['id']
+            'user_id': user_id
         }
         return jsonify({'task_id': task_id})
     app_logger.debug("Rendering daily_comic template")
@@ -304,7 +384,13 @@ def custom_comic():
         title = request.form['title']
         story = request.form['story']
         location = request.form['location']
-        comic_artist_style = request.form.get('comic_artist_style', '')  # Make it optional
+        comic_artist_style = request.form.get('comic_artist_style', '')
+        user_id = session['user']['id']
+        
+        if not check_and_deduct_points(user_id, 'custom_comic'):
+            flash('Insufficient loyalty points to generate a custom comic.', 'error')
+            return redirect(url_for('custom_comic'))
+        
         task_id = str(uuid.uuid4())
         comic_tasks[task_id] = {
             'status': 'started',
@@ -312,7 +398,7 @@ def custom_comic():
             'story': story,
             'location': location,
             'comic_artist_style': comic_artist_style,
-            'user_id': session['user']['id']
+            'user_id': user_id
         }
         return jsonify({'task_id': task_id})
     return render_template('custom_comic.html')
@@ -410,7 +496,13 @@ def media_comic():
     if request.method == 'POST':
         media_type = request.form['media_type']
         location = request.form['location']
-        comic_artist_style = request.form.get('comic_artist_style', '')  # Make it optional
+        comic_artist_style = request.form.get('comic_artist_style', '')
+        user_id = session['user']['id']
+        
+        if not check_and_deduct_points(user_id, 'media_comic'):
+            flash('Insufficient loyalty points to generate a media comic.', 'error')
+            return redirect(url_for('media_comic'))
+        
         task_id = str(uuid.uuid4())
         
         if media_type == 'live':
@@ -448,6 +540,36 @@ def media_comic():
         return jsonify({'task_id': task_id})
     
     return render_template('media_comic.html')
+
+@app.route('/admin/loyalty_config', methods=['GET', 'POST'])
+@admin_required
+def admin_loyalty_config():
+    db = get_db()
+    if request.method == 'POST':
+        for action, cost in request.form.items():
+            if action.startswith('cost_'):
+                action_name = action[5:]
+                try:
+                    cost = int(cost)
+                    db.update_loyalty_point_cost(action_name, cost)
+                except ValueError:
+                    flash(f'Invalid cost value for {action_name}', 'error')
+        flash('Loyalty point costs updated successfully', 'success')
+        return redirect(url_for('admin_loyalty_config'))
+    
+    point_costs = {
+        'daily_news_comic': db.get_loyalty_point_cost('daily_news_comic'),
+        'custom_comic': db.get_loyalty_point_cost('custom_comic'),
+        'media_comic': db.get_loyalty_point_cost('media_comic'),
+        'voice_narration': db.get_loyalty_point_cost('voice_narration'),
+        'custom_voice_narration': db.get_loyalty_point_cost('custom_voice_narration'),
+        'extra_comic_story': db.get_loyalty_point_cost('extra_comic_story'),
+        'extra_image': db.get_loyalty_point_cost('extra_image'),
+        'theme_song': db.get_loyalty_point_cost('theme_song'),
+        'custom_song': db.get_loyalty_point_cost('custom_song'),
+        'boost_lyrics': db.get_loyalty_point_cost('boost_lyrics')
+    }
+    return render_template('admin_loyalty_config.html', point_costs=point_costs)
 
 @app.route('/media_comic_progress')
 @login_required
