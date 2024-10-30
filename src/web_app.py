@@ -3,7 +3,7 @@ import re
 from datetime import datetime, timedelta
 from flask import Flask, render_template, request, url_for, send_from_directory, g, jsonify, Response, stream_with_context, redirect, session, flash
 from functools import wraps
-from main import generate_daily_comic, generate_custom_comic, generate_media_comic, capture_live_video
+from modules import generate_daily_comic, generate_custom_comic, generate_media_comic
 from config import load_config
 from database import ComicDatabase
 from logger import app_logger

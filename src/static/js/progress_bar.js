@@ -1,6 +1,24 @@
 function showProgress(message) {
     document.getElementById('progress-container').style.display = 'block';
     document.getElementById('progress-text').textContent = message;
+    
+    // Add dimming overlay
+    let overlay = document.getElementById('dimming-overlay');
+    if (!overlay) {
+        overlay = document.createElement('div');
+        overlay.id = 'dimming-overlay';
+        overlay.style.position = 'fixed';
+        overlay.style.top = document.getElementById('progress-container').offsetHeight + 'px';
+        overlay.style.left = '0';
+        overlay.style.width = '100%';
+        overlay.style.height = '100%';
+        overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+        overlay.style.zIndex = '999';
+        document.body.appendChild(overlay);
+    }
+    
+    // Disable all inputs
+    disableAllInputs(true);
 }
 
 function updateProgress(percentage, message) {
@@ -10,6 +28,54 @@ function updateProgress(percentage, message) {
 
 function hideProgress() {
     document.getElementById('progress-container').style.display = 'none';
+    
+    // Remove dimming overlay
+    const overlay = document.getElementById('dimming-overlay');
+    if (overlay) {
+        overlay.remove();
+    }
+    
+    // Re-enable all inputs
+    disableAllInputs(false);
+}
+
+function disableAllInputs(disable) {
+    // Disable form inputs
+    const inputs = document.querySelectorAll('input, select, textarea, button');
+    inputs.forEach(input => {
+        input.disabled = disable;
+    });
+
+    // Disable map controls if they exist
+    if (window.map) {
+        const controls = window.map.controls;
+        if (controls) {
+            for (let i = 0; i < controls.length; i++) {
+                const control = controls[i];
+                if (disable) {
+                    control.disable();
+                } else {
+                    control.enable();
+                }
+            }
+        }
+        // Disable/enable map zoom
+        if (disable) {
+            window.map.scrollWheelZoom.disable();
+            window.map.dragging.disable();
+            window.map.touchZoom.disable();
+            window.map.doubleClickZoom.disable();
+            window.map.boxZoom.disable();
+            window.map.keyboard.disable();
+        } else {
+            window.map.scrollWheelZoom.enable();
+            window.map.dragging.enable();
+            window.map.touchZoom.enable();
+            window.map.doubleClickZoom.enable();
+            window.map.boxZoom.enable();
+            window.map.keyboard.enable();
+        }
+    }
 }
 
 function initializeProgressBar(formId, progressUrl) {
