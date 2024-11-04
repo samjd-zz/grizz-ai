@@ -26,9 +26,8 @@ from datetime import datetime, timedelta
 from logger import app_logger
 
 from config import load_config
-from comic_generator import generate_daily_comic, generate_custom_comic, generate_media_comic
+from modules import generate_daily_comic, generate_custom_comic, generate_media_comic
 from voice_recognition import is_listen_voice_enabled, listen_to_user, toggle_voice
-from psy_researcher import perform_duckduckgo_search
 from utils import capture_live_video, summarize_generated_files
 from text_analysis import create_yogi_bear_voice
 
@@ -57,7 +56,6 @@ def display_menu():
     print("3. Create Media* Video/Image Comics")
     print("4. View* All_Comics*")
     print("5. Toggle* Voice* Recognition(*=spoken command)")
-    print("6. Psy-researcher: DuckDuckGo* Search*")
     print("7. Purge Database")
     print("8. Exit* or Quit*")
     return input("Choose an option (1-8): ")
@@ -84,12 +82,10 @@ def get_user_choice():
                 return "4"
             elif "toggle" in command or "voice" in command:
                 return "5"
-            elif "duckduckgo" in command or "search" in command:
-                return "6"
             elif "purge" in command or "database" in command:
-                return "7"
+                return "6"
             elif "exit" in command or "quit" in command:
-                return "8"
+                return "7"
         print("Command not recognized. Please try again or use text input.")
     return display_menu()
 
@@ -109,7 +105,7 @@ def view_filtered_comics():
     end_date = datetime.strptime(end_date_str, "%Y-%m-%d").date() if end_date_str else None
 
     # Get filtered comics
-    comics = db.get_filtered_comics(start_date, end_date, location)
+    comics = db.get_filtered_comics(None, False, start_date, end_date, location)  # Pass None for user_id and False for is_admin
 
     if not comics:
         print("No comics found matching the specified criteria.")
@@ -124,7 +120,7 @@ def view_filtered_comics():
         print(f"Image Path: {comic['image_path']}")
         if comic['audio_path']:
             print(f"Audio Path: {comic['audio_path']}")
-        print(f"Original Story: {comic['original_story'][:100]}...")  # Display first 100 characters
+        print(f"Original Story: {comic['story'][:100]}...")  # Display first 100 characters
         print("-" * 50)
 
 def main():
@@ -149,7 +145,7 @@ def main():
                 else:
                     location = input("Enter the location for news (press Enter for default location): ") or config.LOCATION
                 print("Fetching local events. Please wait...")
-                local_events = generate_daily_comic(location)
+                local_events = generate_daily_comic(location, None)  # Pass None for user_id
                 if local_events:
                     print("-" * 50)
                     print(f"Comic generated successfully!")
@@ -193,7 +189,7 @@ def main():
                     story = input("Enter the story for your custom comic: ")
                 location = input("Enter the location for your custom comic (press Enter for default location): ") or config.LOCATION
                 print("\nGenerating custom comic. Please wait...")
-                result = generate_custom_comic(title, story, location)
+                result = generate_custom_comic(title, story, location, None)  # Pass None for user_id
                 if result:
                     image_paths, panel_summaries, comic_script, comic_summary, audio_path = result
                     app_logger.debug("-" * 50)
@@ -257,7 +253,7 @@ def main():
                 
                 app_logger.info(f"\nGenerating comic from {media_type}. Please wait...")
                 
-                result = generate_media_comic(media_type, path, location)
+                result = generate_media_comic(media_type, path, location, None)  # Pass None for user_id
                 
                 if result:
                     image_paths, summary, comic_scripts, panel_summaries, audio_paths = result
@@ -292,9 +288,6 @@ def main():
                 config = load_config()  # Reload the configuration after toggling voice recognition
             
             elif choice == '6':
-                perform_duckduckgo_search()
-            
-            elif choice == '7':
                 confirmation = input("Are you sure you want to purge the database? This action cannot be undone. (y/n): ")
                 if confirmation.lower() == 'y':
                     ComicDatabase.purge_database()
