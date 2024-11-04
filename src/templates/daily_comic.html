@@ -7,7 +7,7 @@
 {% block content %}
 <hr/>
     <div id="comic-generation-form">
-        <div id="map-config" data-default-lat="{{ config.DEFAULT_LAT }}" data-default-lon="{{ config.DEFAULT_LON }}" style="display: none;"></div>
+        <div id="map-config" data-default-lat="{{ config.APP_CONFIG.DEFAULT_LAT }}" data-default-lon="{{ config.APP_CONFIG.DEFAULT_LON }}" style="display: none;"></div>
         <form id="daily-comic-form" method="POST">
             <div class="top-container">
                 <div class="left-column">
@@ -40,8 +40,8 @@
 
     <div id="result"></div>
 
-    {% if request.path != url_for('index') %}
-        <a href="{{ url_for('index') }}" class="back-arrow"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    {% if request.path != url_for('routes.index') %}
+        <a href="{{ url_for('routes.index') }}" class="back-arrow"><i class="fas fa-arrow-left"></i> Back to Home</a>
     {% endif %}
 {% endblock %}
 

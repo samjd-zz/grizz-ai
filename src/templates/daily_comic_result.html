@@ -35,8 +35,8 @@
     </div>
 {% endfor %}
 
-<a href="{{ url_for('daily_comic') }}" class="btn">Generate Another Daily Comic</a>
-<a href="{{ url_for('index') }}" class="btn">Back to Home</a>
+<a href="{{ url_for('comic.daily_comic') }}" class="btn">Generate Another Daily Comic</a>
+<a href="{{ url_for('routes.index') }}" class="btn">Back to Home</a>
 
 <style>
     .comic-container {

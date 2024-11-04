@@ -266,33 +266,33 @@
     </div>
     <nav class="nav-bar">
         <ul>
-            <li><a href="{{ url_for('index') }}">Home</a></li>
-            <li><a href="{{ url_for('food_menu') }}">Food</a></li>
-            <li><a href="{{ url_for('music') }}">Music</a></li>
+            <li><a href="{{ url_for('routes.index') }}">Home</a></li>
+            <li><a href="{{ url_for('routes.food_menu') }}">Food</a></li>
+            <li><a href="{{ url_for('media.music') }}">Music</a></li>
             {% if 'user' in session %}
                 <li class="dropdown">
                     <a href="#" class="dropbtn">Comics</a>
                     <div class="dropdown-content">
-                        <a href="{{ url_for('daily_comic') }}">News Comic</a>
-                        <a href="{{ url_for('custom_comic') }}">Custom Comic</a>
-                        <a href="{{ url_for('media_comic') }}">Media Comic</a>
-                        <a href="{{ url_for('view_all_comics') }}">View All Comics</a>
+                        <a href="{{ url_for('comic.daily_comic') }}">News Comic</a>
+                        <a href="{{ url_for('comic.custom_comic') }}">Custom Comic</a>
+                        <a href="{{ url_for('comic.media_comic') }}">Media Comic</a>
+                        <a href="{{ url_for('comic.view_all_comics') }}">View All Comics</a>
                     </div>
                 </li>
-                <li><a href="{{ url_for('loyalty_points') }}">My Points</a></li>
-                <li><a href="{{ url_for('ai_services_pricing') }}">AI Services Pricing</a></li>
+                <li><a href="{{ url_for('loyalty.loyalty_points') }}">My Points</a></li>
+                <li><a href="{{ url_for('loyalty.ai_services_pricing') }}">AI Services Pricing</a></li>
                 {% if session['user']['role'] == 'admin' %}
                 <li class="dropdown">
                     <a href="#" class="dropbtn">Config</a>
                     <div class="dropdown-content">
-                        <a href="{{ url_for('admin_loyalty_config') }}">Loyalty Points</a>
+                        <a href="{{ url_for('loyalty.admin_loyalty_config') }}">Loyalty Points</a>
                     </div>
                 </li>
                 {% endif %}
-                <li><a href="{{ url_for('logout') }}">Logout ({{ session['user']['username'] }})</a></li>
+                <li><a href="{{ url_for('auth.logout') }}">Logout ({{ session['user']['username'] }})</a></li>
             {% else %}
-                <li><a href="{{ url_for('login') }}">Login</a></li>
-                <li><a href="{{ url_for('register') }}">Register</a></li>
+                <li><a href="{{ url_for('auth.login') }}">Login</a></li>
+                <li><a href="{{ url_for('auth.register') }}">Register</a></li>
             {% endif %}
         </ul>
     </nav>

@@ -30,8 +30,8 @@
 
     <div id="result"></div>
 
-    {% if request.path != url_for('index') %}
-        <a href="{{ url_for('index') }}" class="back-arrow"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    {% if request.path != url_for('routes.index') %}
+        <a href="{{ url_for('routes.index') }}" class="back-arrow"><i class="fas fa-arrow-left"></i> Back to Home</a>
     {% endif %}
 {% endblock %}
 

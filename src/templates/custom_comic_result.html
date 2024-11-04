@@ -30,8 +30,8 @@
         <p class="comic-script">{{ comic_script }}</p>
     </div>
 </div>
-<a href="{{ url_for('custom_comic') }}" class="btn">Create Another Custom Comic</a>
-<a href="{{ url_for('index') }}" class="btn">Back to Home</a>
+<a href="{{ url_for('comic.custom_comic') }}" class="btn">Create Another Custom Comic</a>
+<a href="{{ url_for('routes.index') }}" class="btn">Back to Home</a>
 
 <style>
     .comic-container {
