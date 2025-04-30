@@ -1,20 +1,20 @@
-python-dotenv==0.19.2
-requests==2.26.0
-anthropic==0.2.8
+python-dotenv>=0.19.2
+requests>=2.26.0
+anthropic>=0.2.8
 openai>=1.0.0
-pillow==8.4.0
-tweepy==4.4.0
-facebook-sdk==3.1.0
-stability-sdk==0.3.1
-opencv-python==4.5.5.64
-numpy==1.25.0
+pillow>=8.4.0
+tweepy>=4.4.0
+facebook-sdk>=3.1.0
+stability-sdk>=0.3.1
+opencv-python>=4.5.5.64
+numpy>=1.24.0
 groq>=0.3.1
 torch>=1.9.0
 torchvision>=0.10.0
 torchaudio>=0.9.0
 transformers>=4.0.0
 openai-whisper
-pyaudio
+# pyaudio - requires portaudio19-dev system package
 ollama==0.1.4
 beautifulsoup4==4.10.0
 flask==2.0.2
@@ -32,6 +32,5 @@ matplotlib
 accelerate
 sentencepiece
 huggingface-hub
-git+https://github.com/huggingface/diffusers.git
 protobuf
 geopy

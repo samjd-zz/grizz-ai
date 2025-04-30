@@ -1,44 +1,59 @@
-{% if comics %}
-    {% for comic in comics %}
-        <div class="comic-container">
-            <h2>{{ comic.title }}</h2>
-            <p><strong>Created at:</strong> {{ comic.created_at }}</p>
-            
-            <div class="comic-panels">
-                {% for image_path in comic.image_paths %}
-                    <div class="comic-panel">
-                        <img src="{{ image_path }}" alt="Panel {{ loop.index }} for {{ comic.title }}" class="comic-image">
-                        <p class="panel-number">Panel {{ loop.index }}</p>
-                        {% if comic.panel_summaries and comic.panel_summaries|length >= loop.index %}
-                            <p class="panel-text">{{ comic.panel_summaries[loop.index0] }}</p>
-                        {% else %}
-                            <p class="panel-text">Panel summary not available.</p>
-                        {% endif %}
-                    </div>
-                {% endfor %}
-            </div>
+{% extends "base.html" %}
 
-            <div class="comic-details">
-                <h3>Original Story:</h3>
-                <p>{{ comic.original_story }}</p>
-                {% if comic.audio_path %}
-                    <h3>Audio Narration:</h3>
-                    <audio controls>
-                        <source src="{{ comic.audio_path }}" type="audio/mpeg">
-                        Your browser does not support the audio element.
-                    </audio>
-                {% endif %}
-                <h3>Generated Comic Script:</h3>
-                <p class="comic-script">{{ comic.comic_script }}</p>
-            </div>
-        </div>
-    {% endfor %}
-{% else %}
-    <p>No comics were generated. Please try again.</p>
-{% endif %}
-<a href="{{ url_for('comic.media_comic') }}" class="btn">Generate Another Media Comic</a>
-<a href="{{ url_for('routes.index') }}" class="btn">Back to Home</a>
+{% block title %}Media Comic Result{% endblock %}
 
+{% block content %}
+<div data-block="content">
+    {% if comics %}
+        {% for comic in comics %}
+            <div class="comic-container">
+                <h2>{{ comic.title }}</h2>
+                <p class="date"><strong>Created at:</strong> {{ comic.created_at }}</p>
+                
+                <div class="comic-panels">
+                    {% for image_path in comic.image_paths %}
+                        <div class="comic-panel">
+                            <img src="{{ image_path }}" alt="Panel {{ loop.index }} for {{ comic.title }}" class="comic-image">
+                            <p class="panel-number">Panel {{ loop.index }}</p>
+                            {% if comic.panel_summaries and comic.panel_summaries|length >= loop.index %}
+                                <p class="panel-text">{{ comic.panel_summaries[loop.index0] }}</p>
+                            {% else %}
+                                <p class="panel-text">Panel summary not available.</p>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="comic-details">
+                    <h3>Original Story:</h3>
+                    <p>{{ comic.original_story }}</p>
+                    {% if comic.story_source_url %}
+                        <p><strong>Source:</strong> <a href="{{ comic.story_source_url }}" class="source-link" target="_blank">{{ comic.story_source_url }}</a></p>
+                    {% endif %}
+                    {% if comic.audio_path %}
+                        <h3>Audio Narration:</h3>
+                        <audio controls>
+                            <source src="{{ comic.audio_path }}" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                    {% endif %}
+                    <h3>Generated Comic Script:</h3>
+                    <p class="comic-script">{{ comic.comic_script }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No comics were generated. Please try again.</p>
+    {% endif %}
+
+    <div class="button-container">
+        <a href="{{ url_for('comic.media_comic') }}" class="btn">Generate Another Media Comic</a>
+        <a href="{{ url_for('routes.index') }}" class="btn">Back to Home</a>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
 <style>
     .comic-container {
         background-color: #f9f9f9;
@@ -58,22 +73,28 @@
         flex: 0 1 calc(33.333% - 20px);
         max-width: calc(33.333% - 20px);
         text-align: center;
+        background: white;
+        padding: 10px;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
     .comic-image {
         max-width: 100%;
         height: auto;
         border: 1px solid #ddd;
         border-radius: 4px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
     .panel-number {
-        margin-top: 5px;
+        margin-top: 10px;
         font-weight: bold;
+        color: #8B4513;
     }
     .panel-text {
         margin-top: 10px;
         text-align: left;
         font-size: 14px;
+        color: #666;
+        padding: 0 10px;
     }
     .comic-details {
         margin-top: 20px;
@@ -81,6 +102,7 @@
     .comic-details h3 {
         margin-top: 15px;
         margin-bottom: 10px;
+        color: #8B4513;
     }
     .comic-script {
         background-color: #f0f0f0;
@@ -93,9 +115,37 @@
         line-height: 1.4;
         overflow-x: auto;
     }
+    .button-container {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    .btn {
+        background-color: #8B4513;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 4px;
+        text-decoration: none;
+        transition: background-color 0.3s;
+    }
+    .btn:hover {
+        background-color: #A0522D;
+    }
+    .date {
+        color: #8B4513;
+        font-size: 0.9em;
+    }
+    .source-link {
+        color: #8B4513;
+        text-decoration: none;
+    }
+    .source-link:hover {
+        text-decoration: underline;
+    }
     audio {
         width: 100%;
-        margin-bottom: 15px;
+        margin: 15px 0;
     }
     @media (max-width: 768px) {
         .comic-panel {
@@ -110,3 +160,8 @@
         }
     }
 </style>
+{% endblock %}
+
+{% block scripts %}
+    <script src="/static/js/progress_bar.js"></script>
+{% endblock %}

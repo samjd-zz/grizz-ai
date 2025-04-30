@@ -14,6 +14,12 @@ def get_db():
 def check_and_deduct_points(user_id, action):
     db = get_db()
     user = db.get_user_by_id(user_id)
+    
+    # Admins don't need to spend points
+    if user['role'] == 'admin':
+        app_logger.debug(f"Admin user {user_id} bypassing loyalty point check")
+        return True
+        
     point_cost = db.get_loyalty_point_cost(action)
     
     if user['loyalty_points'] >= point_cost:
@@ -24,17 +30,20 @@ def check_and_deduct_points(user_id, action):
 def award_weekly_login_points(user_id):
     db = get_db()
     user = db.get_user_by_id(user_id)
-    if user:
-        last_login = user.get('last_login_date')
+    if user and user['role'] != 'admin':  # Don't award points to admins
+        last_login = user.get('last_login')
         today = datetime.now().date()
         
-        if last_login is None or (isinstance(last_login, datetime) and (today - last_login.date()).days >= 7):
+        if last_login is None or (isinstance(last_login, str) and datetime.strptime(last_login, "%Y-%m-%d %H:%M:%S").date() <= today - timedelta(days=7)):
             db.update_user_loyalty_points(user_id, 1)
             app_logger.info(f"Awarded 1 loyalty point to user {user_id} for weekly login")
 
 def award_daily_purchase_points(user_id):
     db = get_db()
     user = db.get_user_by_id(user_id)
+    if not user or user['role'] == 'admin':  # Don't award points to admins
+        return
+        
     last_purchase = user['last_purchase_date']
     today = datetime.now().date()
     

@@ -48,11 +48,16 @@ def login():
                 app_logger.debug(f"Login successful for user: {user}")
                 session['user'] = {'id': user['id'], 'username': user['username'], 'role': user['role']}
                 app_logger.debug(f"Session after login: {session}")
-                db.update_user_last_login(user['id'])
-                from loyalty_module import award_weekly_login_points
-                award_weekly_login_points(user['id'])
+                try:
+                    db.update_user_last_login(user['id'])
+                    # Award 5 loyalty points if user is not admin
+                    if user['role'] != 'admin':
+                        db.update_user_loyalty_points(user['id'], 5)
+                except Exception as e:
+                    app_logger.error(f"Error updating last login: {str(e)}")
                 flash('Logged in successfully.')
-                return redirect(url_for('routes.index'))
+                next_url = request.args.get('next')
+                return redirect(next_url if next_url else url_for('routes.index'))
             else:
                 app_logger.warning(f"Invalid password for username: {username}")
                 flash('Invalid username or password')

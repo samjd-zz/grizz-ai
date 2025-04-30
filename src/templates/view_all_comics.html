@@ -2,139 +2,187 @@
 
 {% block title %}View All Comics{% endblock %}
 
-{% block header %}View All Comics{% endblock %}
-
 {% block content %}
-<hr/>
+    <h2>View All Comics</h2>
+
     <form method="GET" class="filter-form">
-        <div class="form-group">
-            <label for="start_date">Start Date:</label>
-            <input type="date" id="start_date" name="start_date" value="{{ start_date }}">
-        </div>
-        <div class="form-group">
-            <label for="end_date">End Date:</label>
-            <input type="date" id="end_date" name="end_date" value="{{ end_date }}">
-        </div>
-        <div class="form-group">
-            <label for="location">Location:</label>
-            <select id="location" name="location">
-                <option value="">All Locations</option>
-                {% for loc in locations %}
-                    <option value="{{ loc }}" {% if loc == selected_location %}selected{% endif %}>{{ loc }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <button type="submit" class="btn">Filter</button>
+        <label for="start_date">Start Date:</label>
+        <input type="date" id="start_date" name="start_date" value="{{ start_date }}">
+        
+        <label for="end_date">End Date:</label>
+        <input type="date" id="end_date" name="end_date" value="{{ end_date }}">
+        
+        <label for="location">Location:</label>
+        <select id="location" name="location">
+            <option value="">All Locations</option>
+            {% for loc in locations %}
+                <option value="{{ loc }}" {% if loc == selected_location %}selected{% endif %}>{{ loc }}</option>
+            {% endfor %}
+        </select>
+        
+        <button type="submit" class="btn">Filter Comics</button>
     </form>
 
     {% if comics %}
         <div class="comics-container">
             {% for comic in comics %}
-                <div class="comic-item">
+                <div class="comic-container">
                     <h3>{{ comic.title }}</h3>
-                    <p>Date: {{ comic.date }}</p>
-                    <p>Location: {{ comic.location }}</p>
+                    <p class="date"><strong>Date:</strong> {{ comic.date }}</p>
+                    <p class="location"><strong>Location:</strong> {{ comic.location }}</p>
+
+                    <h4>Original Story:</h4>
+                    <p class="story">{{ comic.story }}</p>
+                    {% if comic.story_source %}
+                        <p><strong>Source:</strong> <a href="{{ comic.story_source }}" class="source-link" target="_blank">{{ comic.story_source }}</a></p>
+                    {% endif %}
+                    
                     <div class="comic-panels">
                         {% for image_path in comic.image_paths %}
-                            <img src="{{ image_path }}" alt="Comic panel {{ loop.index }}" class="comic-panel">
+                            <div class="comic-panel">
+                                <img src="{{ image_path }}" alt="Panel {{ loop.index }} for {{ comic.title }}" class="comic-image">
+                                <p class="panel-number">Panel {{ loop.index }}</p>
+                                {% if comic.panel_summaries and comic.panel_summaries|length >= loop.index %}
+                                    <p class="panel-text">{{ comic.panel_summaries[loop.index0] }}</p>
+                                {% else %}
+                                    <p class="panel-text">Panel summary not available.</p>
+                                {% endif %}
+                            </div>
                         {% endfor %}
                     </div>
-                    <p>{{ comic.story }}</p>
+
                     {% if comic.audio_path %}
-                        <audio controls>
-                            <source src="{{ comic.audio_path }}" type="audio/mpeg">
-                            Your browser does not support the audio element.
-                        </audio>
+                        <div class="audio-container">
+                            <h4>Audio Narration:</h4>
+                            <audio controls>
+                                <source src="{{ comic.audio_path }}" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+                        </div>
                     {% endif %}
                 </div>
             {% endfor %}
         </div>
     {% else %}
-        <p>No comics found.</p>
-    {% endif %}
-
-    <br>
-    {% if request.path != url_for('routes.index') %}
-        <a href="{{ url_for('routes.index') }}" class="back-arrow"><i class="fas fa-arrow-left"></i> Back to Home</a>
+        <p class="no-comics">No comics found matching your criteria.</p>
     {% endif %}
 {% endblock %}
 
-{% block extra_styles %}
+{% block extra_css %}
 <style>
     .filter-form {
         display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        margin-bottom: 20px;
-        background-color: #f0f0f0;
-        padding: 15px;
-        border-radius: 5px;
-    }
-    .filter-form .form-group {
-        flex: 1;
-        min-width: 200px;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 30px;
     }
     .filter-form label {
-        display: block;
-        margin-bottom: 5px;
+        color: #8B4513;
+        white-space: nowrap;
     }
     .filter-form input,
     .filter-form select {
-        width: 100%;
         padding: 5px;
-        border: 1px solid #ccc;
-        border-radius: 3px;
+        border: 1px solid #DEB887;
+        border-radius: 4px;
+        font-size: 14px;
+        width: auto;
     }
-    .filter-form button {
-        align-self: flex-end;
-        padding: 5px 15px;
-        background-color: #007bff;
+    .filter-form input:focus,
+    .filter-form select:focus {
+        outline: none;
+        border-color: #8B4513;
+    }
+    .btn {
+        background-color: #8B4513;
         color: white;
+        padding: 5px 15px;
         border: none;
-        border-radius: 3px;
+        border-radius: 4px;
         cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.3s;
+        white-space: nowrap;
     }
-    .filter-form button:hover {
-        background-color: #0056b3;
+    .btn:hover {
+        background-color: #A0522D;
     }
-    .comics-container {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-    }
-    .comic-item {
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        padding: 20px;
+    .comic-container {
         background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 30px;
     }
     .comic-panels {
-        display: flex;
-        justify-content: space-between;
-        gap: 10px;
-        margin-bottom: 15px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        margin: 20px 0;
     }
     .comic-panel {
-        max-width: 32%;
+        text-align: center;
+        background: white;
+        padding: 15px;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .comic-image {
+        width: 100%;
         height: auto;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        margin-bottom: 10px;
+        aspect-ratio: 1;
         object-fit: cover;
-        border-radius: 5px;
     }
-    .back-arrow {
-        display: inline-block;
-        margin-top: 20px;
+    .panel-number {
+        margin-top: 10px;
+        font-weight: bold;
+        color: #8B4513;
+    }
+    .panel-text {
+        margin-top: 10px;
+        text-align: left;
+        font-size: 14px;
+        color: #666;
+        padding: 0 10px;
+    }
+    .date, .location {
+        color: #8B4513;
+        font-size: 0.9em;
+    }
+    .story {
+        margin: 15px 0;
+        line-height: 1.6;
+    }
+    .source-link {
+        color: #8B4513;
         text-decoration: none;
-        color: #007bff;
     }
-    .back-arrow:hover {
+    .source-link:hover {
         text-decoration: underline;
     }
+    .audio-container {
+        margin-top: 20px;
+    }
+    audio {
+        width: 100%;
+        margin: 10px 0;
+    }
+    .no-comics {
+        text-align: center;
+        color: #8B4513;
+        font-size: 1.2em;
+        margin: 40px 0;
+    }
     @media (max-width: 768px) {
-        .comic-panels {
+        .filter-form {
             flex-direction: column;
+            align-items: flex-start;
         }
-        .comic-panel {
-            max-width: 100%;
+        .comic-panels {
+            grid-template-columns: 1fr;
         }
     }
 </style>

@@ -1,43 +1,61 @@
-<h2>Daily Comic for {{ location }}</h2>
+{% extends "base.html" %}
 
-{% for event in events %}
+{% block title %}Daily Comic Result{% endblock %}
+
+{% block content %}
+<div data-block="content">
+    <h2>Daily Comic for {{ location }}</h2>
+
+    {% for comic in comics %}
     <div class="comic-container">
-        <h3>{{ event.title }}</h3>
-        <p><strong>Date:</strong> {{ event.created_at }}</p>
+        <h3>{{ comic.title }}</h3>
+        <p class="date"><strong>Date:</strong> {{ comic.created_at }}</p>
 
-        <h4>Original Story:</h4>
-        <p>{{ event.story }}</p>
-        {% if event.story_source %}
-            <p><strong>Source:</strong> <a href="{{ event.story_source }}" target="_blank">{{ event.story_source }}</a></p>
-        {% endif %}
+        <div class="story-section">
+            <h4>Original Story:</h4>
+            <p class="story">{{ comic.story }}</p>
+            {% if comic.full_story_source_url %}
+                <p class="source">
+                    <strong>Source:</strong> 
+                    <a href="{{ comic.full_story_source_url }}" class="source-link" target="_blank">{{ comic.full_story_source_url }}</a>
+                </p>
+            {% endif %}
+            
+            {% if comic.audio_path %}
+                <div class="audio-container">
+                    <h4>Audio Narration:</h4>
+                    <audio controls>
+                        <source src="{{ comic.audio_path }}" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            {% endif %}
+        </div>
         
         <div class="comic-panels">
-            {% for image_path in event.image_paths %}
+            {% for image_path in comic.image_paths %}
                 <div class="comic-panel">
-                    <img src="{{ image_path }}" alt="Panel {{ loop.index }} for {{ event.title }}" class="comic-image">
+                    <img src="{{ image_path }}" alt="Panel {{ loop.index }} for {{ comic.title }}" class="comic-image">
                     <p class="panel-number">Panel {{ loop.index }}</p>
-                    {% if event.panel_summaries and event.panel_summaries|length >= loop.index %}
-                        <p class="panel-text">{{ event.panel_summaries[loop.index0] }}</p>
+                    {% if comic.panel_summaries and comic.panel_summaries|length >= loop.index %}
+                        <p class="panel-text">{{ comic.panel_summaries[loop.index0] }}</p>
                     {% else %}
                         <p class="panel-text">Panel summary not available.</p>
                     {% endif %}
                 </div>
             {% endfor %}
         </div>
-        
-        {% if event.audio_path %}
-            <audio controls>
-                <source src="{{ event.audio_path }}" type="audio/mpeg">
-                Your browser does not support the audio element.
-            </audio>
-        {% endif %}
-        
     </div>
-{% endfor %}
+    {% endfor %}
 
-<a href="{{ url_for('comic.daily_comic') }}" class="btn">Generate Another Daily Comic</a>
-<a href="{{ url_for('routes.index') }}" class="btn">Back to Home</a>
+    <div class="button-container">
+        <a href="{{ url_for('comic.daily_comic') }}" class="btn">Generate Another Daily Comic</a>
+        <a href="{{ url_for('routes.index') }}" class="btn">Back to Home</a>
+    </div>
+</div>
+{% endblock %}
 
+{% block extra_css %}
 <style>
     .comic-container {
         background-color: #f9f9f9;
@@ -46,59 +64,98 @@
         padding: 20px;
         margin-bottom: 30px;
     }
-    .comic-panels {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 20px;
-        margin-bottom: 20px;
-    }
-    .comic-panel {
-        flex: 0 1 calc(33.333% - 20px);
-        max-width: calc(33.333% - 20px);
-        text-align: center;
-    }
-    .comic-image {
-        max-width: 100%;
-        height: auto;
-        border: 1px solid #ddd;
+    .story-section {
+        margin-bottom: 30px;
+        padding: 20px;
+        background-color: white;
         border-radius: 4px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
+    .comic-panels {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        margin: 20px 0;
+    }
+    .comic-panel {
+        text-align: center;
+        background: white;
+        padding: 15px;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .comic-image {
+        width: 100%;
+        height: auto;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        margin-bottom: 10px;
+        aspect-ratio: 1;
+        object-fit: cover;
+    }
     .panel-number {
-        margin-top: 5px;
+        margin-top: 10px;
         font-weight: bold;
+        color: #8B4513;
     }
     .panel-text {
         margin-top: 10px;
         text-align: left;
         font-size: 14px;
+        color: #666;
+        padding: 0 10px;
     }
-    .comic-script {
-        background-color: #f0f0f0;
-        border: 1px solid #ccc;
+    .button-container {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    .btn {
+        background-color: #8B4513;
+        color: white;
+        padding: 10px 20px;
         border-radius: 4px;
-        padding: 10px;
-        white-space: pre-wrap;
-        font-family: monospace;
-        font-size: 14px;
-        line-height: 1.4;
-        overflow-x: auto;
+        text-decoration: none;
+        transition: background-color 0.3s;
+    }
+    .btn:hover {
+        background-color: #A0522D;
+    }
+    .date {
+        color: #8B4513;
+        font-size: 0.9em;
+    }
+    .story {
+        margin: 15px 0;
+        line-height: 1.6;
+    }
+    .source {
+        margin-top: 10px;
+    }
+    .source-link {
+        color: #8B4513;
+        text-decoration: none;
+        margin-right: 5px;
+    }
+    .source-link:hover {
+        text-decoration: underline;
+    }
+    .audio-container {
+        margin-top: 20px;
     }
     audio {
         width: 100%;
-        margin-bottom: 15px;
+        margin: 10px 0;
     }
     @media (max-width: 768px) {
-        .comic-panel {
-            flex: 0 1 calc(50% - 20px);
-            max-width: calc(50% - 20px);
-        }
-    }
-    @media (max-width: 480px) {
-        .comic-panel {
-            flex: 0 1 100%;
-            max-width: 100%;
+        .comic-panels {
+            grid-template-columns: 1fr;
         }
     }
 </style>
+{% endblock %}
+
+{% block scripts %}
+    <script src="/static/js/progress_bar.js"></script>
+{% endblock %}

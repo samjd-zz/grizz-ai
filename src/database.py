@@ -79,7 +79,7 @@ class ComicDatabase:
                 password_hash TEXT NOT NULL,
                 role TEXT NOT NULL,
                 loyalty_points INTEGER DEFAULT 0,
-                last_login_date DATE,
+                last_login TEXT,
                 last_purchase_date DATE,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
@@ -366,16 +366,16 @@ class ComicDatabase:
     def update_user_last_login(cls, user_id):
         try:
             cursor = cls.get_cursor()
-            current_date = datetime.now().date()
+            current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             cursor.execute('''
                 UPDATE users
-                SET last_login_date = ?
+                SET last_login = ?
                 WHERE id = ?
-            ''', (current_date, user_id))
+            ''', (current_time, user_id))
             cls.get_connection().commit()
-            app_logger.debug(f"Updated last login date for user_id {user_id}: {current_date}")
+            app_logger.debug(f"Updated last login for user_id {user_id}: {current_time}")
         except Exception as e:
-            app_logger.error(f"Error updating user last login date: {e}")
+            app_logger.error(f"Error updating user last login: {e}")
 
     @classmethod
     def update_user_last_purchase(cls, user_id):
@@ -454,3 +454,4 @@ all_users = ComicDatabase.get_all_users()
 app_logger.debug(f"All users in database: {all_users}")
 
 # Remove the code that distributes 10 loyalty points to all existing users
+

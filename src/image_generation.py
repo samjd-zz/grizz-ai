@@ -20,14 +20,14 @@ def parse_comic_script(comic_script):
     panels = re.findall(r'Panel \d+:(.*?)(?=Panel \d+:|$)', comic_script, re.DOTALL)
     parsed_panels = []
     for panel in panels[:3]:  # Limit to 3 panels
-        frame_match = re.search(r'\(Frame: (.*?)\)', panel)
-        setting_match = re.search(r'Setting: (.*?)(?=Characters:|Action:|Dialogue:|$)', panel, re.DOTALL)
-        characters_match = re.search(r'Characters: (.*?)(?=Action:|Dialogue:|$)', panel, re.DOTALL)
-        action_match = re.search(r'Action: (.*?)(?=Dialogue:|$)', panel, re.DOTALL)
-        dialogue_match = re.search(r'Dialogue: (.*?)$', panel, re.DOTALL)
+        frame_match = re.search(r'Frame:\s*(.*?)(?=Setting:|$)', panel, re.DOTALL)
+        setting_match = re.search(r'Setting:\s*(.*?)(?=Characters:|$)', panel, re.DOTALL)
+        characters_match = re.search(r'Characters:\s*(.*?)(?=Action:|$)', panel, re.DOTALL)
+        action_match = re.search(r'Action:\s*(.*?)(?=Dialogue:|$)', panel, re.DOTALL)
+        dialogue_match = re.search(r'Dialogue:\s*(.*?)(?=\n\n|$)', panel, re.DOTALL)
 
         parsed_panel = {
-            'frame': frame_match.group(1) if frame_match else '',
+            'frame': frame_match.group(1).strip() if frame_match else '',
             'setting': setting_match.group(1).strip() if setting_match else '',
             'characters': characters_match.group(1).strip() if characters_match else '',
             'action': action_match.group(1).strip() if action_match else '',
@@ -38,17 +38,34 @@ def parse_comic_script(comic_script):
 
 def generate_safe_prompt(panel, retry_count, original_story=None, comic_artist_style=None):
     style = comic_artist_style if comic_artist_style else ""
+    
+    # For "no news" case, use specific prompts
+    if original_story and "No Current News Events" in original_story:
+        if retry_count == 0:
+            if "Panel 1:" in panel:
+                return "A modern newsroom interior with large windows, two journalists at their desks checking computers and news monitors. The scene is well-lit and professional."
+            elif "Panel 2:" in panel:
+                return "A peaceful view through a large newsroom window showing a serene town landscape. A journalist holding a coffee mug looks thoughtfully out the window."
+            elif "Panel 3:" in panel:
+                return "Journalists and community members gathered around a planning board in a bright newsroom, discussing future stories. Local photographs and awards visible on walls."
+        else:
+            return "A peaceful newsroom scene with journalists working at their desks, large windows showing a serene town view."
+    
+    # For regular news stories
     if retry_count == 0:
-        prompt = f"In the style and inspired by {style}: {panel['frame']} of {panel['setting']}. "
-        prompt += f"Characters: {panel['characters']}. "
-        prompt += f"Action: {panel['action']}. "
+        # Combine all panel elements into a detailed scene description
+        prompt = f"In the style of {style}, create a detailed illustration: "
+        prompt += f"Using a {panel['frame']}, show a scene in {panel['setting']}. "
+        prompt += f"The scene features {panel['characters']}. "
+        prompt += f"In this moment, {panel['action']}. "
         if panel['dialogue']:
-            prompt += f"Include speech bubble with: '{panel['dialogue']}'"
+            prompt += f"Include a speech bubble with the text: '{panel['dialogue']}'. "
+        prompt += "Make the scene dynamic and visually engaging, with clear focus on the main action."
     elif retry_count == 1 and original_story:
-        prompt = f"{style}: Create an image based on this story: {original_story}"
+        prompt = f"In the style of {style}, illustrate this story: {original_story}"
     else:
-        prompt = f"{style}: A generic scene related to the story. "
-        prompt += "Show abstract or symbolic representations of characters and actions. "
+        prompt = f"In the style of {style}, create a symbolic scene representing the story. "
+        prompt += "Focus on key visual elements and emotional tone. "
     
     return filter_content(prompt, strict=(retry_count > 0))
 
@@ -76,7 +93,6 @@ def generate_flux1_images(comic_script, original_story, comic_artist_style=None)
             generator=torch.Generator("cpu")
         ).images[0]
         image_urls.append(image)
-        #image.save("flux-schnell.png")
     return image_urls
 
 def generate_dalle_images(comic_script, original_story, comic_artist_style=None):
@@ -109,7 +125,7 @@ def generate_dalle_images(comic_script, original_story, comic_artist_style=None)
                     app_logger.debug(f"Attempt {retry_count + 1} for Panel {index}. Prompt: {prompt}")
 
                     # Generate the image
-                    image_url = dalle.run(prompt + " IMPORTANT: Avoid any content that may be considered inappropriate or offensive, ensuring the image aligns with content policies.")
+                    image_url = dalle.run(prompt + " Create this as a comic panel with clear, detailed visuals that match the description exactly. Ensure the image aligns with content policies.")
                     image_urls.append(image_url)
                     
                     last_request_time = time.time()

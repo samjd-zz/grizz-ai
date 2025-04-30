@@ -22,10 +22,10 @@ class Config:
         self.DEFAULT_LAT=os.getenv('DEFAULT_LAT', 50.693802)
         self.DEFAULT_LON=os.getenv('DEFAULT_LON', -121.936584)
 
-        self.OPENAI_TEXT_ANALYZE_MODEL=os.getenv('OPENAI_TEXT_ANALYZE_MODEL', 'gpt-4o') #model="chatgpt-4o-latest"
+        self.OPENAI_TEXT_ANALYZE_MODEL=os.getenv('OPENAI_TEXT_ANALYZE_MODEL', 'gpt-4-turbo') #Using gpt-4-turbo (previously called gpt-4.1-mini)
         self.PERPLEXITY_SEARCH_MODEL=os.getenv('PERPLEXITY_SEARCH_MODEL', "llama-3.1-sonar-large-128k-online")
         self.OLLAMA_GROQ_TOOL_MODEL=os.getenv('OLLAMA_GROQ_TOOL_MODEL', "llama-3-groq-70b-tool-use")
-        self.OLLAMA_TEXT_ANALYZE_MODEL=os.getenv('OLLAMA_TEXT_ANALYZE_MODEL', 'mistral')
+        self.OLLAMA_TEXT_ANALYZE_MODEL=os.getenv('OLLAMA_TEXT_ANALYZE_MODEL', 'llama3-optimized')
         self.TORCH_IMAGE_TO_TEXT_MODEL=os.getenv('TORCH_IMAGE_TO_TEXT_MODEL', 'unified-vl-t5-base')
 
         self.OPENAI_API_KEY = os.getenv("API_KEY_OPENAI")

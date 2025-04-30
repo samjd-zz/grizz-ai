@@ -12,10 +12,14 @@
             <div class="top-container">
                 <div class="left-column">
                     <div id="map-search">
+                        <label for="search-input">Enter a location:</label>
                         <input type="text" id="search-input" placeholder="Search for a location">
-                        <button type="button" id="search-button">Search</button>
+                        <button type="button" id="search-button">Set Location</button>
                     </div>
                     <div id="additional-inputs" style="display: none;">
+                        <div id="location-display">
+                            <p>Location set: <span id="found-location"></span></p>
+                        </div>
                         <div id="artist-style-checkbox">
                             <input type="checkbox" id="use-artist-style" name="use_artist_style">
                             <label for="use-artist-style">Specify Comic Artist Style</label>
@@ -29,9 +33,6 @@
                 </div>
                 <div class="right-column">
                     <div id="map"></div>
-                    <div id="location-display" style="display: none;">
-                        <p>Location found: <span id="found-location"></span></p>
-                    </div>
                 </div>
             </div>
             <input type="hidden" id="selected-location" name="location">
@@ -57,30 +58,68 @@
         width: 48%;
     }
     #map-search {
-        margin-bottom: 10px;
+        margin-bottom: 20px;
     }
     #search-input {
         width: 70%;
-        padding: 5px;
+        padding: 8px;
+        margin-bottom: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
     }
     #search-button {
-        padding: 5px 10px;
+        padding: 8px 15px;
+        background-color: #8b4513;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    #search-button:hover {
+        background-color: #a0522d;
     }
     #map {
         height: 300px;
         width: 100%;
         margin-bottom: 10px;
         border: 1px solid #8b4513;
+        border-radius: 4px;
     }
     #additional-inputs {
         margin-top: 20px;
+        padding: 15px;
+        background-color: #f9f9f9;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+    }
+    #location-display {
+        margin: 10px 0 20px;
+        padding: 10px;
+        background-color: #f5f5f5;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+    }
+    #found-location {
+        font-weight: bold;
+        color: #8b4513;
+    }
+    .map-note {
+        font-size: 0.9em;
+        color: #666;
+        font-style: italic;
+        margin-top: 5px;
+    }
+    #artist-style-checkbox {
+        margin: 15px 0;
     }
     #artist-style-input {
         margin-top: 10px;
     }
     #comic-artist-style {
         width: 100%;
-        padding: 5px;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
     }
     .back-arrow {
         display: inline-block;
@@ -94,6 +133,25 @@
     .error {
         color: #dc3545;
         font-weight: bold;
+    }
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+    #generate-button {
+        margin-top: 15px;
+        width: 100%;
+        padding: 10px;
+        background-color: #8b4513;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    #generate-button:hover {
+        background-color: #a0522d;
     }
 </style>
 {% endblock %}
@@ -126,12 +184,28 @@ document.addEventListener('DOMContentLoaded', function() {
         marker = L.marker(latlng).addTo(map);
     }
 
-    document.getElementById('search-button').addEventListener('click', function() {
+    function searchLocation() {
         var searchQuery = document.getElementById('search-input').value;
+        if (!searchQuery.trim()) {
+            alert('Please enter a location to search');
+            return;
+        }
+        
+        // Use the search query directly as the location if we can't access the geocoding API
+        // This is a fallback to ensure functionality even if the API is unreachable
+        console.log('Searching for location: ' + searchQuery);
+        
+        // Attempt to geocode, but with a fallback
         fetch('https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(searchQuery))
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
             .then(data => {
-                if (data.length > 0) {
+                if (data && data.length > 0) {
+                    console.log('Location found:', data[0]);
                     var latlng = L.latLng(parseFloat(data[0].lat), parseFloat(data[0].lon));
                     map.setView(latlng, 13);
                     setMarker(latlng);
@@ -144,13 +218,124 @@ document.addEventListener('DOMContentLoaded', function() {
                     document.getElementById('selected-location').value = foundLocation;
                     document.getElementById('additional-inputs').style.display = 'block';
                 } else {
-                    alert('Location not found');
+                    console.log('No location data returned, using direct input');
+                    // Use direct input as fallback
+                    useDirectLocationInput(searchQuery);
                 }
             })
             .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred while searching for the location');
+                console.error('Error during location search:', error);
+                // Use direct input as fallback when API fails
+                useDirectLocationInput(searchQuery);
             });
+    }
+    
+    function useDirectLocationInput(locationName) {
+        // Set a default location on the map
+        const defaultLat = document.getElementById('map-config').dataset.defaultLat || 50.693802;
+        const defaultLon = document.getElementById('map-config').dataset.defaultLon || -121.936584;
+        const latlng = L.latLng(parseFloat(defaultLat), parseFloat(defaultLon));
+        
+        map.setView(latlng, 13);
+        setMarker(latlng);
+        
+        // Use the search input directly as the location name
+        document.getElementById('found-location').textContent = locationName;
+        document.getElementById('location-display').style.display = 'block';
+        
+        // Set the location value for the form
+        document.getElementById('selected-location').value = locationName;
+        document.getElementById('additional-inputs').style.display = 'block';
+        
+        console.log('Using direct location input:', locationName);
+    }
+    
+    // Search button click event
+    // Try to search the map for the location, with fallback to direct submission
+    function directSubmit() {
+        var searchQuery = document.getElementById('search-input').value;
+        if (!searchQuery.trim()) {
+            alert('Please enter a location to search');
+            return;
+        }
+        
+        // Save the location input regardless of map result
+        document.getElementById('found-location').textContent = searchQuery;
+        document.getElementById('location-display').style.display = 'block';
+        document.getElementById('selected-location').value = searchQuery;
+        document.getElementById('additional-inputs').style.display = 'block';
+        
+        console.log('Processing location:', searchQuery);
+        
+        // Try to search Nominatim for the location
+        // Add additional parameters to improve results and comply with usage policy
+        fetch('https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(searchQuery) + '&limit=1&addressdetails=1&namedetails=1&extratags=1&accept-language=en&email=jsardelli@proton.me')
+            .then(response => {
+                // Add a small delay to comply with usage policy
+                console.log('Response status:', response.status);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok: ' + response.status);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data && data.length > 0) {
+                    console.log('Location found on map:', data[0]);
+                    
+                    // Center map on found location
+                    var latlng = L.latLng(parseFloat(data[0].lat), parseFloat(data[0].lon));
+                    map.setView(latlng, 13);
+                    
+                    // Set a marker on the map
+                    if (marker) {
+                        map.removeLayer(marker);
+                    }
+                    marker = L.marker(latlng).addTo(map);
+                } else {
+                    console.log('Could not find location on map, using fallback');
+                    // Show a small message about the map
+                    const locationDisplay = document.getElementById('location-display');
+                    locationDisplay.innerHTML = '<p>Location set: <span id="found-location">' + searchQuery + '</span></p>' + 
+                                              '<p class="map-note">Location not found on map, but comic will still be generated for this location.</p>';
+                    // Use fallback default location on map
+                    useDefaultMapLocation();
+                }
+            })
+            .catch(error => {
+                console.error('Error during map search:', error);
+                // Show a small message about the map error
+                const locationDisplay = document.getElementById('location-display');
+                locationDisplay.innerHTML = '<p>Location set: <span id="found-location">' + searchQuery + '</span></p>' + 
+                                          '<p class="map-note">Could not connect to map service, but comic will still be generated for this location.</p>';
+                // Use fallback default location on map
+                useDefaultMapLocation();
+            });
+    }
+    
+    function useDefaultMapLocation() {
+        // Set a marker at default location for visual feedback
+        var defaultLat = parseFloat(mapConfig.dataset.defaultLat) || 50.693802;
+        var defaultLon = parseFloat(mapConfig.dataset.defaultLon) || -121.936584;
+        var latlng = L.latLng(defaultLat, defaultLon);
+        
+        map.setView(latlng, 13);
+        
+        // Set a marker on the map
+        if (marker) {
+            map.removeLayer(marker);
+        }
+        marker = L.marker(latlng).addTo(map);
+    }
+    
+    // Search button should use direct submit
+    document.getElementById('search-button').addEventListener('click', directSubmit);
+    
+    // Search input enter key event
+    document.getElementById('search-input').addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault(); // Prevent form submission
+            directSubmit();
+        }
     });
 
     document.getElementById('use-artist-style').addEventListener('change', function() {

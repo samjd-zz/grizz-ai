@@ -1,6 +1,7 @@
 import os
 import re
 import requests
+import sqlite3
 from datetime import datetime
 from PIL import Image
 
@@ -52,15 +53,25 @@ def generate_custom_comic(title, story, location, user_id, comic_artist_style, p
         # Generate comic script for the custom story
         if progress_callback:
             progress_callback(20, "Analyzing custom comic story")
-        event_analysis, comic_summary = analyze_text_ollama(f"Generate a comic script for this event: {title}. {story}", location, comic_artist_style)
+        event_analysis, comic_summary, panel_summaries = analyze_text_ollama(f"Generate a comic script for this event: {title}. {story}", location, comic_artist_style)
         if not event_analysis:
             app_logger.error(f"Failed to analyze custom event: {title}. Aborting comic generation.")
             if progress_callback:
                 progress_callback(100, "Failed to analyze story")
             return None
 
-        # Parse panel summaries
-        panel_summaries = parse_panel_summaries(comic_summary)
+        # If panel_summaries is None or empty, try to parse them from the comic_summary
+        if not panel_summaries:
+            panel_summaries = parse_panel_summaries(comic_summary)
+            
+        # Ensure we always have valid panel summaries (at least 3)
+        if not panel_summaries or len(panel_summaries) < 3:
+            app_logger.debug("Using default panel summaries as none were provided")
+            panel_summaries = [
+                f"A scene from {title} in {location}",
+                f"Characters engaged in action at {location}",
+                f"Final scene showing the conclusion at {location}"
+            ]
 
         # Generate comic panel images
         if progress_callback:
@@ -79,6 +90,7 @@ def generate_custom_comic(title, story, location, user_id, comic_artist_style, p
             progress_callback(60, "Saving images")
         app_logger.debug("Saving images...")
         image_paths = []
+        relative_image_paths = []  # Store paths relative to the GENERATED_IMAGES_FOLDER
         for i, image_result in enumerate(image_results):
             if image_result:
                 # Use the title for the file name, replacing invalid characters and limiting length
@@ -99,6 +111,10 @@ def generate_custom_comic(title, story, location, user_id, comic_artist_style, p
                 
                 if image_path:
                     image_paths.append(image_path)
+                    # Calculate relative path for the UI
+                    relative_path = os.path.relpath(image_path, config.OUTPUT_DIR)
+                    relative_image_paths.append(relative_path)
+                    app_logger.debug(f"Image saved with relative path: {relative_path}")
                 else:
                     app_logger.error(f"Failed to save the generated image {i+1} for {title}.")
             else:
@@ -123,7 +139,63 @@ def generate_custom_comic(title, story, location, user_id, comic_artist_style, p
         save_summary(location, summary_filename, title, story, "", comic_summary)
 
         app_logger.debug(f"Adding custom comic to database: {title}")
-        ComicDatabase.add_comic(user_id, title, location, story, event_analysis, comic_summary, "", ",".join(image_paths), audio_path, datetime.now().date())
+        
+        # Check if we have image paths
+        if not relative_image_paths:
+            app_logger.error("No image paths to save to database. Cannot proceed.")
+            return None
+        
+        image_path_str = ",".join(relative_image_paths)
+        app_logger.debug(f"Saving image paths to database: {image_path_str}")
+        
+        # Execute a direct SQL query to ensure the comic is saved correctly
+        try:
+            conn = sqlite3.connect(config.DB_PATH)
+            cursor = conn.cursor()
+            
+            # Insert using direct SQL to avoid parameter order issues
+            cursor.execute('''
+                INSERT INTO comics (user_id, title, location, original_story, comic_script, comic_summary, 
+                                   story_source_url, image_path, audio_path, date, created_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ''', (
+                user_id, 
+                title, 
+                location, 
+                story, 
+                event_analysis, 
+                comic_summary, 
+                "", 
+                image_path_str, 
+                audio_path, 
+                datetime.now().date(), 
+                datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            ))
+            
+            conn.commit()
+            conn.close()
+            app_logger.debug(f"Successfully saved comic to database with direct SQL: {title}")
+        except Exception as e:
+            app_logger.error(f"Error saving to database with direct SQL: {e}")
+            
+            # Fall back to the regular method
+            try:
+                ComicDatabase.add_comic(
+                    user_id=user_id,
+                    title=title, 
+                    location=location, 
+                    original_story=story, 
+                    comic_script=event_analysis, 
+                    comic_summary=comic_summary, 
+                    story_source_url="",
+                    image_path=image_path_str,
+                    audio_path=audio_path, 
+                    date=datetime.now().date()
+                )
+                app_logger.debug("Fallback to ComicDatabase.add_comic succeeded")
+            except Exception as e2:
+                app_logger.error(f"Both database save methods failed: {e2}")
+                return None
 
         # Print summary for the user
         app_logger.debug(f"Custom comic generation completed for {title} in {location}!")
@@ -133,7 +205,8 @@ def generate_custom_comic(title, story, location, user_id, comic_artist_style, p
         if progress_callback:
             progress_callback(100, "Comic generation complete")
 
-        return image_paths, panel_summaries, event_analysis, comic_summary, audio_path
+        # Return relative paths for URL generation in templates
+        return relative_image_paths, panel_summaries, event_analysis, comic_summary, audio_path
 
     except Exception as e:
         app_logger.error(f"Unexpected error in generate_custom_comic: {e}", exc_info=True)

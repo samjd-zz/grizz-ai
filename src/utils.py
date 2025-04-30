@@ -16,9 +16,27 @@ from datetime import datetime
 
 config = load_config()
 
+def sanitize_location(location):
+    """Sanitize location string for use in directory paths"""
+    # Replace spaces with underscores and remove commas
+    sanitized = location.replace(' ', '_').replace(',', '')
+    # Remove any other problematic characters
+    sanitized = re.sub(r'[<>:"/\\|?*]', '_', sanitized)
+    return sanitized
+
 def sanitize_filename(filename):
-    # Remove or replace characters that are not allowed in file names
-    return re.sub(r'[<>:"/\\|?*]', '_', filename)
+    """Remove or replace characters that are not allowed in file names"""
+    # Remove newlines and markdown characters
+    filename = filename.replace('\n', '').replace('\r', '')
+    filename = re.sub(r'[#*`]', '', filename)
+    # Remove or replace other problematic characters
+    filename = re.sub(r'[<>:"/\\|?*]', '_', filename)
+    # Remove any trailing/leading whitespace or dots
+    filename = filename.strip('. ')
+    # Ensure filename is not empty
+    if not filename:
+        filename = 'untitled'
+    return filename
 
 TODAY = datetime.now().strftime("%Y_%m_%d")
 
@@ -35,7 +53,6 @@ def analyze_frames(frames):
     :return: List of detailed frame descriptions
     """
     try:
-
         # Load the image captioning pipeline model
         captioner = load_pipeline_model()
         app_logger.debug("Analyzing frames with image captioning")
@@ -91,9 +108,15 @@ def save_summary(location, filename, title, story="", source="", panel_summary="
         panel_summary (str, optional): The summary of the comic panel. Defaults to "".
     """
     try:
-        comics_dir = os.path.join(config.OUTPUT_DIR, f"{location.replace(' ', '_')}_comics", TODAY)
+        # Use the same sanitized location as save_image
+        location_folder = sanitize_location(location)
+        comics_dir = os.path.join(config.OUTPUT_DIR, f"{location_folder}_comics", TODAY)
         os.makedirs(comics_dir, exist_ok=True)
-        summary_path = os.path.join(comics_dir, filename)
+        
+        # Sanitize the filename
+        sanitized_filename = sanitize_filename(filename)
+        summary_path = os.path.join(comics_dir, sanitized_filename)
+        
         with open(summary_path, "w") as f:
             f.write("-" * 100 + "\n")
             f.write("TITLE:\n" + title + "\n")
@@ -109,16 +132,25 @@ def save_summary(location, filename, title, story="", source="", panel_summary="
     except Exception as e:
         app_logger.error(f"Error saving summary: {e}")
 
-
 def save_image(image_data, filename, location):
-    try:
-        # Sanitize the filename
-        sanitized_filename = sanitize_filename(filename)
+    """
+    Save an image file with proper path sanitization.
+    
+    Args:
+        image_data: The image data to save (PIL Image, URL, or bytes)
+        filename (str): The name of the file to save
+        location (str): The location for the directory structure
         
-        # Create the directory structure if it doesn't exist
-        date_str = datetime.now().strftime("%Y_%m_%d")
-        location_folder = sanitize_filename(location.replace(' ', '_').replace(',', ''))
-        output_dir = os.path.join(config.OUTPUT_DIR, f"{location_folder}_comics", date_str)
+    Returns:
+        str: Path to the saved image file, or None if save failed
+    """
+    try:
+        # Sanitize both the filename and location
+        sanitized_filename = sanitize_filename(filename)
+        location_folder = sanitize_location(location)
+        
+        # Create the directory structure
+        output_dir = os.path.join(config.OUTPUT_DIR, f"{location_folder}_comics", TODAY)
         os.makedirs(output_dir, exist_ok=True)
 
         image_path = os.path.join(output_dir, sanitized_filename)
@@ -142,7 +174,7 @@ def save_image(image_data, filename, location):
         app_logger.error(f"Error saving image: {str(e)}")
         app_logger.error(f"Traceback: ", exc_info=True)
         return None
-    
+
 def generate_safe_prompt(original_prompt):
     filtered_prompt = filter_content(original_prompt)
     safe_prompt = (
@@ -185,7 +217,6 @@ def filter_content(text, strict=False):
     
     return text
 
-# Unload the pipeline model
 def unload_pipeline_model(captioner):
     # Move the model to CPU
     captioner.model.to('cpu')
@@ -202,7 +233,6 @@ def unload_pipeline_model(captioner):
     import gc
     gc.collect()
 
-# Load the pipline model
 def load_pipeline_model():
     # Check if CUDA is available and set the device
     device = 0 if torch.cuda.is_available() else -1
